@@ -269,21 +269,25 @@
     }
   });
 
+  // Evitar que el navegador abra el PDF si se suelta en cualquier parte de la
+  // ventana (causa habitual de que el "drag & drop no funcione").
+  ["dragenter", "dragover", "dragleave", "drop"].forEach((evt) =>
+    window.addEventListener(evt, (e) => e.preventDefault())
+  );
+
+  // Feedback visual al arrastrar sobre la zona.
   ["dragenter", "dragover"].forEach((evt) =>
-    dropzone.addEventListener(evt, (e) => {
-      e.preventDefault();
-      dropzone.classList.add("dragover");
-    })
+    dropzone.addEventListener(evt, () => dropzone.classList.add("dragover"))
   );
-  ["dragleave", "drop"].forEach((evt) =>
-    dropzone.addEventListener(evt, (e) => {
-      e.preventDefault();
-      dropzone.classList.remove("dragover");
-    })
+  ["dragleave", "dragend"].forEach((evt) =>
+    dropzone.addEventListener(evt, () => dropzone.classList.remove("dragover"))
   );
-  dropzone.addEventListener("drop", (e) => {
+
+  // Soltar en cualquier punto de la ventana carga el PDF.
+  window.addEventListener("drop", (e) => {
+    dropzone.classList.remove("dragover");
     const file = e.dataTransfer?.files?.[0];
-    loadFile(file);
+    if (file) loadFile(file);
   });
 
   fileInput.addEventListener("change", (e) => loadFile(e.target.files[0]));
