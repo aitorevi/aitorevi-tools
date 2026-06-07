@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Separador de PDF — divide un PDF en páginas sueltas</title>
+  <meta name="description" content="Divide cualquier PDF en páginas independientes directamente en tu navegador. Sin registro, sin subir archivos a ningún servidor. Descarga individual o en ZIP." />
+  <!-- SEO: la app no debe competir con www.aitorevi.dev. La ficha indexable es la del portfolio. -->
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://www.aitorevi.dev/work/pdf-separator" />
+  <meta name="color-scheme" content="dark light" />
+
+  <style>
+    :root {
+      --bg: #0b0f17;
+      --bg-soft: #121826;
+      --surface: #161d2e;
+      --border: #25304a;
+      --text: #e7ecf4;
+      --muted: #9aa6bd;
+      --accent: #5b8cff;
+      --accent-strong: #3f6fe0;
+      --danger: #ff6b6b;
+      --ok: #4ade80;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f5f7fb;
+        --bg-soft: #ffffff;
+        --surface: #ffffff;
+        --border: #e1e6f0;
+        --text: #1a2233;
+        --muted: #5b6478;
+        --shadow: 0 10px 30px rgba(20, 30, 60, 0.08);
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(91, 140, 255, 0.12), transparent 60%), var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 20px 80px;
+    }
+
+    header { text-align: center; margin-bottom: 32px; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+    }
+    .badge::before {
+      content: "";
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--ok);
+      box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.18);
+    }
+
+    h1 {
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      margin: 0 0 10px;
+      letter-spacing: -0.02em;
+    }
+    .subtitle { color: var(--muted); margin: 0; font-size: 1.02rem; }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    /* Dropzone */
+    .dropzone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 48px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .18s ease, background .18s ease, transform .06s ease;
+      background: var(--bg-soft);
+    }
+    .dropzone:hover { border-color: var(--accent); }
+    .dropzone.dragover {
+      border-color: var(--accent);
+      background: rgba(91, 140, 255, 0.08);
+    }
+    .dropzone:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    .dropzone .icon { font-size: 2.4rem; line-height: 1; margin-bottom: 12px; }
+    .dropzone .hint { color: var(--muted); font-size: .92rem; margin-top: 6px; }
+    .dropzone strong { color: var(--accent); }
+
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* File summary */
+    .file-bar {
+      display: flex; align-items: center; gap: 12px;
+      flex-wrap: wrap;
+      padding: 14px 16px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 18px;
+    }
+    .file-bar .name { font-weight: 600; word-break: break-all; }
+    .file-bar .meta { color: var(--muted); font-size: .88rem; }
+    .file-bar .spacer { flex: 1 1 auto; }
+
+    .toolbar {
+      display: flex; align-items: center; gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .toolbar .count { color: var(--muted); font-size: .9rem; margin-left: auto; }
+
+    /* Pages list */
+    .pages {
+      list-style: none; margin: 0 0 22px; padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 10px;
+      max-height: 380px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .page-item { position: relative; }
+    .page-item input { position: absolute; opacity: 0; pointer-events: none; }
+    .page-item label {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 6px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 8px;
+      cursor: pointer;
+      background: var(--bg-soft);
+      transition: border-color .15s, background .15s;
+      user-select: none;
+    }
+    .page-item label .num { font-weight: 600; font-size: 1.05rem; }
+    .page-item label .tag { font-size: .72rem; color: var(--muted); }
+    .page-item input:checked + label {
+      border-color: var(--accent);
+      background: rgba(91, 140, 255, 0.10);
+    }
+    .page-item input:focus-visible + label { outline: 3px solid var(--accent); outline-offset: 2px; }
+    .page-item .dl {
+      position: absolute; top: 6px; right: 6px;
+      border: none; background: transparent; color: var(--muted);
+      cursor: pointer; font-size: .95rem; padding: 4px; border-radius: 6px; line-height: 1;
+    }
+    .page-item .dl:hover { color: var(--accent); background: rgba(91,140,255,.12); }
+
+    /* Buttons */
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    button.btn, a.btn {
+      appearance: none; border: 1px solid var(--border);
+      background: var(--bg-soft); color: var(--text);
+      font: inherit; font-weight: 600;
+      padding: 11px 18px; border-radius: 10px; cursor: pointer;
+      transition: transform .06s ease, background .15s, border-color .15s, opacity .15s;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    }
+    button.btn:hover, a.btn:hover { border-color: var(--accent); }
+    button.btn:active { transform: translateY(1px); }
+    button.btn.primary {
+      background: var(--accent); border-color: var(--accent); color: #fff;
+    }
+    button.btn.primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+    button.btn:disabled { opacity: .5; cursor: not-allowed; }
+    button.btn.ghost { background: transparent; }
+
+    .progress {
+      margin-top: 16px; height: 8px; border-radius: 999px;
+      background: var(--bg-soft); border: 1px solid var(--border);
+      overflow: hidden; display: none;
+    }
+    .progress.show { display: block; }
+    .progress > i {
+      display: block; height: 100%; width: 0%;
+      background: var(--accent); transition: width .15s ease;
+    }
+
+    .status { margin-top: 12px; font-size: .9rem; color: var(--muted); min-height: 1.2em; }
+    .status.error { color: var(--danger); }
+    .status.ok { color: var(--ok); }
+
+    .hidden { display: none !important; }
+
+    footer {
+      text-align: center; margin-top: 40px;
+      color: var(--muted); font-size: .85rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    .privacy {
+      margin-top: 22px; text-align: center;
+      font-size: .82rem; color: var(--muted);
+    }
+    .privacy strong { color: var(--text); }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <span class="badge">100% en tu navegador · sin subir nada</span>
+      <h1>Separador de PDF</h1>
+      <p class="subtitle">Divide cualquier PDF en páginas sueltas y descárgalas una a una o todas en un ZIP.</p>
+    </header>
+
+    <section class="card" aria-labelledby="app-title">
+      <h2 id="app-title" class="visually-hidden">Herramienta para separar PDF</h2>
+
+      <!-- Paso 1: cargar -->
+      <div id="loader">
+        <div id="dropzone" class="dropzone" tabindex="0" role="button"
+             aria-label="Selecciona o arrastra un archivo PDF">
+          <div class="icon" aria-hidden="true">📄</div>
+          <div>Arrastra tu PDF aquí o <strong>haz clic para elegirlo</strong></div>
+          <div class="hint">Solo se procesa en tu dispositivo. Nada se envía a internet.</div>
+        </div>
+        <input id="file-input" type="file" accept="application/pdf,.pdf" class="visually-hidden" />
+      </div>
+
+      <!-- Paso 2: páginas -->
+      <div id="workspace" class="hidden">
+        <div class="file-bar">
+          <span class="name" id="file-name">documento.pdf</span>
+          <span class="meta" id="file-meta">—</span>
+          <span class="spacer"></span>
+          <button class="btn ghost" id="reset-btn" type="button">Cargar otro</button>
+        </div>
+
+        <div class="toolbar">
+          <button class="btn" id="select-all" type="button">Seleccionar todo</button>
+          <button class="btn" id="select-none" type="button">Quitar selección</button>
+          <span class="count" id="selected-count">0 seleccionadas</span>
+        </div>
+
+        <ul class="pages" id="pages-list" aria-label="Páginas del PDF"></ul>
+
+        <div class="actions">
+          <button class="btn primary" id="zip-btn" type="button">⬇ Descargar selección en ZIP</button>
+          <button class="btn" id="individual-btn" type="button">Descargar una a una</button>
+        </div>
+
+        <div class="progress" id="progress" aria-hidden="true"><i></i></div>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+      </div>
+
+      <p class="privacy">
+        🔒 <strong>Privacidad total:</strong> tus documentos nunca salen de tu navegador.
+        No hay servidor, ni registro, ni tracking.
+      </p>
+    </section>
+
+    <footer>
+      Hecho por <a href="https://www.aitorevi.dev" target="_blank" rel="noopener">Aitor Reviriego</a>
+      · <a href="https://www.aitorevi.dev/work/pdf-separator" target="_blank" rel="noopener">Sobre esta herramienta</a>
+    </footer>
+  </main>
+
+  <!-- Librerías vendorizadas (versión pineada, sin CDN externo) -->
+  <script src="/vendor/pdf-lib.min.js"></script>
+  <script src="/vendor/jszip.min.js"></script>
+  <script src="/app.js" defer></script>
+</body>
+</html>
