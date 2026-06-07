@@ -9,242 +9,233 @@
   <meta name="robots" content="noindex, follow" />
   <link rel="canonical" href="https://www.aitorevi.dev/work/pdf-separator" />
   <meta name="color-scheme" content="dark light" />
+  <link rel="stylesheet" href="/fonts/fonts.css" />
 
   <style>
+    /* ── Tokens alineados con www.aitorevi.dev (RGB para poder usar alfa) ── */
     :root {
-      --bg: #0b0f17;
-      --bg-soft: #121826;
-      --surface: #161d2e;
-      --border: #25304a;
-      --text: #e7ecf4;
-      --muted: #9aa6bd;
-      --accent: #5b8cff;
-      --accent-strong: #3f6fe0;
-      --danger: #ff6b6b;
-      --ok: #4ade80;
-      --radius: 14px;
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      color-scheme: light dark;
+      --bg: 255 255 255;
+      --bg-grad: radial-gradient(ellipse at 30% 20%, #eef2ff 0%, #f8fafc 55%, #e2e8f0 100%);
+      --surface: 255 255 255;
+      --surface-2: 248 250 252;   /* slate-50 */
+      --border: 226 232 240;      /* slate-200 */
+      --fg: 21 27 39;             /* #151b27 */
+      --muted: 71 85 105;         /* slate-600 */
+      --accent: 71 39 204;        /* #4727cc */
+      --accent-soft: 124 58 237;  /* violet-600 */
+      --ok: 5 150 105;            /* emerald-600 */
+      --danger: 220 38 38;        /* red-600 */
+      --grad-text: linear-gradient(135deg, #2563eb, #7c3aed, #2563eb);
+      --radius: 16px;
     }
 
-    @media (prefers-color-scheme: light) {
+    @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #f5f7fb;
-        --bg-soft: #ffffff;
-        --surface: #ffffff;
-        --border: #e1e6f0;
-        --text: #1a2233;
-        --muted: #5b6478;
-        --shadow: 0 10px 30px rgba(20, 30, 60, 0.08);
+        --bg: 15 20 25;           /* #0f1419 */
+        --bg-grad: radial-gradient(ellipse at 30% 20%, #0f172a 0%, #020617 55%, #000 100%);
+        --surface: 17 24 36;      /* #111824 */
+        --surface-2: 15 23 42;    /* slate-900 */
+        --border: 39 51 74;       /* #27334a */
+        --fg: 241 245 249;        /* slate-100 */
+        --muted: 148 163 184;     /* slate-400 */
+        --accent: 172 145 252;    /* #ac91fc */
+        --accent-soft: 96 165 250;/* #60a5fa */
+        --ok: 52 211 153;         /* emerald-400 */
+        --danger: 248 113 113;    /* red-400 */
+        --grad-text: linear-gradient(135deg, #60a5fa, #ac91fc, #60a5fa);
       }
     }
 
     * { box-sizing: border-box; }
-
     html, body { margin: 0; padding: 0; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: radial-gradient(1200px 600px at 80% -10%, rgba(91, 140, 255, 0.12), transparent 60%), var(--bg);
-      color: var(--text);
-      line-height: 1.55;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg-grad) fixed, rgb(var(--bg));
+      color: rgb(var(--fg));
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       min-height: 100vh;
     }
 
-    .wrap {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 48px 20px 80px;
-    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 56px 20px 80px; }
 
-    header { text-align: center; margin-bottom: 32px; }
+    header { text-align: center; margin-bottom: 34px; }
 
+    /* Badge tipo "kicker" monoespaciado, como en aitorevi.dev */
     .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      color: var(--muted);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 6px 12px;
-      border-radius: 999px;
-      margin-bottom: 18px;
+      display: inline-flex; align-items: center; gap: 9px;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 12px; letter-spacing: 0.02em;
+      color: rgb(var(--muted));
+      background: rgb(var(--surface) / 0.6);
+      border: 1px solid rgb(var(--border));
+      padding: 7px 14px; border-radius: 999px; margin-bottom: 22px;
+      backdrop-filter: blur(6px);
     }
-    .badge::before {
-      content: "";
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--ok);
-      box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.18);
+    .badge .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgb(var(--accent));
+      box-shadow: 0 0 10px rgb(var(--accent) / 0.7);
+      animation: pulse 2.4s ease-in-out infinite;
     }
+    @keyframes pulse { 0%,100% { opacity: .45; } 50% { opacity: 1; } }
 
     h1 {
-      font-size: clamp(1.7rem, 4vw, 2.4rem);
-      margin: 0 0 10px;
-      letter-spacing: -0.02em;
+      font-family: "Outfit", system-ui, sans-serif;
+      font-weight: 900;
+      font-size: clamp(2rem, 6vw, 3rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin: 0 0 14px;
+      background: var(--grad-text);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
     }
-    .subtitle { color: var(--muted); margin: 0; font-size: 1.02rem; }
+    .subtitle {
+      color: rgb(var(--muted)); margin: 0 auto; max-width: 46ch;
+      font-size: 1.05rem;
+    }
+
+    h2.sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 
     .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: rgb(var(--surface) / 0.7);
+      border: 1px solid rgb(var(--border));
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 24px;
+      box-shadow: 0 0 40px rgb(var(--accent) / 0.06), 0 18px 40px rgb(0 0 0 / 0.18);
+      backdrop-filter: blur(10px);
+      padding: 26px;
     }
 
     /* Dropzone */
     .dropzone {
-      border: 2px dashed var(--border);
+      border: 2px dashed rgb(var(--border));
       border-radius: var(--radius);
-      padding: 48px 24px;
-      text-align: center;
-      cursor: pointer;
-      transition: border-color .18s ease, background .18s ease, transform .06s ease;
-      background: var(--bg-soft);
+      padding: 52px 24px; text-align: center; cursor: pointer;
+      transition: border-color .18s ease, background .18s ease, box-shadow .18s ease;
+      background: rgb(var(--surface-2) / 0.5);
     }
-    .dropzone:hover { border-color: var(--accent); }
+    .dropzone:hover { border-color: rgb(var(--accent)); }
     .dropzone.dragover {
-      border-color: var(--accent);
-      background: rgba(91, 140, 255, 0.08);
+      border-color: rgb(var(--accent));
+      background: rgb(var(--accent) / 0.08);
+      box-shadow: 0 0 0 4px rgb(var(--accent) / 0.12), 0 0 30px rgb(var(--accent) / 0.18);
     }
-    .dropzone:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-    .dropzone .icon { font-size: 2.4rem; line-height: 1; margin-bottom: 12px; }
-    .dropzone .hint { color: var(--muted); font-size: .92rem; margin-top: 6px; }
-    .dropzone strong { color: var(--accent); }
+    .dropzone:focus-visible { outline: 3px solid rgb(var(--accent)); outline-offset: 3px; }
+    .dropzone > * { pointer-events: none; }
+    .dropzone .icon { font-size: 2.6rem; line-height: 1; margin-bottom: 14px; }
+    .dropzone .lead { font-size: 1.05rem; font-weight: 500; }
+    .dropzone .hint {
+      color: rgb(var(--muted)); font-size: .9rem; margin-top: 8px;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+    }
+    .dropzone strong {
+      background: var(--grad-text);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+      font-weight: 700;
+    }
 
-    .visually-hidden {
-      position: absolute; width: 1px; height: 1px;
-      padding: 0; margin: -1px; overflow: hidden;
-      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
-    }
+    .visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 
     /* File summary */
     .file-bar {
-      display: flex; align-items: center; gap: 12px;
-      flex-wrap: wrap;
-      padding: 14px 16px;
-      background: var(--bg-soft);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      margin-bottom: 18px;
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      padding: 14px 16px; background: rgb(var(--surface-2) / 0.6);
+      border: 1px solid rgb(var(--border)); border-radius: 12px; margin-bottom: 18px;
     }
     .file-bar .name { font-weight: 600; word-break: break-all; }
-    .file-bar .meta { color: var(--muted); font-size: .88rem; }
+    .file-bar .meta { color: rgb(var(--muted)); font-size: .85rem; font-family: "JetBrains Mono", ui-monospace, monospace; }
     .file-bar .spacer { flex: 1 1 auto; }
 
-    .toolbar {
-      display: flex; align-items: center; gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 14px;
+    .toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+    .toolbar .count {
+      color: rgb(var(--muted)); font-size: .82rem; margin-left: auto;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
     }
-    .toolbar .count { color: var(--muted); font-size: .9rem; margin-left: auto; }
 
-    /* Pages list */
+    /* Pages grid */
     .pages {
-      list-style: none; margin: 0 0 22px; padding: 0;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 10px;
-      max-height: 380px;
-      overflow-y: auto;
-      padding-right: 4px;
+      list-style: none; margin: 0 0 22px; padding: 0 4px 0 0;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 10px;
+      max-height: 380px; overflow-y: auto;
     }
     .page-item { position: relative; }
     .page-item input { position: absolute; opacity: 0; pointer-events: none; }
     .page-item label {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 6px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px 8px;
-      cursor: pointer;
-      background: var(--bg-soft);
-      transition: border-color .15s, background .15s;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+      border: 1px solid rgb(var(--border)); border-radius: 12px; padding: 18px 8px; cursor: pointer;
+      background: rgb(var(--surface-2) / 0.5); transition: border-color .15s, background .15s, box-shadow .15s;
       user-select: none;
     }
-    .page-item label .num { font-weight: 600; font-size: 1.05rem; }
-    .page-item label .tag { font-size: .72rem; color: var(--muted); }
+    .page-item label .num { font-family: "JetBrains Mono", ui-monospace, monospace; font-weight: 600; font-size: 1.1rem; }
+    .page-item label .tag { font-size: .68rem; color: rgb(var(--muted)); text-transform: uppercase; letter-spacing: .08em; }
     .page-item input:checked + label {
-      border-color: var(--accent);
-      background: rgba(91, 140, 255, 0.10);
+      border-color: rgb(var(--accent)); background: rgb(var(--accent) / 0.1);
+      box-shadow: 0 0 16px rgb(var(--accent) / 0.12);
     }
-    .page-item input:focus-visible + label { outline: 3px solid var(--accent); outline-offset: 2px; }
+    .page-item input:focus-visible + label { outline: 3px solid rgb(var(--accent)); outline-offset: 2px; }
     .page-item .dl {
-      position: absolute; top: 6px; right: 6px;
-      border: none; background: transparent; color: var(--muted);
-      cursor: pointer; font-size: .95rem; padding: 4px; border-radius: 6px; line-height: 1;
+      position: absolute; top: 6px; right: 6px; border: none; background: transparent;
+      color: rgb(var(--muted)); cursor: pointer; font-size: .95rem; padding: 4px; border-radius: 8px; line-height: 1;
     }
-    .page-item .dl:hover { color: var(--accent); background: rgba(91,140,255,.12); }
+    .page-item .dl:hover { color: rgb(var(--accent)); background: rgb(var(--accent) / 0.12); }
 
     /* Buttons */
     .actions { display: flex; gap: 12px; flex-wrap: wrap; }
     button.btn, a.btn {
-      appearance: none; border: 1px solid var(--border);
-      background: var(--bg-soft); color: var(--text);
-      font: inherit; font-weight: 600;
-      padding: 11px 18px; border-radius: 10px; cursor: pointer;
-      transition: transform .06s ease, background .15s, border-color .15s, opacity .15s;
+      appearance: none; border: 1px solid rgb(var(--border));
+      background: rgb(var(--surface-2) / 0.6); color: rgb(var(--fg));
+      font: inherit; font-weight: 600; padding: 12px 20px; border-radius: 12px; cursor: pointer;
+      transition: transform .06s ease, background .15s, border-color .15s, box-shadow .15s, opacity .15s;
       text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
     }
-    button.btn:hover, a.btn:hover { border-color: var(--accent); }
+    button.btn:hover, a.btn:hover { border-color: rgb(var(--accent)); }
     button.btn:active { transform: translateY(1px); }
-    button.btn.primary {
-      background: var(--accent); border-color: var(--accent); color: #fff;
-    }
-    button.btn.primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
-    button.btn:disabled { opacity: .5; cursor: not-allowed; }
+    button.btn.primary { background: rgb(var(--accent)); border-color: rgb(var(--accent)); color: #fff; }
+    button.btn.primary:hover { box-shadow: 0 0 24px rgb(var(--accent) / 0.45); }
+    button.btn:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }
     button.btn.ghost { background: transparent; }
 
-    .progress {
-      margin-top: 16px; height: 8px; border-radius: 999px;
-      background: var(--bg-soft); border: 1px solid var(--border);
-      overflow: hidden; display: none;
-    }
+    .progress { margin-top: 18px; height: 8px; border-radius: 999px; background: rgb(var(--surface-2)); border: 1px solid rgb(var(--border)); overflow: hidden; display: none; }
     .progress.show { display: block; }
-    .progress > i {
-      display: block; height: 100%; width: 0%;
-      background: var(--accent); transition: width .15s ease;
-    }
+    .progress > i { display: block; height: 100%; width: 0%; background: linear-gradient(90deg, rgb(var(--accent-soft)), rgb(var(--accent))); transition: width .15s ease; }
 
-    .status { margin-top: 12px; font-size: .9rem; color: var(--muted); min-height: 1.2em; }
-    .status.error { color: var(--danger); }
-    .status.ok { color: var(--ok); }
+    .status { margin-top: 14px; font-size: .9rem; color: rgb(var(--muted)); min-height: 1.2em; font-family: "JetBrains Mono", ui-monospace, monospace; }
+    .status.error { color: rgb(var(--danger)); }
+    .status.ok { color: rgb(var(--ok)); }
 
     .hidden { display: none !important; }
 
-    footer {
-      text-align: center; margin-top: 40px;
-      color: var(--muted); font-size: .85rem;
-    }
-    footer a { color: var(--accent); text-decoration: none; }
+    .privacy { margin-top: 24px; text-align: center; font-size: .82rem; color: rgb(var(--muted)); }
+    .privacy strong { color: rgb(var(--fg)); }
+
+    footer { text-align: center; margin-top: 44px; color: rgb(var(--muted)); font-size: .85rem; font-family: "JetBrains Mono", ui-monospace, monospace; }
+    footer a { color: rgb(var(--accent)); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
 
-    .privacy {
-      margin-top: 22px; text-align: center;
-      font-size: .82rem; color: var(--muted);
-    }
-    .privacy strong { color: var(--text); }
+    @media (prefers-reduced-motion: reduce) { .badge .dot { animation: none; } }
   </style>
 </head>
 <body>
   <main class="wrap">
     <header>
-      <span class="badge">100% en tu navegador · sin subir nada</span>
+      <span class="badge"><span class="dot" aria-hidden="true"></span>100% en tu navegador · sin subir nada</span>
       <h1>Separador de PDF</h1>
       <p class="subtitle">Divide cualquier PDF en páginas sueltas y descárgalas una a una o todas en un ZIP.</p>
     </header>
 
     <section class="card" aria-labelledby="app-title">
-      <h2 id="app-title" class="visually-hidden">Herramienta para separar PDF</h2>
+      <h2 id="app-title" class="sr">Herramienta para separar PDF</h2>
 
       <!-- Paso 1: cargar -->
       <div id="loader">
         <div id="dropzone" class="dropzone" tabindex="0" role="button"
              aria-label="Selecciona o arrastra un archivo PDF">
           <div class="icon" aria-hidden="true">📄</div>
-          <div>Arrastra tu PDF aquí o <strong>haz clic para elegirlo</strong></div>
+          <div class="lead">Arrastra tu PDF aquí o <strong>haz clic para elegirlo</strong></div>
           <div class="hint">Solo se procesa en tu dispositivo. Nada se envía a internet.</div>
         </div>
         <input id="file-input" type="file" accept="application/pdf,.pdf" class="visually-hidden" />
