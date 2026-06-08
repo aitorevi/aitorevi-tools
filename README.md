@@ -3,7 +3,7 @@
 Herramienta web que divide un PDF en sus páginas individuales. Funciona
 **100% en el navegador**: ningún archivo se sube a un servidor.
 
-🔗 **App:** https://pdf-separator.aitorevi.dev
+🔗 **App:** https://tools.aitorevi.dev
 📄 **Ficha del proyecto:** https://www.aitorevi.dev/work/pdf-separator
 
 ## Qué hace

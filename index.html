@@ -212,9 +212,60 @@
     .privacy { margin-top: 24px; text-align: center; font-size: .82rem; color: rgb(var(--muted)); }
     .privacy strong { color: rgb(var(--fg)); }
 
-    footer { text-align: center; margin-top: 44px; color: rgb(var(--muted)); font-size: .85rem; font-family: "JetBrains Mono", ui-monospace, monospace; }
+    /* Footer — mismo lenguaje que el footer de aitorevi.dev (mono, uppercase, tracking) */
+    footer {
+      margin-top: 48px; text-align: center;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      color: rgb(var(--muted));
+    }
     footer a { color: rgb(var(--accent)); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
+
+    .foot-line {
+      margin: 0 0 12px; font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0.2em;
+    }
+    .foot-links {
+      margin: 0 0 18px; display: flex; flex-wrap: wrap;
+      align-items: center; justify-content: center; gap: 10px;
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em;
+    }
+    .foot-links .sep { opacity: .5; user-select: none; }
+
+    /* Aviso legal / atribución: secundario y discreto (sin uppercase para legibilidad) */
+    .foot-legal {
+      max-width: 54ch; margin: 0 auto 16px;
+      font-size: 11px; line-height: 1.7; opacity: .8;
+    }
+
+    details.licenses { max-width: 60ch; margin: 0 auto; text-align: left; }
+    details.licenses > summary {
+      list-style: none; cursor: pointer; text-align: center; user-select: none;
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em;
+      color: rgb(var(--accent)); padding: 6px;
+    }
+    details.licenses > summary::-webkit-details-marker { display: none; }
+    details.licenses > summary::before { content: "▸"; margin-right: 6px; }
+    details.licenses[open] > summary::before { content: "▾"; }
+    details.licenses > summary:hover { text-decoration: underline; }
+    details.licenses > summary:focus-visible { outline: 3px solid rgb(var(--accent)); outline-offset: 3px; border-radius: 4px; }
+    .license-body {
+      margin-top: 12px; padding: 16px;
+      background: rgb(var(--surface-2) / 0.5);
+      border: 1px solid rgb(var(--border)); border-radius: 12px;
+      font-size: 11px; line-height: 1.65;
+    }
+    .license-body p { margin: 0 0 10px; }
+    .license-body p strong { color: rgb(var(--fg)); }
+    .license-body pre {
+      margin: 8px 0 0; white-space: pre-wrap; word-break: break-word;
+      font-size: 10.5px; line-height: 1.55; color: rgb(var(--muted));
+    }
+
+    .foot-copy {
+      margin: 22px 0 0; font-size: 10px;
+      text-transform: uppercase; letter-spacing: 0.2em; opacity: .7;
+    }
 
     @media (prefers-reduced-motion: reduce) { .badge .dot { animation: none; } }
   </style>
@@ -274,8 +325,48 @@
     </section>
 
     <footer>
-      Hecho por <a href="https://www.aitorevi.dev" target="_blank" rel="noopener">Aitor Reviriego</a>
-      · <a href="https://www.aitorevi.dev/work/pdf-separator" target="_blank" rel="noopener">Sobre esta herramienta</a>
+      <p class="foot-line">Hecho con pdf-lib + JSZip · sin servidor, sin subidas</p>
+
+      <p class="foot-links">
+        <a href="https://www.aitorevi.dev" target="_blank" rel="noopener">Aitor Reviriego</a>
+        <span class="sep" aria-hidden="true">·</span>
+        <a href="https://www.aitorevi.dev/work/pdf-separator" target="_blank" rel="noopener">Sobre esta herramienta</a>
+      </p>
+
+      <p class="foot-legal">
+        pdf-lib y JSZip se usan bajo licencia MIT. Esta herramienta se ofrece tal cual,
+        sin garantías. Tus archivos se procesan íntegramente en tu navegador y no se
+        envían a ningún servidor.
+      </p>
+
+      <details class="licenses">
+        <summary>Licencias</summary>
+        <div class="license-body">
+          <p><strong>pdf-lib</strong> — Copyright (c) 2019 Andrew Dillon</p>
+          <p><strong>JSZip</strong> — Copyright (c) 2009-2016 Stuart Knightley, David Duponchel,
+            Franz Buchinger, António Afonso · usada bajo MIT (licencia dual MIT/GPLv3)</p>
+          <p>Ambas se distribuyen bajo los términos de la licencia MIT:</p>
+          <pre>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre>
+        </div>
+      </details>
+
+      <p class="foot-copy">© 2026 aitorevi · tools.aitorevi.dev</p>
     </footer>
   </main>
 
