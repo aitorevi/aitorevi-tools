@@ -36,12 +36,7 @@
       box-shadow: 0 0 40px rgb(var(--accent) / 0.12), 0 18px 40px rgb(0 0 0 / 0.2);
     }
     a.tool-card:focus-visible { outline: 3px solid rgb(var(--accent)); outline-offset: 3px; }
-    .tool-icon {
-      width: 46px; height: 46px; display: inline-flex; align-items: center; justify-content: center;
-      font-size: 1.7rem; border-radius: 12px;
-      background: rgb(var(--accent) / 0.1); border: 1px solid rgb(var(--accent) / 0.25);
-    }
-    .tool-name { font-family: "Outfit", system-ui, sans-serif; font-weight: 700; font-size: 1.2rem; margin: 4px 0 0; }
+    .tool-name { font-family: "Outfit", system-ui, sans-serif; font-weight: 700; font-size: 1.2rem; margin: 0; }
     .tool-desc { color: rgb(var(--muted)); font-size: .92rem; margin: 0; flex: 1 1 auto; }
     .tool-tags { display: flex; flex-wrap: wrap; gap: 6px; }
     .tool-tags span {
@@ -57,7 +52,6 @@
     }
     .tool-card.is-soon { opacity: .6; box-shadow: none; cursor: default; }
     .tool-card.is-soon .tool-cta { color: rgb(var(--muted)); }
-    .tool-card.is-soon .tool-icon { background: rgb(var(--surface-2) / 0.7); border-color: rgb(var(--border)); }
   </style>
 </head>
 <body>
@@ -91,7 +85,6 @@
 
     <section class="tools-grid" aria-label="Lista de herramientas">
       <a class="tool-card" href="/pdf-separator/">
-        <span class="tool-icon" aria-hidden="true">📄</span>
         <h2 class="tool-name">Separador de PDF</h2>
         <p class="tool-desc">Divide cualquier PDF en páginas sueltas y descárgalas una a una o todas juntas en un ZIP.</p>
         <div class="tool-tags"><span>PDF</span><span>Sin servidor</span></div>
@@ -99,7 +92,6 @@
       </a>
 
       <div class="tool-card is-soon" aria-disabled="true">
-        <span class="tool-icon" aria-hidden="true">✨</span>
         <h2 class="tool-name">Más herramientas</h2>
         <p class="tool-desc">Estoy preparando nuevas mini-utilidades centradas en privacidad y velocidad. Vuelve pronto.</p>
         <span class="tool-cta">Próximamente</span>
