@@ -8,6 +8,7 @@ import {
   pageFileName,
   zipFileName,
   isPdf,
+  triggerDownload,
   extractPage as extractPageLib,
 } from "./lib.js";
 
@@ -68,18 +69,6 @@ import {
     const noneSelected = n === 0;
     $("zip-btn").disabled = noneSelected;
     $("individual-btn").disabled = noneSelected;
-  }
-
-  function triggerDownload(blob, fileName) {
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = fileName;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    // Liberar el objeto URL tras un breve margen para que el navegador procese la descarga.
-    setTimeout(() => URL.revokeObjectURL(url), 1500);
   }
 
   // --- Carga del PDF ---

@@ -17,34 +17,6 @@
 
   <style>
     /* CSS específico del separador de PDF (lo común está en /styles.css) */
-    .dropzone {
-      border: 2px dashed rgb(var(--border));
-      border-radius: var(--radius);
-      padding: 52px 24px; text-align: center; cursor: pointer;
-      transition: border-color .18s ease, background .18s ease, box-shadow .18s ease;
-      background: rgb(var(--surface-2) / 0.5);
-    }
-    .dropzone:hover { border-color: rgb(var(--accent)); }
-    .dropzone.dragover {
-      border-color: rgb(var(--accent));
-      background: rgb(var(--accent) / 0.08);
-      box-shadow: 0 0 0 4px rgb(var(--accent) / 0.12), 0 0 30px rgb(var(--accent) / 0.18);
-    }
-    .dropzone:focus-visible { outline: 3px solid rgb(var(--accent)); outline-offset: 3px; }
-    .dropzone > * { pointer-events: none; }
-    .dropzone .icon { font-size: 2.6rem; line-height: 1; margin-bottom: 14px; }
-    .dropzone .lead { font-size: 1.05rem; font-weight: 500; }
-    .dropzone .hint {
-      color: rgb(var(--muted)); font-size: .9rem; margin-top: 8px;
-      font-family: "JetBrains Mono", ui-monospace, monospace;
-    }
-    .dropzone strong {
-      background: var(--grad-text);
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent; color: transparent;
-      font-weight: 700;
-    }
-
     .file-bar {
       display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
       padding: 14px 16px; background: rgb(var(--surface-2) / 0.6);
@@ -86,15 +58,9 @@
     }
     .page-item .dl:hover { color: rgb(var(--accent)); background: rgb(var(--accent) / 0.12); }
 
-    .actions { display: flex; gap: 12px; flex-wrap: wrap; }
-
     .progress { margin-top: 18px; height: 8px; border-radius: 999px; background: rgb(var(--surface-2)); border: 1px solid rgb(var(--border)); overflow: hidden; display: none; }
     .progress.show { display: block; }
     .progress > i { display: block; height: 100%; width: 0%; background: linear-gradient(90deg, rgb(var(--accent-soft)), rgb(var(--accent))); transition: width .15s ease; }
-
-    .status { margin-top: 14px; font-size: .9rem; color: rgb(var(--muted)); min-height: 1.2em; font-family: "JetBrains Mono", ui-monospace, monospace; }
-    .status.error { color: rgb(var(--danger)); }
-    .status.ok { color: rgb(var(--ok)); }
   </style>
 </head>
 <body>

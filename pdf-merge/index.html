@@ -3,58 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>aitorevi.tools — mini-herramientas que corren en tu navegador</title>
-  <meta name="description" content="Colección de mini-herramientas web gratuitas que funcionan 100% en tu navegador, sin registro y sin subir archivos a ningún servidor." />
+  <title>Unir PDF — combina varios PDFs en uno</title>
+  <meta name="description" content="Une varios PDFs en un único documento directamente en tu navegador. Reordena los archivos, sin registro y sin subir nada a ningún servidor." />
+  <!-- SEO: la app no debe competir con www.aitorevi.dev. La ficha indexable es la del portfolio. -->
   <meta name="robots" content="noindex, follow" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="canonical" href="https://www.aitorevi.dev/work/tools" />
   <meta name="color-scheme" content="dark light" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="stylesheet" href="/fonts/fonts.css" />
   <link rel="stylesheet" href="/styles.css" />
   <!-- Fija el tema antes del paint (evita flash). Sin inline → compatible con la CSP. -->
   <script src="/theme.js"></script>
-
-  <style>
-    /* CSS específico del hub (la grid de herramientas) */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 18px;
-    }
-    .tool-card {
-      display: flex; flex-direction: column; gap: 10px;
-      padding: 24px;
-      background: rgb(var(--surface) / 0.7);
-      border: 1px solid rgb(var(--border));
-      border-radius: var(--radius);
-      box-shadow: 0 0 40px rgb(var(--accent) / 0.05), 0 14px 30px rgb(0 0 0 / 0.14);
-      backdrop-filter: blur(10px);
-      text-decoration: none; color: rgb(var(--fg));
-      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
-    }
-    a.tool-card:hover {
-      transform: translateY(-3px);
-      border-color: rgb(var(--accent));
-      box-shadow: 0 0 40px rgb(var(--accent) / 0.12), 0 18px 40px rgb(0 0 0 / 0.2);
-    }
-    a.tool-card:focus-visible { outline: 3px solid rgb(var(--accent)); outline-offset: 3px; }
-    .tool-name { font-family: "Outfit", system-ui, sans-serif; font-weight: 700; font-size: 1.2rem; margin: 0; }
-    .tool-desc { color: rgb(var(--muted)); font-size: .92rem; margin: 0; flex: 1 1 auto; }
-    .tool-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .tool-tags span {
-      font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .64rem;
-      text-transform: uppercase; letter-spacing: .12em;
-      color: rgb(var(--muted)); background: rgb(var(--surface-2) / 0.7);
-      border: 1px solid rgb(var(--border)); border-radius: 999px; padding: 3px 9px;
-    }
-    .tool-cta {
-      font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .76rem;
-      text-transform: uppercase; letter-spacing: .15em; color: rgb(var(--accent));
-      margin-top: 4px;
-    }
-    .tool-card.is-soon { opacity: .6; box-shadow: none; cursor: default; }
-    .tool-card.is-soon .tool-cta { color: rgb(var(--muted)); }
-  </style>
 </head>
 <body>
   <header class="site-nav">
@@ -78,32 +37,42 @@
     </div>
   </header>
 
-  <main class="wrap wide">
+  <main class="wrap">
     <header>
       <span class="badge"><span class="dot" aria-hidden="true"></span>100% en tu navegador · sin subir nada</span>
-      <h1>Herramientas</h1>
-      <p class="subtitle">Mini-utilidades web gratuitas que funcionan íntegramente en tu navegador. Sin registro, sin servidor y sin que tus archivos salgan de tu dispositivo.</p>
+      <h1>Unir PDF</h1>
+      <p class="subtitle">Combina varios PDFs en un único documento. Reordénalos como quieras y descarga el resultado.</p>
     </header>
 
-    <section class="tools-grid" aria-label="Lista de herramientas">
-      <a class="tool-card" href="/pdf-separator/">
-        <h2 class="tool-name">Separador de PDF</h2>
-        <p class="tool-desc">Divide cualquier PDF en páginas sueltas y descárgalas una a una o todas juntas en un ZIP.</p>
-        <div class="tool-tags"><span>PDF</span><span>Sin servidor</span></div>
-        <span class="tool-cta">Abrir →</span>
-      </a>
+    <section class="card" aria-labelledby="app-title">
+      <h2 id="app-title" class="sr">Herramienta para unir PDF</h2>
 
-      <a class="tool-card" href="/pdf-merge/">
-        <h2 class="tool-name">Unir PDF</h2>
-        <p class="tool-desc">Combina varios PDFs en un único documento. Reordénalos como quieras antes de descargar.</p>
-        <div class="tool-tags"><span>PDF</span><span>Sin servidor</span></div>
-        <span class="tool-cta">Abrir →</span>
-      </a>
+      <!-- Paso 1: cargar -->
+      <div id="loader">
+        <div id="dropzone" class="dropzone" tabindex="0" role="button"
+             aria-label="Selecciona o arrastra varios archivos PDF">
+          <div class="icon" aria-hidden="true">📚</div>
+          <div class="lead">Arrastra tus PDFs aquí o <strong>haz clic para elegirlos</strong></div>
+          <div class="hint">Puedes seleccionar varios. Nada se envía a internet.</div>
+        </div>
+        <input id="file-input" type="file" accept="application/pdf,.pdf" multiple class="visually-hidden" />
+      </div>
 
-      <div class="tool-card is-soon" aria-disabled="true">
-        <h2 class="tool-name">Más herramientas</h2>
-        <p class="tool-desc">Estoy preparando nuevas mini-utilidades centradas en privacidad y velocidad. Vuelve pronto.</p>
-        <span class="tool-cta">Próximamente</span>
+      <!-- Paso 2: ordenar y unir -->
+      <div id="workspace" class="hidden">
+        <div class="toolbar">
+          <button class="btn" id="add-more-btn" type="button">Añadir más</button>
+          <button class="btn ghost" id="clear-btn" type="button">Vaciar</button>
+          <span class="count" id="count">0 archivos</span>
+        </div>
+
+        <ul class="file-list" id="file-list" aria-label="PDFs a unir (en orden)"></ul>
+
+        <div class="actions">
+          <button class="btn primary" id="merge-btn" type="button" disabled>⬇ Unir y descargar</button>
+        </div>
+
+        <p class="status" id="status" role="status" aria-live="polite"></p>
       </div>
     </section>
   </main>
@@ -118,17 +87,50 @@
       </a>
     </div>
 
-    <p class="foot-line">Herramientas que corren 100% en tu navegador</p>
+    <p class="foot-line">Hecho con pdf-lib · sin servidor, sin subidas</p>
 
     <nav class="foot-nav" aria-label="Enlaces del pie">
-      <a href="https://www.aitorevi.dev" target="_blank" rel="noopener">aitorevi.dev</a>
+      <a href="/">aitorevi.tools</a>
       <span class="sep" aria-hidden="true">·</span>
-      <a href="https://www.aitorevi.dev/work" target="_blank" rel="noopener">Proyectos</a>
-      <span class="sep" aria-hidden="true">·</span>
-      <a href="https://www.aitorevi.dev/blog" target="_blank" rel="noopener">Blog</a>
+      <a href="https://www.aitorevi.dev/work/tools" target="_blank" rel="noopener">Sobre estas herramientas</a>
     </nav>
+
+    <p class="foot-legal">
+      pdf-lib se usa bajo licencia MIT. Esta herramienta se ofrece tal cual, sin
+      garantías. Tus archivos se procesan íntegramente en tu navegador y no se
+      envían a ningún servidor.
+    </p>
+
+    <details class="licenses">
+      <summary>Licencias</summary>
+      <div class="license-body">
+        <p><strong>pdf-lib</strong> — Copyright (c) 2019 Andrew Dillon</p>
+        <p>Se distribuye bajo los términos de la licencia MIT:</p>
+        <pre>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre>
+      </div>
+    </details>
 
     <p class="foot-copy">© 2026 aitorevi · tools.aitorevi.dev</p>
   </footer>
+
+  <!-- Librerías vendorizadas (versión pineada, sin CDN externo) -->
+  <script src="/vendor/pdf-lib.min.js"></script>
+  <script type="module" src="/pdf-merge/app.js"></script>
 </body>
 </html>

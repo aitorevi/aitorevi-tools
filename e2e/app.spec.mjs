@@ -19,10 +19,12 @@ async function dropPdf(page, pages, name = "informe.pdf") {
   );
 }
 
-test("el hub lista la herramienta y enlaza a /pdf-separator/", async ({ page }) => {
+test("el hub lista las herramientas y enlaza a cada una", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { name: "Separador de PDF" })).toBeVisible();
-  await expect(page.locator("a.tool-card")).toHaveAttribute("href", "/pdf-separator/");
+  await expect(page.getByRole("heading", { name: "Unir PDF" })).toBeVisible();
+  await expect(page.locator('a.tool-card[href="/pdf-separator/"]')).toBeVisible();
+  await expect(page.locator('a.tool-card[href="/pdf-merge/"]')).toBeVisible();
 });
 
 test("soltar un PDF renderiza una tarjeta por página", async ({ page }) => {
@@ -63,4 +65,48 @@ test("el toggle de tema persiste tras recargar", async ({ page }) => {
     document.documentElement.classList.contains("dark")
   );
   expect(nowDark).toBe(!wasDark);
+});
+
+// --- Unir PDF ---
+
+// Genera varios PDFs en la página y los suelta a la vez en la ventana.
+async function dropPdfs(page, pageCounts) {
+  await page.evaluate(async (counts) => {
+    const { PDFDocument } = window.PDFLib;
+    const dt = new DataTransfer();
+    for (let i = 0; i < counts.length; i++) {
+      const doc = await PDFDocument.create();
+      for (let p = 0; p < counts[i]; p++) doc.addPage([300, 400]);
+      const bytes = await doc.save();
+      dt.items.add(new File([bytes], `doc-${i + 1}.pdf`, { type: "application/pdf" }));
+    }
+    window.dispatchEvent(
+      new DragEvent("drop", { dataTransfer: dt, bubbles: true, cancelable: true })
+    );
+  }, pageCounts);
+}
+
+test("unir: soltar varios PDFs los lista en filas reordenables", async ({ page }) => {
+  await page.goto("/pdf-merge/");
+  await dropPdfs(page, [2, 3]);
+  await expect(page.locator("#file-list .file-row")).toHaveCount(2);
+  await expect(page.locator("#merge-btn")).toBeEnabled();
+});
+
+test("unir: con un solo PDF el botón sigue deshabilitado", async ({ page }) => {
+  await page.goto("/pdf-merge/");
+  await dropPdfs(page, [2]);
+  await expect(page.locator("#file-list .file-row")).toHaveCount(1);
+  await expect(page.locator("#merge-btn")).toBeDisabled();
+});
+
+test("unir: combina y descarga un único PDF", async ({ page }) => {
+  await page.goto("/pdf-merge/");
+  await dropPdfs(page, [2, 3]);
+  await expect(page.locator("#file-list .file-row")).toHaveCount(2);
+  const [download] = await Promise.all([
+    page.waitForEvent("download"),
+    page.click("#merge-btn"),
+  ]);
+  expect(download.suggestedFilename()).toMatch(/-unido\.pdf$/);
 });
