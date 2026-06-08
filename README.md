@@ -4,13 +4,14 @@ Hub de **mini-herramientas web** que funcionan **100% en el navegador**: sin
 registro, sin backend y sin que tus archivos salgan de tu dispositivo.
 
 🔗 **Hub:** https://tools.aitorevi.dev
-📄 **Ficha del proyecto:** https://www.aitorevi.dev/work/pdf-separator
+📄 **Ficha del proyecto:** https://www.aitorevi.dev/work/tools
 
 ## Herramientas
 
 | Ruta | Herramienta | Descripción |
 |---|---|---|
-| `/pdf-separator/` | Separador de PDF | Divide un PDF en páginas sueltas; descarga individual o en ZIP. |
+| `/separar-pdf/` | Separador de PDF | Divide un PDF en páginas sueltas; descarga individual o en ZIP. |
+| `/unir-pdf/` | Unir PDF | Combina varios PDFs en uno, reordenables. |
 
 ## Estructura
 
@@ -23,7 +24,7 @@ registro, sin backend y sin que tus archivos salgan de tu dispositivo.
 ├── vendor/               # Librerías vendorizadas con versión fija
 │   ├── pdf-lib.min.js    # @1.17.1
 │   └── jszip.min.js      # @3.10.1
-├── pdf-separator/        # Herramienta: separador de PDF
+├── separar-pdf/        # Herramienta: separador de PDF
 │   ├── index.html
 │   └── app.js
 ├── robots.txt · vercel.json · serve.mjs
@@ -41,7 +42,7 @@ en el navegador. El separador usa [`pdf-lib`](https://pdflib.js.org/) y
 ## Desarrollo local
 
 No hay build. Sirve la carpeta con el servidor de desarrollo (anti-caché, y
-resuelve `/pdf-separator/` → `index.html`):
+resuelve `/separar-pdf/` → `index.html`):
 
 ```bash
 node serve.mjs        # http://localhost:8099
@@ -52,7 +53,7 @@ node serve.mjs        # http://localhost:8099
 
 ## Tests
 
-La lógica pura/PDF vive en `pdf-separator/lib.js` (sin DOM, testeable); el
+La lógica pura/PDF vive en `separar-pdf/lib.js` (sin DOM, testeable); el
 cableado del DOM queda en `app.js`.
 
 ```bash

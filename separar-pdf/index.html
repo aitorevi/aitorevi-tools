@@ -3,17 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Separador de PDF — divide un PDF en páginas sueltas</title>
-  <meta name="description" content="Divide cualquier PDF en páginas independientes directamente en tu navegador. Sin registro, sin subir archivos a ningún servidor. Descarga individual o en ZIP." />
-  <!-- SEO: la app no debe competir con www.aitorevi.dev. La ficha indexable es la del portfolio. -->
-  <meta name="robots" content="noindex, follow" />
+  <title>Separar PDF — divide un PDF en páginas sueltas, gratis y en tu navegador</title>
+  <meta name="description" content="Separa cualquier PDF en páginas independientes directamente en tu navegador. Gratis, sin registro y sin subir archivos a ningún servidor. Descarga individual o en ZIP." />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="canonical" href="https://www.aitorevi.dev/work/tools" />
+  <link rel="canonical" href="https://tools.aitorevi.dev/separar-pdf/" />
   <meta name="color-scheme" content="dark light" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="aitorevi.tools" />
+  <meta property="og:url" content="https://tools.aitorevi.dev/separar-pdf/" />
+  <meta property="og:title" content="Separar PDF — divide un PDF en páginas sueltas" />
+  <meta property="og:description" content="Separa un PDF en páginas independientes en tu navegador. Gratis, sin registro y sin subir nada. Descarga individual o en ZIP." />
+  <meta property="og:image" content="https://tools.aitorevi.dev/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="stylesheet" href="/fonts/fonts.css" />
   <link rel="stylesheet" href="/styles.css" />
   <!-- Fija el tema antes del paint (evita flash). Sin inline → compatible con la CSP. -->
   <script src="/theme.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Separar PDF",
+    "url": "https://tools.aitorevi.dev/separar-pdf/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "es",
+    "description": "Separa un PDF en páginas independientes en el navegador. Descarga individual o en ZIP, sin subir archivos a ningún servidor.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "author": { "@type": "Person", "name": "Aitor Reviriego", "url": "https://www.aitorevi.dev" }
+  }
+  </script>
 
   <style>
     /* CSS específico del separador de PDF (lo común está en /styles.css) */
@@ -88,7 +107,7 @@
   <main class="wrap">
     <header>
       <span class="badge"><span class="dot" aria-hidden="true"></span>100% en tu navegador · sin subir nada</span>
-      <h1>Separador de PDF</h1>
+      <h1>Separar PDF</h1>
       <p class="subtitle">Divide cualquier PDF en páginas sueltas y descárgalas una a una o todas en un ZIP.</p>
     </header>
 
@@ -149,7 +168,7 @@
     <nav class="foot-nav" aria-label="Enlaces del pie">
       <a href="/">aitorevi.tools</a>
       <span class="sep" aria-hidden="true">·</span>
-      <a href="https://www.aitorevi.dev/work/pdf-separator" target="_blank" rel="noopener">Sobre esta herramienta</a>
+      <a href="https://www.aitorevi.dev/work/separar-pdf" target="_blank" rel="noopener">Sobre esta herramienta</a>
     </nav>
 
     <p class="foot-legal">
@@ -191,6 +210,6 @@ SOFTWARE.</pre>
   <!-- Librerías vendorizadas (versión pineada, sin CDN externo) -->
   <script src="/vendor/pdf-lib.min.js"></script>
   <script src="/vendor/jszip.min.js"></script>
-  <script type="module" src="/pdf-separator/app.js"></script>
+  <script type="module" src="/separar-pdf/app.js"></script>
 </body>
 </html>

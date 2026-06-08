@@ -7,7 +7,7 @@ import {
   zipFileName,
   isPdf,
   extractPage,
-} from "../pdf-separator/lib.js";
+} from "../separar-pdf/lib.js";
 
 // Cargamos la MISMA librería vendorizada que usa la app (UMD), no una versión npm.
 // El bundle UMD usa `self` como global; en Node lo apuntamos a globalThis.

@@ -21,21 +21,21 @@ async function dropPdf(page, pages, name = "informe.pdf") {
 
 test("el hub lista las herramientas y enlaza a cada una", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Separador de PDF" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Separar PDF" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Unir PDF" })).toBeVisible();
-  await expect(page.locator('a.tool-card[href="/pdf-separator/"]')).toBeVisible();
-  await expect(page.locator('a.tool-card[href="/pdf-merge/"]')).toBeVisible();
+  await expect(page.locator('a.tool-card[href="/separar-pdf/"]')).toBeVisible();
+  await expect(page.locator('a.tool-card[href="/unir-pdf/"]')).toBeVisible();
 });
 
 test("soltar un PDF renderiza una tarjeta por página", async ({ page }) => {
-  await page.goto("/pdf-separator/");
+  await page.goto("/separar-pdf/");
   await dropPdf(page, 4);
   await expect(page.locator("#pages-list .page-item")).toHaveCount(4);
   await expect(page.locator("#workspace")).toBeVisible();
 });
 
 test("descarga el ZIP con el nombre derivado del fichero", async ({ page }) => {
-  await page.goto("/pdf-separator/");
+  await page.goto("/separar-pdf/");
   await dropPdf(page, 3, "informe anual.pdf");
   await expect(page.locator("#pages-list .page-item")).toHaveCount(3);
 
@@ -47,7 +47,7 @@ test("descarga el ZIP con el nombre derivado del fichero", async ({ page }) => {
 });
 
 test("quitar la selección deshabilita los botones de descarga", async ({ page }) => {
-  await page.goto("/pdf-separator/");
+  await page.goto("/separar-pdf/");
   await dropPdf(page, 3);
   await page.click("#select-none");
   await expect(page.locator("#zip-btn")).toBeDisabled();
@@ -87,21 +87,21 @@ async function dropPdfs(page, pageCounts) {
 }
 
 test("unir: soltar varios PDFs los lista en filas reordenables", async ({ page }) => {
-  await page.goto("/pdf-merge/");
+  await page.goto("/unir-pdf/");
   await dropPdfs(page, [2, 3]);
   await expect(page.locator("#file-list .file-row")).toHaveCount(2);
   await expect(page.locator("#merge-btn")).toBeEnabled();
 });
 
 test("unir: con un solo PDF el botón sigue deshabilitado", async ({ page }) => {
-  await page.goto("/pdf-merge/");
+  await page.goto("/unir-pdf/");
   await dropPdfs(page, [2]);
   await expect(page.locator("#file-list .file-row")).toHaveCount(1);
   await expect(page.locator("#merge-btn")).toBeDisabled();
 });
 
 test("unir: combina y descarga un único PDF", async ({ page }) => {
-  await page.goto("/pdf-merge/");
+  await page.goto("/unir-pdf/");
   await dropPdfs(page, [2, 3]);
   await expect(page.locator("#file-list .file-row")).toHaveCount(2);
   const [download] = await Promise.all([

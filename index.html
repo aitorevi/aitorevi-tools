@@ -5,14 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>aitorevi.tools — mini-herramientas que corren en tu navegador</title>
   <meta name="description" content="Colección de mini-herramientas web gratuitas que funcionan 100% en tu navegador, sin registro y sin subir archivos a ningún servidor." />
-  <meta name="robots" content="noindex, follow" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="canonical" href="https://www.aitorevi.dev/work/tools" />
+  <link rel="canonical" href="https://tools.aitorevi.dev/" />
   <meta name="color-scheme" content="dark light" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="aitorevi.tools" />
+  <meta property="og:url" content="https://tools.aitorevi.dev/" />
+  <meta property="og:title" content="aitorevi.tools — herramientas que corren en tu navegador" />
+  <meta property="og:description" content="Mini-herramientas web gratuitas que funcionan 100% en tu navegador: sin registro y sin subir archivos a ningún servidor." />
+  <meta property="og:image" content="https://tools.aitorevi.dev/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="stylesheet" href="/fonts/fonts.css" />
   <link rel="stylesheet" href="/styles.css" />
   <!-- Fija el tema antes del paint (evita flash). Sin inline → compatible con la CSP. -->
   <script src="/theme.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "aitorevi.tools",
+    "url": "https://tools.aitorevi.dev/",
+    "inLanguage": "es",
+    "description": "Mini-herramientas web que funcionan 100% en el navegador, sin servidor ni subidas.",
+    "author": { "@type": "Person", "name": "Aitor Reviriego", "url": "https://www.aitorevi.dev" }
+  }
+  </script>
 
   <style>
     /* CSS específico del hub (la grid de herramientas) */
@@ -86,14 +103,14 @@
     </header>
 
     <section class="tools-grid" aria-label="Lista de herramientas">
-      <a class="tool-card" href="/pdf-separator/">
-        <h2 class="tool-name">Separador de PDF</h2>
+      <a class="tool-card" href="/separar-pdf/">
+        <h2 class="tool-name">Separar PDF</h2>
         <p class="tool-desc">Divide cualquier PDF en páginas sueltas y descárgalas una a una o todas juntas en un ZIP.</p>
         <div class="tool-tags"><span>PDF</span><span>Sin servidor</span></div>
         <span class="tool-cta">Abrir →</span>
       </a>
 
-      <a class="tool-card" href="/pdf-merge/">
+      <a class="tool-card" href="/unir-pdf/">
         <h2 class="tool-name">Unir PDF</h2>
         <p class="tool-desc">Combina varios PDFs en un único documento. Reordénalos como quieras antes de descargar.</p>
         <div class="tool-tags"><span>PDF</span><span>Sin servidor</span></div>

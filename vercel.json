@@ -3,11 +3,16 @@
   "installCommand": "echo 'sin dependencias en runtime'",
   "buildCommand": "echo 'sin build'",
   "outputDirectory": ".",
+  "redirects": [
+    { "source": "/pdf-separator", "destination": "/separar-pdf", "permanent": true },
+    { "source": "/pdf-separator/:path*", "destination": "/separar-pdf/:path*", "permanent": true },
+    { "source": "/pdf-merge", "destination": "/unir-pdf", "permanent": true },
+    { "source": "/pdf-merge/:path*", "destination": "/unir-pdf/:path*", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, follow" },
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
         { "key": "X-Frame-Options", "value": "DENY" },

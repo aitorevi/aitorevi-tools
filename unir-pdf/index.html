@@ -3,17 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Unir PDF — combina varios PDFs en uno</title>
-  <meta name="description" content="Une varios PDFs en un único documento directamente en tu navegador. Reordena los archivos, sin registro y sin subir nada a ningún servidor." />
-  <!-- SEO: la app no debe competir con www.aitorevi.dev. La ficha indexable es la del portfolio. -->
-  <meta name="robots" content="noindex, follow" />
-  <link rel="canonical" href="https://www.aitorevi.dev/work/tools" />
-  <meta name="color-scheme" content="dark light" />
+  <title>Unir PDF — combina varios PDFs en uno, gratis y en tu navegador</title>
+  <meta name="description" content="Une varios PDFs en un único documento directamente en tu navegador. Reordénalos como quieras. Gratis, sin registro y sin subir nada a ningún servidor." />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="canonical" href="https://tools.aitorevi.dev/unir-pdf/" />
+  <meta name="color-scheme" content="dark light" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="aitorevi.tools" />
+  <meta property="og:url" content="https://tools.aitorevi.dev/unir-pdf/" />
+  <meta property="og:title" content="Unir PDF — combina varios PDFs en uno" />
+  <meta property="og:description" content="Une varios PDFs en un único documento en tu navegador. Reordénalos como quieras. Gratis y sin subir nada." />
+  <meta property="og:image" content="https://tools.aitorevi.dev/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="stylesheet" href="/fonts/fonts.css" />
   <link rel="stylesheet" href="/styles.css" />
   <!-- Fija el tema antes del paint (evita flash). Sin inline → compatible con la CSP. -->
   <script src="/theme.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Unir PDF",
+    "url": "https://tools.aitorevi.dev/unir-pdf/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "es",
+    "description": "Combina varios PDFs en un único documento en el navegador, reordenables, sin subir archivos a ningún servidor.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "author": { "@type": "Person", "name": "Aitor Reviriego", "url": "https://www.aitorevi.dev" }
+  }
+  </script>
 </head>
 <body>
   <header class="site-nav">
@@ -131,6 +150,6 @@ SOFTWARE.</pre>
 
   <!-- Librerías vendorizadas (versión pineada, sin CDN externo) -->
   <script src="/vendor/pdf-lib.min.js"></script>
-  <script type="module" src="/pdf-merge/app.js"></script>
+  <script type="module" src="/unir-pdf/app.js"></script>
 </body>
 </html>

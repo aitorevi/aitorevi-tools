@@ -1,5 +1,4 @@
-# Permitimos el rastreo a propósito: así los buscadores pueden leer la
-# etiqueta <meta name="robots" content="noindex"> y mantener la app fuera
-# del índice sin que compita con www.aitorevi.dev.
 User-agent: *
 Allow: /
+
+Sitemap: https://tools.aitorevi.dev/sitemap.xml

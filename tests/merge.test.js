@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { createRequire } from "module";
-import { mergePdfs, mergedFileName } from "../pdf-merge/lib.js";
+import { mergePdfs, mergedFileName } from "../unir-pdf/lib.js";
 
 // Misma pdf-lib vendorizada que usa la app (UMD usa `self` como global).
 const require = createRequire(import.meta.url);
