@@ -25,6 +25,7 @@ test("el hub lista las herramientas y enlaza a cada una", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Unir PDF" })).toBeVisible();
   await expect(page.locator('a.tool-card[href="/separar-pdf/"]')).toBeVisible();
   await expect(page.locator('a.tool-card[href="/unir-pdf/"]')).toBeVisible();
+  await expect(page.locator('a.tool-card[href="/imagen-a-pdf/"]')).toBeVisible();
 });
 
 test("soltar un PDF renderiza una tarjeta por página", async ({ page }) => {
@@ -109,4 +110,42 @@ test("unir: combina y descarga un único PDF", async ({ page }) => {
     page.click("#merge-btn"),
   ]);
   expect(download.suggestedFilename()).toMatch(/-unido\.pdf$/);
+});
+
+// --- Imagen a PDF ---
+
+async function dropImages(page, n) {
+  await page.evaluate(async (count) => {
+    function makePng(i) {
+      return new Promise((resolve) => {
+        const c = document.createElement("canvas");
+        c.width = 20; c.height = 20;
+        const ctx = c.getContext("2d");
+        ctx.fillStyle = `hsl(${i * 60}, 70%, 50%)`;
+        ctx.fillRect(0, 0, 20, 20);
+        c.toBlob((b) => resolve(new File([b], `img-${i}.png`, { type: "image/png" })), "image/png");
+      });
+    }
+    const dt = new DataTransfer();
+    for (let i = 0; i < count; i++) dt.items.add(await makePng(i));
+    window.dispatchEvent(new DragEvent("drop", { dataTransfer: dt, bubbles: true, cancelable: true }));
+  }, n);
+}
+
+test("imagen a pdf: soltar imágenes las lista en filas reordenables", async ({ page }) => {
+  await page.goto("/imagen-a-pdf/");
+  await dropImages(page, 3);
+  await expect(page.locator("#file-list .file-row")).toHaveCount(3);
+  await expect(page.locator("#create-btn")).toBeEnabled();
+});
+
+test("imagen a pdf: crea y descarga el PDF", async ({ page }) => {
+  await page.goto("/imagen-a-pdf/");
+  await dropImages(page, 2);
+  await expect(page.locator("#file-list .file-row")).toHaveCount(2);
+  const [download] = await Promise.all([
+    page.waitForEvent("download"),
+    page.click("#create-btn"),
+  ]);
+  expect(download.suggestedFilename()).toMatch(/\.pdf$/);
 });
