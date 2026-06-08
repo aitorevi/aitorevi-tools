@@ -1,6 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "comment": "Sitio 100% estático: el tooling de test (vitest/playwright) son devDeps y no se necesitan en el deploy.",
   "installCommand": "echo 'sin dependencias en runtime'",
   "buildCommand": "echo 'sin build'",
   "outputDirectory": ".",
