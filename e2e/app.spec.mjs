@@ -26,6 +26,8 @@ test("el hub lista las herramientas y enlaza a cada una", async ({ page }) => {
   await expect(page.locator('a.tool-card[href="/separar-pdf/"]')).toBeVisible();
   await expect(page.locator('a.tool-card[href="/unir-pdf/"]')).toBeVisible();
   await expect(page.locator('a.tool-card[href="/imagen-a-pdf/"]')).toBeVisible();
+  await expect(page.locator('a.tool-card[href="/marca-de-agua-pdf/"]')).toBeVisible();
+  await expect(page.locator('a.tool-card[href="/n-up-pdf/"]')).toBeVisible();
 });
 
 test("soltar un PDF renderiza una tarjeta por página", async ({ page }) => {
@@ -148,4 +150,55 @@ test("imagen a pdf: crea y descarga el PDF", async ({ page }) => {
     page.click("#create-btn"),
   ]);
   expect(download.suggestedFilename()).toMatch(/\.pdf$/);
+});
+
+// --- Marca de agua PDF ---
+
+test("marca de agua: aplica y descarga el PDF", async ({ page }) => {
+  await page.goto("/marca-de-agua-pdf/");
+  await dropPdf(page, 2);
+  await expect(page.locator("#workspace")).toBeVisible();
+  const [download] = await Promise.all([
+    page.waitForEvent("download"),
+    page.click("#apply-btn"),
+  ]);
+  expect(download.suggestedFilename()).toMatch(/-marca-de-agua\.pdf$/);
+});
+
+test("marca de agua: con el texto vacío no descarga (muestra error)", async ({ page }) => {
+  await page.goto("/marca-de-agua-pdf/");
+  await dropPdf(page, 1);
+  await page.fill("#wm-text", "");
+  await page.click("#apply-btn");
+  await expect(page.locator("#status")).toHaveClass(/error/);
+});
+
+// --- n-up PDF ---
+
+// PDF con contenido (las páginas en blanco no se pueden embeber para n-up).
+async function dropPdfWithContent(page, pages) {
+  await page.evaluate(async (n) => {
+    const { PDFDocument } = window.PDFLib;
+    const doc = await PDFDocument.create();
+    for (let i = 0; i < n; i++) {
+      const p = doc.addPage([300, 400]);
+      p.drawRectangle({ x: 20, y: 20, width: 60, height: 60 });
+    }
+    const bytes = await doc.save();
+    const dt = new DataTransfer();
+    dt.items.add(new File([bytes], "doc.pdf", { type: "application/pdf" }));
+    window.dispatchEvent(new DragEvent("drop", { dataTransfer: dt, bubbles: true, cancelable: true }));
+  }, pages);
+}
+
+test("n-up: genera y descarga el PDF recolocado", async ({ page }) => {
+  await page.goto("/n-up-pdf/");
+  await dropPdfWithContent(page, 8);
+  await expect(page.locator("#workspace")).toBeVisible();
+  await page.selectOption("#nup-per", "4");
+  const [download] = await Promise.all([
+    page.waitForEvent("download"),
+    page.click("#apply-btn"),
+  ]);
+  expect(download.suggestedFilename()).toMatch(/-4-por-hoja\.pdf$/);
 });
