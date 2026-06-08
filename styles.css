@@ -67,7 +67,7 @@ h2.sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overfl
   border-bottom: 1px solid rgb(var(--border));
 }
 .nav-inner {
-  max-width: 1000px; margin: 0 auto; height: 60px;
+  max-width: 1000px; margin: 0 auto; height: 56px;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 20px;
 }
@@ -76,6 +76,11 @@ h2.sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overfl
   font-family: "Outfit", system-ui, sans-serif; font-weight: 900;
   font-size: 1.5rem; letter-spacing: -0.02em;
   color: rgb(var(--fg)); text-decoration: none;
+}
+/* Mismas dimensiones que el navbar de aitorevi.dev (h-14 md:h-20, text-2xl md:text-3xl). */
+@media (min-width: 768px) {
+  .nav-inner { height: 80px; }
+  .brand { font-size: 1.875rem; }
 }
 .brand .dot { color: rgb(var(--accent)); transition: color .2s; }
 .brand:hover .dot { color: rgb(var(--accent-soft)); }
@@ -88,7 +93,7 @@ h2.sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overfl
 .nav-links { display: flex; align-items: center; gap: 16px; }
 .nav-links a {
   font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: .76rem; text-transform: uppercase; letter-spacing: 0.15em;
+  font-size: .875rem; text-transform: uppercase; letter-spacing: 0.15em;
   color: rgb(var(--fg)); text-decoration: none; transition: color .2s;
 }
 .nav-links a:hover { color: rgb(var(--accent)); text-decoration: underline; text-underline-offset: 4px; }
