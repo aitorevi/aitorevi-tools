@@ -9,5 +9,12 @@ Thumbs.db
 # Logs
 *.log
 
+# Node / tests
+node_modules/
+coverage/
+test-results/
+playwright-report/
+.playwright/
+
 # Vercel
 .vercel

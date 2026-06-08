@@ -1,0 +1,17 @@
+{
+  "name": "aitorevi-tools",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Hub de mini-herramientas web que corren 100% en el navegador.",
+  "scripts": {
+    "dev": "node serve.mjs",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "vitest": "^4.1.8"
+  }
+}

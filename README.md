@@ -50,6 +50,25 @@ node serve.mjs        # http://localhost:8099
 > Ábrelo con un servidor (no con `file://`) para que las rutas absolutas
 > (`/styles.css`, `/vendor`, `/theme.js`…) resuelvan correctamente.
 
+## Tests
+
+La lógica pura/PDF vive en `pdf-separator/lib.js` (sin DOM, testeable); el
+cableado del DOM queda en `app.js`.
+
+```bash
+npm install                    # solo la primera vez (devDeps: vitest + playwright)
+npx playwright install chromium
+
+npm run test:unit              # Vitest — funciones puras + extractPage (lib.js)
+npm run test:e2e               # Playwright — drop real, descarga ZIP, toggle de tema
+npm test                       # ambos
+```
+
+- **Unit/integración** (`tests/`): ejercitan la **misma** pdf-lib vendorizada.
+- **E2E** (`e2e/`): Playwright levanta `serve.mjs` y prueba la app real.
+- El tooling de test son **devDeps** y no se instalan en el despliegue
+  (`vercel.json` salta `install`/`build`).
+
 ## Despliegue
 
 Proyecto estático en Vercel (sin build command, output en la raíz). Cabeceras

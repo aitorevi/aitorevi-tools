@@ -1,5 +1,15 @@
 // Separador de PDF — lógica 100% cliente con pdf-lib + JSZip.
 // No se sube ningún archivo: todo ocurre en el navegador del usuario.
+// La lógica pura/PDF vive en lib.js (testeable); aquí va el cableado del DOM.
+
+import {
+  sanitizeBaseName,
+  formatBytes,
+  pageFileName,
+  zipFileName,
+  isPdf,
+  extractPage as extractPageLib,
+} from "./lib.js";
 
 (() => {
   "use strict";
@@ -25,20 +35,10 @@
   const progressBar = progress.querySelector("i");
   const statusEl = $("status");
 
-  // --- Utilidades ---
+  // Extrae una página del PDF cargado (inyecta PDFDocument y los bytes en memoria).
+  const extractPage = (pageIndex) => extractPageLib(PDFDocument, srcBytes, pageIndex);
 
-  /** Quita la extensión y limpia caracteres problemáticos para nombres de fichero. */
-  function sanitizeBaseName(fileName) {
-    const noExt = fileName.replace(/\.pdf$/i, "");
-    const cleaned = noExt.replace(/[\\/:*?"<>|]+/g, "-").trim();
-    return cleaned || "documento";
-  }
-
-  function formatBytes(bytes) {
-    if (bytes < 1024) return `${bytes} B`;
-    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
-    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-  }
+  // --- Utilidades de UI ---
 
   function setStatus(message, type = "") {
     statusEl.textContent = message;
@@ -82,20 +82,11 @@
     setTimeout(() => URL.revokeObjectURL(url), 1500);
   }
 
-  /** Crea un PDF de una sola página (índice 0-based) y devuelve sus bytes. */
-  async function extractPage(pageIndex) {
-    const src = await PDFDocument.load(srcBytes, { ignoreEncryption: true });
-    const out = await PDFDocument.create();
-    const [copied] = await out.copyPages(src, [pageIndex]);
-    out.addPage(copied);
-    return out.save();
-  }
-
   // --- Carga del PDF ---
 
   async function loadFile(file) {
     if (!file) return;
-    if (file.type && file.type !== "application/pdf" && !/\.pdf$/i.test(file.name)) {
+    if (!isPdf(file)) {
       setStatus("Ese archivo no parece un PDF. Prueba con otro.", "error");
       return;
     }
@@ -169,7 +160,7 @@
     setStatus(`Preparando la página ${pageNumber}…`);
     try {
       const bytes = await extractPage(pageNumber - 1);
-      triggerDownload(new Blob([bytes], { type: "application/pdf" }), `${baseName}-pagina-${pageNumber}.pdf`);
+      triggerDownload(new Blob([bytes], { type: "application/pdf" }), pageFileName(baseName, pageNumber));
       setStatus(`Página ${pageNumber} descargada.`, "ok");
     } catch (err) {
       console.error(err);
@@ -191,13 +182,13 @@
       for (let i = 0; i < pages.length; i++) {
         const pageNumber = pages[i];
         const bytes = await extractPage(pageNumber - 1);
-        zip.file(`${baseName}-pagina-${pageNumber}.pdf`, bytes);
+        zip.file(pageFileName(baseName, pageNumber), bytes);
         setProgress((i + 1) / pages.length);
       }
       const blob = await zip.generateAsync({ type: "blob" }, (meta) => {
         setProgress(meta.percent / 100);
       });
-      triggerDownload(blob, `${baseName}-paginas.zip`);
+      triggerDownload(blob, zipFileName(baseName));
       setStatus(`ZIP con ${pages.length} páginas descargado.`, "ok");
     } catch (err) {
       console.error(err);
@@ -229,7 +220,7 @@
       for (let i = 0; i < pages.length; i++) {
         const pageNumber = pages[i];
         const bytes = await extractPage(pageNumber - 1);
-        triggerDownload(new Blob([bytes], { type: "application/pdf" }), `${baseName}-pagina-${pageNumber}.pdf`);
+        triggerDownload(new Blob([bytes], { type: "application/pdf" }), pageFileName(baseName, pageNumber));
         // Pequeño margen entre descargas para no saturar el navegador.
         await new Promise((r) => setTimeout(r, 350));
       }
