@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="6" class="bg"/>
+  <text x="16" y="23" text-anchor="middle" font-family="'IBM Plex Mono', 'Courier New', monospace" font-weight="700" font-size="18" class="fg">//</text>
+  <style>
+    .bg { fill: #0f172a; }
+    .fg { fill: #a78bfa; }
+    @media (prefers-color-scheme: light) {
+      .bg { fill: #f8fafc; }
+      .fg { fill: #7c3aed; }
+    }
+  </style>
+</svg>
