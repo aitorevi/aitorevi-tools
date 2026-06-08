@@ -5,9 +5,11 @@
   "outputDirectory": ".",
   "redirects": [
     { "source": "/pdf-separator", "destination": "/separar-pdf", "permanent": true },
-    { "source": "/pdf-separator/:path*", "destination": "/separar-pdf/:path*", "permanent": true },
+    { "source": "/pdf-separator/", "destination": "/separar-pdf/", "permanent": true },
+    { "source": "/pdf-separator/:path+", "destination": "/separar-pdf/:path+", "permanent": true },
     { "source": "/pdf-merge", "destination": "/unir-pdf", "permanent": true },
-    { "source": "/pdf-merge/:path*", "destination": "/unir-pdf/:path*", "permanent": true }
+    { "source": "/pdf-merge/", "destination": "/unir-pdf/", "permanent": true },
+    { "source": "/pdf-merge/:path+", "destination": "/unir-pdf/:path+", "permanent": true }
   ],
   "headers": [
     {
