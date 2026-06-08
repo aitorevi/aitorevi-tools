@@ -1,45 +1,54 @@
-# Separador de PDF
+# aitorevi.tools
 
-Herramienta web que divide un PDF en sus páginas individuales. Funciona
-**100% en el navegador**: ningún archivo se sube a un servidor.
+Hub de **mini-herramientas web** que funcionan **100% en el navegador**: sin
+registro, sin backend y sin que tus archivos salgan de tu dispositivo.
 
-🔗 **App:** https://tools.aitorevi.dev
+🔗 **Hub:** https://tools.aitorevi.dev
 📄 **Ficha del proyecto:** https://www.aitorevi.dev/work/pdf-separator
 
-## Qué hace
+## Herramientas
 
-- Cargas un PDF (arrastrando o desde el selector de archivos).
-- Eliges qué páginas quieres.
-- Las descargas **una a una** o **todas juntas en un ZIP**.
+| Ruta | Herramienta | Descripción |
+|---|---|---|
+| `/pdf-separator/` | Separador de PDF | Divide un PDF en páginas sueltas; descarga individual o en ZIP. |
 
-Cada página se exporta como un PDF independiente (`nombre-pagina-N.pdf`).
+## Estructura
+
+```
+/
+├── index.html            # Hub: landing con cards de herramientas
+├── styles.css            # Estilos compartidos (tokens, navbar, footer)
+├── theme.js              # Tema claro/oscuro por clase (.dark)
+├── fonts/                # Outfit + JetBrains Mono (subset latin)
+├── vendor/               # Librerías vendorizadas con versión fija
+│   ├── pdf-lib.min.js    # @1.17.1
+│   └── jszip.min.js      # @3.10.1
+├── pdf-separator/        # Herramienta: separador de PDF
+│   ├── index.html
+│   └── app.js
+├── robots.txt · vercel.json · serve.mjs
+```
+
+Cada herramienta vive en su carpeta y reutiliza `styles.css`, `theme.js`,
+`fonts/` y `vendor/` mediante rutas absolutas (`/styles.css`, etc.).
 
 ## Privacidad
 
-No hay backend, ni registro, ni analítica. El PDF se procesa en memoria con
-[`pdf-lib`](https://pdflib.js.org/) y el empaquetado ZIP con
-[`JSZip`](https://stuk.github.io/jszip/). Tus documentos nunca salen de tu
-dispositivo.
-
-## Stack
-
-- HTML/CSS/JS estáticos, sin build.
-- Dependencias **vendorizadas** en `vendor/` con versión fija (sin CDN externo):
-  - `pdf-lib@1.17.1`
-  - `jszip@3.10.1`
+No hay backend, ni registro, ni analítica. Los archivos se procesan en memoria
+en el navegador. El separador usa [`pdf-lib`](https://pdflib.js.org/) y
+[`JSZip`](https://stuk.github.io/jszip/), ambos vendorizados (sin CDN externo).
 
 ## Desarrollo local
 
-Al no haber build, basta con servir la carpeta con cualquier servidor estático:
+No hay build. Sirve la carpeta con el servidor de desarrollo (anti-caché, y
+resuelve `/pdf-separator/` → `index.html`):
 
 ```bash
-npx serve .
-# o
-python3 -m http.server 8080
+node serve.mjs        # http://localhost:8099
 ```
 
-> Ábrelo con un servidor (no con `file://`) para que las rutas absolutas de
-> `/vendor` y `/app.js` resuelvan correctamente.
+> Ábrelo con un servidor (no con `file://`) para que las rutas absolutas
+> (`/styles.css`, `/vendor`, `/theme.js`…) resuelvan correctamente.
 
 ## Despliegue
 

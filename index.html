@@ -3,342 +3,67 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Separador de PDF — divide un PDF en páginas sueltas</title>
-  <meta name="description" content="Divide cualquier PDF en páginas independientes directamente en tu navegador. Sin registro, sin subir archivos a ningún servidor. Descarga individual o en ZIP." />
-  <!-- SEO: la app no debe competir con www.aitorevi.dev. La ficha indexable es la del portfolio. -->
+  <title>aitorevi.tools — mini-herramientas que corren en tu navegador</title>
+  <meta name="description" content="Colección de mini-herramientas web gratuitas que funcionan 100% en tu navegador, sin registro y sin subir archivos a ningún servidor." />
   <meta name="robots" content="noindex, follow" />
-  <link rel="canonical" href="https://www.aitorevi.dev/work/pdf-separator" />
   <meta name="color-scheme" content="dark light" />
   <link rel="stylesheet" href="/fonts/fonts.css" />
+  <link rel="stylesheet" href="/styles.css" />
   <!-- Fija el tema antes del paint (evita flash). Sin inline → compatible con la CSP. -->
   <script src="/theme.js"></script>
 
   <style>
-    /* ── Tokens alineados con www.aitorevi.dev (RGB para poder usar alfa) ── */
-    :root {
-      color-scheme: light dark;
-      --bg: 255 255 255;
-      --bg-grad: radial-gradient(ellipse at 30% 20%, #eef2ff 0%, #f8fafc 55%, #e2e8f0 100%);
-      --surface: 255 255 255;
-      --surface-2: 248 250 252;   /* slate-50 */
-      --border: 226 232 240;      /* slate-200 */
-      --fg: 21 27 39;             /* #151b27 */
-      --muted: 71 85 105;         /* slate-600 */
-      --accent: 71 39 204;        /* #4727cc */
-      --accent-soft: 124 58 237;  /* violet-600 */
-      --ok: 5 150 105;            /* emerald-600 */
-      --danger: 220 38 38;        /* red-600 */
-      --grad-text: linear-gradient(135deg, #2563eb, #7c3aed, #2563eb);
-      --radius: 16px;
+    /* CSS específico del hub (la grid de herramientas) */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 18px;
     }
-
-    /* Modo oscuro por clase (.dark en <html>), igual que aitorevi.dev.
-       theme.js fija la clase antes del paint según localStorage o el sistema. */
-    :root.dark {
-      --bg: 15 20 25;           /* #0f1419 */
-      --bg-grad: radial-gradient(ellipse at 30% 20%, #0f172a 0%, #020617 55%, #000 100%);
-      --surface: 17 24 36;      /* #111824 */
-      --surface-2: 15 23 42;    /* slate-900 */
-      --border: 39 51 74;       /* #27334a */
-      --fg: 241 245 249;        /* slate-100 */
-      --muted: 148 163 184;     /* slate-400 */
-      --accent: 172 145 252;    /* #ac91fc */
-      --accent-soft: 96 165 250;/* #60a5fa */
-      --ok: 52 211 153;         /* emerald-400 */
-      --danger: 248 113 113;    /* red-400 */
-      --grad-text: linear-gradient(135deg, #60a5fa, #ac91fc, #60a5fa);
-    }
-
-    * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; }
-
-    body {
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg-grad) fixed, rgb(var(--bg));
-      color: rgb(var(--fg));
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-    }
-
-    .wrap { max-width: 760px; margin: 0 auto; padding: 48px 20px 80px; }
-
-    /* ── Navbar (lenguaje visual de aitorevi.dev) ── */
-    .site-nav {
-      position: sticky; top: 0; z-index: 50;
-      background: rgb(var(--bg) / 0.72);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgb(var(--border));
-    }
-    .nav-inner {
-      max-width: 1000px; margin: 0 auto; height: 60px;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 20px;
-    }
-    .brand {
-      display: inline-flex; align-items: baseline; gap: 8px;
-      font-family: "Outfit", system-ui, sans-serif; font-weight: 900;
-      font-size: 1.5rem; letter-spacing: -0.02em;
-      color: rgb(var(--fg)); text-decoration: none;
-    }
-    .brand .dot { color: rgb(var(--accent)); transition: color .2s; }
-    .brand:hover .dot { color: rgb(var(--accent-soft)); }
-    .brand .brand-tag {
-      align-self: baseline;
-      font-family: "JetBrains Mono", ui-monospace, monospace; font-weight: 400;
-      font-size: .68rem; text-transform: uppercase; letter-spacing: 0.22em;
-      color: rgb(var(--muted));
-    }
-    .nav-links { display: flex; align-items: center; gap: 16px; }
-    .nav-links a {
-      font-family: "JetBrains Mono", ui-monospace, monospace;
-      font-size: .76rem; text-transform: uppercase; letter-spacing: 0.15em;
-      color: rgb(var(--fg)); text-decoration: none; transition: color .2s;
-    }
-    .nav-links a:hover { color: rgb(var(--accent)); text-decoration: underline; text-underline-offset: 4px; }
-    .theme-toggle {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 40px; height: 40px; padding: 0; border: none; background: transparent;
-      color: rgb(var(--muted)); cursor: pointer; border-radius: 9px;
-      transition: color .2s, background .2s;
-    }
-    .theme-toggle:hover { color: rgb(var(--accent)); background: rgb(var(--accent) / 0.1); }
-    .theme-toggle:focus-visible { outline: 3px solid rgb(var(--accent)); outline-offset: 2px; }
-    .theme-toggle svg { width: 20px; height: 20px; }
-    .theme-toggle .icon-moon { display: inline; }
-    .theme-toggle .icon-sun { display: none; }
-    :root.dark .theme-toggle .icon-moon { display: none; }
-    :root.dark .theme-toggle .icon-sun { display: inline; }
-
-    .wrap > header { text-align: center; margin-bottom: 34px; }
-
-    /* Badge tipo "kicker" monoespaciado, como en aitorevi.dev */
-    .badge {
-      display: inline-flex; align-items: center; gap: 9px;
-      font-family: "JetBrains Mono", ui-monospace, monospace;
-      font-size: 12px; letter-spacing: 0.02em;
-      color: rgb(var(--muted));
-      background: rgb(var(--surface) / 0.6);
-      border: 1px solid rgb(var(--border));
-      padding: 7px 14px; border-radius: 999px; margin-bottom: 22px;
-      backdrop-filter: blur(6px);
-    }
-    .badge .dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: rgb(var(--accent));
-      box-shadow: 0 0 10px rgb(var(--accent) / 0.7);
-      animation: pulse 2.4s ease-in-out infinite;
-    }
-    @keyframes pulse { 0%,100% { opacity: .45; } 50% { opacity: 1; } }
-
-    h1 {
-      font-family: "Outfit", system-ui, sans-serif;
-      font-weight: 900;
-      font-size: clamp(2rem, 6vw, 3rem);
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-      margin: 0 0 14px;
-      background: var(--grad-text);
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent; color: transparent;
-    }
-    .subtitle {
-      color: rgb(var(--muted)); margin: 0 auto; max-width: 46ch;
-      font-size: 1.05rem;
-    }
-
-    h2.sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
-
-    .card {
+    .tool-card {
+      display: flex; flex-direction: column; gap: 10px;
+      padding: 24px;
       background: rgb(var(--surface) / 0.7);
       border: 1px solid rgb(var(--border));
       border-radius: var(--radius);
-      box-shadow: 0 0 40px rgb(var(--accent) / 0.06), 0 18px 40px rgb(0 0 0 / 0.18);
+      box-shadow: 0 0 40px rgb(var(--accent) / 0.05), 0 14px 30px rgb(0 0 0 / 0.14);
       backdrop-filter: blur(10px);
-      padding: 26px;
+      text-decoration: none; color: rgb(var(--fg));
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
     }
-
-    /* Dropzone */
-    .dropzone {
-      border: 2px dashed rgb(var(--border));
-      border-radius: var(--radius);
-      padding: 52px 24px; text-align: center; cursor: pointer;
-      transition: border-color .18s ease, background .18s ease, box-shadow .18s ease;
-      background: rgb(var(--surface-2) / 0.5);
-    }
-    .dropzone:hover { border-color: rgb(var(--accent)); }
-    .dropzone.dragover {
+    a.tool-card:hover {
+      transform: translateY(-3px);
       border-color: rgb(var(--accent));
-      background: rgb(var(--accent) / 0.08);
-      box-shadow: 0 0 0 4px rgb(var(--accent) / 0.12), 0 0 30px rgb(var(--accent) / 0.18);
+      box-shadow: 0 0 40px rgb(var(--accent) / 0.12), 0 18px 40px rgb(0 0 0 / 0.2);
     }
-    .dropzone:focus-visible { outline: 3px solid rgb(var(--accent)); outline-offset: 3px; }
-    .dropzone > * { pointer-events: none; }
-    .dropzone .icon { font-size: 2.6rem; line-height: 1; margin-bottom: 14px; }
-    .dropzone .lead { font-size: 1.05rem; font-weight: 500; }
-    .dropzone .hint {
-      color: rgb(var(--muted)); font-size: .9rem; margin-top: 8px;
-      font-family: "JetBrains Mono", ui-monospace, monospace;
+    a.tool-card:focus-visible { outline: 3px solid rgb(var(--accent)); outline-offset: 3px; }
+    .tool-icon {
+      width: 46px; height: 46px; display: inline-flex; align-items: center; justify-content: center;
+      font-size: 1.7rem; border-radius: 12px;
+      background: rgb(var(--accent) / 0.1); border: 1px solid rgb(var(--accent) / 0.25);
     }
-    .dropzone strong {
-      background: var(--grad-text);
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent; color: transparent;
-      font-weight: 700;
+    .tool-name { font-family: "Outfit", system-ui, sans-serif; font-weight: 700; font-size: 1.2rem; margin: 4px 0 0; }
+    .tool-desc { color: rgb(var(--muted)); font-size: .92rem; margin: 0; flex: 1 1 auto; }
+    .tool-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tool-tags span {
+      font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .64rem;
+      text-transform: uppercase; letter-spacing: .12em;
+      color: rgb(var(--muted)); background: rgb(var(--surface-2) / 0.7);
+      border: 1px solid rgb(var(--border)); border-radius: 999px; padding: 3px 9px;
     }
-
-    .visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
-
-    /* File summary */
-    .file-bar {
-      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-      padding: 14px 16px; background: rgb(var(--surface-2) / 0.6);
-      border: 1px solid rgb(var(--border)); border-radius: 12px; margin-bottom: 18px;
+    .tool-cta {
+      font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .76rem;
+      text-transform: uppercase; letter-spacing: .15em; color: rgb(var(--accent));
+      margin-top: 4px;
     }
-    .file-bar .name { font-weight: 600; word-break: break-all; }
-    .file-bar .meta { color: rgb(var(--muted)); font-size: .85rem; font-family: "JetBrains Mono", ui-monospace, monospace; }
-    .file-bar .spacer { flex: 1 1 auto; }
-
-    .toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
-    .toolbar .count {
-      color: rgb(var(--muted)); font-size: .82rem; margin-left: auto;
-      font-family: "JetBrains Mono", ui-monospace, monospace;
-    }
-
-    /* Pages grid */
-    .pages {
-      list-style: none; margin: 0 0 22px; padding: 0 4px 0 0;
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 10px;
-      max-height: 380px; overflow-y: auto;
-    }
-    .page-item { position: relative; }
-    .page-item input { position: absolute; opacity: 0; pointer-events: none; }
-    .page-item label {
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
-      border: 1px solid rgb(var(--border)); border-radius: 12px; padding: 18px 8px; cursor: pointer;
-      background: rgb(var(--surface-2) / 0.5); transition: border-color .15s, background .15s, box-shadow .15s;
-      user-select: none;
-    }
-    .page-item label .num { font-family: "JetBrains Mono", ui-monospace, monospace; font-weight: 600; font-size: 1.1rem; }
-    .page-item label .tag { font-size: .68rem; color: rgb(var(--muted)); text-transform: uppercase; letter-spacing: .08em; }
-    .page-item input:checked + label {
-      border-color: rgb(var(--accent)); background: rgb(var(--accent) / 0.1);
-      box-shadow: 0 0 16px rgb(var(--accent) / 0.12);
-    }
-    .page-item input:focus-visible + label { outline: 3px solid rgb(var(--accent)); outline-offset: 2px; }
-    .page-item .dl {
-      position: absolute; top: 6px; right: 6px; border: none; background: transparent;
-      color: rgb(var(--muted)); cursor: pointer; font-size: .95rem; padding: 4px; border-radius: 8px; line-height: 1;
-    }
-    .page-item .dl:hover { color: rgb(var(--accent)); background: rgb(var(--accent) / 0.12); }
-
-    /* Buttons */
-    .actions { display: flex; gap: 12px; flex-wrap: wrap; }
-    button.btn, a.btn {
-      appearance: none; border: 1px solid rgb(var(--border));
-      background: rgb(var(--surface-2) / 0.6); color: rgb(var(--fg));
-      font: inherit; font-weight: 600; padding: 12px 20px; border-radius: 12px; cursor: pointer;
-      transition: transform .06s ease, background .15s, border-color .15s, box-shadow .15s, opacity .15s;
-      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-    }
-    button.btn:hover, a.btn:hover { border-color: rgb(var(--accent)); }
-    button.btn:active { transform: translateY(1px); }
-    button.btn.primary { background: rgb(var(--accent)); border-color: rgb(var(--accent)); color: #fff; }
-    button.btn.primary:hover { box-shadow: 0 0 24px rgb(var(--accent) / 0.45); }
-    button.btn:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }
-    button.btn.ghost { background: transparent; }
-
-    .progress { margin-top: 18px; height: 8px; border-radius: 999px; background: rgb(var(--surface-2)); border: 1px solid rgb(var(--border)); overflow: hidden; display: none; }
-    .progress.show { display: block; }
-    .progress > i { display: block; height: 100%; width: 0%; background: linear-gradient(90deg, rgb(var(--accent-soft)), rgb(var(--accent))); transition: width .15s ease; }
-
-    .status { margin-top: 14px; font-size: .9rem; color: rgb(var(--muted)); min-height: 1.2em; font-family: "JetBrains Mono", ui-monospace, monospace; }
-    .status.error { color: rgb(var(--danger)); }
-    .status.ok { color: rgb(var(--ok)); }
-
-    .hidden { display: none !important; }
-
-
-    /* ── Footer — barra a todo el ancho, como aitorevi.dev ── */
-    .site-footer {
-      margin-top: 64px; width: 100%;
-      display: flex; flex-direction: column; align-items: center; gap: 14px;
-      padding: 28px 20px 32px;
-      background: rgb(var(--surface) / 0.6);
-      backdrop-filter: blur(10px);
-      border-top: 1px solid rgb(var(--border));
-      font-family: "JetBrains Mono", ui-monospace, monospace;
-      color: rgb(var(--muted));
-    }
-    .site-footer a { color: inherit; text-decoration: none; }
-
-    /* Iconos sociales (fila superior, como en la web) */
-    .foot-social { display: flex; align-items: center; gap: 28px; }
-    .foot-social a {
-      display: inline-flex; color: rgb(var(--muted));
-      transition: color .2s ease, transform .2s ease;
-    }
-    .foot-social a:hover { color: rgb(var(--accent)); transform: translateY(-1px); }
-    .foot-social a:focus-visible { outline: 3px solid rgb(var(--accent)); outline-offset: 3px; border-radius: 6px; }
-    .foot-social svg { width: 22px; height: 22px; }
-
-    .foot-line {
-      margin: 0; font-size: 11px;
-      text-transform: uppercase; letter-spacing: 0.2em; text-align: center;
-    }
-    .foot-nav {
-      display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 8px;
-      font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em;
-    }
-    .foot-nav a {
-      padding: 4px 6px; color: rgb(var(--muted));
-      transition: color .2s ease;
-    }
-    .foot-nav a:hover { color: rgb(var(--accent)); }
-    .foot-nav .sep { opacity: .5; user-select: none; }
-
-    /* Aviso legal / atribución: secundario y discreto (sin uppercase para legibilidad) */
-    .foot-legal {
-      max-width: 60ch; margin: 2px auto 0; text-align: center;
-      font-size: 11px; line-height: 1.7; opacity: .75;
-    }
-
-    details.licenses { max-width: 62ch; margin: 0 auto; text-align: left; }
-    details.licenses > summary {
-      list-style: none; cursor: pointer; text-align: center; user-select: none;
-      font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em;
-      color: rgb(var(--accent)); padding: 6px;
-    }
-    details.licenses > summary::-webkit-details-marker { display: none; }
-    details.licenses > summary::before { content: "▸"; margin-right: 6px; }
-    details.licenses[open] > summary::before { content: "▾"; }
-    details.licenses > summary:hover { text-decoration: underline; }
-    details.licenses > summary:focus-visible { outline: 3px solid rgb(var(--accent)); outline-offset: 3px; border-radius: 4px; }
-    .license-body {
-      margin-top: 12px; padding: 16px;
-      background: rgb(var(--surface-2) / 0.5);
-      border: 1px solid rgb(var(--border)); border-radius: 12px;
-      font-size: 11px; line-height: 1.65;
-    }
-    .license-body p { margin: 0 0 10px; }
-    .license-body p strong { color: rgb(var(--fg)); }
-    .license-body pre {
-      margin: 8px 0 0; white-space: pre-wrap; word-break: break-word;
-      font-size: 10.5px; line-height: 1.55; color: rgb(var(--muted));
-    }
-
-    .foot-copy {
-      margin: 22px 0 0; font-size: 10px;
-      text-transform: uppercase; letter-spacing: 0.2em; opacity: .7;
-    }
-
-    @media (prefers-reduced-motion: reduce) { .badge .dot { animation: none; } }
+    .tool-card.is-soon { opacity: .6; box-shadow: none; cursor: default; }
+    .tool-card.is-soon .tool-cta { color: rgb(var(--muted)); }
+    .tool-card.is-soon .tool-icon { background: rgb(var(--surface-2) / 0.7); border-color: rgb(var(--border)); }
   </style>
 </head>
 <body>
   <header class="site-nav">
     <div class="nav-inner">
-      <a class="brand" href="https://www.aitorevi.dev" aria-label="Ir a aitorevi.dev">
+      <a class="brand" href="/" aria-label="Inicio de aitorevi.tools">
         aitorevi<span class="dot" aria-hidden="true">.</span><span class="brand-tag">tools</span>
       </a>
       <nav class="nav-links" aria-label="Navegación">
@@ -357,55 +82,29 @@
     </div>
   </header>
 
-  <main class="wrap">
+  <main class="wrap wide">
     <header>
       <span class="badge"><span class="dot" aria-hidden="true"></span>100% en tu navegador · sin subir nada</span>
-      <h1>Separador de PDF</h1>
-      <p class="subtitle">Divide cualquier PDF en páginas sueltas y descárgalas una a una o todas en un ZIP.</p>
+      <h1>Herramientas</h1>
+      <p class="subtitle">Mini-utilidades web gratuitas que funcionan íntegramente en tu navegador. Sin registro, sin servidor y sin que tus archivos salgan de tu dispositivo.</p>
     </header>
 
-    <section class="card" aria-labelledby="app-title">
-      <h2 id="app-title" class="sr">Herramienta para separar PDF</h2>
+    <section class="tools-grid" aria-label="Lista de herramientas">
+      <a class="tool-card" href="/pdf-separator/">
+        <span class="tool-icon" aria-hidden="true">📄</span>
+        <h2 class="tool-name">Separador de PDF</h2>
+        <p class="tool-desc">Divide cualquier PDF en páginas sueltas y descárgalas una a una o todas juntas en un ZIP.</p>
+        <div class="tool-tags"><span>PDF</span><span>Sin servidor</span></div>
+        <span class="tool-cta">Abrir →</span>
+      </a>
 
-      <!-- Paso 1: cargar -->
-      <div id="loader">
-        <div id="dropzone" class="dropzone" tabindex="0" role="button"
-             aria-label="Selecciona o arrastra un archivo PDF">
-          <div class="icon" aria-hidden="true">📄</div>
-          <div class="lead">Arrastra tu PDF aquí o <strong>haz clic para elegirlo</strong></div>
-          <div class="hint">Solo se procesa en tu dispositivo. Nada se envía a internet.</div>
-        </div>
-        <input id="file-input" type="file" accept="application/pdf,.pdf" class="visually-hidden" />
+      <div class="tool-card is-soon" aria-disabled="true">
+        <span class="tool-icon" aria-hidden="true">✨</span>
+        <h2 class="tool-name">Más herramientas</h2>
+        <p class="tool-desc">Estoy preparando nuevas mini-utilidades centradas en privacidad y velocidad. Vuelve pronto.</p>
+        <span class="tool-cta">Próximamente</span>
       </div>
-
-      <!-- Paso 2: páginas -->
-      <div id="workspace" class="hidden">
-        <div class="file-bar">
-          <span class="name" id="file-name">documento.pdf</span>
-          <span class="meta" id="file-meta">—</span>
-          <span class="spacer"></span>
-          <button class="btn ghost" id="reset-btn" type="button">Cargar otro</button>
-        </div>
-
-        <div class="toolbar">
-          <button class="btn" id="select-all" type="button">Seleccionar todo</button>
-          <button class="btn" id="select-none" type="button">Quitar selección</button>
-          <span class="count" id="selected-count">0 seleccionadas</span>
-        </div>
-
-        <ul class="pages" id="pages-list" aria-label="Páginas del PDF"></ul>
-
-        <div class="actions">
-          <button class="btn primary" id="zip-btn" type="button">⬇ Descargar selección en ZIP</button>
-          <button class="btn" id="individual-btn" type="button">Descargar una a una</button>
-        </div>
-
-        <div class="progress" id="progress" aria-hidden="true"><i></i></div>
-        <p class="status" id="status" role="status" aria-live="polite"></p>
-      </div>
-
     </section>
-
   </main>
 
   <footer class="site-footer">
@@ -418,53 +117,17 @@
       </a>
     </div>
 
-    <p class="foot-line">Hecho con pdf-lib + JSZip · sin servidor, sin subidas</p>
+    <p class="foot-line">Herramientas que corren 100% en tu navegador</p>
 
     <nav class="foot-nav" aria-label="Enlaces del pie">
       <a href="https://www.aitorevi.dev" target="_blank" rel="noopener">aitorevi.dev</a>
       <span class="sep" aria-hidden="true">·</span>
-      <a href="https://www.aitorevi.dev/work/pdf-separator" target="_blank" rel="noopener">Sobre esta herramienta</a>
+      <a href="https://www.aitorevi.dev/work" target="_blank" rel="noopener">Proyectos</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <a href="https://www.aitorevi.dev/blog" target="_blank" rel="noopener">Blog</a>
     </nav>
-
-    <p class="foot-legal">
-        pdf-lib y JSZip se usan bajo licencia MIT. Esta herramienta se ofrece tal cual,
-        sin garantías. Tus archivos se procesan íntegramente en tu navegador y no se
-        envían a ningún servidor.
-      </p>
-
-      <details class="licenses">
-        <summary>Licencias</summary>
-        <div class="license-body">
-          <p><strong>pdf-lib</strong> — Copyright (c) 2019 Andrew Dillon</p>
-          <p><strong>JSZip</strong> — Copyright (c) 2009-2016 Stuart Knightley, David Duponchel,
-            Franz Buchinger, António Afonso · usada bajo MIT (licencia dual MIT/GPLv3)</p>
-          <p>Ambas se distribuyen bajo los términos de la licencia MIT:</p>
-          <pre>Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.</pre>
-        </div>
-      </details>
 
     <p class="foot-copy">© 2026 aitorevi · tools.aitorevi.dev</p>
   </footer>
-
-  <!-- Librerías vendorizadas (versión pineada, sin CDN externo) -->
-  <script src="/vendor/pdf-lib.min.js"></script>
-  <script src="/vendor/jszip.min.js"></script>
-  <script src="/app.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Separador de PDF — divide un PDF en páginas sueltas</title>
+  <meta name="description" content="Divide cualquier PDF en páginas independientes directamente en tu navegador. Sin registro, sin subir archivos a ningún servidor. Descarga individual o en ZIP." />
+  <!-- SEO: la app no debe competir con www.aitorevi.dev. La ficha indexable es la del portfolio. -->
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://www.aitorevi.dev/work/pdf-separator" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="stylesheet" href="/fonts/fonts.css" />
+  <link rel="stylesheet" href="/styles.css" />
+  <!-- Fija el tema antes del paint (evita flash). Sin inline → compatible con la CSP. -->
+  <script src="/theme.js"></script>
+
+  <style>
+    /* CSS específico del separador de PDF (lo común está en /styles.css) */
+    .dropzone {
+      border: 2px dashed rgb(var(--border));
+      border-radius: var(--radius);
+      padding: 52px 24px; text-align: center; cursor: pointer;
+      transition: border-color .18s ease, background .18s ease, box-shadow .18s ease;
+      background: rgb(var(--surface-2) / 0.5);
+    }
+    .dropzone:hover { border-color: rgb(var(--accent)); }
+    .dropzone.dragover {
+      border-color: rgb(var(--accent));
+      background: rgb(var(--accent) / 0.08);
+      box-shadow: 0 0 0 4px rgb(var(--accent) / 0.12), 0 0 30px rgb(var(--accent) / 0.18);
+    }
+    .dropzone:focus-visible { outline: 3px solid rgb(var(--accent)); outline-offset: 3px; }
+    .dropzone > * { pointer-events: none; }
+    .dropzone .icon { font-size: 2.6rem; line-height: 1; margin-bottom: 14px; }
+    .dropzone .lead { font-size: 1.05rem; font-weight: 500; }
+    .dropzone .hint {
+      color: rgb(var(--muted)); font-size: .9rem; margin-top: 8px;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+    }
+    .dropzone strong {
+      background: var(--grad-text);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+      font-weight: 700;
+    }
+
+    .file-bar {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      padding: 14px 16px; background: rgb(var(--surface-2) / 0.6);
+      border: 1px solid rgb(var(--border)); border-radius: 12px; margin-bottom: 18px;
+    }
+    .file-bar .name { font-weight: 600; word-break: break-all; }
+    .file-bar .meta { color: rgb(var(--muted)); font-size: .85rem; font-family: "JetBrains Mono", ui-monospace, monospace; }
+    .file-bar .spacer { flex: 1 1 auto; }
+
+    .toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+    .toolbar .count {
+      color: rgb(var(--muted)); font-size: .82rem; margin-left: auto;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+    }
+
+    .pages {
+      list-style: none; margin: 0 0 22px; padding: 0 4px 0 0;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 10px;
+      max-height: 380px; overflow-y: auto;
+    }
+    .page-item { position: relative; }
+    .page-item input { position: absolute; opacity: 0; pointer-events: none; }
+    .page-item label {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+      border: 1px solid rgb(var(--border)); border-radius: 12px; padding: 18px 8px; cursor: pointer;
+      background: rgb(var(--surface-2) / 0.5); transition: border-color .15s, background .15s, box-shadow .15s;
+      user-select: none;
+    }
+    .page-item label .num { font-family: "JetBrains Mono", ui-monospace, monospace; font-weight: 600; font-size: 1.1rem; }
+    .page-item label .tag { font-size: .68rem; color: rgb(var(--muted)); text-transform: uppercase; letter-spacing: .08em; }
+    .page-item input:checked + label {
+      border-color: rgb(var(--accent)); background: rgb(var(--accent) / 0.1);
+      box-shadow: 0 0 16px rgb(var(--accent) / 0.12);
+    }
+    .page-item input:focus-visible + label { outline: 3px solid rgb(var(--accent)); outline-offset: 2px; }
+    .page-item .dl {
+      position: absolute; top: 6px; right: 6px; border: none; background: transparent;
+      color: rgb(var(--muted)); cursor: pointer; font-size: .95rem; padding: 4px; border-radius: 8px; line-height: 1;
+    }
+    .page-item .dl:hover { color: rgb(var(--accent)); background: rgb(var(--accent) / 0.12); }
+
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .progress { margin-top: 18px; height: 8px; border-radius: 999px; background: rgb(var(--surface-2)); border: 1px solid rgb(var(--border)); overflow: hidden; display: none; }
+    .progress.show { display: block; }
+    .progress > i { display: block; height: 100%; width: 0%; background: linear-gradient(90deg, rgb(var(--accent-soft)), rgb(var(--accent))); transition: width .15s ease; }
+
+    .status { margin-top: 14px; font-size: .9rem; color: rgb(var(--muted)); min-height: 1.2em; font-family: "JetBrains Mono", ui-monospace, monospace; }
+    .status.error { color: rgb(var(--danger)); }
+    .status.ok { color: rgb(var(--ok)); }
+  </style>
+</head>
+<body>
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="/" aria-label="Inicio de aitorevi.tools">
+        aitorevi<span class="dot" aria-hidden="true">.</span><span class="brand-tag">tools</span>
+      </a>
+      <nav class="nav-links" aria-label="Navegación">
+        <a href="https://www.aitorevi.dev/work" target="_blank" rel="noopener">Web</a>
+        <a href="https://www.aitorevi.dev/blog" target="_blank" rel="noopener">Blog</a>
+        <button id="theme-toggle" class="theme-toggle" type="button"
+                aria-label="Cambiar entre tema claro y oscuro" title="Cambiar tema">
+          <svg class="icon-moon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+          </svg>
+          <svg class="icon-sun" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <header>
+      <span class="badge"><span class="dot" aria-hidden="true"></span>100% en tu navegador · sin subir nada</span>
+      <h1>Separador de PDF</h1>
+      <p class="subtitle">Divide cualquier PDF en páginas sueltas y descárgalas una a una o todas en un ZIP.</p>
+    </header>
+
+    <section class="card" aria-labelledby="app-title">
+      <h2 id="app-title" class="sr">Herramienta para separar PDF</h2>
+
+      <!-- Paso 1: cargar -->
+      <div id="loader">
+        <div id="dropzone" class="dropzone" tabindex="0" role="button"
+             aria-label="Selecciona o arrastra un archivo PDF">
+          <div class="icon" aria-hidden="true">📄</div>
+          <div class="lead">Arrastra tu PDF aquí o <strong>haz clic para elegirlo</strong></div>
+          <div class="hint">Solo se procesa en tu dispositivo. Nada se envía a internet.</div>
+        </div>
+        <input id="file-input" type="file" accept="application/pdf,.pdf" class="visually-hidden" />
+      </div>
+
+      <!-- Paso 2: páginas -->
+      <div id="workspace" class="hidden">
+        <div class="file-bar">
+          <span class="name" id="file-name">documento.pdf</span>
+          <span class="meta" id="file-meta">—</span>
+          <span class="spacer"></span>
+          <button class="btn ghost" id="reset-btn" type="button">Cargar otro</button>
+        </div>
+
+        <div class="toolbar">
+          <button class="btn" id="select-all" type="button">Seleccionar todo</button>
+          <button class="btn" id="select-none" type="button">Quitar selección</button>
+          <span class="count" id="selected-count">0 seleccionadas</span>
+        </div>
+
+        <ul class="pages" id="pages-list" aria-label="Páginas del PDF"></ul>
+
+        <div class="actions">
+          <button class="btn primary" id="zip-btn" type="button">⬇ Descargar selección en ZIP</button>
+          <button class="btn" id="individual-btn" type="button">Descargar una a una</button>
+        </div>
+
+        <div class="progress" id="progress" aria-hidden="true"><i></i></div>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="foot-social">
+      <a href="https://es.linkedin.com/in/aitor-reviriego-amor" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Aitor Reviriego">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>
+      </a>
+      <a href="https://github.com/aitorevi" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Aitor Reviriego">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+    </div>
+
+    <p class="foot-line">Hecho con pdf-lib + JSZip · sin servidor, sin subidas</p>
+
+    <nav class="foot-nav" aria-label="Enlaces del pie">
+      <a href="/">aitorevi.tools</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <a href="https://www.aitorevi.dev/work/pdf-separator" target="_blank" rel="noopener">Sobre esta herramienta</a>
+    </nav>
+
+    <p class="foot-legal">
+      pdf-lib y JSZip se usan bajo licencia MIT. Esta herramienta se ofrece tal cual,
+      sin garantías. Tus archivos se procesan íntegramente en tu navegador y no se
+      envían a ningún servidor.
+    </p>
+
+    <details class="licenses">
+      <summary>Licencias</summary>
+      <div class="license-body">
+        <p><strong>pdf-lib</strong> — Copyright (c) 2019 Andrew Dillon</p>
+        <p><strong>JSZip</strong> — Copyright (c) 2009-2016 Stuart Knightley, David Duponchel,
+          Franz Buchinger, António Afonso · usada bajo MIT (licencia dual MIT/GPLv3)</p>
+        <p>Ambas se distribuyen bajo los términos de la licencia MIT:</p>
+        <pre>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre>
+      </div>
+    </details>
+
+    <p class="foot-copy">© 2026 aitorevi · tools.aitorevi.dev</p>
+  </footer>
+
+  <!-- Librerías vendorizadas (versión pineada, sin CDN externo) -->
+  <script src="/vendor/pdf-lib.min.js"></script>
+  <script src="/vendor/jszip.min.js"></script>
+  <script src="/pdf-separator/app.js" defer></script>
+</body>
+</html>

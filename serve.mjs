@@ -17,7 +17,7 @@ const TYPES = {
 
 createServer(async (req, res) => {
   let path = decodeURIComponent(new URL(req.url, "http://x").pathname);
-  if (path === "/") path = "/index.html";
+  if (path.endsWith("/")) path += "index.html"; // "/" y "/pdf-separator/" → index.html
   const file = join(ROOT, normalize(path).replace(/^(\.\.[/\\])+/, ""));
   try {
     const data = await readFile(file);
