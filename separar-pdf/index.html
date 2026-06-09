@@ -57,7 +57,9 @@
     .page-item input:checked + label {
       border-color: rgb(var(--accent) / 0.40); background: rgb(var(--accent) / 0.08);
     }
-    .page-item input:checked + label .num { color: rgb(var(--accent)); }
+    .page-item input:checked + label .num,
+    .page-item input:checked + label .tag { color: rgb(var(--accent)); }
+    .page-item input:checked ~ .dl { color: rgb(var(--accent)); }
     .page-item input:checked + label:hover {
       border-color: rgb(var(--accent) / 0.70); background: rgb(var(--accent) / 0.16);
     }
