@@ -72,6 +72,19 @@
     }
     .tool-card.is-soon { opacity: .6; box-shadow: none; cursor: default; }
     .tool-card.is-soon .tool-cta { color: rgb(var(--muted)); }
+
+    .tools-section + .tools-section { margin-top: 44px; }
+    .section-title {
+      display: flex; align-items: center; gap: 12px;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em;
+      color: rgb(var(--muted)); margin: 0 0 18px;
+    }
+    .section-title .dot {
+      width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto;
+      background: rgb(var(--accent)); box-shadow: 0 0 10px rgb(var(--accent) / 0.6);
+    }
+    .section-title::after { content: ""; flex: 1 1 auto; height: 1px; background: rgb(var(--border)); }
   </style>
 </head>
 <body>
@@ -103,67 +116,75 @@
       <p class="subtitle">Mini-utilidades web gratuitas que funcionan íntegramente en tu navegador. Sin registro, sin servidor y sin que tus archivos salgan de tu dispositivo.</p>
     </header>
 
-    <section class="tools-grid" aria-label="Lista de herramientas">
-      <a class="tool-card" href="/separar-pdf/">
-        <h2 class="tool-name">Separar PDF</h2>
-        <p class="tool-desc">Divide cualquier PDF en páginas sueltas y descárgalas una a una o todas juntas en un ZIP.</p>
-        <div class="tool-tags"><span>PDF</span><span>Sin servidor</span></div>
-        <span class="tool-cta">Abrir →</span>
-      </a>
+    <section class="tools-section" aria-labelledby="sec-pdf">
+      <h2 class="section-title" id="sec-pdf"><span class="dot" aria-hidden="true"></span>PDF</h2>
+      <div class="tools-grid">
+        <a class="tool-card" href="/separar-pdf/">
+          <h3 class="tool-name">Separar PDF</h3>
+          <p class="tool-desc">Divide cualquier PDF en páginas sueltas y descárgalas una a una o todas juntas en un ZIP.</p>
+          <div class="tool-tags"><span>PDF</span><span>Sin servidor</span></div>
+          <span class="tool-cta">Abrir →</span>
+        </a>
 
-      <a class="tool-card" href="/unir-pdf/">
-        <h2 class="tool-name">Unir PDF</h2>
-        <p class="tool-desc">Combina varios PDFs en un único documento. Reordénalos como quieras antes de descargar.</p>
-        <div class="tool-tags"><span>PDF</span><span>Sin servidor</span></div>
-        <span class="tool-cta">Abrir →</span>
-      </a>
+        <a class="tool-card" href="/unir-pdf/">
+          <h3 class="tool-name">Unir PDF</h3>
+          <p class="tool-desc">Combina varios PDFs en un único documento. Reordénalos como quieras antes de descargar.</p>
+          <div class="tool-tags"><span>PDF</span><span>Sin servidor</span></div>
+          <span class="tool-cta">Abrir →</span>
+        </a>
 
-      <a class="tool-card" href="/imagen-a-pdf/">
-        <h2 class="tool-name">Imagen a PDF</h2>
-        <p class="tool-desc">Convierte tus imágenes JPG o PNG en un PDF. Reordénalas antes de descargar.</p>
-        <div class="tool-tags"><span>PDF</span><span>Imágenes</span></div>
-        <span class="tool-cta">Abrir →</span>
-      </a>
+        <a class="tool-card" href="/imagen-a-pdf/">
+          <h3 class="tool-name">Imagen a PDF</h3>
+          <p class="tool-desc">Convierte tus imágenes JPG o PNG en un PDF. Reordénalas antes de descargar.</p>
+          <div class="tool-tags"><span>PDF</span><span>Imágenes</span></div>
+          <span class="tool-cta">Abrir →</span>
+        </a>
 
-      <a class="tool-card" href="/marca-de-agua-pdf/">
-        <h2 class="tool-name">Marca de agua en PDF</h2>
-        <p class="tool-desc">Añade un texto en diagonal a todas las páginas de un PDF, con opacidad y tamaño ajustables.</p>
-        <div class="tool-tags"><span>PDF</span><span>Sin servidor</span></div>
-        <span class="tool-cta">Abrir →</span>
-      </a>
+        <a class="tool-card" href="/marca-de-agua-pdf/">
+          <h3 class="tool-name">Marca de agua en PDF</h3>
+          <p class="tool-desc">Añade un texto en diagonal a todas las páginas de un PDF, con opacidad y tamaño ajustables.</p>
+          <div class="tool-tags"><span>PDF</span><span>Sin servidor</span></div>
+          <span class="tool-cta">Abrir →</span>
+        </a>
 
-      <a class="tool-card" href="/n-up-pdf/">
-        <h2 class="tool-name">Varias páginas por hoja</h2>
-        <p class="tool-desc">Coloca 2, 4, 6 o 9 páginas de un PDF en cada hoja A4 para imprimir y ahorrar papel.</p>
-        <div class="tool-tags"><span>PDF</span><span>Imprimir</span></div>
-        <span class="tool-cta">Abrir →</span>
-      </a>
+        <a class="tool-card" href="/n-up-pdf/">
+          <h3 class="tool-name">Varias páginas por hoja</h3>
+          <p class="tool-desc">Coloca 2, 4, 6 o 9 páginas de un PDF en cada hoja A4 para imprimir y ahorrar papel.</p>
+          <div class="tool-tags"><span>PDF</span><span>Imprimir</span></div>
+          <span class="tool-cta">Abrir →</span>
+        </a>
+      </div>
+    </section>
 
-      <a class="tool-card" href="/comprimir-imagen/">
-        <h2 class="tool-name">Comprimir imagen</h2>
-        <p class="tool-desc">Reduce el peso de tus imágenes ajustando calidad y tamaño, sin que salgan de tu navegador.</p>
-        <div class="tool-tags"><span>Imágenes</span><span>Sin servidor</span></div>
-        <span class="tool-cta">Abrir →</span>
-      </a>
+    <section class="tools-section" aria-labelledby="sec-img">
+      <h2 class="section-title" id="sec-img"><span class="dot" aria-hidden="true"></span>Imágenes</h2>
+      <div class="tools-grid">
+        <a class="tool-card" href="/comprimir-imagen/">
+          <h3 class="tool-name">Comprimir imagen</h3>
+          <p class="tool-desc">Reduce el peso de tus imágenes ajustando calidad y tamaño, sin que salgan de tu navegador.</p>
+          <div class="tool-tags"><span>Imágenes</span><span>Sin servidor</span></div>
+          <span class="tool-cta">Abrir →</span>
+        </a>
 
-      <a class="tool-card" href="/convertir-imagen/">
-        <h2 class="tool-name">Convertir imagen</h2>
-        <p class="tool-desc">Convierte entre PNG, JPG y WebP eligiendo el formato y la calidad de salida.</p>
-        <div class="tool-tags"><span>Imágenes</span><span>Sin servidor</span></div>
-        <span class="tool-cta">Abrir →</span>
-      </a>
+        <a class="tool-card" href="/convertir-imagen/">
+          <h3 class="tool-name">Convertir imagen</h3>
+          <p class="tool-desc">Convierte entre PNG, JPG y WebP eligiendo el formato y la calidad de salida.</p>
+          <div class="tool-tags"><span>Imágenes</span><span>Sin servidor</span></div>
+          <span class="tool-cta">Abrir →</span>
+        </a>
 
-      <a class="tool-card" href="/quitar-metadatos-imagen/">
-        <h2 class="tool-name">Quitar metadatos</h2>
-        <p class="tool-desc">Elimina EXIF, ubicación GPS y datos de cámara de tus fotos, sin perder calidad.</p>
-        <div class="tool-tags"><span>Imágenes</span><span>Privacidad</span></div>
-        <span class="tool-cta">Abrir →</span>
-      </a>
+        <a class="tool-card" href="/quitar-metadatos-imagen/">
+          <h3 class="tool-name">Quitar metadatos</h3>
+          <p class="tool-desc">Elimina EXIF, ubicación GPS y datos de cámara de tus fotos, sin perder calidad.</p>
+          <div class="tool-tags"><span>Imágenes</span><span>Privacidad</span></div>
+          <span class="tool-cta">Abrir →</span>
+        </a>
 
-      <div class="tool-card is-soon" aria-disabled="true">
-        <h2 class="tool-name">Más herramientas</h2>
-        <p class="tool-desc">Estoy preparando nuevas mini-utilidades centradas en privacidad y velocidad. Vuelve pronto.</p>
-        <span class="tool-cta">Próximamente</span>
+        <div class="tool-card is-soon" aria-disabled="true">
+          <h3 class="tool-name">Más herramientas</h3>
+          <p class="tool-desc">Estoy preparando nuevas mini-utilidades centradas en privacidad y velocidad. Vuelve pronto.</p>
+          <span class="tool-cta">Próximamente</span>
+        </div>
       </div>
     </section>
   </main>
