@@ -15,13 +15,18 @@
     }
     .page-item label .num { font-family: "JetBrains Mono", ui-monospace, monospace; font-weight: 600; font-size: 1.1rem; }
     .page-item label .tag { font-size: .68rem; color: rgb(var(--muted)); text-transform: uppercase; letter-spacing: .08em; }
-    /* Mismo lenguaje que el botón primario: borde+fondo de acento, sin sombra en
-       claro y un glow suave solo en oscuro. */
+    /* Página seleccionada = mismos estilos que el botón "Descargar" (ghost violeta):
+       borde 0.40 + fondo 0.08 + texto de acento; al hover 0.70/0.16 con glow suave
+       solo en oscuro (en claro sin sombra). */
     .page-item label:hover { border-color: rgb(var(--accent) / 0.5); }
     .page-item input:checked + label {
-      border-color: rgb(var(--accent) / 0.7); background: rgb(var(--accent) / 0.14);
+      border-color: rgb(var(--accent) / 0.40); background: rgb(var(--accent) / 0.08);
     }
-    :root.dark .page-item input:checked + label { box-shadow: 0 0 22px rgb(var(--accent) / 0.22); }
+    .page-item input:checked + label .num { color: rgb(var(--accent)); }
+    .page-item input:checked + label:hover {
+      border-color: rgb(var(--accent) / 0.70); background: rgb(var(--accent) / 0.16);
+    }
+    :root.dark .page-item input:checked + label:hover { box-shadow: 0 0 22px rgb(var(--accent) / 0.22); }
     .page-item input:focus-visible + label { outline: 3px solid rgb(var(--accent)); outline-offset: 2px; }
     .page-item .dl {
       position: absolute; top: 6px; right: 6px; border: none; background: transparent;
