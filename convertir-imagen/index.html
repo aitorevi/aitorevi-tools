@@ -34,34 +34,7 @@
   </script>
 
   <style>
-    .preview-box {
-      display: flex; align-items: center; justify-content: center;
-      min-height: 140px; padding: 12px; margin-bottom: 14px;
-      border: 1px solid rgb(var(--border)); border-radius: 12px;
-      background-color: rgb(var(--surface-2) / 0.5);
-      background-image:
-        linear-gradient(45deg, rgb(var(--border) / 0.4) 25%, transparent 25%),
-        linear-gradient(-45deg, rgb(var(--border) / 0.4) 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, rgb(var(--border) / 0.4) 75%),
-        linear-gradient(-45deg, transparent 75%, rgb(var(--border) / 0.4) 75%);
-      background-size: 18px 18px;
-      background-position: 0 0, 0 9px, 9px -9px, -9px 0;
-    }
-    .preview-box img { max-width: 100%; max-height: 300px; height: auto; border-radius: 6px; display: block; }
-    .preview-row { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
-    .preview-row .meta { color: rgb(var(--muted)); font-size: .85rem; font-family: "JetBrains Mono", ui-monospace, monospace; }
-    .preview-row .spacer { flex: 1 1 auto; }
-    .controls { display: grid; gap: 16px; margin-bottom: 18px; }
     @media (min-width: 480px) { .controls { grid-template-columns: 1fr 1fr; align-items: end; } }
-    .field { display: flex; flex-direction: column; gap: 8px; }
-    .field-label { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .72rem; text-transform: uppercase; letter-spacing: 0.12em; color: rgb(var(--muted)); }
-    .field-label b { color: rgb(var(--accent)); font-weight: 600; }
-    .field select { font: inherit; padding: 10px 12px; border-radius: 10px; border: 1px solid rgb(var(--border)); background: rgb(var(--surface-2) / 0.6); color: rgb(var(--fg)); width: 100%; cursor: pointer; }
-    .field input[type="range"] { width: 100%; accent-color: rgb(var(--accent)); }
-    .field select:focus-visible, .field input:focus-visible { outline: 3px solid rgb(var(--accent)); outline-offset: 1px; }
-    .estimate { margin: 0 0 18px; padding: 11px 14px; border-radius: 10px; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .82rem; color: rgb(var(--fg)); background: rgb(var(--accent) / 0.08); border: 1px solid rgb(var(--accent) / 0.25); min-height: 1.2em; }
-    .estimate:empty { display: none; }
-    .estimate b { color: rgb(var(--accent)); }
   </style>
 </head>
 <body>

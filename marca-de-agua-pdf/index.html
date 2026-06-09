@@ -34,22 +34,7 @@
   </script>
 
   <style>
-    /* Específico de marca-de-agua-pdf */
-    .controls { display: grid; gap: 16px; margin-bottom: 20px; }
     @media (min-width: 560px) { .controls { grid-template-columns: 1fr 1fr 1fr; align-items: end; } }
-    .field { display: flex; flex-direction: column; gap: 8px; }
-    .field-label {
-      font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .72rem;
-      text-transform: uppercase; letter-spacing: 0.12em; color: rgb(var(--muted));
-    }
-    .field-label b { color: rgb(var(--accent)); font-weight: 600; }
-    .field input[type="text"] {
-      font: inherit; padding: 10px 12px; border-radius: 10px;
-      border: 1px solid rgb(var(--border)); background: rgb(var(--surface-2) / 0.6);
-      color: rgb(var(--fg)); width: 100%;
-    }
-    .field input[type="text"]:focus-visible { outline: 3px solid rgb(var(--accent)); outline-offset: 1px; }
-    .field input[type="range"] { width: 100%; accent-color: rgb(var(--accent)); }
   </style>
 </head>
 <body>
