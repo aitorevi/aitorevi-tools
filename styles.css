@@ -172,35 +172,38 @@ button.btn, a.btn {
   background: rgb(var(--fg) / 0.06); color: rgb(var(--fg));
   transition: transform .25s ease, border-color .25s ease, background .25s ease, box-shadow .25s ease, color .25s ease;
 }
-/* Hover de los secundarios (planos y .ghost): micro-elevación + tinte violeta. */
-button.btn:hover, a.btn:hover,
-button.btn.ghost:hover, a.btn.ghost:hover {
+/* Hover de los secundarios (planos y .ghost): micro-elevación + tinte violeta.
+   Nunca aplica a un botón deshabilitado. */
+button.btn:hover:not(:disabled), a.btn:hover:not(:disabled),
+button.btn.ghost:hover:not(:disabled), a.btn.ghost:hover:not(:disabled) {
   transform: translateY(-1px);
-  border-color: rgb(var(--accent-soft) / 0.65);
-  background: rgb(var(--accent-soft) / 0.14);
-  color: rgb(var(--accent-soft));
+  border-color: rgb(var(--accent) / 0.65);
+  background: rgb(var(--accent) / 0.14);
+  color: rgb(var(--accent));
 }
-button.btn:active, a.btn:active { transform: translateY(0); }
+button.btn:active:not(:disabled), a.btn:active:not(:disabled) { transform: translateY(0); }
 button.btn.primary, a.btn.primary {
-  border-color: rgb(var(--accent) / 0.62);
-  background: linear-gradient(100deg, rgb(var(--accent) / 0.30), rgb(var(--accent) / 0.44));
+  border-color: rgb(var(--accent) / 0.55);
+  background: linear-gradient(100deg, rgb(var(--accent) / 0.22), rgb(var(--accent) / 0.32));
   color: rgb(var(--accent));
   font-weight: 700;
 }
-button.btn.primary:hover, a.btn.primary:hover {
+button.btn.primary:hover:not(:disabled), a.btn.primary:hover:not(:disabled) {
   transform: translateY(-1px);
-  border-color: rgb(var(--accent) / 0.85);
-  background: linear-gradient(100deg, rgb(var(--accent) / 0.40), rgb(var(--accent) / 0.54));
+  border-color: rgb(var(--accent) / 0.8);
+  background: linear-gradient(100deg, rgb(var(--accent) / 0.32), rgb(var(--accent) / 0.44));
   box-shadow: 0 12px 34px -10px rgb(var(--accent) / 0.5);
 }
 /* Deshabilitado: neutro y plano (no un primario a media opacidad), para que se
-   lea claramente como inactivo e igual en todas las variantes. */
+   lea claramente como inactivo e igual en todas las variantes. El hover solo
+   oscurece un poco el gris, nunca tiñe de violeta. */
 button.btn:disabled, a.btn:disabled {
   transform: none; box-shadow: none; cursor: not-allowed; font-weight: 600;
   background: rgb(var(--fg) / 0.05);
   border-color: rgb(var(--fg) / 0.12);
   color: rgb(var(--fg) / 0.38);
 }
+button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.09); }
 
 /* ── Controles de formulario (compartidos) ── */
 .controls { display: grid; gap: 18px; margin-bottom: 20px; }
