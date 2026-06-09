@@ -156,21 +156,7 @@ h1 {
   backdrop-filter: blur(10px);
   padding: 30px;
 }
-@media (max-width: 520px) {
-  .card { padding: 22px; }
-
-  /* En móvil los botones ocupan el ancho completo */
-  .actions { flex-direction: column; align-items: stretch; }
-  .actions .btn { width: 100%; }
-
-  /* Barra de acciones multi-archivo: botones a medias, contador en su línea */
-  .toolbar .btn { flex: 1 1 auto; }
-  .toolbar .count { margin-left: 0; flex-basis: 100%; }
-
-  /* Barras de archivo/preview: el botón cae a ancho completo bajo el nombre */
-  .file-bar .spacer, .preview-row .spacer { display: none; }
-  .file-bar .btn, .preview-row .btn { width: 100%; }
-}
+@media (max-width: 520px) { .card { padding: 22px; } }
 
 /* Botones estilo aitorevi.dev: pill, mono, degradado translúcido con borde de
    acento, glow + micro-elevación al hover; texto en color de acento. */
@@ -375,14 +361,18 @@ details.licenses > summary:focus-visible { outline: 3px solid rgb(var(--accent))
 
 /* Barra de un archivo cargado (herramientas de archivo único) */
 .file-bar {
-  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  display: flex; align-items: center; gap: 12px; flex-wrap: nowrap;
   padding: 12px 14px; margin-bottom: 18px;
   border: 1px solid rgb(var(--border)); border-radius: 12px;
   background: rgb(var(--surface-2) / 0.5);
 }
-.file-bar .name { font-family: "Outfit", system-ui, sans-serif; font-weight: 600; font-size: .95rem; word-break: break-all; }
-.file-bar .meta { color: rgb(var(--muted)); font-size: .74rem; letter-spacing: .02em; font-family: "JetBrains Mono", ui-monospace, monospace; }
-.file-bar .spacer { flex: 1 1 auto; }
+.file-bar .info { min-width: 0; flex: 1 1 auto; display: flex; align-items: baseline; gap: 10px; }
+.file-bar .name {
+  font-family: "Outfit", system-ui, sans-serif; font-weight: 600; font-size: .95rem;
+  min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.file-bar .meta { flex: 0 0 auto; color: rgb(var(--muted)); font-size: .74rem; letter-spacing: .02em; font-family: "JetBrains Mono", ui-monospace, monospace; }
+.file-bar .btn { flex: 0 0 auto; white-space: nowrap; }
 
 /* Miniatura compartida (barra de archivo único y filas de lista) */
 .file-bar .thumb, .file-row .thumb {
@@ -421,3 +411,20 @@ details.licenses > summary:focus-visible { outline: 3px solid rgb(var(--accent))
 .icon-btn:hover:not(:disabled) { color: rgb(var(--accent)); border-color: rgb(var(--accent)); background: rgb(var(--accent) / 0.1); }
 .icon-btn:disabled { opacity: .35; cursor: not-allowed; }
 .icon-btn:focus-visible { outline: 3px solid rgb(var(--accent)); outline-offset: 2px; }
+
+/* ── Móvil: los botones ocupan el ancho completo ──
+   (va al final para que las sobrescrituras ganen en la cascada) */
+@media (max-width: 520px) {
+  /* Acciones principales apiladas a ancho completo */
+  .actions { flex-direction: column; align-items: stretch; }
+  .actions .btn { width: 100%; }
+
+  /* Barra de acciones multi-archivo: botones a medias, contador en su línea */
+  .toolbar .btn { flex: 1 1 auto; }
+  .toolbar .count { margin-left: 0; flex-basis: 100%; }
+
+  /* Barras de archivo/preview: el botón cae a ancho completo bajo el nombre */
+  .file-bar { flex-wrap: wrap; }
+  .preview-row .spacer { display: none; }
+  .file-bar .btn, .preview-row .btn { width: 100%; }
+}
