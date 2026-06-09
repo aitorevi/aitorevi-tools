@@ -1,8 +1,4 @@
 <style>
-    .preview-row { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: rgb(var(--surface-2) / 0.6); border: 1px solid rgb(var(--border)); border-radius: 12px; margin-bottom: 18px; flex-wrap: wrap; }
-    .preview-row .preview { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; border: 1px solid rgb(var(--border)); background: rgb(var(--surface-2)); }
-    .preview-row .meta { color: rgb(var(--muted)); font-size: .85rem; font-family: "JetBrains Mono", ui-monospace, monospace; }
-    .preview-row .spacer { flex: 1 1 auto; }
     .note { font-size: .9rem; color: rgb(var(--muted)); margin: 0 0 18px; }
     .note b { color: rgb(var(--fg)); }
   </style>
@@ -28,8 +24,8 @@
       </div>
 
       <div id="workspace" class="hidden">
-        <div class="preview-row">
-          <img id="preview" class="preview" alt="" />
+        <div class="file-bar">
+          <img id="preview" class="thumb" alt="" />
           <span class="meta" id="file-info">—</span>
           <span class="spacer"></span>
           <button class="btn ghost" id="reset-btn" type="button">Otra imagen</button>

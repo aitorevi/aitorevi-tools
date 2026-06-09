@@ -359,6 +359,23 @@ details.licenses > summary:focus-visible { outline: 3px solid rgb(var(--accent))
   font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .74rem; letter-spacing: .02em;
 }
 
+/* Barra de un archivo cargado (herramientas de archivo único) */
+.file-bar {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 12px 14px; margin-bottom: 18px;
+  border: 1px solid rgb(var(--border)); border-radius: 12px;
+  background: rgb(var(--surface-2) / 0.5);
+}
+.file-bar .name { font-family: "Outfit", system-ui, sans-serif; font-weight: 600; font-size: .95rem; word-break: break-all; }
+.file-bar .meta { color: rgb(var(--muted)); font-size: .74rem; letter-spacing: .02em; font-family: "JetBrains Mono", ui-monospace, monospace; }
+.file-bar .spacer { flex: 1 1 auto; }
+
+/* Miniatura compartida (barra de archivo único y filas de lista) */
+.file-bar .thumb, .file-row .thumb {
+  flex: 0 0 auto; width: 44px; height: 44px; object-fit: cover;
+  border-radius: 8px; border: 1px solid rgb(var(--border)); background: rgb(var(--surface-2));
+}
+
 /* Lista de ficheros reordenable (herramientas multi-archivo) */
 .file-list { list-style: none; margin: 0 0 20px; padding: 0; display: flex; flex-direction: column; gap: 8px; }
 .file-row {
