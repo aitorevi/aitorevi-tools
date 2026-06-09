@@ -134,9 +134,10 @@ h1 {
   font-family: "Outfit", system-ui, sans-serif;
   font-weight: 900;
   font-size: clamp(2rem, 6vw, 3rem);
-  line-height: 1.05;
+  line-height: 1.15;
   letter-spacing: -0.03em;
   margin: 0 0 14px;
+  padding-bottom: 0.08em; /* sitio para las descendentes (p, g) con background-clip: text */
   background: var(--grad-text);
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent; color: transparent;
