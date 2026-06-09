@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { fitDimensions, extForMime, isImageFile, baseNameNoExt } from "../lib/images.js";
 import { isLossy, convertedFileName, TARGETS } from "../convertir-imagen/lib.js";
-import { reductionPercent, compressedFileName } from "../comprimir-imagen/lib.js";
+import { reductionPercent, compressedFileName, searchQualityForTarget } from "../comprimir-imagen/lib.js";
 
 describe("fitDimensions", () => {
   it("no cambia si ya cabe o no hay límite", () => {
@@ -53,5 +53,22 @@ describe("comprimir-imagen", () => {
   });
   it("compressedFileName", () => {
     expect(compressedFileName("foto", "webp")).toBe("foto-comprimida.webp");
+  });
+
+  describe("searchQualityForTarget", () => {
+    // tamaño proporcional a la calidad: size = quality * 1000
+    const encode = async (q) => q * 1000;
+
+    it("encuentra la mayor calidad cuyo tamaño cabe en el objetivo", async () => {
+      const best = await searchQualityForTarget(encode, 500, { steps: 24 });
+      expect(best).not.toBeNull();
+      expect(best.size).toBeLessThanOrEqual(500);
+      expect(best.quality).toBeCloseTo(0.5, 1);
+    });
+
+    it("devuelve null si ni la calidad mínima cabe", async () => {
+      const best = await searchQualityForTarget(async () => 9999, 100);
+      expect(best).toBeNull();
+    });
   });
 });

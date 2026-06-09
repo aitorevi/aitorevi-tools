@@ -1,4 +1,5 @@
 // Comprimir imagen — UI. Datos/helpers en lib.js; Canvas aquí.
+// Muestra el resultado estimado (px · calidad · KB) en vivo antes de descargar.
 
 import {
   isImageFile,
@@ -13,6 +14,7 @@ import {
   MAX_SIDES,
   reductionPercent,
   compressedFileName,
+  searchQualityForTarget,
 } from "./lib.js";
 
 (() => {
@@ -21,19 +23,25 @@ import {
   let bitmap = null;
   let base = "imagen";
   let original = null; // { name, size, w, h, url }
+  let currentResult = null; // { blob, w, h, quality }
+  let recomputeTimer = null;
+  let recomputeToken = 0;
+  let resultUrl = null; // object URL de la preview del resultado
 
   const $ = (id) => document.getElementById(id);
   const dropzone = $("dropzone");
   const fileInput = $("file-input");
   const loader = $("loader");
   const workspace = $("workspace");
-  const previewImg = $("preview");
+  const resultPreview = $("result-preview");
   const infoEl = $("file-info");
   const statusEl = $("status");
+  const estimateEl = $("estimate");
   const formatSel = $("format");
   const maxSel = $("max-side");
   const qualityInput = $("quality");
   const qualityVal = $("quality-val");
+  const targetInput = $("target-kb");
   const compressBtn = $("compress-btn");
 
   function setStatus(message, type = "") {
@@ -48,8 +56,78 @@ import {
     maxSel.appendChild(opt);
   });
 
-  function syncLabels() {
+  function syncControls() {
     qualityVal.textContent = `${qualityInput.value}%`;
+    const auto = Number(targetInput.value) > 0;
+    qualityInput.disabled = auto;
+    qualityInput.closest(".field").style.opacity = auto ? "0.45" : "1";
+  }
+
+  const encodedSize = (canvas, mime, q) => canvasToBlob(canvas, mime, q).then((b) => b.size);
+
+  // Modo objetivo: mayor resolución que pueda caer bajo el objetivo y, a esa
+  // resolución, la mejor calidad posible.
+  async function compressToTarget(mime, targetBytes) {
+    const startSide = Number(maxSel.value) || Math.min(Math.max(original.w, original.h), 2560);
+    let chosen = null;
+    for (let side = startSide; side >= 320; side = Math.round(side * 0.75)) {
+      const { w, h } = fitDimensions(original.w, original.h, side);
+      const canvas = drawToCanvas(bitmap, w, h);
+      chosen = { canvas, w, h };
+      if ((await encodedSize(canvas, mime, 0.1)) <= targetBytes) break;
+    }
+    const { canvas, w, h } = chosen;
+    const best = await searchQualityForTarget((q) => encodedSize(canvas, mime, q), targetBytes);
+    const quality = best ? best.quality : 0.1;
+    const blob = await canvasToBlob(canvas, mime, quality);
+    return { blob, w, h, quality };
+  }
+
+  async function computeResult() {
+    const mime = formatSel.value;
+    const targetBytes = Number(targetInput.value) > 0 ? Number(targetInput.value) * 1024 : 0;
+    if (targetBytes > 0) return compressToTarget(mime, targetBytes);
+    const { w, h } = fitDimensions(original.w, original.h, Number(maxSel.value));
+    const quality = Number(qualityInput.value) / 100;
+    const blob = await canvasToBlob(drawToCanvas(bitmap, w, h), mime, quality);
+    return { blob, w, h, quality };
+  }
+
+  function describe(r) {
+    const pct = reductionPercent(original.size, r.blob.size);
+    const red = r.blob.size < original.size ? ` (−${pct}%)` : "";
+    return `${r.w}×${r.h} · calidad ${Math.round(r.quality * 100)}% · ${formatBytes(r.blob.size)}${red}`;
+  }
+
+  // Recalcula el resultado estimado (en vivo), descartando cálculos obsoletos.
+  async function recompute() {
+    if (!bitmap) return;
+    const token = ++recomputeToken;
+    estimateEl.textContent = "Calculando resultado…";
+    estimateEl.classList.remove("over");
+    try {
+      const r = await computeResult();
+      if (token !== recomputeToken) return; // llegó otro cálculo más nuevo
+      currentResult = r;
+      // Actualiza la preview con el resultado real (se ve la calidad).
+      if (resultUrl) URL.revokeObjectURL(resultUrl);
+      resultUrl = URL.createObjectURL(r.blob);
+      resultPreview.src = resultUrl;
+      const targetBytes = Number(targetInput.value) > 0 ? Number(targetInput.value) * 1024 : 0;
+      const over = targetBytes > 0 && r.blob.size > targetBytes;
+      estimateEl.innerHTML = `Resultado: <b>≈ ${formatBytes(r.blob.size)}</b> · ${r.w}×${r.h} · calidad ${Math.round(r.quality * 100)}%`;
+      estimateEl.classList.toggle("over", over);
+      if (over) estimateEl.innerHTML += " — no baja más a esta resolución";
+    } catch (err) {
+      if (token === recomputeToken) estimateEl.textContent = "";
+      console.error(err);
+    }
+  }
+
+  function scheduleRecompute() {
+    syncControls();
+    clearTimeout(recomputeTimer);
+    recomputeTimer = setTimeout(recompute, 250);
   }
 
   async function loadFile(file) {
@@ -63,42 +141,26 @@ import {
       bitmap = await loadBitmap(file);
       base = baseNameNoExt(file.name);
       if (original?.url) URL.revokeObjectURL(original.url);
-      original = {
-        name: file.name,
-        size: file.size,
-        w: bitmap.width,
-        h: bitmap.height,
-        url: URL.createObjectURL(file),
-      };
-      previewImg.src = original.url;
-      infoEl.textContent = `${original.w}×${original.h} · ${formatBytes(original.size)}`;
+      original = { name: file.name, size: file.size, w: bitmap.width, h: bitmap.height, url: URL.createObjectURL(file) };
+      resultPreview.src = original.url; // placeholder hasta el primer cálculo
+      infoEl.textContent = `Original: ${original.w}×${original.h} · ${formatBytes(original.size)}`;
       loader.classList.add("hidden");
       workspace.classList.remove("hidden");
       setStatus("");
+      recompute();
     } catch (err) {
       console.error(err);
       setStatus("No se pudo leer la imagen.", "error");
     }
   }
 
-  async function compress() {
+  async function download() {
     if (!bitmap) return;
     compressBtn.disabled = true;
-    setStatus("Comprimiendo…");
     try {
-      const mime = formatSel.value;
-      const maxSide = Number(maxSel.value);
-      const quality = Number(qualityInput.value) / 100;
-      const { w, h } = fitDimensions(original.w, original.h, maxSide);
-      const canvas = drawToCanvas(bitmap, w, h);
-      const blob = await canvasToBlob(canvas, mime, quality);
-      const pct = reductionPercent(original.size, blob.size);
-      triggerDownload(blob, compressedFileName(base, extForMime(mime)));
-      const note =
-        blob.size < original.size
-          ? `−${pct}% (${formatBytes(original.size)} → ${formatBytes(blob.size)})`
-          : `${formatBytes(blob.size)} (sin reducción; prueba menos calidad o tamaño)`;
-      setStatus(`Comprimida: ${note}.`, blob.size < original.size ? "ok" : "");
+      const r = currentResult || (await computeResult());
+      triggerDownload(r.blob, compressedFileName(base, extForMime(formatSel.value)));
+      setStatus(`Descargada: ${describe(r)}.`, r.blob.size < original.size ? "ok" : "");
     } catch (err) {
       console.error(err);
       setStatus("No se pudo comprimir la imagen.", "error");
@@ -109,11 +171,14 @@ import {
 
   function reset() {
     bitmap = null;
+    currentResult = null;
     if (original?.url) URL.revokeObjectURL(original.url);
+    if (resultUrl) { URL.revokeObjectURL(resultUrl); resultUrl = null; }
     original = null;
     fileInput.value = "";
     workspace.classList.add("hidden");
     loader.classList.remove("hidden");
+    estimateEl.textContent = "";
     setStatus("");
   }
 
@@ -140,8 +205,11 @@ import {
   });
   fileInput.addEventListener("change", (e) => loadFile(e.target.files[0]));
   $("reset-btn").addEventListener("click", reset);
-  qualityInput.addEventListener("input", syncLabels);
-  compressBtn.addEventListener("click", compress);
+  formatSel.addEventListener("change", scheduleRecompute);
+  maxSel.addEventListener("change", scheduleRecompute);
+  qualityInput.addEventListener("input", scheduleRecompute);
+  targetInput.addEventListener("input", scheduleRecompute);
+  compressBtn.addEventListener("click", download);
 
-  syncLabels();
+  syncControls();
 })();
