@@ -352,6 +352,13 @@ details.licenses > summary:focus-visible { outline: 3px solid rgb(var(--accent))
 .status.error { color: rgb(var(--danger)); }
 .status.ok { color: rgb(var(--ok)); }
 
+/* Barra de acciones de las herramientas multi-archivo */
+.toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+.toolbar .count {
+  margin-left: auto; color: rgb(var(--muted));
+  font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .74rem; letter-spacing: .02em;
+}
+
 /* Lista de ficheros reordenable (herramientas multi-archivo) */
 .file-list { list-style: none; margin: 0 0 20px; padding: 0; display: flex; flex-direction: column; gap: 8px; }
 .file-row {
@@ -364,9 +371,15 @@ details.licenses > summary:focus-visible { outline: 3px solid rgb(var(--accent))
   border-radius: 8px; background: rgb(var(--accent) / 0.12); color: rgb(var(--accent));
   font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .8rem; font-weight: 600;
 }
-.file-row .info { min-width: 0; flex: 1 1 auto; display: flex; flex-direction: column; }
-.file-row .fname { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.file-row .fmeta { color: rgb(var(--muted)); font-size: .8rem; font-family: "JetBrains Mono", ui-monospace, monospace; }
+.file-row .info { min-width: 0; flex: 1 1 auto; display: flex; flex-direction: column; gap: 3px; }
+.file-row .fname {
+  font-family: "Outfit", system-ui, sans-serif; font-weight: 600; font-size: .95rem;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.file-row .fmeta {
+  color: rgb(var(--muted)); font-size: .74rem; letter-spacing: .02em;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
 .file-row .row-actions { flex: 0 0 auto; display: flex; gap: 4px; }
 .icon-btn {
   border: 1px solid rgb(var(--border)); background: transparent; color: rgb(var(--muted));
