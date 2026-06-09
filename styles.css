@@ -10,11 +10,11 @@
   --border: 226 232 240;      /* slate-200 */
   --fg: 21 27 39;             /* #151b27 */
   --muted: 71 85 105;         /* slate-600 */
-  --accent: 71 39 204;        /* #4727cc */
-  --accent-soft: 124 58 237;  /* violet-600 */
-  --ok: 5 150 105;            /* emerald-600 */
-  --danger: 220 38 38;        /* red-600 */
-  --grad-text: linear-gradient(135deg, #2563eb, #7c3aed, #2563eb);
+  --accent: 71 39 204;        /* #4727cc — único acento (violeta) */
+  --accent-soft: var(--accent); /* alias del acento: un solo color, sin azul */
+  --ok: 5 150 105;            /* emerald-600 (estado de éxito) */
+  --danger: 220 38 38;        /* red-600 (estado de error) */
+  --grad-text: linear-gradient(135deg, #4727cc, #7c3aed, #4727cc);
   --radius: 16px;
 }
 
@@ -28,11 +28,11 @@
   --border: 39 51 74;       /* #27334a */
   --fg: 241 245 249;        /* slate-100 */
   --muted: 148 163 184;     /* slate-400 */
-  --accent: 172 145 252;    /* #ac91fc */
-  --accent-soft: 96 165 250;/* #60a5fa */
-  --ok: 52 211 153;         /* emerald-400 */
-  --danger: 248 113 113;    /* red-400 */
-  --grad-text: linear-gradient(135deg, #60a5fa, #ac91fc, #60a5fa);
+  --accent: 172 145 252;    /* #ac91fc — único acento (violeta) */
+  --accent-soft: var(--accent); /* alias del acento: un solo color, sin azul */
+  --ok: 52 211 153;         /* emerald-400 (estado de éxito) */
+  --danger: 248 113 113;    /* red-400 (estado de error) */
+  --grad-text: linear-gradient(135deg, #ac91fc, #c4b5fd, #ac91fc);
 }
 
 * { box-sizing: border-box; }
@@ -166,22 +166,21 @@ button.btn, a.btn {
   border-radius: 999px; padding: 12px 22px;
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-weight: 600; font-size: .82rem; letter-spacing: 0.04em;
-  border: 1px solid rgb(var(--border));
-  background: rgb(var(--surface-2) / 0.5); color: rgb(var(--fg));
+  /* Secundario por defecto: fondo frosted visible (nunca blanco), nada de
+     surface translúcido que en claro se confunde con el fondo. */
+  border: 1px solid rgb(var(--fg) / 0.16);
+  background: rgb(var(--fg) / 0.06); color: rgb(var(--fg));
   transition: transform .25s ease, border-color .25s ease, background .25s ease, box-shadow .25s ease, color .25s ease;
 }
-button.btn:hover, a.btn:hover { transform: translateY(-1px); border-color: rgb(var(--accent) / 0.55); }
-button.btn:active, a.btn:active { transform: translateY(0); }
-/* Secundario: fondo visible (frosted) y tinte azul al hover. */
-button.btn.ghost, a.btn.ghost {
-  background: rgb(var(--fg) / 0.06); border-color: rgb(var(--fg) / 0.16); color: rgb(var(--fg));
-}
+/* Hover de los secundarios (planos y .ghost): micro-elevación + tinte azul. */
+button.btn:hover, a.btn:hover,
 button.btn.ghost:hover, a.btn.ghost:hover {
   transform: translateY(-1px);
   border-color: rgb(var(--accent-soft) / 0.65);
   background: rgb(var(--accent-soft) / 0.14);
   color: rgb(var(--accent-soft));
 }
+button.btn:active, a.btn:active { transform: translateY(0); }
 button.btn.primary, a.btn.primary {
   border-color: rgb(var(--accent) / 0.5);
   background: linear-gradient(100deg, rgb(var(--accent-soft) / 0.16), rgb(var(--accent) / 0.24));
