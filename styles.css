@@ -182,14 +182,15 @@ button.btn.ghost:hover, a.btn.ghost:hover {
 }
 button.btn:active, a.btn:active { transform: translateY(0); }
 button.btn.primary, a.btn.primary {
-  border-color: rgb(var(--accent) / 0.5);
-  background: linear-gradient(100deg, rgb(var(--accent-soft) / 0.16), rgb(var(--accent) / 0.24));
+  border-color: rgb(var(--accent) / 0.62);
+  background: linear-gradient(100deg, rgb(var(--accent) / 0.30), rgb(var(--accent) / 0.44));
   color: rgb(var(--accent));
+  font-weight: 700;
 }
 button.btn.primary:hover, a.btn.primary:hover {
   transform: translateY(-1px);
-  border-color: rgb(var(--accent) / 0.8);
-  background: linear-gradient(100deg, rgb(var(--accent-soft) / 0.26), rgb(var(--accent) / 0.34));
+  border-color: rgb(var(--accent) / 0.85);
+  background: linear-gradient(100deg, rgb(var(--accent) / 0.40), rgb(var(--accent) / 0.54));
   box-shadow: 0 12px 34px -10px rgb(var(--accent) / 0.5);
 }
 button.btn:disabled, a.btn:disabled { transform: none; box-shadow: none; opacity: .5; cursor: not-allowed; }
