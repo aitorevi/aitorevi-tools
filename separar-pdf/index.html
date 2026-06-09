@@ -17,7 +17,6 @@
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="stylesheet" href="/fonts/fonts.css" />
   <link rel="stylesheet" href="/styles.css" />
-  <!-- Fija el tema antes del paint (evita flash). Sin inline → compatible con la CSP. -->
   <script src="/theme.js"></script>
   <script type="application/ld+json">
   {
@@ -34,7 +33,7 @@
   }
   </script>
 
-  <style>
+<style>
     /* CSS específico del separador de PDF (lo común está en /styles.css) */
     .file-bar {
       display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
@@ -104,7 +103,7 @@
     </div>
   </header>
 
-  <main class="wrap">
+<main class="wrap">
     <header>
       <span class="badge"><span class="dot" aria-hidden="true"></span>100% en tu navegador · sin subir nada</span>
       <h1>Separar PDF</h1>
@@ -168,13 +167,11 @@
     <nav class="foot-nav" aria-label="Enlaces del pie">
       <a href="/">aitorevi.tools</a>
       <span class="sep" aria-hidden="true">·</span>
-      <a href="https://www.aitorevi.dev/work/separar-pdf" target="_blank" rel="noopener">Sobre esta herramienta</a>
+      <a href="https://www.aitorevi.dev/work/tools" target="_blank" rel="noopener">Sobre estas herramientas</a>
     </nav>
 
     <p class="foot-legal">
-      pdf-lib y JSZip se usan bajo licencia MIT. Esta herramienta se ofrece tal cual,
-      sin garantías. Tus archivos se procesan íntegramente en tu navegador y no se
-      envían a ningún servidor.
+      pdf-lib y JSZip se usan bajo licencia MIT. Esta herramienta se ofrece tal cual, sin garantías. Tus archivos se procesan íntegramente en tu navegador y no se envían a ningún servidor.
     </p>
 
     <details class="licenses">
@@ -203,11 +200,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.</pre>
       </div>
     </details>
-
     <p class="foot-copy">© 2026 aitorevi · tools.aitorevi.dev</p>
   </footer>
 
-  <!-- Librerías vendorizadas (versión pineada, sin CDN externo) -->
   <script src="/vendor/pdf-lib.min.js"></script>
   <script src="/vendor/jszip.min.js"></script>
   <script type="module" src="/separar-pdf/app.js"></script>

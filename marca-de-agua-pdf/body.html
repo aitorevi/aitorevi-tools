@@ -1,0 +1,55 @@
+<style>
+    @media (min-width: 560px) { .controls { grid-template-columns: 1fr 1fr 1fr; align-items: end; } }
+  </style>
+
+  <main class="wrap">
+    <header>
+      <span class="badge"><span class="dot" aria-hidden="true"></span>100% en tu navegador · sin subir nada</span>
+      <h1>Marca de agua en PDF</h1>
+      <p class="subtitle">Añade un texto en diagonal a todas las páginas de tu PDF. Ajusta el texto, la opacidad y el tamaño.</p>
+    </header>
+
+    <section class="card" aria-labelledby="app-title">
+      <h2 id="app-title" class="sr">Herramienta para añadir marca de agua a un PDF</h2>
+
+      <div id="loader">
+        <div id="dropzone" class="dropzone" tabindex="0" role="button"
+             aria-label="Selecciona o arrastra un archivo PDF">
+          <div class="icon" aria-hidden="true">💧</div>
+          <div class="lead">Arrastra tu PDF aquí o <strong>haz clic para elegirlo</strong></div>
+          <div class="hint">Solo se procesa en tu dispositivo. Nada se envía a internet.</div>
+        </div>
+        <input id="file-input" type="file" accept="application/pdf,.pdf" class="visually-hidden" />
+      </div>
+
+      <div id="workspace" class="hidden">
+        <div class="file-bar">
+          <span class="name" id="file-name">documento.pdf</span>
+          <span class="meta" id="file-meta">—</span>
+          <span class="spacer"></span>
+          <button class="btn ghost" id="reset-btn" type="button">Cargar otro</button>
+        </div>
+
+        <div class="controls">
+          <label class="field">
+            <span class="field-label">Texto</span>
+            <input id="wm-text" type="text" value="CONFIDENCIAL" maxlength="60" />
+          </label>
+          <label class="field">
+            <span class="field-label">Opacidad <b id="wm-opacity-val">30%</b></span>
+            <input id="wm-opacity" type="range" min="5" max="100" value="30" />
+          </label>
+          <label class="field">
+            <span class="field-label">Tamaño <b id="wm-size-val">48 pt</b></span>
+            <input id="wm-size" type="range" min="12" max="120" value="48" />
+          </label>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" id="apply-btn" type="button">⬇ Aplicar y descargar</button>
+        </div>
+
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>

@@ -5,6 +5,7 @@
   "type": "module",
   "description": "Hub de mini-herramientas web que corren 100% en el navegador.",
   "scripts": {
+    "build": "node build.mjs",
     "dev": "node serve.mjs",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "vitest run",

@@ -1,0 +1,47 @@
+<style>
+    .preview-row { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: rgb(var(--surface-2) / 0.6); border: 1px solid rgb(var(--border)); border-radius: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+    .preview-row .preview { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; border: 1px solid rgb(var(--border)); background: rgb(var(--surface-2)); }
+    .preview-row .meta { color: rgb(var(--muted)); font-size: .85rem; font-family: "JetBrains Mono", ui-monospace, monospace; }
+    .preview-row .spacer { flex: 1 1 auto; }
+    .note { font-size: .9rem; color: rgb(var(--muted)); margin: 0 0 18px; }
+    .note b { color: rgb(var(--fg)); }
+  </style>
+
+  <main class="wrap">
+    <header>
+      <span class="badge"><span class="dot" aria-hidden="true"></span>100% en tu navegador · sin subir nada</span>
+      <h1>Quitar metadatos de una imagen</h1>
+      <p class="subtitle">Elimina EXIF, ubicación GPS y datos de cámara de tus fotos antes de compartirlas. Sin perder calidad.</p>
+    </header>
+
+    <section class="card" aria-labelledby="app-title">
+      <h2 id="app-title" class="sr">Herramienta para quitar metadatos de imágenes</h2>
+
+      <div id="loader">
+        <div id="dropzone" class="dropzone" tabindex="0" role="button"
+             aria-label="Selecciona o arrastra una imagen JPG o PNG">
+          <div class="icon" aria-hidden="true">🛡️</div>
+          <div class="lead">Arrastra tu foto aquí o <strong>haz clic para elegirla</strong></div>
+          <div class="hint">JPG o PNG · nada se envía a internet.</div>
+        </div>
+        <input id="file-input" type="file" accept="image/jpeg,image/png,.jpg,.jpeg,.png" class="visually-hidden" />
+      </div>
+
+      <div id="workspace" class="hidden">
+        <div class="preview-row">
+          <img id="preview" class="preview" alt="" />
+          <span class="meta" id="file-info">—</span>
+          <span class="spacer"></span>
+          <button class="btn ghost" id="reset-btn" type="button">Otra imagen</button>
+        </div>
+
+        <p class="note"><b>Sin pérdida:</b> se eliminan solo los metadatos (EXIF/GPS/XMP); los píxeles de tu imagen quedan idénticos.</p>
+
+        <div class="actions">
+          <button class="btn primary" id="clean-btn" type="button">⬇ Quitar metadatos y descargar</button>
+        </div>
+
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>

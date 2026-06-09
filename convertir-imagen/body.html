@@ -1,0 +1,55 @@
+<style>
+    @media (min-width: 480px) { .controls { grid-template-columns: 1fr 1fr; align-items: end; } }
+  </style>
+
+  <main class="wrap">
+    <header>
+      <span class="badge"><span class="dot" aria-hidden="true"></span>100% en tu navegador · sin subir nada</span>
+      <h1>Convertir imagen</h1>
+      <p class="subtitle">Convierte entre PNG, JPG y WebP. Elige el formato de salida y la calidad; todo en tu navegador.</p>
+    </header>
+
+    <section class="card" aria-labelledby="app-title">
+      <h2 id="app-title" class="sr">Herramienta para convertir imágenes</h2>
+
+      <div id="loader">
+        <div id="dropzone" class="dropzone" tabindex="0" role="button"
+             aria-label="Selecciona o arrastra una imagen">
+          <div class="icon" aria-hidden="true">🖼️</div>
+          <div class="lead">Arrastra tu imagen aquí o <strong>haz clic para elegirla</strong></div>
+          <div class="hint">PNG, JPG, WebP… Nada se envía a internet.</div>
+        </div>
+        <input id="file-input" type="file" accept="image/*" class="visually-hidden" />
+      </div>
+
+      <div id="workspace" class="hidden">
+        <div class="preview-box">
+          <img id="result-preview" alt="Vista previa del resultado de la conversión" />
+        </div>
+        <div class="preview-row">
+          <span class="meta" id="file-info">—</span>
+          <span class="spacer"></span>
+          <button class="btn ghost" id="reset-btn" type="button">Otra imagen</button>
+        </div>
+
+        <div class="controls">
+          <label class="field">
+            <span class="field-label">Convertir a</span>
+            <select id="target-format"></select>
+          </label>
+          <label class="field" id="quality-field">
+            <span class="field-label">Calidad <b id="quality-val">85%</b></span>
+            <input id="quality" type="range" min="30" max="100" value="85" />
+          </label>
+        </div>
+
+        <p class="estimate" id="estimate" aria-live="polite"></p>
+
+        <div class="actions">
+          <button class="btn primary" id="convert-btn" type="button">⬇ Convertir y descargar</button>
+        </div>
+
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
