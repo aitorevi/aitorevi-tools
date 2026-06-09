@@ -425,6 +425,7 @@ details.licenses > summary:focus-visible { outline: 3px solid rgb(var(--accent))
 
   /* Barras de archivo/preview: el botón cae a ancho completo bajo el nombre */
   .file-bar { flex-wrap: wrap; }
+  .file-bar .info { flex-basis: 0; }   /* comparte línea con la miniatura, el nombre trunca */
   .preview-row .spacer { display: none; }
   .file-bar .btn, .preview-row .btn { width: 100%; }
 }
