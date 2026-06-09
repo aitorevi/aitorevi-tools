@@ -1,4 +1,4 @@
-// Convertir imagen — UI. Lógica pura/datos en lib.js; Canvas aquí.
+// Convertir imagen — UI. Muestra el resultado (preview real + ≈ KB) en vivo.
 
 import {
   isImageFile,
@@ -20,15 +20,20 @@ import {
   let bitmap = null;
   let base = "imagen";
   let original = null; // { name, size, type, w, h, url }
+  let currentResult = null; // { blob }
+  let resultUrl = null;
+  let recomputeTimer = null;
+  let recomputeToken = 0;
 
   const $ = (id) => document.getElementById(id);
   const dropzone = $("dropzone");
   const fileInput = $("file-input");
   const loader = $("loader");
   const workspace = $("workspace");
-  const previewImg = $("preview");
+  const resultPreview = $("result-preview");
   const infoEl = $("file-info");
   const statusEl = $("status");
+  const estimateEl = $("estimate");
   const formatSel = $("target-format");
   const qualityField = $("quality-field");
   const qualityInput = $("quality");
@@ -40,7 +45,6 @@ import {
     statusEl.className = "status" + (type ? ` ${type}` : "");
   }
 
-  // Rellena el selector de formatos.
   TARGETS.forEach((t) => {
     const opt = document.createElement("option");
     opt.value = t.value;
@@ -52,6 +56,39 @@ import {
   function syncQualityVisibility() {
     qualityField.style.display = isLossy(formatSel.value) ? "" : "none";
     qualityVal.textContent = `${qualityInput.value}%`;
+  }
+
+  async function computeResult() {
+    const mime = formatSel.value;
+    const quality = isLossy(mime) ? Number(qualityInput.value) / 100 : undefined;
+    const canvas = drawToCanvas(bitmap, original.w, original.h);
+    const blob = await canvasToBlob(canvas, mime, quality);
+    return { blob };
+  }
+
+  async function recompute() {
+    if (!bitmap) return;
+    const token = ++recomputeToken;
+    estimateEl.textContent = "Calculando resultado…";
+    try {
+      const r = await computeResult();
+      if (token !== recomputeToken) return;
+      currentResult = r;
+      if (resultUrl) URL.revokeObjectURL(resultUrl);
+      resultUrl = URL.createObjectURL(r.blob);
+      resultPreview.src = resultUrl;
+      const fmt = extForMime(formatSel.value).toUpperCase();
+      estimateEl.innerHTML = `Resultado: <b>≈ ${formatBytes(r.blob.size)}</b> · ${original.w}×${original.h} · ${fmt}`;
+    } catch (err) {
+      if (token === recomputeToken) estimateEl.textContent = "";
+      console.error(err);
+    }
+  }
+
+  function scheduleRecompute() {
+    syncQualityVisibility();
+    clearTimeout(recomputeTimer);
+    recomputeTimer = setTimeout(recompute, 200);
   }
 
   async function loadFile(file) {
@@ -73,32 +110,29 @@ import {
         h: bitmap.height,
         url: URL.createObjectURL(file),
       };
-      previewImg.src = original.url;
+      resultPreview.src = original.url; // placeholder
       const label = (extForMime(original.type) || original.type).toUpperCase();
-      infoEl.textContent = `${label} · ${original.w}×${original.h} · ${formatBytes(original.size)}`;
+      infoEl.textContent = `Original: ${label} · ${original.w}×${original.h} · ${formatBytes(original.size)}`;
       loader.classList.add("hidden");
       workspace.classList.remove("hidden");
-      // Por defecto, sugiere convertir a un formato distinto del de entrada.
       formatSel.value = original.type === "image/png" ? "image/jpeg" : "image/png";
       syncQualityVisibility();
       setStatus("");
+      recompute();
     } catch (err) {
       console.error(err);
       setStatus("No se pudo leer la imagen.", "error");
     }
   }
 
-  async function convert() {
+  async function download() {
     if (!bitmap) return;
     convertBtn.disabled = true;
-    setStatus("Convirtiendo…");
     try {
+      const r = currentResult || (await computeResult());
       const mime = formatSel.value;
-      const quality = isLossy(mime) ? Number(qualityInput.value) / 100 : undefined;
-      const canvas = drawToCanvas(bitmap, original.w, original.h);
-      const blob = await canvasToBlob(canvas, mime, quality);
-      triggerDownload(blob, convertedFileName(base, extForMime(mime)));
-      setStatus(`Convertido a ${extForMime(mime).toUpperCase()} · ${formatBytes(blob.size)}.`, "ok");
+      triggerDownload(r.blob, convertedFileName(base, extForMime(mime)));
+      setStatus(`Descargado en ${extForMime(mime).toUpperCase()} · ${formatBytes(r.blob.size)}.`, "ok");
     } catch (err) {
       console.error(err);
       setStatus("No se pudo convertir la imagen.", "error");
@@ -109,11 +143,14 @@ import {
 
   function reset() {
     bitmap = null;
+    currentResult = null;
     if (original?.url) URL.revokeObjectURL(original.url);
+    if (resultUrl) { URL.revokeObjectURL(resultUrl); resultUrl = null; }
     original = null;
     fileInput.value = "";
     workspace.classList.add("hidden");
     loader.classList.remove("hidden");
+    estimateEl.textContent = "";
     setStatus("");
   }
 
@@ -140,9 +177,9 @@ import {
   });
   fileInput.addEventListener("change", (e) => loadFile(e.target.files[0]));
   $("reset-btn").addEventListener("click", reset);
-  formatSel.addEventListener("change", syncQualityVisibility);
-  qualityInput.addEventListener("input", syncQualityVisibility);
-  convertBtn.addEventListener("click", convert);
+  formatSel.addEventListener("change", scheduleRecompute);
+  qualityInput.addEventListener("input", scheduleRecompute);
+  convertBtn.addEventListener("click", download);
 
   syncQualityVisibility();
 })();
