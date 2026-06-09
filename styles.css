@@ -156,7 +156,21 @@ h1 {
   backdrop-filter: blur(10px);
   padding: 30px;
 }
-@media (max-width: 520px) { .card { padding: 22px; } }
+@media (max-width: 520px) {
+  .card { padding: 22px; }
+
+  /* En móvil los botones ocupan el ancho completo */
+  .actions { flex-direction: column; align-items: stretch; }
+  .actions .btn { width: 100%; }
+
+  /* Barra de acciones multi-archivo: botones a medias, contador en su línea */
+  .toolbar .btn { flex: 1 1 auto; }
+  .toolbar .count { margin-left: 0; flex-basis: 100%; }
+
+  /* Barras de archivo/preview: el botón cae a ancho completo bajo el nombre */
+  .file-bar .spacer, .preview-row .spacer { display: none; }
+  .file-bar .btn, .preview-row .btn { width: 100%; }
+}
 
 /* Botones estilo aitorevi.dev: pill, mono, degradado translúcido con borde de
    acento, glow + micro-elevación al hover; texto en color de acento. */
