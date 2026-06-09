@@ -28,6 +28,9 @@ test("el hub lista las herramientas y enlaza a cada una", async ({ page }) => {
   await expect(page.locator('a.tool-card[href="/imagen-a-pdf/"]')).toBeVisible();
   await expect(page.locator('a.tool-card[href="/marca-de-agua-pdf/"]')).toBeVisible();
   await expect(page.locator('a.tool-card[href="/n-up-pdf/"]')).toBeVisible();
+  await expect(page.locator('a.tool-card[href="/comprimir-imagen/"]')).toBeVisible();
+  await expect(page.locator('a.tool-card[href="/convertir-imagen/"]')).toBeVisible();
+  await expect(page.locator('a.tool-card[href="/quitar-metadatos-imagen/"]')).toBeVisible();
 });
 
 test("soltar un PDF renderiza una tarjeta por página", async ({ page }) => {
@@ -201,4 +204,55 @@ test("n-up: genera y descarga el PDF recolocado", async ({ page }) => {
     page.click("#apply-btn"),
   ]);
   expect(download.suggestedFilename()).toMatch(/-4-por-hoja\.pdf$/);
+});
+
+// --- Herramientas de imagen (Canvas) ---
+
+async function dropOneImage(page) {
+  await page.evaluate(async () => {
+    const blob = await new Promise((resolve) => {
+      const c = document.createElement("canvas");
+      c.width = 40; c.height = 30;
+      const ctx = c.getContext("2d");
+      ctx.fillStyle = "#3366cc"; ctx.fillRect(0, 0, 40, 30);
+      c.toBlob((b) => resolve(b), "image/png");
+    });
+    const dt = new DataTransfer();
+    dt.items.add(new File([blob], "foto.png", { type: "image/png" }));
+    window.dispatchEvent(new DragEvent("drop", { dataTransfer: dt, bubbles: true, cancelable: true }));
+  });
+}
+
+test("convertir imagen: convierte a WebP y descarga", async ({ page }) => {
+  await page.goto("/convertir-imagen/");
+  await dropOneImage(page);
+  await expect(page.locator("#workspace")).toBeVisible();
+  await page.selectOption("#target-format", "image/webp");
+  const [download] = await Promise.all([
+    page.waitForEvent("download"),
+    page.click("#convert-btn"),
+  ]);
+  expect(download.suggestedFilename()).toBe("foto.webp");
+});
+
+test("comprimir imagen: comprime y descarga", async ({ page }) => {
+  await page.goto("/comprimir-imagen/");
+  await dropOneImage(page);
+  await expect(page.locator("#workspace")).toBeVisible();
+  const [download] = await Promise.all([
+    page.waitForEvent("download"),
+    page.click("#compress-btn"),
+  ]);
+  expect(download.suggestedFilename()).toMatch(/-comprimida\.(webp|jpg)$/);
+});
+
+test("quitar metadatos: limpia y descarga", async ({ page }) => {
+  await page.goto("/quitar-metadatos-imagen/");
+  await dropOneImage(page);
+  await expect(page.locator("#workspace")).toBeVisible();
+  const [download] = await Promise.all([
+    page.waitForEvent("download"),
+    page.click("#clean-btn"),
+  ]);
+  expect(download.suggestedFilename()).toBe("foto-sin-metadatos.png");
 });
