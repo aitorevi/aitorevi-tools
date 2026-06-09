@@ -172,14 +172,14 @@ button.btn, a.btn {
   background: rgb(var(--fg) / 0.06); color: rgb(var(--fg));
   transition: transform .25s ease, border-color .25s ease, background .25s ease, box-shadow .25s ease, color .25s ease;
 }
-/* Hover de los secundarios (planos y .ghost): micro-elevación + tinte violeta.
-   Nunca aplica a un botón deshabilitado. */
+/* Hover de los secundarios (planos y .ghost): siguen siendo grises, solo un poco
+   más oscuros (nunca violeta, sin sombra). Nunca aplica a un deshabilitado. */
 button.btn:hover:not(:disabled), a.btn:hover:not(:disabled),
 button.btn.ghost:hover:not(:disabled), a.btn.ghost:hover:not(:disabled) {
   transform: translateY(-1px);
-  border-color: rgb(var(--accent) / 0.65);
-  background: rgb(var(--accent) / 0.14);
-  color: rgb(var(--accent));
+  border-color: rgb(var(--fg) / 0.28);
+  background: rgb(var(--fg) / 0.10);
+  color: rgb(var(--fg));
 }
 button.btn:active:not(:disabled), a.btn:active:not(:disabled) { transform: translateY(0); }
 /* Primario = botón "Ver caso" de aitorevi.dev (ghost violeta): fondo muy sutil,
@@ -193,7 +193,11 @@ button.btn.primary:hover:not(:disabled), a.btn.primary:hover:not(:disabled) {
   transform: translateY(-1px);
   border-color: rgb(var(--accent) / 0.70);
   background: rgb(var(--accent) / 0.16);
-  box-shadow: 0 0 30px rgb(var(--accent) / 0.22);
+}
+/* Glow suave y difuso solo en oscuro (en claro el blog no usa sombra). */
+:root.dark button.btn.primary:hover:not(:disabled),
+:root.dark a.btn.primary:hover:not(:disabled) {
+  box-shadow: 0 0 40px rgb(var(--accent) / 0.30);
 }
 /* Deshabilitado: neutro y plano (no un primario a media opacidad), para que se
    lea claramente como inactivo e igual en todas las variantes. El hover solo
