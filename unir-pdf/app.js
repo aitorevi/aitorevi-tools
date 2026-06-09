@@ -9,6 +9,7 @@ import {
   mergePdfs,
   mergedFileName,
 } from "./lib.js";
+import { wireDropzone } from "../lib/dropzone.js";
 
 (() => {
   "use strict";
@@ -153,30 +154,7 @@ import {
   }
 
   // --- Eventos ---
-  dropzone.addEventListener("click", () => fileInput.click());
-  dropzone.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      fileInput.click();
-    }
-  });
-
-  // Evitar que el navegador abra el PDF al soltarlo en cualquier parte.
-  ["dragenter", "dragover", "dragleave", "drop"].forEach((evt) =>
-    window.addEventListener(evt, (e) => e.preventDefault())
-  );
-  ["dragenter", "dragover"].forEach((evt) =>
-    dropzone.addEventListener(evt, () => dropzone.classList.add("dragover"))
-  );
-  ["dragleave", "dragend"].forEach((evt) =>
-    dropzone.addEventListener(evt, () => dropzone.classList.remove("dragover"))
-  );
-  window.addEventListener("drop", (e) => {
-    dropzone.classList.remove("dragover");
-    addFiles(e.dataTransfer?.files);
-  });
-
-  fileInput.addEventListener("change", (e) => addFiles(e.target.files));
+  wireDropzone({ dropzone, input: fileInput, multiple: true, onFiles: addFiles });
   $("add-more-btn").addEventListener("click", () => fileInput.click());
   $("clear-btn").addEventListener("click", clearAll);
   mergeBtn.addEventListener("click", merge);

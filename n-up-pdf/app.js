@@ -8,6 +8,7 @@ import {
   nUpPdf,
   nUpFileName,
 } from "./lib.js";
+import { wireDropzone } from "../lib/dropzone.js";
 
 (() => {
   "use strict";
@@ -88,28 +89,7 @@ import {
     setStatus("");
   }
 
-  dropzone.addEventListener("click", () => fileInput.click());
-  dropzone.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      fileInput.click();
-    }
-  });
-  ["dragenter", "dragover", "dragleave", "drop"].forEach((evt) =>
-    window.addEventListener(evt, (e) => e.preventDefault())
-  );
-  ["dragenter", "dragover"].forEach((evt) =>
-    dropzone.addEventListener(evt, () => dropzone.classList.add("dragover"))
-  );
-  ["dragleave", "dragend"].forEach((evt) =>
-    dropzone.addEventListener(evt, () => dropzone.classList.remove("dragover"))
-  );
-  window.addEventListener("drop", (e) => {
-    dropzone.classList.remove("dragover");
-    const file = e.dataTransfer?.files?.[0];
-    if (file) loadFile(file);
-  });
-  fileInput.addEventListener("change", (e) => loadFile(e.target.files[0]));
+  wireDropzone({ dropzone, input: fileInput, onFiles: loadFile });
   $("reset-btn").addEventListener("click", reset);
   applyBtn.addEventListener("click", apply);
 })();

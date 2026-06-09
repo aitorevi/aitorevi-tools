@@ -11,6 +11,7 @@ import {
   triggerDownload,
   extractPage as extractPageLib,
 } from "./lib.js";
+import { wireDropzone } from "../lib/dropzone.js";
 
 (() => {
   "use strict";
@@ -241,36 +242,7 @@ import {
 
   // --- Eventos ---
 
-  dropzone.addEventListener("click", () => fileInput.click());
-  dropzone.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      fileInput.click();
-    }
-  });
-
-  // Evitar que el navegador abra el PDF si se suelta en cualquier parte de la
-  // ventana (causa habitual de que el "drag & drop no funcione").
-  ["dragenter", "dragover", "dragleave", "drop"].forEach((evt) =>
-    window.addEventListener(evt, (e) => e.preventDefault())
-  );
-
-  // Feedback visual al arrastrar sobre la zona.
-  ["dragenter", "dragover"].forEach((evt) =>
-    dropzone.addEventListener(evt, () => dropzone.classList.add("dragover"))
-  );
-  ["dragleave", "dragend"].forEach((evt) =>
-    dropzone.addEventListener(evt, () => dropzone.classList.remove("dragover"))
-  );
-
-  // Soltar en cualquier punto de la ventana carga el PDF.
-  window.addEventListener("drop", (e) => {
-    dropzone.classList.remove("dragover");
-    const file = e.dataTransfer?.files?.[0];
-    if (file) loadFile(file);
-  });
-
-  fileInput.addEventListener("change", (e) => loadFile(e.target.files[0]));
+  wireDropzone({ dropzone, input: fileInput, onFiles: loadFile });
 
   $("reset-btn").addEventListener("click", reset);
   $("select-all").addEventListener("click", () => setAll(true));
