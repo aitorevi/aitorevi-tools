@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
- * Generador estático de aitorevi.tools.
+ * Generador estático bilingüe (ES/EN) de aitorevi.tools.
  *
- * Fuente única: tools.json + partials/ + <slug>/body.html
- * Salida (commiteada, servida tal cual por Vercel): <slug>/index.html, index.html, sitemap.xml
+ * Fuente única: tools.json (estructura) + i18n/{es,en}.json (textos) + partials/
+ * + <id>/body.html. Salida (commiteada, servida por Vercel): ES en la raíz, EN en /en/.
  *
  * Regla de oro: el HTML generado NO se edita a mano. Edita el origen y ejecuta `npm run build`.
  * Sin dependencias: solo Node estándar.
@@ -23,58 +23,84 @@ const write = (p, s) => {
 };
 
 const registry = JSON.parse(read("tools.json"));
+const I18N = { es: JSON.parse(read("i18n/es.json")), en: JSON.parse(read("i18n/en.json")) };
 const NAVBAR = read("partials/navbar.html").replace(/\s+$/, "");
 const FOOT_SOCIAL = read("partials/foot-social.html").replace(/\s+$/, "");
 const MIT = read("partials/license-mit.txt").replace(/\s+$/, "");
 const OFL = read("partials/license-ofl.txt").replace(/\s+$/, "");
 
-// --- helpers de librerías ----------------------------------------------------
+const LANGS = registry.site.languages;          // ["es", "en"]
+const DEFAULT_LANG = registry.site.defaultLang; // "es"
+const OG_LOCALE = { es: "es_ES", en: "en_US" };
+const SWITCH = {
+  es: { other: "en", label: "EN", aria: "View in English" },
+  en: { other: "es", label: "ES", aria: "Ver en español" },
+};
+
+// --- rutas e i18n ------------------------------------------------------------
+
+const prefix = (lang) => (lang === DEFAULT_LANG ? "" : `${lang}/`);
+const toolSlug = (tool, lang) => tool.slug[lang] || tool.slug[DEFAULT_LANG];
+const toolPath = (tool, lang) => `${prefix(lang)}${toolSlug(tool, lang)}/`;
+const toolUrl = (tool, lang) => `${ORIGIN}/${toolPath(tool, lang)}`;
+const licSlug = (lang) => I18N[lang].licenses.slug;
+const licPath = (lang) => `${prefix(lang)}${licSlug(lang)}/`;
+const licUrl = (lang) => `${ORIGIN}/${licPath(lang)}`;
+const hubPath = (lang) => `${prefix(lang)}`;
+const hubUrl = (lang) => `${ORIGIN}/${hubPath(lang)}`;
 
 const hasLib = (tool, lib) => (tool.libs || []).includes(lib);
+
+// --- piezas comunes ----------------------------------------------------------
 
 function scripts(tool) {
   const lines = [];
   if (hasLib(tool, "pdf-lib")) lines.push('  <script src="/vendor/pdf-lib.min.js"></script>');
   if (hasLib(tool, "jszip")) lines.push('  <script src="/vendor/jszip.min.js"></script>');
-  lines.push(`  <script type="module" src="/${tool.slug}/app.js"></script>`);
+  lines.push(`  <script type="module" src="/${tool.id}/app.js"></script>`);
   return lines.join("\n");
 }
 
-// --- bloques HTML compartidos ------------------------------------------------
+/** Enlaces hreflang para `urls` = { es, en }. */
+function altLinks(urls) {
+  const links = LANGS.map((l) => `  <link rel="alternate" hreflang="${l}" href="${urls[l]}" />`);
+  links.push(`  <link rel="alternate" hreflang="x-default" href="${urls[DEFAULT_LANG]}" />`);
+  return links.join("\n");
+}
 
-function jsonLdSoftware(tool) {
+function jsonLdSoftware(name, url, description, lang) {
   return `  <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "${tool.jsonldName}",
-    "url": "${ORIGIN}/${tool.slug}/",
+    "name": "${name}",
+    "url": "${url}",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Web",
-    "inLanguage": "es",
-    "description": "${tool.jsonldDescription}",
+    "inLanguage": "${lang}",
+    "description": "${description}",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
     "author": { "@type": "Person", "name": "Aitor Reviriego", "url": "https://www.aitorevi.dev" }
   }
   </script>`;
 }
 
-function jsonLdWebsite(hub) {
+function jsonLdWebsite(description, lang) {
   return `  <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "aitorevi.tools",
-    "url": "${ORIGIN}/",
-    "inLanguage": "es",
-    "description": "${hub.jsonldDescription}",
+    "url": "${hubUrl(lang)}",
+    "inLanguage": "${lang}",
+    "description": "${description}",
     "author": { "@type": "Person", "name": "Aitor Reviriego", "url": "https://www.aitorevi.dev" }
   }
   </script>`;
 }
 
-/** Cabecera común. `extraMeta`, `jsonld` y `style` ya vienen formateados (o vacíos). */
-function head({ title, description, canonical, ogTitle, ogDescription, extraMeta = "", jsonld, style = "" }) {
+/** Cabecera. `extraMeta`, `jsonld`, `alternates` y `style` ya vienen formateados o vacíos. */
+function head({ lang, title, description, canonical, ogTitle, ogDescription, alternates, extraMeta = "", jsonld, style = "" }) {
   const styleBlock = style ? `\n\n${style}` : "";
   const extra = extraMeta ? `${extraMeta}\n` : "";
   return `<head>
@@ -84,9 +110,11 @@ function head({ title, description, canonical, ogTitle, ogDescription, extraMeta
   <meta name="description" content="${description}" />
 ${extra}  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="canonical" href="${canonical}" />
+${alternates}
   <meta name="color-scheme" content="dark light" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="aitorevi.tools" />
+  <meta property="og:locale" content="${OG_LOCALE[lang]}" />
   <meta property="og:url" content="${canonical}" />
   <meta property="og:title" content="${ogTitle}" />
   <meta property="og:description" content="${ogDescription}" />
@@ -95,12 +123,23 @@ ${extra}  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="stylesheet" href="/fonts/fonts.css" />
   <link rel="stylesheet" href="/styles.css" />
   <script src="/theme.js"></script>
+  <script src="/lang.js"></script>
 ${jsonld}${styleBlock}
 </head>`;
 }
 
-/** Pie único, idéntico en todas las páginas (hub y herramientas). */
-function footer() {
+/** Navbar con marca al hub del idioma y selector al idioma homólogo. */
+function navbar(lang, otherUrl) {
+  const s = SWITCH[lang];
+  const switchHtml = `        <a class="lang-switch" href="${otherUrl}" hreflang="${s.other}" aria-label="${s.aria}" data-lang-switch>${s.label}</a>`;
+  return NAVBAR
+    .replace('href="/" aria-label', `href="/${hubPath(lang)}" aria-label`)
+    .replace("{{langSwitch}}", switchHtml);
+}
+
+/** Pie único. El tagline va en inglés en ambos idiomas; el enlace de licencias se traduce. */
+function footer(lang) {
+  const lc = I18N[lang].licenses;
   return `  <footer class="site-footer">
 ${FOOT_SOCIAL}
 
@@ -110,51 +149,16 @@ ${FOOT_SOCIAL}
       <span>No dependencies, runs in your browser</span>
     </p>
 
-    <p class="foot-copy">© 2026 aitorevi · tools.aitorevi.dev · <a href="/licencias/">Licencias</a></p>
+    <p class="foot-copy">© 2026 aitorevi · tools.aitorevi.dev · <a href="/${licPath(lang)}">${lc.h1}</a></p>
   </footer>`;
 }
 
-/** Tarjeta de una dependencia en la página /licencias/. */
 function licenseCard(name, meta, text) {
   return `    <section class="card lic-card">
       <h2 class="lic-name">${name}</h2>
       <p class="lic-meta">${meta}</p>
       <pre class="license-text">${text}</pre>
     </section>`;
-}
-
-/** Página única con las licencias de terceros (software y fuentes). */
-function buildLicenses() {
-  const main = `  <main class="wrap">
-    <header>
-      <span class="badge"><span class="dot" aria-hidden="true"></span>Software y fuentes de terceros</span>
-      <h1>Licencias</h1>
-      <p class="subtitle">aitorevi.tools usa estas librerías y fuentes de código abierto, con sus avisos de copyright y licencias.</p>
-    </header>
-
-    <p class="lic-disclaimer">aitorevi.tools se ofrece tal cual, sin garantías. Tus archivos se procesan íntegramente en tu navegador y no se envían a ningún servidor.</p>
-
-${licenseCard("pdf-lib", "Copyright (c) 2019 Andrew Dillon · licencia MIT", MIT)}
-
-${licenseCard("JSZip", "Copyright (c) 2009-2016 Stuart Knightley y otros · licencia MIT (dual MIT/GPLv3). Incluye la librería pako (MIT).", MIT)}
-
-${licenseCard("Outfit", "Copyright 2021 The Outfit Project Authors · SIL Open Font License 1.1", OFL)}
-
-${licenseCard("JetBrains Mono", "Copyright 2020 The JetBrains Mono Project Authors · SIL Open Font License 1.1", OFL)}
-  </main>`;
-  const html = page({
-    head: head({
-      title: "Licencias — aitorevi.tools",
-      description: "Librerías y fuentes de terceros usadas en aitorevi.tools, con sus licencias (MIT y SIL Open Font License).",
-      canonical: `${ORIGIN}/licencias/`,
-      ogTitle: "Licencias — aitorevi.tools",
-      ogDescription: "Software y fuentes de terceros usadas en aitorevi.tools y sus licencias.",
-      jsonld: "",
-    }),
-    main,
-    footerHtml: footer(),
-  });
-  write("licencias/index.html", html);
 }
 
 /** Separa un <style> inicial (que va al <head>) del resto del cuerpo (el <main>). */
@@ -165,13 +169,13 @@ function splitBody(raw) {
   return { style: "", main: trimmed.trimEnd() };
 }
 
-function page({ head: headHtml, main, footerHtml, scriptsHtml = "" }) {
+function page({ lang, head: headHtml, navbarHtml, main, footerHtml, scriptsHtml = "" }) {
   const scriptBlock = scriptsHtml ? `\n\n${scriptsHtml}` : "";
   return `<!DOCTYPE html>
-<html lang="es">
+<html lang="${lang}">
 ${headHtml}
 <body>
-${NAVBAR}
+${navbarHtml}
 
 ${main}
 
@@ -182,31 +186,38 @@ ${footerHtml}${scriptBlock}
 
 // --- generación --------------------------------------------------------------
 
-function buildTool(tool) {
-  const canonical = `${ORIGIN}/${tool.slug}/`;
-  const { style, main } = splitBody(read(`${tool.slug}/body.html`));
+function buildTool(tool, lang) {
+  const T = I18N[lang].tools[tool.id];
+  const canonical = toolUrl(tool, lang);
+  const urls = Object.fromEntries(LANGS.map((l) => [l, toolUrl(tool, l)]));
+  const { style, main } = splitBody(read(`${tool.id}/body.html`));
   const html = page({
+    lang,
     head: head({
-      title: tool.title,
-      description: tool.description,
+      lang,
+      title: T.meta.title,
+      description: T.meta.description,
       canonical,
-      ogTitle: tool.ogTitle,
-      ogDescription: tool.ogDescription,
-      jsonld: jsonLdSoftware(tool),
+      ogTitle: T.meta.ogTitle,
+      ogDescription: T.meta.ogDescription,
+      alternates: altLinks(urls),
+      jsonld: jsonLdSoftware(T.meta.jsonldName, canonical, T.meta.jsonldDescription, lang),
       style,
     }),
+    navbarHtml: navbar(lang, "/" + toolPath(tool, SWITCH[lang].other)),
     main,
-    footerHtml: footer(),
+    footerHtml: footer(lang),
     scriptsHtml: scripts(tool),
   });
-  write(`${tool.slug}/index.html`, html);
+  write(toolPath(tool, lang) + "index.html", html);
 }
 
-function hubCard(tool) {
-  const tags = tool.card.tags.map((t) => `<span>${t}</span>`).join("");
-  return `        <a class="tool-card" href="/${tool.slug}/">
-          <h3 class="tool-name">${tool.card.name}</h3>
-          <p class="tool-desc">${tool.card.desc}</p>
+function hubCard(tool, lang) {
+  const card = I18N[lang].tools[tool.id].card;
+  const tags = card.tags.map((t) => `<span>${t}</span>`).join("");
+  return `        <a class="tool-card" href="/${toolPath(tool, lang)}">
+          <h3 class="tool-name">${card.name}</h3>
+          <p class="tool-desc">${card.desc}</p>
           <div class="tool-tags">${tags}</div>
         </a>`;
 }
@@ -219,16 +230,15 @@ function soonCard(c) {
         </div>`;
 }
 
-function buildHub() {
-  const hub = registry.site.hub;
+function buildHub(lang) {
+  const t = I18N[lang];
+  const hub = t.hub;
   const sectionsHtml = registry.sections
     .map((section) => {
-      const cards = registry.tools
-        .filter((t) => t.section === section.id)
-        .map(hubCard);
-      if (hub.soonCard && hub.soonCard.section === section.id) cards.push(soonCard(hub.soonCard));
+      const cards = registry.tools.filter((x) => x.section === section.id).map((x) => hubCard(x, lang));
+      if (registry.site.soonCard && registry.site.soonCard.section === section.id) cards.push(soonCard(hub.soonCard));
       return `    <section class="tools-section" aria-labelledby="${section.anchor}">
-      <h2 class="section-title" id="${section.anchor}"><span class="dot" aria-hidden="true"></span>${section.label}</h2>
+      <h2 class="section-title" id="${section.anchor}"><span class="dot" aria-hidden="true"></span>${t.sections[section.id]}</h2>
       <div class="tools-grid">
 ${cards.join("\n\n")}
       </div>
@@ -246,61 +256,111 @@ ${cards.join("\n\n")}
 ${sectionsHtml}
   </main>`;
 
+  const urls = Object.fromEntries(LANGS.map((l) => [l, hubUrl(l)]));
+  const extraMeta = lang === DEFAULT_LANG
+    ? `  <meta name="google-site-verification" content="${registry.site.googleVerification}" />`
+    : "";
   const html = page({
+    lang,
     head: head({
+      lang,
       title: hub.title,
       description: hub.description,
-      canonical: `${ORIGIN}/`,
+      canonical: hubUrl(lang),
       ogTitle: hub.ogTitle,
       ogDescription: hub.ogDescription,
-      extraMeta: `  <meta name="google-site-verification" content="${registry.site.googleVerification}" />`,
-      jsonld: jsonLdWebsite(hub),
+      alternates: altLinks(urls),
+      extraMeta,
+      jsonld: jsonLdWebsite(hub.jsonldDescription, lang),
       style: read("partials/hub-style.html").replace(/\s+$/, ""),
     }),
+    navbarHtml: navbar(lang, "/" + hubPath(SWITCH[lang].other)),
     main,
-    footerHtml: footer(),
+    footerHtml: footer(lang),
   });
-  write("index.html", html);
+  write(hubPath(lang) + "index.html", html);
+}
+
+function buildLicenses(lang) {
+  const lc = I18N[lang].licenses;
+  const main = `  <main class="wrap">
+    <header>
+      <span class="badge"><span class="dot" aria-hidden="true"></span>${lc.badge}</span>
+      <h1>${lc.h1}</h1>
+      <p class="subtitle">${lc.subtitle}</p>
+    </header>
+
+    <p class="lic-disclaimer">${lc.disclaimer}</p>
+
+${licenseCard("pdf-lib", lc.meta["pdf-lib"], MIT)}
+
+${licenseCard("JSZip", lc.meta.jszip, MIT)}
+
+${licenseCard("Outfit", lc.meta.outfit, OFL)}
+
+${licenseCard("JetBrains Mono", lc.meta.jetbrains, OFL)}
+  </main>`;
+  const urls = Object.fromEntries(LANGS.map((l) => [l, licUrl(l)]));
+  const html = page({
+    lang,
+    head: head({
+      lang,
+      title: lc.title,
+      description: lc.description,
+      canonical: licUrl(lang),
+      ogTitle: lc.ogTitle,
+      ogDescription: lc.ogDescription,
+      alternates: altLinks(urls),
+      jsonld: "",
+    }),
+    navbarHtml: navbar(lang, "/" + licPath(SWITCH[lang].other)),
+    main,
+    footerHtml: footer(lang),
+  });
+  write(licPath(lang) + "index.html", html);
 }
 
 function buildSitemap() {
-  const urls = [
-    { loc: `${ORIGIN}/`, priority: "0.8" },
-    ...registry.tools.map((t) => ({ loc: `${ORIGIN}/${t.slug}/`, priority: "1.0" })),
-    { loc: `${ORIGIN}/licencias/`, priority: "0.2" },
-  ];
-  const body = urls
-    .map(
-      (u) => `  <url>
-    <loc>${u.loc}</loc>
+  const entry = (urls) => {
+    const alts = LANGS.map((l) => `    <xhtml:link rel="alternate" hreflang="${l}" href="${urls[l]}" />`).join("\n");
+    return LANGS.map((l) => `  <url>
+    <loc>${urls[l]}</loc>
+${alts}
     <changefreq>monthly</changefreq>
-    <priority>${u.priority}</priority>
-  </url>`
-    )
-    .join("\n");
+  </url>`).join("\n");
+  };
+  const blocks = [
+    entry(Object.fromEntries(LANGS.map((l) => [l, hubUrl(l)]))),
+    ...registry.tools.map((t) => entry(Object.fromEntries(LANGS.map((l) => [l, toolUrl(t, l)])))),
+    entry(Object.fromEntries(LANGS.map((l) => [l, licUrl(l)]))),
+  ];
   write("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${body}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${blocks.join("\n")}
 </urlset>`);
 }
 
 // --- run ---------------------------------------------------------------------
 
-let count = 0;
-for (const tool of registry.tools) {
-  buildTool(tool);
-  count++;
+const outputs = [];
+for (const lang of LANGS) {
+  for (const tool of registry.tools) {
+    buildTool(tool, lang);
+    outputs.push(toolPath(tool, lang) + "index.html");
+  }
+  buildHub(lang);
+  outputs.push(hubPath(lang) + "index.html");
+  buildLicenses(lang);
+  outputs.push(licPath(lang) + "index.html");
 }
-buildHub();
-buildLicenses();
 buildSitemap();
+outputs.push("sitemap.xml");
 
-// Guardas: ningún placeholder sin resolver en la salida.
-const outputs = ["index.html", "licencias/index.html", "sitemap.xml", ...registry.tools.map((t) => `${t.slug}/index.html`)];
+// Guarda: ningún placeholder sin resolver en la salida.
 const leftover = outputs.filter((p) => /\{\{|\}\}/.test(read(p)));
 if (leftover.length) {
   console.error(`✗ placeholders sin resolver en: ${leftover.join(", ")}`);
   process.exit(1);
 }
 
-console.log(`✓ build OK — ${count} tools + hub + licencias + sitemap (${outputs.length} ficheros)`);
+console.log(`✓ build OK — ${LANGS.length} idiomas · ${registry.tools.length} tools + hub + licencias (${outputs.length} ficheros)`);

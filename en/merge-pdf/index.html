@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Imagen a PDF — convierte JPG y PNG a PDF, gratis y en tu navegador</title>
-  <meta name="description" content="Convierte tus imágenes JPG o PNG en un PDF directamente en tu navegador. Reordénalas como quieras. Gratis, sin registro y sin subir nada a ningún servidor." />
+  <title>Merge PDF — combine several PDFs into one, free and in your browser</title>
+  <meta name="description" content="Merge several PDFs into a single document right in your browser. Reorder them as you like. Free, no sign-up and without uploading anything to any server." />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="canonical" href="https://tools.aitorevi.dev/imagen-a-pdf/" />
-  <link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/imagen-a-pdf/" />
-  <link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/image-to-pdf/" />
-  <link rel="alternate" hreflang="x-default" href="https://tools.aitorevi.dev/imagen-a-pdf/" />
+  <link rel="canonical" href="https://tools.aitorevi.dev/en/merge-pdf/" />
+  <link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/unir-pdf/" />
+  <link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/merge-pdf/" />
+  <link rel="alternate" hreflang="x-default" href="https://tools.aitorevi.dev/unir-pdf/" />
   <meta name="color-scheme" content="dark light" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="aitorevi.tools" />
-  <meta property="og:locale" content="es_ES" />
-  <meta property="og:url" content="https://tools.aitorevi.dev/imagen-a-pdf/" />
-  <meta property="og:title" content="Imagen a PDF — convierte JPG y PNG a PDF" />
-  <meta property="og:description" content="Convierte imágenes JPG o PNG en un PDF en tu navegador. Reordénalas como quieras. Gratis y sin subir nada." />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:url" content="https://tools.aitorevi.dev/en/merge-pdf/" />
+  <meta property="og:title" content="Merge PDF — combine several PDFs into one" />
+  <meta property="og:description" content="Merge several PDFs into a single document in your browser. Reorder them as you like. Free and no uploads." />
   <meta property="og:image" content="https://tools.aitorevi.dev/og.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="stylesheet" href="/fonts/fonts.css" />
@@ -27,12 +27,12 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Imagen a PDF",
-    "url": "https://tools.aitorevi.dev/imagen-a-pdf/",
+    "name": "Merge PDF",
+    "url": "https://tools.aitorevi.dev/en/merge-pdf/",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Web",
-    "inLanguage": "es",
-    "description": "Convierte imágenes JPG o PNG en un PDF en el navegador, reordenables, sin subir archivos a ningún servidor.",
+    "inLanguage": "en",
+    "description": "Combine several PDFs into a single document in the browser, reorderable, without uploading files to any server.",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
     "author": { "@type": "Person", "name": "Aitor Reviriego", "url": "https://www.aitorevi.dev" }
   }
@@ -41,13 +41,13 @@
 <body>
   <header class="site-nav">
     <div class="nav-inner">
-      <a class="brand" href="/" aria-label="Inicio de aitorevi.tools">
+      <a class="brand" href="/en/" aria-label="Inicio de aitorevi.tools">
         aitorevi<span class="dot" aria-hidden="true">.</span><span class="brand-tag">tools</span>
       </a>
       <nav class="nav-links" aria-label="Navegación">
         <a href="https://www.aitorevi.dev/work" target="_blank" rel="noopener">Web</a>
         <a href="https://www.aitorevi.dev/blog" target="_blank" rel="noopener">Blog</a>
-        <a class="lang-switch" href="/en/image-to-pdf/" hreflang="en" aria-label="View in English" data-lang-switch>EN</a>
+        <a class="lang-switch" href="/unir-pdf/" hreflang="es" aria-label="Ver en español" data-lang-switch>ES</a>
         <button id="theme-toggle" class="theme-toggle" type="button"
                 aria-label="Cambiar entre tema claro y oscuro" title="Cambiar tema">
           <svg class="icon-moon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -64,34 +64,36 @@
 <main class="wrap">
     <header>
       <span class="badge"><span class="dot" aria-hidden="true"></span>100% en tu navegador · sin subir nada</span>
-      <h1>Imagen a PDF</h1>
-      <p class="subtitle">Convierte tus imágenes JPG o PNG en un PDF. Reordénalas como quieras y descarga el documento.</p>
+      <h1>Unir PDF</h1>
+      <p class="subtitle">Combina varios PDFs en un único documento. Reordénalos como quieras y descarga el resultado.</p>
     </header>
 
     <section class="card" aria-labelledby="app-title">
-      <h2 id="app-title" class="sr">Herramienta para convertir imágenes a PDF</h2>
+      <h2 id="app-title" class="sr">Herramienta para unir PDF</h2>
 
+      <!-- Paso 1: cargar -->
       <div id="loader">
         <div id="dropzone" class="dropzone" tabindex="0" role="button"
-             aria-label="Selecciona o arrastra imágenes JPG o PNG">
-          <div class="icon" aria-hidden="true">🖼️</div>
-          <div class="lead">Arrastra tus imágenes aquí o <strong>haz clic para elegirlas</strong></div>
-          <div class="hint">JPG o PNG · puedes seleccionar varias. Nada se envía a internet.</div>
+             aria-label="Selecciona o arrastra varios archivos PDF">
+          <div class="icon" aria-hidden="true">📚</div>
+          <div class="lead">Arrastra tus PDFs aquí o <strong>haz clic para elegirlos</strong></div>
+          <div class="hint">Puedes seleccionar varios. Nada se envía a internet.</div>
         </div>
-        <input id="file-input" type="file" accept="image/jpeg,image/png,.jpg,.jpeg,.png" multiple class="visually-hidden" />
+        <input id="file-input" type="file" accept="application/pdf,.pdf" multiple class="visually-hidden" />
       </div>
 
+      <!-- Paso 2: ordenar y unir -->
       <div id="workspace" class="hidden">
         <div class="toolbar">
           <button class="btn" id="add-more-btn" type="button">Añadir más</button>
           <button class="btn ghost" id="clear-btn" type="button">Vaciar</button>
-          <span class="count" id="count">0 imágenes</span>
+          <span class="count" id="count">0 archivos</span>
         </div>
 
-        <ul class="file-list" id="file-list" aria-label="Imágenes a convertir (en orden)"></ul>
+        <ul class="file-list" id="file-list" aria-label="PDFs a unir (en orden)"></ul>
 
         <div class="actions">
-          <button class="btn primary" id="create-btn" type="button" disabled>⬇ Crear y descargar PDF</button>
+          <button class="btn primary" id="merge-btn" type="button" disabled>⬇ Unir y descargar</button>
         </div>
 
         <p class="status" id="status" role="status" aria-live="polite"></p>
@@ -115,10 +117,10 @@
       <span>No dependencies, runs in your browser</span>
     </p>
 
-    <p class="foot-copy">© 2026 aitorevi · tools.aitorevi.dev · <a href="/licencias/">Licencias</a></p>
+    <p class="foot-copy">© 2026 aitorevi · tools.aitorevi.dev · <a href="/en/licenses/">Licenses</a></p>
   </footer>
 
   <script src="/vendor/pdf-lib.min.js"></script>
-  <script type="module" src="/imagen-a-pdf/app.js"></script>
+  <script type="module" src="/unir-pdf/app.js"></script>
 </body>
 </html>

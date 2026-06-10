@@ -1,5 +1,12 @@
 import { test, expect } from "@playwright/test";
 
+// Fija un idioma para desactivar el auto-redirect por idioma del navegador (lang.js).
+test.beforeEach(async ({ context }) => {
+  await context.addInitScript(() => {
+    try { localStorage.setItem("lang", "es"); } catch {}
+  });
+});
+
 // Genera un PDF en la propia página y simula soltarlo en la ventana.
 async function dropPdf(page, pages, name = "informe.pdf") {
   await page.evaluate(
