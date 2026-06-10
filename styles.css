@@ -283,22 +283,13 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
 .foot-social a:focus-visible { outline: 3px solid rgb(var(--accent)); outline-offset: 3px; border-radius: 6px; }
 .foot-social svg { width: 22px; height: 22px; }
 
-.foot-line {
-  margin: 0; font-size: 11px;
-  text-transform: uppercase; letter-spacing: 0.2em; text-align: center;
+.foot-tagline {
+  margin: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 5px 9px;
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; text-align: center;
 }
-.foot-nav {
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 8px;
-  font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em;
-}
-.foot-nav a { padding: 4px 6px; color: rgb(var(--muted)); transition: color .2s ease; }
-.foot-nav a:hover { color: rgb(var(--accent)); }
-.foot-nav .sep { opacity: .5; user-select: none; }
-
-.foot-legal {
-  max-width: 60ch; margin: 2px auto 0; text-align: center;
-  font-size: 11px; line-height: 1.7; opacity: .75;
-}
+.foot-tagline a { color: rgb(var(--muted)); transition: color .2s ease; }
+.foot-tagline a:hover { color: rgb(var(--accent)); }
+.foot-tagline .sep { opacity: .5; user-select: none; }
 
 details.licenses { max-width: 62ch; margin: 0 auto; text-align: left; }
 details.licenses > summary {
@@ -325,9 +316,17 @@ details.licenses > summary:focus-visible { outline: 3px solid rgb(var(--accent))
 }
 
 .foot-copy {
-  margin: 22px 0 0; font-size: 10px;
+  margin: 0; font-size: 10px;
   text-transform: uppercase; letter-spacing: 0.2em; opacity: .7;
 }
+
+/* ── Aviso legal + licencias en el cuerpo de cada herramienta ── */
+.legal {
+  margin: 26px auto 0; text-align: center;
+  font-family: "JetBrains Mono", ui-monospace, monospace; color: rgb(var(--muted));
+}
+.legal-note { max-width: 62ch; margin: 0 auto; font-size: 12px; line-height: 1.7; opacity: .85; }
+.legal details.licenses { margin-top: 14px; }
 
 @media (prefers-reduced-motion: reduce) { .badge .dot { animation: none; } }
 

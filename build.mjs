@@ -27,13 +27,6 @@ const MIT = read("partials/license-mit.txt").replace(/\s+$/, "");
 
 const hasLib = (tool, lib) => (tool.libs || []).includes(lib);
 
-function footLine(tool) {
-  if (hasLib(tool, "pdf-lib") && hasLib(tool, "jszip"))
-    return "Hecho con pdf-lib + JSZip · sin servidor, sin subidas";
-  if (hasLib(tool, "pdf-lib")) return "Hecho con pdf-lib · sin servidor, sin subidas";
-  return "100% en tu navegador · sin servidor, sin subidas";
-}
-
 function footLegal(tool) {
   if (hasLib(tool, "pdf-lib") && hasLib(tool, "jszip"))
     return "pdf-lib y JSZip se usan bajo licencia MIT. Esta herramienta se ofrece tal cual, sin garantías. Tus archivos se procesan íntegramente en tu navegador y no se envían a ningún servidor.";
@@ -134,32 +127,29 @@ ${jsonld}${styleBlock}
 </head>`;
 }
 
-/** Pie común. `footNav` es el bloque de enlaces; `legal`/`licenses` van vacíos en el hub. */
-function footer({ line, nav, legal = "", licenses = "" }) {
-  const legalBlock = legal
-    ? `\n    <p class="foot-legal">\n      ${legal}\n    </p>\n`
-    : "";
+/** Pie único, idéntico en todas las páginas (hub y herramientas). */
+function footer() {
   return `  <footer class="site-footer">
 ${FOOT_SOCIAL}
 
-    <p class="foot-line">${line}</p>
+    <p class="foot-tagline">
+      <a href="https://www.aitorevi.dev" target="_blank" rel="noopener">aitorevi.dev</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <span>No dependencies, runs in your browser</span>
+    </p>
 
-    <nav class="foot-nav" aria-label="Enlaces del pie">
-${nav}
-    </nav>
-${legalBlock}${licenses}    <p class="foot-copy">© 2026 aitorevi · tools.aitorevi.dev</p>
+    <p class="foot-copy">© 2026 aitorevi · tools.aitorevi.dev</p>
   </footer>`;
 }
 
-const TOOL_FOOT_NAV = `      <a href="/">aitorevi.tools</a>
-      <span class="sep" aria-hidden="true">·</span>
-      <a href="https://www.aitorevi.dev/work/tools" target="_blank" rel="noopener">Sobre estas herramientas</a>`;
-
-const HUB_FOOT_NAV = `      <a href="https://www.aitorevi.dev" target="_blank" rel="noopener">aitorevi.dev</a>
-      <span class="sep" aria-hidden="true">·</span>
-      <a href="https://www.aitorevi.dev/work" target="_blank" rel="noopener">Proyectos</a>
-      <span class="sep" aria-hidden="true">·</span>
-      <a href="https://www.aitorevi.dev/blog" target="_blank" rel="noopener">Blog</a>`;
+/** Aviso legal + licencias, ahora en el cuerpo de cada herramienta (no en el pie). */
+function pageLegal(tool) {
+  const licenses = licensesBlock(tool).trim();
+  const lic = licenses ? `\n      ${licenses}` : "";
+  return `    <section class="legal" aria-label="Aviso legal y licencias">
+      <p class="legal-note">${footLegal(tool)}</p>${lic}
+    </section>`;
+}
 
 /** Separa un <style> inicial (que va al <head>) del resto del cuerpo (el <main>). */
 function splitBody(raw) {
@@ -188,7 +178,9 @@ ${footerHtml}${scriptBlock}
 
 function buildTool(tool) {
   const canonical = `${ORIGIN}/${tool.slug}/`;
-  const { style, main } = splitBody(read(`${tool.slug}/body.html`));
+  const { style, main: body } = splitBody(read(`${tool.slug}/body.html`));
+  // El aviso legal y las licencias van ahora dentro del <main> de cada tool.
+  const main = body.replace(/\s*<\/main>\s*$/, `\n\n${pageLegal(tool)}\n  </main>`);
   const html = page({
     head: head({
       title: tool.title,
@@ -200,12 +192,7 @@ function buildTool(tool) {
       style,
     }),
     main,
-    footerHtml: footer({
-      line: footLine(tool),
-      nav: TOOL_FOOT_NAV,
-      legal: footLegal(tool),
-      licenses: licensesBlock(tool),
-    }),
+    footerHtml: footer(),
     scriptsHtml: scripts(tool),
   });
   write(`${tool.slug}/index.html`, html);
@@ -267,7 +254,7 @@ ${sectionsHtml}
       style: read("partials/hub-style.html").replace(/\s+$/, ""),
     }),
     main,
-    footerHtml: footer({ line: hub.footLine, nav: HUB_FOOT_NAV }),
+    footerHtml: footer(),
   });
   write("index.html", html);
 }
