@@ -25,7 +25,10 @@ const LAYOUTS = {
 export async function nUpPdf(PDFLib, sources, options = {}) {
   const { PDFDocument } = PDFLib;
   const { perSheet = 2, landscape = false, margin = 24, gap = 12 } = options;
-  const [cols, rows] = LAYOUTS[perSheet] || [1, perSheet];
+  // La rejilla base está pensada para hoja vertical. En horizontal se intercambian
+  // columnas y filas para que las páginas queden una al lado de la otra (no apiladas).
+  let [cols, rows] = LAYOUTS[perSheet] || [1, perSheet];
+  if (landscape) [cols, rows] = [rows, cols];
 
   const sheetWidth = landscape ? A4.height : A4.width;
   const sheetHeight = landscape ? A4.width : A4.height;
