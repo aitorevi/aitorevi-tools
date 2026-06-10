@@ -271,7 +271,7 @@ test("quitar metadatos: limpia y descarga", async ({ page }) => {
 test("EN: split-pdf muestra la UI en inglés y descarga", async ({ page }) => {
   await page.goto("/en/split-pdf/");
   await expect(page.locator("main h1")).toHaveText("Split PDF");
-  await expect(page.locator(".lang-switch")).toHaveText("ES");
+  await expect(page.locator(".lang-group .lang.is-active")).toHaveText("EN");
   await dropPdf(page, 3);
   await expect(page.locator("#selected-count")).toHaveText("3 selected");
   await expect(page.locator("#zip-btn")).toContainText("Download selection as ZIP");
@@ -284,8 +284,8 @@ test("EN: split-pdf muestra la UI en inglés y descarga", async ({ page }) => {
 
 test("EN: el selector lleva del hub español al inglés", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator(".lang-switch")).toHaveText("EN");
-  await page.locator(".lang-switch").click();
+  await expect(page.locator(".lang-group .lang.is-active")).toHaveText("ES");
+  await page.locator('.lang-group a[hreflang="en"]').click();
   await expect(page).toHaveURL(/\/en\/$/);
   await expect(page.locator("main h1")).toHaveText("Tools");
 });

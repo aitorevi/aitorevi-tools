@@ -51,7 +51,11 @@
       <nav class="nav-links" aria-label="aitorevi.tools">
         <a href="https://www.aitorevi.dev/en/work" target="_blank" rel="noopener">Work</a>
         <a href="https://www.aitorevi.dev/en/blog" target="_blank" rel="noopener">Blog</a>
-        <a class="lang-switch" href="/marca-de-agua-pdf/" hreflang="es" aria-label="Ver en español" data-lang-switch>ES</a>
+        <div class="lang-group" role="group" aria-label="Language">
+          <a href="/marca-de-agua-pdf/" hreflang="es" class="lang" data-lang-switch aria-label="Español">ES</a>
+          <span class="sep" aria-hidden="true">|</span>
+          <a href="/en/watermark-pdf/" hreflang="en" aria-current="true" class="lang is-active" data-lang-switch aria-label="English">EN</a>
+        </div>
         <button id="theme-toggle" class="theme-toggle" type="button"
                 aria-label="Toggle light and dark theme" title="Toggle theme">
           <svg class="icon-moon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">

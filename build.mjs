@@ -32,10 +32,9 @@ const OFL = read("partials/license-ofl.txt").replace(/\s+$/, "");
 const LANGS = registry.site.languages;          // ["es", "en"]
 const DEFAULT_LANG = registry.site.defaultLang; // "es"
 const OG_LOCALE = { es: "es_ES", en: "en_US" };
-const SWITCH = {
-  es: { other: "en", label: "EN", aria: "View in English" },
-  en: { other: "es", label: "ES", aria: "Ver en español" },
-};
+const LANG_LABEL = { es: "ES", en: "EN" };
+const LANG_NAME = { es: "Español", en: "English" };
+const otherLang = (lang) => (lang === "es" ? "en" : "es");
 
 // --- rutas e i18n ------------------------------------------------------------
 
@@ -128,15 +127,25 @@ ${jsonld}${styleBlock}
 </head>`;
 }
 
-/** Navbar con marca al hub del idioma y selector al idioma homólogo. */
-function navbar(lang, otherUrl) {
-  const s = SWITCH[lang];
-  const switchHtml = `        <a class="lang-switch" href="${otherUrl}" hreflang="${s.other}" aria-label="${s.aria}" data-lang-switch>${s.label}</a>`;
+/** Navbar con marca al hub del idioma y selector ES | EN (ambos visibles, el
+ *  activo en acento; estilo del blog). `urls` = { es, en } (rutas root-relativas). */
+function navbar(lang, urls) {
+  const link = (l) => {
+    const active = l === lang;
+    return `<a href="${urls[l]}" hreflang="${l}"${active ? ' aria-current="true"' : ""} class="lang${active ? " is-active" : ""}" data-lang-switch aria-label="${LANG_NAME[l]}">${LANG_LABEL[l]}</a>`;
+  };
+  const group = `        <div class="lang-group" role="group" aria-label="${I18N[lang].common.langSelect}">
+          ${link("es")}
+          <span class="sep" aria-hidden="true">|</span>
+          ${link("en")}
+        </div>`;
   const nav = NAVBAR
     .replace('href="/" aria-label', `href="/${hubPath(lang)}" aria-label`)
-    .replace("{{langSwitch}}", switchHtml);
+    .replace("{{langSwitch}}", group);
   return fillTemplate(nav, I18N[lang].common);
 }
+
+const pageUrls = (esPath, enPath) => ({ es: "/" + esPath, en: "/" + enPath });
 
 /** Pie único. El tagline va en inglés en ambos idiomas; el enlace de licencias se traduce. */
 function footer(lang) {
@@ -216,7 +225,7 @@ function buildTool(tool, lang) {
       jsonld: jsonLdSoftware(T.meta.jsonldName, canonical, T.meta.jsonldDescription, lang),
       style,
     }),
-    navbarHtml: navbar(lang, "/" + toolPath(tool, SWITCH[lang].other)),
+    navbarHtml: navbar(lang, pageUrls(toolPath(tool, "es"), toolPath(tool, "en"))),
     main,
     footerHtml: footer(lang),
     scriptsHtml: scripts(tool),
@@ -286,7 +295,7 @@ ${sectionsHtml}
       jsonld: jsonLdWebsite(hub.jsonldDescription, lang),
       style: read("partials/hub-style.html").replace(/\s+$/, ""),
     }),
-    navbarHtml: navbar(lang, "/" + hubPath(SWITCH[lang].other)),
+    navbarHtml: navbar(lang, pageUrls(hubPath("es"), hubPath("en"))),
     main,
     footerHtml: footer(lang),
   });
@@ -325,7 +334,7 @@ ${licenseCard("JetBrains Mono", lc.meta.jetbrains, OFL)}
       alternates: altLinks(urls),
       jsonld: "",
     }),
-    navbarHtml: navbar(lang, "/" + licPath(SWITCH[lang].other)),
+    navbarHtml: navbar(lang, pageUrls(licPath("es"), licPath("en"))),
     main,
     footerHtml: footer(lang),
   });

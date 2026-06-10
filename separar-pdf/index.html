@@ -90,7 +90,11 @@
       <nav class="nav-links" aria-label="aitorevi.tools">
         <a href="https://www.aitorevi.dev/work" target="_blank" rel="noopener">Web</a>
         <a href="https://www.aitorevi.dev/blog" target="_blank" rel="noopener">Blog</a>
-        <a class="lang-switch" href="/en/split-pdf/" hreflang="en" aria-label="View in English" data-lang-switch>EN</a>
+        <div class="lang-group" role="group" aria-label="Idioma">
+          <a href="/separar-pdf/" hreflang="es" aria-current="true" class="lang is-active" data-lang-switch aria-label="Español">ES</a>
+          <span class="sep" aria-hidden="true">|</span>
+          <a href="/en/split-pdf/" hreflang="en" class="lang" data-lang-switch aria-label="English">EN</a>
+        </div>
         <button id="theme-toggle" class="theme-toggle" type="button"
                 aria-label="Cambiar entre tema claro y oscuro" title="Cambiar tema">
           <svg class="icon-moon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">

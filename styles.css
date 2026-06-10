@@ -97,13 +97,16 @@ h2.sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overfl
   color: rgb(var(--fg)); text-decoration: none; transition: color .2s;
 }
 .nav-links a:hover { color: rgb(var(--accent)); text-decoration: underline; text-underline-offset: 4px; }
-.lang-switch {
-  font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .7rem; font-weight: 600;
-  letter-spacing: .1em; color: rgb(var(--muted));
-  border: 1px solid rgb(var(--border)); border-radius: 999px; padding: 4px 9px;
-  text-decoration: none; transition: color .2s ease, border-color .2s ease;
+/* Selector de idioma ES | EN (estilo del blog): ambos visibles, el activo en
+   acento subrayado, el otro apagado y clicable. */
+.lang-group {
+  display: flex; align-items: center; gap: 7px;
+  font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .8rem; font-weight: 600; letter-spacing: .05em;
 }
-.lang-switch:hover { color: rgb(var(--accent)); border-color: rgb(var(--accent) / 0.5); text-decoration: none; }
+.lang-group .lang { color: rgb(var(--muted)); text-decoration: none; transition: color .2s ease; }
+.lang-group .lang:hover { color: rgb(var(--accent)); text-decoration: underline; text-underline-offset: 4px; }
+.lang-group .lang.is-active { color: rgb(var(--accent)); text-decoration: underline; text-underline-offset: 4px; }
+.lang-group .sep { color: rgb(var(--muted)); user-select: none; }
 .theme-toggle {
   display: inline-flex; align-items: center; justify-content: center;
   width: 40px; height: 40px; padding: 0; border: none; background: transparent;
