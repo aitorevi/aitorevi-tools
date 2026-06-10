@@ -56,8 +56,9 @@
     .nup-output { display: flex; flex-direction: column; gap: 22px; }
     .nup-output .nup-diagram-wrap { margin: 0; }
     @media (min-width: 600px) {
-      .nup-output { flex-direction: row; align-items: center; justify-content: space-between; gap: 28px; }
-      .nup-output .actions { order: -1; margin-bottom: 0; }
+      .nup-output { flex-direction: row; align-items: center; gap: 28px; }
+      .nup-output > * { flex: 1 1 0; }
+      .nup-output .actions { order: -1; margin-bottom: 0; justify-content: center; }
     }
   </style>
 </head>
