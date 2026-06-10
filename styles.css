@@ -308,13 +308,12 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
   font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; line-height: 1.55; color: rgb(var(--muted));
 }
 
-/* ── Aviso legal + licencias en el cuerpo de cada herramienta ── */
-.legal {
-  margin: 26px auto 0; text-align: center;
-  font-family: "JetBrains Mono", ui-monospace, monospace; color: rgb(var(--muted));
+/* Aviso general de la página de licencias */
+.lic-disclaimer {
+  max-width: 62ch; margin: 0 auto 26px; text-align: center;
+  font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; line-height: 1.7;
+  color: rgb(var(--muted));
 }
-.legal-note { max-width: 62ch; margin: 0 auto; font-size: 12px; line-height: 1.7; opacity: .85; }
-.legal details.licenses { margin-top: 14px; }
 
 @media (prefers-reduced-motion: reduce) { .badge .dot { animation: none; } }
 

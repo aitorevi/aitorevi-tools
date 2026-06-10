@@ -32,14 +32,6 @@ const OFL = read("partials/license-ofl.txt").replace(/\s+$/, "");
 
 const hasLib = (tool, lib) => (tool.libs || []).includes(lib);
 
-function footLegal(tool) {
-  if (hasLib(tool, "pdf-lib") && hasLib(tool, "jszip"))
-    return "pdf-lib y JSZip se usan bajo licencia MIT. Esta herramienta se ofrece tal cual, sin garantías. Tus archivos se procesan íntegramente en tu navegador y no se envían a ningún servidor.";
-  if (hasLib(tool, "pdf-lib"))
-    return "pdf-lib se usa bajo licencia MIT. Esta herramienta se ofrece tal cual, sin garantías. Tus archivos se procesan íntegramente en tu navegador y no se envían a ningún servidor.";
-  return "Esta herramienta se ofrece tal cual, sin garantías. Tus imágenes se procesan íntegramente en tu navegador y no se envían a ningún servidor.";
-}
-
 function scripts(tool) {
   const lines = [];
   if (hasLib(tool, "pdf-lib")) lines.push('  <script src="/vendor/pdf-lib.min.js"></script>');
@@ -122,14 +114,6 @@ ${FOOT_SOCIAL}
   </footer>`;
 }
 
-/** Aviso legal en el cuerpo de cada herramienta. Las licencias de terceros viven
- *  en la página /licencias/ (enlazada desde el pie). */
-function pageLegal(tool) {
-  return `    <section class="legal" aria-label="Aviso legal">
-      <p class="legal-note">${footLegal(tool)}</p>
-    </section>`;
-}
-
 /** Tarjeta de una dependencia en la página /licencias/. */
 function licenseCard(name, meta, text) {
   return `    <section class="card lic-card">
@@ -147,6 +131,8 @@ function buildLicenses() {
       <h1>Licencias</h1>
       <p class="subtitle">aitorevi.tools usa estas librerías y fuentes de código abierto, con sus avisos de copyright y licencias.</p>
     </header>
+
+    <p class="lic-disclaimer">aitorevi.tools se ofrece tal cual, sin garantías. Tus archivos se procesan íntegramente en tu navegador y no se envían a ningún servidor.</p>
 
 ${licenseCard("pdf-lib", "Copyright (c) 2019 Andrew Dillon · licencia MIT", MIT)}
 
@@ -198,9 +184,7 @@ ${footerHtml}${scriptBlock}
 
 function buildTool(tool) {
   const canonical = `${ORIGIN}/${tool.slug}/`;
-  const { style, main: body } = splitBody(read(`${tool.slug}/body.html`));
-  // El aviso legal y las licencias van ahora dentro del <main> de cada tool.
-  const main = body.replace(/\s*<\/main>\s*$/, `\n\n${pageLegal(tool)}\n  </main>`);
+  const { style, main } = splitBody(read(`${tool.slug}/body.html`));
   const html = page({
     head: head({
       title: tool.title,
