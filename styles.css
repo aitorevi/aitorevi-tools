@@ -405,6 +405,35 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
 .status.error { color: rgb(var(--danger)); }
 .status.ok { color: rgb(var(--ok)); }
 
+/* ── Herramientas de código (entrada → formatear/minificar → copiar) ── */
+.code-tool { display: flex; flex-direction: column; gap: 16px; }
+.code-io { display: grid; gap: 16px; }
+@media (min-width: 720px) { .code-io { grid-template-columns: 1fr 1fr; } }
+.code-pane { display: flex; flex-direction: column; gap: 9px; min-width: 0; }
+.code-area {
+  width: 100%; min-height: 300px; resize: vertical; display: block;
+  font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .85rem; line-height: 1.6;
+  padding: 14px 16px; border-radius: 12px; tab-size: 2;
+  border: 1px solid rgb(var(--border));
+  background: rgb(var(--surface-2) / 0.5); color: rgb(var(--fg));
+  white-space: pre; overflow: auto;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.code-area::placeholder { color: rgb(var(--muted) / 0.7); }
+.code-area:hover { border-color: rgb(var(--muted) / 0.45); }
+.code-area:focus-visible {
+  outline: none; border-color: rgb(var(--accent-soft));
+  box-shadow: 0 0 0 3px rgb(var(--accent-soft) / 0.25);
+}
+.code-out { background: rgb(var(--surface) / 0.5); }
+.code-alert {
+  margin: 0; padding: 12px 16px; border-radius: 12px;
+  font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .82rem;
+  color: rgb(var(--danger));
+  background: rgb(var(--danger) / 0.10); border: 1px solid rgb(var(--danger) / 0.32);
+}
+.code-alert:empty { display: none; }
+
 /* Barra de acciones de las herramientas multi-archivo */
 .toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
 .toolbar .count {

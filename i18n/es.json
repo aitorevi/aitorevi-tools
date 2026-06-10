@@ -18,7 +18,16 @@
     "themeAria": "Cambiar entre tema claro y oscuro",
     "themeTitle": "Cambiar tema",
     "linkedinAria": "LinkedIn de Aitor Reviriego",
-    "githubAria": "GitHub de Aitor Reviriego"
+    "githubAria": "GitHub de Aitor Reviriego",
+    "codeInput": "Entrada",
+    "codeOutput": "Resultado",
+    "codeFormat": "Formatear",
+    "codeMinify": "Minificar",
+    "codeCopy": "Copiar",
+    "codeCopied": "¡Copiado!",
+    "codeSample": "Probar ejemplo",
+    "codePlaceholder": "Pega aquí tu código…",
+    "codeError": "No se pudo procesar:"
   },
   "hub": {
     "title": "aitorevi.tools — mini-herramientas que corren en tu navegador",
@@ -34,7 +43,7 @@
       "cta": "Próximamente"
     }
   },
-  "sections": { "pdf": "PDF", "imagen": "Imágenes" },
+  "sections": { "pdf": "PDF", "imagen": "Imágenes", "codigo": "Código" },
   "licenses": {
     "slug": "licencias",
     "title": "Licencias — aitorevi.tools",
@@ -53,6 +62,26 @@
     }
   },
   "tools": {
+    "formatear-json": {
+      "meta": {
+        "title": "Formatear JSON — embellece y minifica online, en tu navegador",
+        "description": "Formatea (pretty-print) y minifica JSON al instante en tu navegador. Valida la sintaxis y señala el error. Gratis, sin registro y sin subir nada a ningún servidor.",
+        "ogTitle": "Formatear JSON — embellecer y minificar",
+        "ogDescription": "Embellece y minifica JSON en tu navegador. Valida la sintaxis al vuelo. Gratis y sin subir nada.",
+        "jsonldName": "Formatear JSON",
+        "jsonldDescription": "Formatea y minifica JSON en el navegador, validando la sintaxis, sin enviar el texto a ningún servidor."
+      },
+      "card": {
+        "name": "Formatear JSON",
+        "desc": "Embellece o minifica JSON y valida la sintaxis al instante.",
+        "tags": ["Código", "Sin servidor"]
+      },
+      "ui": {
+        "h1": "Formatear JSON",
+        "subtitle": "Pega tu JSON para embellecerlo (con sangría de 2 espacios) o minificarlo. Valida la sintaxis y todo ocurre en tu navegador.",
+        "cardAria": "Herramienta para formatear y minificar JSON"
+      }
+    },
     "separar-pdf": {
       "meta": {
         "title": "Separar PDF — divide un PDF en páginas sueltas, gratis y en tu navegador",

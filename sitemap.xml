@@ -109,6 +109,18 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://tools.aitorevi.dev/formatear-json/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/formatear-json/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/format-json/" />
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://tools.aitorevi.dev/en/format-json/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/formatear-json/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/format-json/" />
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://tools.aitorevi.dev/licencias/</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/licencias/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/licenses/" />

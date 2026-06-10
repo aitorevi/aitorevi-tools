@@ -289,3 +289,31 @@ test("EN: el selector lleva del hub español al inglés", async ({ page }) => {
   await expect(page).toHaveURL(/\/en\/$/);
   await expect(page.locator("main h1")).toHaveText("Tools");
 });
+
+// --- Código: Formatear JSON ---
+
+test("formatear-json: probar ejemplo → formatear → copiar", async ({ page }) => {
+  await page.goto("/formatear-json/");
+  const input = page.locator('.code-area[data-role="input"]');
+  const output = page.locator(".code-out");
+
+  // "Probar ejemplo" rellena la entrada.
+  await page.click('[data-act="sample"]');
+  await expect(input).not.toHaveValue("");
+
+  // "Formatear" produce JSON con sangría en la salida.
+  await page.click('[data-act="format"]');
+  await expect(output).toHaveValue(/\n {2}"name": "aitorevi\.tools"/);
+
+  // "Copiar" da feedback (el botón pasa a "¡Copiado!").
+  await page.click('[data-act="copy"]');
+  await expect(page.locator('[data-act="copy"]')).toContainText("¡Copiado!");
+});
+
+test("formatear-json: JSON inválido muestra error y deja la salida vacía", async ({ page }) => {
+  await page.goto("/formatear-json/");
+  await page.fill('.code-area[data-role="input"]', "{ esto no es json");
+  await page.click('[data-act="format"]');
+  await expect(page.locator(".code-alert")).not.toBeEmpty();
+  await expect(page.locator(".code-out")).toHaveValue("");
+});

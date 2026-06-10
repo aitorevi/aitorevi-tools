@@ -18,7 +18,16 @@
     "themeAria": "Toggle light and dark theme",
     "themeTitle": "Toggle theme",
     "linkedinAria": "Aitor Reviriego on LinkedIn",
-    "githubAria": "Aitor Reviriego on GitHub"
+    "githubAria": "Aitor Reviriego on GitHub",
+    "codeInput": "Input",
+    "codeOutput": "Output",
+    "codeFormat": "Format",
+    "codeMinify": "Minify",
+    "codeCopy": "Copy",
+    "codeCopied": "Copied!",
+    "codeSample": "Try example",
+    "codePlaceholder": "Paste your code here…",
+    "codeError": "Could not process:"
   },
   "hub": {
     "title": "aitorevi.tools — mini tools that run in your browser",
@@ -34,7 +43,7 @@
       "cta": "Coming soon"
     }
   },
-  "sections": { "pdf": "PDF", "imagen": "Images" },
+  "sections": { "pdf": "PDF", "imagen": "Images", "codigo": "Code" },
   "licenses": {
     "slug": "licenses",
     "title": "Licenses — aitorevi.tools",
@@ -53,6 +62,26 @@
     }
   },
   "tools": {
+    "formatear-json": {
+      "meta": {
+        "title": "Format JSON — beautify and minify online, in your browser",
+        "description": "Beautify (pretty-print) and minify JSON instantly in your browser. Validates the syntax and points out the error. Free, no sign-up and nothing is uploaded to any server.",
+        "ogTitle": "Format JSON — beautify and minify",
+        "ogDescription": "Beautify and minify JSON in your browser. Validates the syntax on the fly. Free and nothing uploaded.",
+        "jsonldName": "Format JSON",
+        "jsonldDescription": "Format and minify JSON in the browser, validating the syntax, without sending the text to any server."
+      },
+      "card": {
+        "name": "Format JSON",
+        "desc": "Beautify or minify JSON and validate the syntax instantly.",
+        "tags": ["Code", "No server"]
+      },
+      "ui": {
+        "h1": "Format JSON",
+        "subtitle": "Paste your JSON to beautify it (2-space indent) or minify it. It validates the syntax and everything happens in your browser.",
+        "cardAria": "Tool to format and minify JSON"
+      }
+    },
     "separar-pdf": {
       "meta": {
         "title": "Split PDF — split a PDF into single pages, free and in your browser",

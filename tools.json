@@ -8,7 +8,8 @@
   },
   "sections": [
     { "id": "pdf", "anchor": "sec-pdf" },
-    { "id": "imagen", "anchor": "sec-img" }
+    { "id": "imagen", "anchor": "sec-img" },
+    { "id": "codigo", "anchor": "sec-code" }
   ],
   "tools": [
     {
@@ -58,6 +59,12 @@
       "section": "imagen",
       "libs": [],
       "slug": { "es": "quitar-metadatos-imagen", "en": "remove-image-metadata" }
+    },
+    {
+      "id": "formatear-json",
+      "section": "codigo",
+      "libs": [],
+      "slug": { "es": "formatear-json", "en": "format-json" }
     }
   ]
 }

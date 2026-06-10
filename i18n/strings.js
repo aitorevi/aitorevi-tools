@@ -29,7 +29,16 @@ export const STRINGS = {
       "themeAria": "Cambiar entre tema claro y oscuro",
       "themeTitle": "Cambiar tema",
       "linkedinAria": "LinkedIn de Aitor Reviriego",
-      "githubAria": "GitHub de Aitor Reviriego"
+      "githubAria": "GitHub de Aitor Reviriego",
+      "codeInput": "Entrada",
+      "codeOutput": "Resultado",
+      "codeFormat": "Formatear",
+      "codeMinify": "Minificar",
+      "codeCopy": "Copiar",
+      "codeCopied": "¡Copiado!",
+      "codeSample": "Probar ejemplo",
+      "codePlaceholder": "Pega aquí tu código…",
+      "codeError": "No se pudo procesar:"
     },
     "separar-pdf": {
       "pages": {
@@ -155,7 +164,16 @@ export const STRINGS = {
       "themeAria": "Toggle light and dark theme",
       "themeTitle": "Toggle theme",
       "linkedinAria": "Aitor Reviriego on LinkedIn",
-      "githubAria": "Aitor Reviriego on GitHub"
+      "githubAria": "Aitor Reviriego on GitHub",
+      "codeInput": "Input",
+      "codeOutput": "Output",
+      "codeFormat": "Format",
+      "codeMinify": "Minify",
+      "codeCopy": "Copy",
+      "codeCopied": "Copied!",
+      "codeSample": "Try example",
+      "codePlaceholder": "Paste your code here…",
+      "codeError": "Could not process:"
     },
     "separar-pdf": {
       "pages": {
