@@ -35,6 +35,21 @@
 
 <style>
     @media (min-width: 480px) { .controls { grid-template-columns: 1fr 1fr; align-items: end; } }
+
+    /* Dibujo en vivo de cómo se reparte cada hoja (hoja gris, páginas violeta). */
+    .nup-diagram-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 2px 0 22px; }
+    .nup-diagram-label { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .72rem; text-transform: uppercase; letter-spacing: .14em; color: rgb(var(--muted)); }
+    .nup-diagram {
+      height: 150px; display: grid; gap: 6px; padding: 7px;
+      border: 1px solid rgb(var(--border)); border-radius: 8px;
+      background: rgb(var(--surface-2) / 0.5);
+    }
+    .nup-diagram span {
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgb(var(--accent) / 0.45); border-radius: 4px;
+      background: rgb(var(--accent) / 0.10); color: rgb(var(--accent));
+      font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .72rem; font-weight: 600;
+    }
   </style>
 </head>
 <body>
@@ -105,6 +120,11 @@
               <option value="landscape">Horizontal (A4)</option>
             </select>
           </label>
+        </div>
+
+        <div class="nup-diagram-wrap" aria-hidden="true">
+          <span class="nup-diagram-label">Así se reparte cada hoja</span>
+          <div class="nup-diagram" id="nup-diagram"></div>
         </div>
 
         <div class="actions">

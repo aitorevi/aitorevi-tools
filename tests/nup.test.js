@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { createRequire } from "module";
-import { nUpPdf, nUpFileName } from "../n-up-pdf/lib.js";
+import { nUpPdf, nUpGrid, nUpFileName } from "../n-up-pdf/lib.js";
 
 const require = createRequire(import.meta.url);
 globalThis.self = globalThis;
@@ -38,6 +38,21 @@ describe("nUpPdf", () => {
   it("varios PDFs: combina las páginas en orden (3+2, 4 por hoja → 2 hojas)", async () => {
     const out = await nUpPdf(PDFLib, [await makePdf(3), await makePdf(2)], { perSheet: 4 });
     expect((await PDFDocument.load(out)).getPageCount()).toBe(2);
+  });
+});
+
+describe("nUpGrid", () => {
+  it("vertical mantiene la rejilla base", () => {
+    expect(nUpGrid(2)).toEqual([1, 2]);
+    expect(nUpGrid(6)).toEqual([2, 3]);
+  });
+  it("horizontal intercambia columnas y filas (lado a lado)", () => {
+    expect(nUpGrid(2, true)).toEqual([2, 1]);
+    expect(nUpGrid(6, true)).toEqual([3, 2]);
+  });
+  it("las simétricas no cambian", () => {
+    expect(nUpGrid(4, true)).toEqual([2, 2]);
+    expect(nUpGrid(9, true)).toEqual([3, 3]);
   });
 });
 

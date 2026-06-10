@@ -7,6 +7,7 @@ import {
   isPdf,
   triggerDownload,
   nUpPdf,
+  nUpGrid,
   nUpFileName,
 } from "./lib.js";
 import { wireDropzone } from "../lib/dropzone.js";
@@ -32,6 +33,7 @@ import { wireDropzone } from "../lib/dropzone.js";
   const applyBtn = $("apply-btn");
   const perInput = $("nup-per");
   const orientInput = $("nup-orient");
+  const diagram = $("nup-diagram");
 
   function setStatus(message, type = "") {
     statusEl.textContent = message;
@@ -153,9 +155,29 @@ import { wireDropzone } from "../lib/dropzone.js";
     }
   }
 
+  // --- Dibujo de cómo se reparte cada hoja (misma rejilla que el motor) ---
+  function renderDiagram() {
+    const landscape = orientInput.value === "landscape";
+    const per = Number(perInput.value);
+    const [cols, rows] = nUpGrid(per, landscape);
+    diagram.style.aspectRatio = landscape ? "297 / 210" : "210 / 297";
+    diagram.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+    diagram.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+    const frag = document.createDocumentFragment();
+    for (let i = 1; i <= per; i++) {
+      const cell = document.createElement("span");
+      cell.textContent = i;
+      frag.appendChild(cell);
+    }
+    diagram.replaceChildren(frag);
+  }
+
   // --- Eventos ---
   wireDropzone({ dropzone, input: fileInput, multiple: true, onFiles: addFiles });
   $("add-more-btn").addEventListener("click", () => fileInput.click());
   $("clear-btn").addEventListener("click", clearAll);
   applyBtn.addEventListener("click", apply);
+  perInput.addEventListener("change", renderDiagram);
+  orientInput.addEventListener("change", renderDiagram);
+  renderDiagram();
 })();

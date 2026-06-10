@@ -14,6 +14,17 @@ const LAYOUTS = {
 };
 
 /**
+ * Devuelve `[columnas, filas]` de la rejilla para `perSheet` páginas por hoja.
+ * La base está pensada para hoja vertical; en horizontal se intercambian para que
+ * las páginas queden una al lado de la otra (no apiladas). Misma fuente para el
+ * motor y para el dibujo de la UI.
+ */
+export function nUpGrid(perSheet, landscape = false) {
+  const [cols, rows] = LAYOUTS[perSheet] || [1, perSheet];
+  return landscape ? [rows, cols] : [cols, rows];
+}
+
+/**
  * Genera un PDF con `perSheet` páginas de origen colocadas en cada hoja.
  * Acepta uno o varios PDFs: las páginas de todos ellos se concatenan en orden y
  * se reparten de forma continua por las hojas.
@@ -25,10 +36,7 @@ const LAYOUTS = {
 export async function nUpPdf(PDFLib, sources, options = {}) {
   const { PDFDocument } = PDFLib;
   const { perSheet = 2, landscape = false, margin = 24, gap = 12 } = options;
-  // La rejilla base está pensada para hoja vertical. En horizontal se intercambian
-  // columnas y filas para que las páginas queden una al lado de la otra (no apiladas).
-  let [cols, rows] = LAYOUTS[perSheet] || [1, perSheet];
-  if (landscape) [cols, rows] = [rows, cols];
+  const [cols, rows] = nUpGrid(perSheet, landscape);
 
   const sheetWidth = landscape ? A4.height : A4.width;
   const sheetHeight = landscape ? A4.width : A4.height;
