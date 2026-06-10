@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Separar PDF — divide un PDF en páginas sueltas, gratis y en tu navegador</title>
-  <meta name="description" content="Separa cualquier PDF en páginas independientes directamente en tu navegador. Gratis, sin registro y sin subir archivos a ningún servidor. Descarga individual o en ZIP." />
+  <title>Split PDF — split a PDF into single pages, free and in your browser</title>
+  <meta name="description" content="Split any PDF into individual pages right in your browser. Free, no sign-up and without uploading files to any server. Download individually or as a ZIP." />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="canonical" href="https://tools.aitorevi.dev/separar-pdf/" />
+  <link rel="canonical" href="https://tools.aitorevi.dev/en/split-pdf/" />
   <link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/separar-pdf/" />
   <link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/split-pdf/" />
   <link rel="alternate" hreflang="x-default" href="https://tools.aitorevi.dev/separar-pdf/" />
   <meta name="color-scheme" content="dark light" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="aitorevi.tools" />
-  <meta property="og:locale" content="es_ES" />
-  <meta property="og:url" content="https://tools.aitorevi.dev/separar-pdf/" />
-  <meta property="og:title" content="Separar PDF — divide un PDF en páginas sueltas" />
-  <meta property="og:description" content="Separa un PDF en páginas independientes en tu navegador. Gratis, sin registro y sin subir nada. Descarga individual o en ZIP." />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:url" content="https://tools.aitorevi.dev/en/split-pdf/" />
+  <meta property="og:title" content="Split PDF — split a PDF into single pages" />
+  <meta property="og:description" content="Split a PDF into individual pages in your browser. Free, no sign-up and no uploads. Download individually or as a ZIP." />
   <meta property="og:image" content="https://tools.aitorevi.dev/og.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="stylesheet" href="/fonts/fonts.css" />
@@ -27,12 +27,12 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Separar PDF",
-    "url": "https://tools.aitorevi.dev/separar-pdf/",
+    "name": "Split PDF",
+    "url": "https://tools.aitorevi.dev/en/split-pdf/",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Web",
-    "inLanguage": "es",
-    "description": "Separa un PDF en páginas independientes en el navegador. Descarga individual o en ZIP, sin subir archivos a ningún servidor.",
+    "inLanguage": "en",
+    "description": "Split a PDF into individual pages in the browser. Download individually or as a ZIP, without uploading files to any server.",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
     "author": { "@type": "Person", "name": "Aitor Reviriego", "url": "https://www.aitorevi.dev" }
   }
@@ -84,15 +84,15 @@
 <body>
   <header class="site-nav">
     <div class="nav-inner">
-      <a class="brand" href="/" aria-label="Inicio de aitorevi.tools">
+      <a class="brand" href="/en/" aria-label="aitorevi.tools home">
         aitorevi<span class="dot" aria-hidden="true">.</span><span class="brand-tag">tools</span>
       </a>
       <nav class="nav-links" aria-label="aitorevi.tools">
-        <a href="https://www.aitorevi.dev/work" target="_blank" rel="noopener">Web</a>
-        <a href="https://www.aitorevi.dev/blog" target="_blank" rel="noopener">Blog</a>
-        <a class="lang-switch" href="/en/split-pdf/" hreflang="en" aria-label="View in English" data-lang-switch>EN</a>
+        <a href="https://www.aitorevi.dev/en/work" target="_blank" rel="noopener">Work</a>
+        <a href="https://www.aitorevi.dev/en/blog" target="_blank" rel="noopener">Blog</a>
+        <a class="lang-switch" href="/separar-pdf/" hreflang="es" aria-label="Ver en español" data-lang-switch>ES</a>
         <button id="theme-toggle" class="theme-toggle" type="button"
-                aria-label="Cambiar entre tema claro y oscuro" title="Cambiar tema">
+                aria-label="Toggle light and dark theme" title="Toggle theme">
           <svg class="icon-moon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
           </svg>
@@ -106,20 +106,20 @@
 
 <main class="wrap">
     <header>
-      <span class="badge"><span class="dot" aria-hidden="true"></span>100% en tu navegador · sin subir nada</span>
-      <h1>Separar PDF</h1>
-      <p class="subtitle">Divide cualquier PDF en páginas sueltas y descárgalas una a una o todas en un ZIP.</p>
+      <span class="badge"><span class="dot" aria-hidden="true"></span>100% in your browser · nothing uploaded</span>
+      <h1>Split PDF</h1>
+      <p class="subtitle">Split any PDF into single pages and download them one by one or all in a ZIP.</p>
     </header>
 
     <section class="card" aria-labelledby="app-title">
-      <h2 id="app-title" class="sr">Herramienta para separar PDF</h2>
+      <h2 id="app-title" class="sr">Split PDF tool</h2>
 
       <div id="loader">
         <div id="dropzone" class="dropzone" tabindex="0" role="button"
-             aria-label="Selecciona o arrastra un archivo PDF">
+             aria-label="Select or drop a PDF file">
           <div class="icon" aria-hidden="true">📄</div>
-          <div class="lead">Arrastra tu PDF aquí o <strong>haz clic para elegirlo</strong></div>
-          <div class="hint">Solo se procesa en tu dispositivo. Nada se envía a internet.</div>
+          <div class="lead">Drag your PDF here or <strong>click to choose it</strong></div>
+          <div class="hint">It's processed only on your device. Nothing is sent to the internet.</div>
         </div>
         <input id="file-input" type="file" accept="application/pdf,.pdf" class="visually-hidden" />
       </div>
@@ -127,23 +127,23 @@
       <div id="workspace" class="hidden">
         <div class="file-bar">
           <div class="info">
-            <span class="name" id="file-name">documento.pdf</span>
+            <span class="name" id="file-name">document.pdf</span>
             <span class="meta" id="file-meta">—</span>
           </div>
-          <button class="btn ghost" id="reset-btn" type="button">Cambiar PDF</button>
+          <button class="btn ghost" id="reset-btn" type="button">Change PDF</button>
         </div>
 
         <div class="toolbar">
-          <button class="btn" id="select-all" type="button">Seleccionar todo</button>
-          <button class="btn" id="select-none" type="button">Quitar selección</button>
+          <button class="btn" id="select-all" type="button">Select all</button>
+          <button class="btn" id="select-none" type="button">Clear selection</button>
           <span class="count" id="selected-count"></span>
         </div>
 
-        <ul class="pages" id="pages-list" aria-label="Páginas del PDF"></ul>
+        <ul class="pages" id="pages-list" aria-label="PDF pages"></ul>
 
         <div class="actions">
-          <button class="btn primary" id="zip-btn" type="button">⬇ Descargar selección en ZIP</button>
-          <button class="btn ghost" id="individual-btn" type="button">Descargar una a una</button>
+          <button class="btn primary" id="zip-btn" type="button">⬇ Download selection as ZIP</button>
+          <button class="btn ghost" id="individual-btn" type="button">Download one by one</button>
         </div>
 
         <div class="progress" id="progress" aria-hidden="true"><i></i></div>
@@ -154,10 +154,10 @@
 
   <footer class="site-footer">
     <div class="foot-social">
-      <a href="https://es.linkedin.com/in/aitor-reviriego-amor" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Aitor Reviriego">
+      <a href="https://es.linkedin.com/in/aitor-reviriego-amor" target="_blank" rel="noopener noreferrer" aria-label="Aitor Reviriego on LinkedIn">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>
       </a>
-      <a href="https://github.com/aitorevi" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Aitor Reviriego">
+      <a href="https://github.com/aitorevi" target="_blank" rel="noopener noreferrer" aria-label="Aitor Reviriego on GitHub">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
       </a>
     </div>
@@ -168,7 +168,7 @@
       <span>No dependencies, runs in your browser</span>
     </p>
 
-    <p class="foot-copy">© 2026 aitorevi · tools.aitorevi.dev · <a href="/licencias/">Licencias</a></p>
+    <p class="foot-copy">© 2026 aitorevi · tools.aitorevi.dev · <a href="/en/licenses/">Licenses</a></p>
   </footer>
 
   <script src="/vendor/pdf-lib.min.js"></script>

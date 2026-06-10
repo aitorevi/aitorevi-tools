@@ -1,5 +1,12 @@
 import { test, expect } from "@playwright/test";
 
+// Fija un idioma para desactivar el auto-redirect por idioma del navegador (lang.js).
+test.beforeEach(async ({ context }) => {
+  await context.addInitScript(() => {
+    try { localStorage.setItem("lang", "es"); } catch {}
+  });
+});
+
 // Genera un PDF en la propia página y simula soltarlo en la ventana.
 async function dropPdf(page, pages, name = "informe.pdf") {
   await page.evaluate(
@@ -257,4 +264,28 @@ test("quitar metadatos: limpia y descarga", async ({ page }) => {
     page.click("#clean-btn"),
   ]);
   expect(download.suggestedFilename()).toBe("foto-sin-metadatos.png");
+});
+
+// --- Inglés (/en/) ---
+
+test("EN: split-pdf muestra la UI en inglés y descarga", async ({ page }) => {
+  await page.goto("/en/split-pdf/");
+  await expect(page.locator("main h1")).toHaveText("Split PDF");
+  await expect(page.locator(".lang-switch")).toHaveText("ES");
+  await dropPdf(page, 3);
+  await expect(page.locator("#selected-count")).toHaveText("3 selected");
+  await expect(page.locator("#zip-btn")).toContainText("Download selection as ZIP");
+  const [download] = await Promise.all([
+    page.waitForEvent("download"),
+    page.click("#zip-btn"),
+  ]);
+  expect(download.suggestedFilename()).toMatch(/\.zip$/);
+});
+
+test("EN: el selector lleva del hub español al inglés", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".lang-switch")).toHaveText("EN");
+  await page.locator(".lang-switch").click();
+  await expect(page).toHaveURL(/\/en\/$/);
+  await expect(page.locator("main h1")).toHaveText("Tools");
 });

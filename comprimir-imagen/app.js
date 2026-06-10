@@ -17,10 +17,12 @@ import {
   searchQualityForTarget,
 } from "./lib.js";
 import { wireDropzone } from "../lib/dropzone.js";
+import { msgs } from "../lib/i18n.js";
 
 (() => {
   "use strict";
 
+  const M = msgs("comprimir-imagen");
   let bitmap = null;
   let base = "imagen";
   let original = null; // { name, size, w, h, url }
@@ -97,14 +99,14 @@ import { wireDropzone } from "../lib/dropzone.js";
   function describe(r) {
     const pct = reductionPercent(original.size, r.blob.size);
     const red = r.blob.size < original.size ? ` (−${pct}%)` : "";
-    return `${r.w}×${r.h} · calidad ${Math.round(r.quality * 100)}% · ${formatBytes(r.blob.size)}${red}`;
+    return `${r.w}×${r.h} · ${M.qualityWord} ${Math.round(r.quality * 100)}% · ${formatBytes(r.blob.size)}${red}`;
   }
 
   // Recalcula el resultado estimado (en vivo), descartando cálculos obsoletos.
   async function recompute() {
     if (!bitmap) return;
     const token = ++recomputeToken;
-    estimateEl.textContent = "Calculando resultado…";
+    estimateEl.textContent = M.calculating;
     estimateEl.classList.remove("over");
     try {
       const r = await computeResult();
@@ -116,9 +118,9 @@ import { wireDropzone } from "../lib/dropzone.js";
       resultPreview.src = resultUrl;
       const targetBytes = Number(targetInput.value) > 0 ? Number(targetInput.value) * 1024 : 0;
       const over = targetBytes > 0 && r.blob.size > targetBytes;
-      estimateEl.innerHTML = `Resultado: <b>≈ ${formatBytes(r.blob.size)}</b> · ${r.w}×${r.h} · calidad ${Math.round(r.quality * 100)}%`;
+      estimateEl.innerHTML = `${M.resultLabel} <b>≈ ${formatBytes(r.blob.size)}</b> · ${r.w}×${r.h} · ${M.qualityWord} ${Math.round(r.quality * 100)}%`;
       estimateEl.classList.toggle("over", over);
-      if (over) estimateEl.innerHTML += " — no baja más a esta resolución";
+      if (over) estimateEl.innerHTML += M.overNote;
     } catch (err) {
       if (token === recomputeToken) estimateEl.textContent = "";
       console.error(err);
@@ -134,24 +136,24 @@ import { wireDropzone } from "../lib/dropzone.js";
   async function loadFile(file) {
     if (!file) return;
     if (!isImageFile(file)) {
-      setStatus("Eso no parece una imagen.", "error");
+      setStatus(M.notImage, "error");
       return;
     }
-    setStatus("Leyendo la imagen…");
+    setStatus(M.reading);
     try {
       bitmap = await loadBitmap(file);
       base = baseNameNoExt(file.name);
       if (original?.url) URL.revokeObjectURL(original.url);
       original = { name: file.name, size: file.size, w: bitmap.width, h: bitmap.height, url: URL.createObjectURL(file) };
       resultPreview.src = original.url; // placeholder hasta el primer cálculo
-      infoEl.textContent = `Original: ${original.w}×${original.h} · ${formatBytes(original.size)}`;
+      infoEl.textContent = `${M.originalLabel} ${original.w}×${original.h} · ${formatBytes(original.size)}`;
       loader.classList.add("hidden");
       workspace.classList.remove("hidden");
       setStatus("");
       recompute();
     } catch (err) {
       console.error(err);
-      setStatus("No se pudo leer la imagen.", "error");
+      setStatus(M.readError, "error");
     }
   }
 
@@ -161,10 +163,10 @@ import { wireDropzone } from "../lib/dropzone.js";
     try {
       const r = currentResult || (await computeResult());
       triggerDownload(r.blob, compressedFileName(base, extForMime(formatSel.value)));
-      setStatus(`Descargada: ${describe(r)}.`, r.blob.size < original.size ? "ok" : "");
+      setStatus(`${M.downloadedLabel} ${describe(r)}.`, r.blob.size < original.size ? "ok" : "");
     } catch (err) {
       console.error(err);
-      setStatus("No se pudo comprimir la imagen.", "error");
+      setStatus(M.compressError, "error");
     } finally {
       compressBtn.disabled = false;
     }

@@ -1,34 +1,34 @@
   <main class="wrap">
     <header>
-      <span class="badge"><span class="dot" aria-hidden="true"></span>100% en tu navegador · sin subir nada</span>
-      <h1>Imagen a PDF</h1>
-      <p class="subtitle">Convierte tus imágenes JPG o PNG en un PDF. Reordénalas como quieras y descarga el documento.</p>
+      <span class="badge"><span class="dot" aria-hidden="true"></span>{{t.badge}}</span>
+      <h1>{{t.h1}}</h1>
+      <p class="subtitle">{{t.subtitle}}</p>
     </header>
 
     <section class="card" aria-labelledby="app-title">
-      <h2 id="app-title" class="sr">Herramienta para convertir imágenes a PDF</h2>
+      <h2 id="app-title" class="sr">{{t.cardAria}}</h2>
 
       <div id="loader">
         <div id="dropzone" class="dropzone" tabindex="0" role="button"
-             aria-label="Selecciona o arrastra imágenes JPG o PNG">
+             aria-label="{{t.dropAria}}">
           <div class="icon" aria-hidden="true">🖼️</div>
-          <div class="lead">Arrastra tus imágenes aquí o <strong>haz clic para elegirlas</strong></div>
-          <div class="hint">JPG o PNG · puedes seleccionar varias. Nada se envía a internet.</div>
+          <div class="lead">{{t.lead}}</div>
+          <div class="hint">{{t.hint}}</div>
         </div>
         <input id="file-input" type="file" accept="image/jpeg,image/png,.jpg,.jpeg,.png" multiple class="visually-hidden" />
       </div>
 
       <div id="workspace" class="hidden">
         <div class="toolbar">
-          <button class="btn" id="add-more-btn" type="button">Añadir más</button>
-          <button class="btn ghost" id="clear-btn" type="button">Vaciar</button>
-          <span class="count" id="count">0 imágenes</span>
+          <button class="btn" id="add-more-btn" type="button">{{t.addMore}}</button>
+          <button class="btn ghost" id="clear-btn" type="button">{{t.clear}}</button>
+          <span class="count" id="count"></span>
         </div>
 
-        <ul class="file-list" id="file-list" aria-label="Imágenes a convertir (en orden)"></ul>
+        <ul class="file-list" id="file-list" aria-label="{{t.listAria}}"></ul>
 
         <div class="actions">
-          <button class="btn primary" id="create-btn" type="button" disabled>⬇ Crear y descargar PDF</button>
+          <button class="btn primary" id="create-btn" type="button" disabled>{{t.createBtn}}</button>
         </div>
 
         <p class="status" id="status" role="status" aria-live="polite"></p>

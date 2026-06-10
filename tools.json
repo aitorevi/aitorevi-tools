@@ -2,154 +2,62 @@
   "site": {
     "origin": "https://tools.aitorevi.dev",
     "googleVerification": "6QRl2tKL7ajQ943dVydSquhPEVvxQiwGh4hqfnS7Zfo",
-    "hub": {
-      "title": "aitorevi.tools — mini-herramientas que corren en tu navegador",
-      "description": "Colección de mini-herramientas web gratuitas que funcionan 100% en tu navegador, sin registro y sin subir archivos a ningún servidor.",
-      "ogTitle": "aitorevi.tools — herramientas que corren en tu navegador",
-      "ogDescription": "Mini-herramientas web gratuitas que funcionan 100% en tu navegador: sin registro y sin subir archivos a ningún servidor.",
-      "jsonldDescription": "Mini-herramientas web que funcionan 100% en el navegador, sin servidor ni subidas.",
-      "h1": "Herramientas",
-      "subtitle": "Mini-utilidades web gratuitas que funcionan íntegramente en tu navegador. Sin registro, sin servidor y sin que tus archivos salgan de tu dispositivo.",
-      "soonCard": {
-        "section": "imagen",
-        "name": "Más herramientas",
-        "desc": "Estoy preparando nuevas mini-utilidades centradas en privacidad y velocidad. Vuelve pronto.",
-        "cta": "Próximamente"
-      }
-    }
+    "languages": ["es", "en"],
+    "defaultLang": "es",
+    "soonCard": { "section": "imagen" }
   },
   "sections": [
-    { "id": "pdf", "label": "PDF", "anchor": "sec-pdf" },
-    { "id": "imagen", "label": "Imágenes", "anchor": "sec-img" }
+    { "id": "pdf", "anchor": "sec-pdf" },
+    { "id": "imagen", "anchor": "sec-img" }
   ],
   "tools": [
     {
-      "slug": "separar-pdf",
+      "id": "separar-pdf",
       "section": "pdf",
       "libs": ["pdf-lib", "jszip"],
-      "title": "Separar PDF — divide un PDF en páginas sueltas, gratis y en tu navegador",
-      "description": "Separa cualquier PDF en páginas independientes directamente en tu navegador. Gratis, sin registro y sin subir archivos a ningún servidor. Descarga individual o en ZIP.",
-      "ogTitle": "Separar PDF — divide un PDF en páginas sueltas",
-      "ogDescription": "Separa un PDF en páginas independientes en tu navegador. Gratis, sin registro y sin subir nada. Descarga individual o en ZIP.",
-      "jsonldName": "Separar PDF",
-      "jsonldDescription": "Separa un PDF en páginas independientes en el navegador. Descarga individual o en ZIP, sin subir archivos a ningún servidor.",
-      "card": {
-        "name": "Separar PDF",
-        "desc": "Divide cualquier PDF en páginas sueltas y descárgalas una a una o todas juntas en un ZIP.",
-        "tags": ["PDF", "Sin servidor"]
-      }
+      "slug": { "es": "separar-pdf", "en": "split-pdf" }
     },
     {
-      "slug": "unir-pdf",
+      "id": "unir-pdf",
       "section": "pdf",
       "libs": ["pdf-lib"],
-      "title": "Unir PDF — combina varios PDFs en uno, gratis y en tu navegador",
-      "description": "Une varios PDFs en un único documento directamente en tu navegador. Reordénalos como quieras. Gratis, sin registro y sin subir nada a ningún servidor.",
-      "ogTitle": "Unir PDF — combina varios PDFs en uno",
-      "ogDescription": "Une varios PDFs en un único documento en tu navegador. Reordénalos como quieras. Gratis y sin subir nada.",
-      "jsonldName": "Unir PDF",
-      "jsonldDescription": "Combina varios PDFs en un único documento en el navegador, reordenables, sin subir archivos a ningún servidor.",
-      "card": {
-        "name": "Unir PDF",
-        "desc": "Combina varios PDFs en un único documento. Reordénalos como quieras antes de descargar.",
-        "tags": ["PDF", "Sin servidor"]
-      }
+      "slug": { "es": "unir-pdf", "en": "merge-pdf" }
     },
     {
-      "slug": "imagen-a-pdf",
+      "id": "imagen-a-pdf",
       "section": "pdf",
       "libs": ["pdf-lib"],
-      "title": "Imagen a PDF — convierte JPG y PNG a PDF, gratis y en tu navegador",
-      "description": "Convierte tus imágenes JPG o PNG en un PDF directamente en tu navegador. Reordénalas como quieras. Gratis, sin registro y sin subir nada a ningún servidor.",
-      "ogTitle": "Imagen a PDF — convierte JPG y PNG a PDF",
-      "ogDescription": "Convierte imágenes JPG o PNG en un PDF en tu navegador. Reordénalas como quieras. Gratis y sin subir nada.",
-      "jsonldName": "Imagen a PDF",
-      "jsonldDescription": "Convierte imágenes JPG o PNG en un PDF en el navegador, reordenables, sin subir archivos a ningún servidor.",
-      "card": {
-        "name": "Imagen a PDF",
-        "desc": "Convierte tus imágenes JPG o PNG en un PDF. Reordénalas antes de descargar.",
-        "tags": ["PDF", "Imágenes"]
-      }
+      "slug": { "es": "imagen-a-pdf", "en": "image-to-pdf" }
     },
     {
-      "slug": "marca-de-agua-pdf",
+      "id": "marca-de-agua-pdf",
       "section": "pdf",
       "libs": ["pdf-lib"],
-      "title": "Marca de agua en PDF — añade un texto a tu PDF, gratis y en tu navegador",
-      "description": "Añade una marca de agua de texto en diagonal a todas las páginas de un PDF, en tu navegador. Gratis, sin registro y sin subir el archivo a ningún servidor.",
-      "ogTitle": "Marca de agua en PDF — añade un texto a tu PDF",
-      "ogDescription": "Añade una marca de agua de texto a todas las páginas de un PDF, en tu navegador. Gratis y sin subir nada.",
-      "jsonldName": "Marca de agua en PDF",
-      "jsonldDescription": "Añade una marca de agua de texto a todas las páginas de un PDF, en el navegador, sin subir el archivo a ningún servidor.",
-      "card": {
-        "name": "Marca de agua en PDF",
-        "desc": "Añade un texto en diagonal a todas las páginas de un PDF, con opacidad y tamaño ajustables.",
-        "tags": ["PDF", "Sin servidor"]
-      }
+      "slug": { "es": "marca-de-agua-pdf", "en": "watermark-pdf" }
     },
     {
-      "slug": "n-up-pdf",
+      "id": "n-up-pdf",
       "section": "pdf",
       "libs": ["pdf-lib"],
-      "title": "Varias páginas por hoja (n-up) en PDF — gratis y en tu navegador",
-      "description": "Coloca 2, 4, 6 o 9 páginas de uno o varios PDF en cada hoja A4 para imprimir, en tu navegador. Gratis, sin registro y sin subir nada a ningún servidor.",
-      "ogTitle": "Varias páginas por hoja (n-up) en PDF",
-      "ogDescription": "Coloca 2, 4, 6 o 9 páginas de uno o varios PDF por hoja A4 para imprimir, en tu navegador. Gratis y sin subir nada.",
-      "jsonldName": "Varias páginas por hoja (n-up) en PDF",
-      "jsonldDescription": "Combina uno o varios PDF y coloca 2, 4, 6 o 9 páginas en cada hoja A4 para imprimir, en el navegador, sin subir los archivos a ningún servidor.",
-      "card": {
-        "name": "Varias páginas por hoja",
-        "desc": "Coloca 2, 4, 6 o 9 páginas de uno o varios PDF en cada hoja A4 para imprimir y ahorrar papel.",
-        "tags": ["PDF", "Imprimir"]
-      }
+      "slug": { "es": "n-up-pdf", "en": "n-up-pdf" }
     },
     {
-      "slug": "comprimir-imagen",
+      "id": "comprimir-imagen",
       "section": "imagen",
       "libs": [],
-      "title": "Comprimir imagen — reduce el peso de JPG, PNG y WebP, gratis y en tu navegador",
-      "description": "Comprime imágenes JPG, PNG o WebP para que pesen menos, directamente en tu navegador. Ajusta calidad y tamaño. Gratis, sin registro y sin subir nada a ningún servidor.",
-      "ogTitle": "Comprimir imagen — reduce el peso de JPG, PNG y WebP",
-      "ogDescription": "Comprime imágenes en tu navegador ajustando calidad y tamaño. Gratis y sin subir nada.",
-      "jsonldName": "Comprimir imagen",
-      "jsonldDescription": "Comprime imágenes JPG, PNG o WebP en el navegador ajustando calidad y tamaño, sin subir la imagen a ningún servidor.",
-      "card": {
-        "name": "Comprimir imagen",
-        "desc": "Reduce el peso de tus imágenes ajustando calidad y tamaño, sin que salgan de tu navegador.",
-        "tags": ["Imágenes", "Sin servidor"]
-      }
+      "slug": { "es": "comprimir-imagen", "en": "compress-image" }
     },
     {
-      "slug": "convertir-imagen",
+      "id": "convertir-imagen",
       "section": "imagen",
       "libs": [],
-      "title": "Convertir imagen — PNG, JPG y WebP, gratis y en tu navegador",
-      "description": "Convierte imágenes entre PNG, JPG y WebP directamente en tu navegador. Gratis, sin registro y sin subir la imagen a ningún servidor.",
-      "ogTitle": "Convertir imagen — PNG, JPG y WebP",
-      "ogDescription": "Convierte imágenes entre PNG, JPG y WebP en tu navegador. Gratis y sin subir nada.",
-      "jsonldName": "Convertir imagen",
-      "jsonldDescription": "Convierte imágenes entre PNG, JPG y WebP en el navegador, sin subir la imagen a ningún servidor.",
-      "card": {
-        "name": "Convertir imagen",
-        "desc": "Convierte entre PNG, JPG y WebP eligiendo el formato y la calidad de salida.",
-        "tags": ["Imágenes", "Sin servidor"]
-      }
+      "slug": { "es": "convertir-imagen", "en": "convert-image" }
     },
     {
-      "slug": "quitar-metadatos-imagen",
+      "id": "quitar-metadatos-imagen",
       "section": "imagen",
       "libs": [],
-      "title": "Quitar metadatos de una imagen (EXIF/GPS) — gratis y en tu navegador",
-      "description": "Elimina los metadatos EXIF, la ubicación GPS y los datos de cámara de tus fotos JPG o PNG, sin perder calidad y en tu navegador. Gratis y sin subir la imagen a ningún servidor.",
-      "ogTitle": "Quitar metadatos de una imagen (EXIF/GPS)",
-      "ogDescription": "Elimina EXIF, ubicación GPS y datos de cámara de tus fotos, sin perder calidad y en tu navegador. Gratis y sin subir nada.",
-      "jsonldName": "Quitar metadatos de una imagen",
-      "jsonldDescription": "Elimina los metadatos EXIF, GPS y de cámara de fotos JPG o PNG sin re-comprimir, en el navegador, sin subir la imagen a ningún servidor.",
-      "card": {
-        "name": "Quitar metadatos",
-        "desc": "Elimina EXIF, ubicación GPS y datos de cámara de tus fotos, sin perder calidad.",
-        "tags": ["Imágenes", "Privacidad"]
-      }
+      "slug": { "es": "quitar-metadatos-imagen", "en": "remove-image-metadata" }
     }
   ]
 }

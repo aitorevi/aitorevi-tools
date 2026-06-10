@@ -1,53 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://tools.aitorevi.dev/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/" />
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tools.aitorevi.dev/en/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/" />
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://tools.aitorevi.dev/separar-pdf/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/separar-pdf/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/split-pdf/" />
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://tools.aitorevi.dev/en/split-pdf/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/separar-pdf/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/split-pdf/" />
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://tools.aitorevi.dev/unir-pdf/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/unir-pdf/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/merge-pdf/" />
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://tools.aitorevi.dev/en/merge-pdf/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/unir-pdf/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/merge-pdf/" />
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://tools.aitorevi.dev/imagen-a-pdf/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/imagen-a-pdf/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/image-to-pdf/" />
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://tools.aitorevi.dev/en/image-to-pdf/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/imagen-a-pdf/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/image-to-pdf/" />
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://tools.aitorevi.dev/marca-de-agua-pdf/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/marca-de-agua-pdf/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/watermark-pdf/" />
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://tools.aitorevi.dev/en/watermark-pdf/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/marca-de-agua-pdf/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/watermark-pdf/" />
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://tools.aitorevi.dev/n-up-pdf/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/n-up-pdf/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/n-up-pdf/" />
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://tools.aitorevi.dev/en/n-up-pdf/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/n-up-pdf/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/n-up-pdf/" />
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://tools.aitorevi.dev/comprimir-imagen/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/comprimir-imagen/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/compress-image/" />
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://tools.aitorevi.dev/en/compress-image/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/comprimir-imagen/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/compress-image/" />
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://tools.aitorevi.dev/convertir-imagen/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/convertir-imagen/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/convert-image/" />
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://tools.aitorevi.dev/en/convert-image/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/convertir-imagen/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/convert-image/" />
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://tools.aitorevi.dev/quitar-metadatos-imagen/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/quitar-metadatos-imagen/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/remove-image-metadata/" />
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://tools.aitorevi.dev/en/remove-image-metadata/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/quitar-metadatos-imagen/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/remove-image-metadata/" />
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://tools.aitorevi.dev/licencias/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/licencias/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/licenses/" />
     <changefreq>monthly</changefreq>
-    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://tools.aitorevi.dev/en/licenses/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/licencias/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/licenses/" />
+    <changefreq>monthly</changefreq>
   </url>
 </urlset>

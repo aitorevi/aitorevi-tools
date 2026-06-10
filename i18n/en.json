@@ -1,0 +1,369 @@
+{
+  "common": {
+    "badge": "100% in your browser · nothing uploaded",
+    "addMore": "Add more",
+    "clear": "Clear",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "remove": "Remove",
+    "pages": { "one": "page", "many": "pages" },
+    "files": { "one": "file", "many": "files" },
+    "images": { "one": "image", "many": "images" },
+    "navWeb": "Work",
+    "navWebHref": "https://www.aitorevi.dev/en/work",
+    "navBlog": "Blog",
+    "navBlogHref": "https://www.aitorevi.dev/en/blog",
+    "navHome": "aitorevi.tools home",
+    "themeAria": "Toggle light and dark theme",
+    "themeTitle": "Toggle theme",
+    "linkedinAria": "Aitor Reviriego on LinkedIn",
+    "githubAria": "Aitor Reviriego on GitHub"
+  },
+  "hub": {
+    "title": "aitorevi.tools — mini tools that run in your browser",
+    "description": "A collection of free web mini-tools that run 100% in your browser, with no sign-up and without uploading files to any server.",
+    "ogTitle": "aitorevi.tools — tools that run in your browser",
+    "ogDescription": "Free web mini-tools that run 100% in your browser: no sign-up and no uploading files to any server.",
+    "jsonldDescription": "Web mini-tools that run 100% in the browser, with no server and no uploads.",
+    "h1": "Tools",
+    "subtitle": "Free web mini-utilities that run entirely in your browser. No sign-up, no server, and your files never leave your device.",
+    "soonCard": {
+      "name": "More tools",
+      "desc": "I'm preparing new mini-utilities focused on privacy and speed. Check back soon.",
+      "cta": "Coming soon"
+    }
+  },
+  "sections": { "pdf": "PDF", "imagen": "Images" },
+  "licenses": {
+    "slug": "licenses",
+    "title": "Licenses — aitorevi.tools",
+    "description": "Third-party libraries and fonts used in aitorevi.tools, with their licenses (MIT and SIL Open Font License).",
+    "ogTitle": "Licenses — aitorevi.tools",
+    "ogDescription": "Third-party software and fonts used in aitorevi.tools and their licenses.",
+    "badge": "Third-party software and fonts",
+    "h1": "Licenses",
+    "subtitle": "aitorevi.tools uses these open-source libraries and fonts, with their copyright notices and licenses.",
+    "disclaimer": "aitorevi.tools is provided as is, without warranty. Your files are processed entirely in your browser and are never sent to any server.",
+    "meta": {
+      "pdf-lib": "Copyright (c) 2019 Andrew Dillon · MIT license",
+      "jszip": "Copyright (c) 2009-2016 Stuart Knightley and others · MIT license (dual MIT/GPLv3). Includes the pako library (MIT).",
+      "outfit": "Copyright 2021 The Outfit Project Authors · SIL Open Font License 1.1",
+      "jetbrains": "Copyright 2020 The JetBrains Mono Project Authors · SIL Open Font License 1.1"
+    }
+  },
+  "tools": {
+    "separar-pdf": {
+      "meta": {
+        "title": "Split PDF — split a PDF into single pages, free and in your browser",
+        "description": "Split any PDF into individual pages right in your browser. Free, no sign-up and without uploading files to any server. Download individually or as a ZIP.",
+        "ogTitle": "Split PDF — split a PDF into single pages",
+        "ogDescription": "Split a PDF into individual pages in your browser. Free, no sign-up and no uploads. Download individually or as a ZIP.",
+        "jsonldName": "Split PDF",
+        "jsonldDescription": "Split a PDF into individual pages in the browser. Download individually or as a ZIP, without uploading files to any server."
+      },
+      "card": {
+        "name": "Split PDF",
+        "desc": "Split any PDF into single pages and download them one by one or all together in a ZIP.",
+        "tags": ["PDF", "No server"]
+      },
+      "ui": {
+        "h1": "Split PDF",
+        "subtitle": "Split any PDF into single pages and download them one by one or all in a ZIP.",
+        "cardAria": "Split PDF tool",
+        "dropAria": "Select or drop a PDF file",
+        "lead": "Drag your PDF here or <strong>click to choose it</strong>",
+        "hint": "It's processed only on your device. Nothing is sent to the internet.",
+        "fileName": "document.pdf",
+        "reset": "Change PDF",
+        "selectAll": "Select all",
+        "selectNone": "Clear selection",
+        "pagesAria": "PDF pages",
+        "zipBtn": "⬇ Download selection as ZIP",
+        "individualBtn": "Download one by one"
+      },
+      "msg": {
+        "pages": { "one": "page", "many": "pages" },
+        "selected": { "one": "selected", "many": "selected" },
+        "pageTag": "page",
+        "notPdf": "That file doesn't look like a PDF. Try another one.",
+        "reading": "Reading the PDF…",
+        "noPages": "The PDF has no pages.",
+        "readError": "Couldn't read the PDF. It may be damaged or password-protected.",
+        "dlTitle": "Download only page {n}",
+        "preparing": "Preparing page {n}…",
+        "pageDownloaded": "Page {n} downloaded.",
+        "extractError": "Couldn't extract page {n}.",
+        "generating": "Generating {n} pages…",
+        "zipDownloaded": "ZIP with {n} pages downloaded.",
+        "zipError": "Couldn't generate the ZIP.",
+        "confirmMany": "You're about to download {n} files separately. Your browser may ask permission for multiple downloads. Continue?",
+        "downloadingMany": "Downloading {n} pages…",
+        "manyDownloaded": "{n} pages downloaded.",
+        "manyError": "There was a problem during the downloads."
+      }
+    },
+    "unir-pdf": {
+      "meta": {
+        "title": "Merge PDF — combine several PDFs into one, free and in your browser",
+        "description": "Merge several PDFs into a single document right in your browser. Reorder them as you like. Free, no sign-up and without uploading anything to any server.",
+        "ogTitle": "Merge PDF — combine several PDFs into one",
+        "ogDescription": "Merge several PDFs into a single document in your browser. Reorder them as you like. Free and no uploads.",
+        "jsonldName": "Merge PDF",
+        "jsonldDescription": "Combine several PDFs into a single document in the browser, reorderable, without uploading files to any server."
+      },
+      "card": {
+        "name": "Merge PDF",
+        "desc": "Combine several PDFs into a single document. Reorder them as you like before downloading.",
+        "tags": ["PDF", "No server"]
+      },
+      "ui": {
+        "h1": "Merge PDF",
+        "subtitle": "Combine several PDFs into a single document. Reorder them as you like and download the result.",
+        "cardAria": "Merge PDF tool",
+        "dropAria": "Select or drop several PDF files",
+        "lead": "Drag your PDFs here or <strong>click to choose them</strong>",
+        "hint": "You can select several. Nothing is sent to the internet.",
+        "listAria": "PDFs to merge (in order)",
+        "mergeBtn": "⬇ Merge and download"
+      },
+      "msg": {
+        "notPdf": "That doesn't look like a PDF. Add PDF files.",
+        "reading": "Reading {n} {files}…",
+        "addedFailed": "{added} added; {failed} couldn't be read (damaged or protected?).",
+        "needMore": "Add at least one more PDF to merge.",
+        "merging": "Merging the PDFs…",
+        "mergedOk": "Merged PDF with {n} {pages} downloaded.",
+        "mergeError": "Couldn't merge the PDFs."
+      }
+    },
+    "imagen-a-pdf": {
+      "meta": {
+        "title": "Image to PDF — convert JPG and PNG to PDF, free and in your browser",
+        "description": "Convert your JPG or PNG images into a PDF right in your browser. Reorder them as you like. Free, no sign-up and without uploading anything to any server.",
+        "ogTitle": "Image to PDF — convert JPG and PNG to PDF",
+        "ogDescription": "Convert JPG or PNG images into a PDF in your browser. Reorder them as you like. Free and no uploads.",
+        "jsonldName": "Image to PDF",
+        "jsonldDescription": "Convert JPG or PNG images into a PDF in the browser, reorderable, without uploading files to any server."
+      },
+      "card": {
+        "name": "Image to PDF",
+        "desc": "Convert your JPG or PNG images into a PDF. Reorder them before downloading.",
+        "tags": ["PDF", "Images"]
+      },
+      "ui": {
+        "h1": "Image to PDF",
+        "subtitle": "Convert your JPG or PNG images into a PDF. Reorder them as you like and download the document.",
+        "cardAria": "Convert images to PDF tool",
+        "dropAria": "Select or drop JPG or PNG images",
+        "lead": "Drag your images here or <strong>click to choose them</strong>",
+        "hint": "JPG or PNG · you can select several. Nothing is sent to the internet.",
+        "listAria": "Images to convert (in order)",
+        "createBtn": "⬇ Create and download PDF"
+      },
+      "msg": {
+        "addImages": "Add JPG or PNG images.",
+        "reading": "Reading {n} {images}…",
+        "creating": "Creating the PDF…",
+        "createdOk": "PDF with {n} {images} downloaded.",
+        "createError": "Couldn't create the PDF."
+      }
+    },
+    "marca-de-agua-pdf": {
+      "meta": {
+        "title": "PDF watermark — add a text watermark to your PDF, free and in your browser",
+        "description": "Add a diagonal text watermark to every page of a PDF, in your browser. Free, no sign-up and without uploading the file to any server.",
+        "ogTitle": "PDF watermark — add text to your PDF",
+        "ogDescription": "Add a text watermark to every page of a PDF, in your browser. Free and no uploads.",
+        "jsonldName": "PDF watermark",
+        "jsonldDescription": "Add a text watermark to every page of a PDF, in the browser, without uploading the file to any server."
+      },
+      "card": {
+        "name": "PDF watermark",
+        "desc": "Add diagonal text to every page of a PDF, with adjustable opacity and size.",
+        "tags": ["PDF", "No server"]
+      },
+      "ui": {
+        "h1": "PDF watermark",
+        "subtitle": "Add diagonal text to every page of your PDF. Adjust the text, opacity and size.",
+        "cardAria": "Add a watermark to a PDF tool",
+        "dropAria": "Select or drop a PDF file",
+        "lead": "Drag your PDF here or <strong>click to choose it</strong>",
+        "hint": "It's processed only on your device. Nothing is sent to the internet.",
+        "fileName": "document.pdf",
+        "reset": "Change PDF",
+        "labelText": "Text",
+        "textDefault": "CONFIDENTIAL",
+        "labelOpacity": "Opacity",
+        "labelSize": "Size",
+        "applyBtn": "⬇ Apply and download"
+      },
+      "msg": {
+        "notPdf": "That file doesn't look like a PDF.",
+        "reading": "Reading the PDF…",
+        "readError": "Couldn't read the PDF. It may be damaged or protected.",
+        "needText": "Type the watermark text.",
+        "applying": "Applying the watermark…",
+        "appliedOk": "Watermarked PDF ({n} {pages}) downloaded.",
+        "applyError": "Couldn't apply the watermark."
+      }
+    },
+    "n-up-pdf": {
+      "meta": {
+        "title": "Multiple pages per sheet (n-up) in PDF — free and in your browser",
+        "description": "Place 2, 4, 6 or 9 pages from one or more PDFs on each A4 sheet for printing, in your browser. Free, no sign-up and without uploading anything to any server.",
+        "ogTitle": "Multiple pages per sheet (n-up) in PDF",
+        "ogDescription": "Place 2, 4, 6 or 9 pages from one or more PDFs per A4 sheet for printing, in your browser. Free and no uploads.",
+        "jsonldName": "Multiple pages per sheet (n-up) in PDF",
+        "jsonldDescription": "Combine one or more PDFs and place 2, 4, 6 or 9 pages on each A4 sheet for printing, in the browser, without uploading the files to any server."
+      },
+      "card": {
+        "name": "Pages per sheet",
+        "desc": "Place 2, 4, 6 or 9 pages from one or more PDFs on each A4 sheet to print and save paper.",
+        "tags": ["PDF", "Print"]
+      },
+      "ui": {
+        "h1": "Pages per sheet",
+        "subtitle": "Place 2, 4, 6 or 9 pages from one or more PDFs on each A4 sheet. Great for printing and saving paper.",
+        "cardAria": "Place multiple pages per sheet tool",
+        "dropAria": "Select or drop PDF files",
+        "lead": "Drag your PDFs here or <strong>click to choose them</strong>",
+        "hint": "You can select several. Nothing is sent to the internet.",
+        "listAria": "PDFs to combine (in order)",
+        "labelPer": "Pages per sheet",
+        "optPer": "per sheet",
+        "labelOrient": "Sheet orientation",
+        "optPortrait": "Portrait (A4)",
+        "optLandscape": "Landscape (A4)",
+        "diagramLabel": "How each sheet is arranged",
+        "applyBtn": "⬇ Generate and download"
+      },
+      "msg": {
+        "reading": "Reading {n} {files}…",
+        "notPdf": "That doesn't look like a PDF. Add PDF files.",
+        "failedRead": "{failed} couldn't be read (damaged or protected?).",
+        "arranging": "Rearranging the pages…",
+        "arrangedOk": "PDF with {per} per sheet ({sheets} {sheetsWord}) downloaded.",
+        "arrangeError": "Couldn't rearrange the PDF.",
+        "sheets": { "one": "sheet", "many": "sheets" }
+      }
+    },
+    "comprimir-imagen": {
+      "meta": {
+        "title": "Compress image — reduce the size of JPG, PNG and WebP, free and in your browser",
+        "description": "Compress JPG, PNG or WebP images to make them smaller, right in your browser. Adjust quality and size. Free, no sign-up and without uploading anything to any server.",
+        "ogTitle": "Compress image — reduce the size of JPG, PNG and WebP",
+        "ogDescription": "Compress images in your browser by adjusting quality and size. Free and no uploads.",
+        "jsonldName": "Compress image",
+        "jsonldDescription": "Compress JPG, PNG or WebP images in the browser by adjusting quality and size, without uploading the image to any server."
+      },
+      "card": {
+        "name": "Compress image",
+        "desc": "Reduce the size of your images by adjusting quality and size, without them leaving your browser.",
+        "tags": ["Images", "No server"]
+      },
+      "ui": {
+        "h1": "Compress image",
+        "subtitle": "Reduce the size of your images by adjusting quality and dimensions. All in your browser.",
+        "cardAria": "Compress images tool",
+        "dropAria": "Select or drop an image",
+        "lead": "Drag your image here or <strong>click to choose it</strong>",
+        "hint": "JPG, PNG, WebP… Nothing is sent to the internet.",
+        "previewAlt": "Preview of the compression result",
+        "reset": "Change image",
+        "labelFormat": "Format",
+        "optWebp": "WebP (recommended)",
+        "labelMaxSide": "Max size",
+        "labelTarget": "Target size (KB)",
+        "targetPlaceholder": "auto (optional)",
+        "labelQuality": "Quality",
+        "compressBtn": "⬇ Compress and download"
+      },
+      "msg": {
+        "notImage": "That doesn't look like an image.",
+        "reading": "Reading the image…",
+        "readError": "Couldn't read the image.",
+        "originalLabel": "Original:",
+        "calculating": "Calculating result…",
+        "resultLabel": "Result:",
+        "qualityWord": "quality",
+        "overNote": " — can't go lower at this resolution",
+        "downloadedLabel": "Downloaded:",
+        "compressError": "Couldn't compress the image."
+      }
+    },
+    "convertir-imagen": {
+      "meta": {
+        "title": "Convert image — PNG, JPG and WebP, free and in your browser",
+        "description": "Convert images between PNG, JPG and WebP right in your browser. Free, no sign-up and without uploading the image to any server.",
+        "ogTitle": "Convert image — PNG, JPG and WebP",
+        "ogDescription": "Convert images between PNG, JPG and WebP in your browser. Free and no uploads.",
+        "jsonldName": "Convert image",
+        "jsonldDescription": "Convert images between PNG, JPG and WebP in the browser, without uploading the image to any server."
+      },
+      "card": {
+        "name": "Convert image",
+        "desc": "Convert between PNG, JPG and WebP, choosing the output format and quality.",
+        "tags": ["Images", "No server"]
+      },
+      "ui": {
+        "h1": "Convert image",
+        "subtitle": "Convert between PNG, JPG and WebP. Choose the output format and quality; all in your browser.",
+        "cardAria": "Convert images tool",
+        "dropAria": "Select or drop an image",
+        "lead": "Drag your image here or <strong>click to choose it</strong>",
+        "hint": "PNG, JPG, WebP… Nothing is sent to the internet.",
+        "previewAlt": "Preview of the conversion result",
+        "reset": "Change image",
+        "labelTo": "Convert to",
+        "labelQuality": "Quality",
+        "convertBtn": "⬇ Convert and download"
+      },
+      "msg": {
+        "notImage": "That doesn't look like an image.",
+        "reading": "Reading the image…",
+        "readError": "Couldn't read the image.",
+        "originalLabel": "Original:",
+        "calculating": "Calculating result…",
+        "resultLabel": "Result:",
+        "downloadedIn": "Saved as",
+        "convertError": "Couldn't convert the image."
+      }
+    },
+    "quitar-metadatos-imagen": {
+      "meta": {
+        "title": "Remove image metadata (EXIF/GPS) — free and in your browser",
+        "description": "Remove EXIF metadata, GPS location and camera data from your JPG or PNG photos, without losing quality and in your browser. Free and without uploading the image to any server.",
+        "ogTitle": "Remove image metadata (EXIF/GPS)",
+        "ogDescription": "Remove EXIF, GPS location and camera data from your photos, without losing quality and in your browser. Free and no uploads.",
+        "jsonldName": "Remove image metadata",
+        "jsonldDescription": "Remove EXIF, GPS and camera metadata from JPG or PNG photos without re-compressing, in the browser, without uploading the image to any server."
+      },
+      "card": {
+        "name": "Remove metadata",
+        "desc": "Remove EXIF, GPS location and camera data from your photos, without losing quality.",
+        "tags": ["Images", "Privacy"]
+      },
+      "ui": {
+        "h1": "Remove image metadata",
+        "subtitle": "Remove EXIF, GPS location and camera data from your photos before sharing. Without losing quality.",
+        "cardAria": "Remove image metadata tool",
+        "dropAria": "Select or drop a JPG or PNG image",
+        "lead": "Drag your photo here or <strong>click to choose it</strong>",
+        "hint": "JPG or PNG · nothing is sent to the internet.",
+        "fileName": "image.jpg",
+        "reset": "Change image",
+        "note": "<b>Lossless:</b> only metadata is removed (EXIF/GPS/XMP); your image pixels stay identical.",
+        "cleanBtn": "⬇ Remove metadata and download"
+      },
+      "msg": {
+        "notImage": "That doesn't look like an image.",
+        "onlyJpgPng": "Only JPG and PNG for now.",
+        "reading": "Reading the image…",
+        "readError": "Couldn't read the image.",
+        "removedOk": "Metadata removed (−{n}). Your pixels are untouched.",
+        "noneFound": "Downloaded. No metadata found to remove.",
+        "processError": "Couldn't process the image."
+      }
+    }
+  }
+}

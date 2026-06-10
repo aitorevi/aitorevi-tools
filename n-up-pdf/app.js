@@ -11,11 +11,13 @@ import {
   nUpFileName,
 } from "./lib.js";
 import { wireDropzone } from "../lib/dropzone.js";
+import { msgs, fmt, plural } from "../lib/i18n.js";
 
 (() => {
   "use strict";
 
   const { PDFDocument } = window.PDFLib;
+  const M = msgs("n-up-pdf");
 
   // --- Estado ---
   let items = []; // { id, name, size, bytes, pages }
@@ -61,7 +63,7 @@ import { wireDropzone } from "../lib/dropzone.js";
     workspace.classList.remove("hidden");
     const n = items.length;
     const p = totalPages();
-    countEl.textContent = `${n} ${n === 1 ? "archivo" : "archivos"} · ${p} ${p === 1 ? "página" : "páginas"}`;
+    countEl.textContent = `${n} ${plural(n, M.files)} · ${p} ${plural(p, M.pages)}`;
     applyBtn.disabled = n < 1;
     renderList();
   }
@@ -75,12 +77,12 @@ import { wireDropzone } from "../lib/dropzone.js";
         <span class="order">${idx + 1}</span>
         <div class="info">
           <span class="fname">${escapeHtml(it.name)}</span>
-          <span class="fmeta">${it.pages} ${it.pages === 1 ? "página" : "páginas"} · ${formatBytes(it.size)}</span>
+          <span class="fmeta">${it.pages} ${plural(it.pages, M.pages)} · ${formatBytes(it.size)}</span>
         </div>
         <div class="row-actions">
-          <button class="icon-btn" type="button" data-act="up" ${idx === 0 ? "disabled" : ""} aria-label="Subir ${escapeHtml(it.name)}" title="Subir">▲</button>
-          <button class="icon-btn" type="button" data-act="down" ${idx === items.length - 1 ? "disabled" : ""} aria-label="Bajar ${escapeHtml(it.name)}" title="Bajar">▼</button>
-          <button class="icon-btn" type="button" data-act="remove" aria-label="Quitar ${escapeHtml(it.name)}" title="Quitar">✕</button>
+          <button class="icon-btn" type="button" data-act="up" ${idx === 0 ? "disabled" : ""} aria-label="${M.moveUp} ${escapeHtml(it.name)}" title="${M.moveUp}">▲</button>
+          <button class="icon-btn" type="button" data-act="down" ${idx === items.length - 1 ? "disabled" : ""} aria-label="${M.moveDown} ${escapeHtml(it.name)}" title="${M.moveDown}">▼</button>
+          <button class="icon-btn" type="button" data-act="remove" aria-label="${M.remove} ${escapeHtml(it.name)}" title="${M.remove}">✕</button>
         </div>`;
       li.querySelector('[data-act="up"]').addEventListener("click", () => move(idx, -1));
       li.querySelector('[data-act="down"]').addEventListener("click", () => move(idx, 1));
@@ -113,10 +115,10 @@ import { wireDropzone } from "../lib/dropzone.js";
   async function addFiles(fileLike) {
     const files = Array.from(fileLike || []).filter(isPdf);
     if (files.length === 0) {
-      setStatus("Eso no parece un PDF. Añade archivos PDF.", "error");
+      setStatus(M.notPdf, "error");
       return;
     }
-    setStatus(`Leyendo ${files.length} ${files.length === 1 ? "archivo" : "archivos"}…`);
+    setStatus(fmt(M.reading, { n: files.length, files: plural(files.length, M.files) }));
     let failed = 0;
     for (const file of files) {
       try {
@@ -129,7 +131,7 @@ import { wireDropzone } from "../lib/dropzone.js";
       }
     }
     refresh();
-    setStatus(failed ? `${failed} no se pudieron leer (¿dañados o protegidos?).` : "");
+    setStatus(failed ? fmt(M.failedRead, { failed }) : "");
   }
 
   // --- Generar n-up ---
@@ -137,7 +139,7 @@ import { wireDropzone } from "../lib/dropzone.js";
     if (items.length === 0) return;
     const perSheet = Number(perInput.value);
     applyBtn.disabled = true;
-    setStatus("Recolocando las páginas…");
+    setStatus(M.arranging);
     try {
       const bytes = await nUpPdf(window.PDFLib, items.map((it) => it.bytes), {
         perSheet,
@@ -146,10 +148,10 @@ import { wireDropzone } from "../lib/dropzone.js";
       const base = sanitizeBaseName(items[0].name) || "documento";
       triggerDownload(new Blob([bytes], { type: "application/pdf" }), nUpFileName(base, perSheet));
       const sheets = Math.ceil(totalPages() / perSheet);
-      setStatus(`PDF con ${perSheet} por hoja (${sheets} ${sheets === 1 ? "hoja" : "hojas"}) descargado.`, "ok");
+      setStatus(fmt(M.arrangedOk, { per: perSheet, sheets, sheetsWord: plural(sheets, M.sheets) }), "ok");
     } catch (err) {
       console.error(err);
-      setStatus("No se pudo recolocar el PDF.", "error");
+      setStatus(M.arrangeError, "error");
     } finally {
       applyBtn.disabled = items.length < 1;
     }

@@ -14,9 +14,12 @@ import {
   convertedFileName,
 } from "./lib.js";
 import { wireDropzone } from "../lib/dropzone.js";
+import { msgs } from "../lib/i18n.js";
 
 (() => {
   "use strict";
+
+  const M = msgs("convertir-imagen");
 
   let bitmap = null;
   let base = "imagen";
@@ -70,7 +73,7 @@ import { wireDropzone } from "../lib/dropzone.js";
   async function recompute() {
     if (!bitmap) return;
     const token = ++recomputeToken;
-    estimateEl.textContent = "Calculando resultado…";
+    estimateEl.textContent = M.calculating;
     try {
       const r = await computeResult();
       if (token !== recomputeToken) return;
@@ -79,7 +82,7 @@ import { wireDropzone } from "../lib/dropzone.js";
       resultUrl = URL.createObjectURL(r.blob);
       resultPreview.src = resultUrl;
       const fmt = extForMime(formatSel.value).toUpperCase();
-      estimateEl.innerHTML = `Resultado: <b>≈ ${formatBytes(r.blob.size)}</b> · ${original.w}×${original.h} · ${fmt}`;
+      estimateEl.innerHTML = `${M.resultLabel} <b>≈ ${formatBytes(r.blob.size)}</b> · ${original.w}×${original.h} · ${fmt}`;
     } catch (err) {
       if (token === recomputeToken) estimateEl.textContent = "";
       console.error(err);
@@ -95,10 +98,10 @@ import { wireDropzone } from "../lib/dropzone.js";
   async function loadFile(file) {
     if (!file) return;
     if (!isImageFile(file)) {
-      setStatus("Eso no parece una imagen.", "error");
+      setStatus(M.notImage, "error");
       return;
     }
-    setStatus("Leyendo la imagen…");
+    setStatus(M.reading);
     try {
       bitmap = await loadBitmap(file);
       base = baseNameNoExt(file.name);
@@ -113,7 +116,7 @@ import { wireDropzone } from "../lib/dropzone.js";
       };
       resultPreview.src = original.url; // placeholder
       const label = (extForMime(original.type) || original.type).toUpperCase();
-      infoEl.textContent = `Original: ${label} · ${original.w}×${original.h} · ${formatBytes(original.size)}`;
+      infoEl.textContent = `${M.originalLabel} ${label} · ${original.w}×${original.h} · ${formatBytes(original.size)}`;
       loader.classList.add("hidden");
       workspace.classList.remove("hidden");
       formatSel.value = original.type === "image/png" ? "image/jpeg" : "image/png";
@@ -122,7 +125,7 @@ import { wireDropzone } from "../lib/dropzone.js";
       recompute();
     } catch (err) {
       console.error(err);
-      setStatus("No se pudo leer la imagen.", "error");
+      setStatus(M.readError, "error");
     }
   }
 
@@ -133,10 +136,10 @@ import { wireDropzone } from "../lib/dropzone.js";
       const r = currentResult || (await computeResult());
       const mime = formatSel.value;
       triggerDownload(r.blob, convertedFileName(base, extForMime(mime)));
-      setStatus(`Descargado en ${extForMime(mime).toUpperCase()} · ${formatBytes(r.blob.size)}.`, "ok");
+      setStatus(`${M.downloadedIn} ${extForMime(mime).toUpperCase()} · ${formatBytes(r.blob.size)}.`, "ok");
     } catch (err) {
       console.error(err);
-      setStatus("No se pudo convertir la imagen.", "error");
+      setStatus(M.convertError, "error");
     } finally {
       convertBtn.disabled = false;
     }

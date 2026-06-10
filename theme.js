@@ -5,11 +5,17 @@
   "use strict";
   const root = document.documentElement;
 
+  const mq = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)");
   const stored = localStorage.getItem("theme");
-  const prefersDark =
-    window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const dark = stored ? stored === "dark" : prefersDark;
+  const dark = stored ? stored === "dark" : !!(mq && mq.matches);
   root.classList.toggle("dark", dark);
+
+  // Mientras el usuario no haya elegido manualmente, seguir el tema del SO en vivo.
+  if (mq && mq.addEventListener) {
+    mq.addEventListener("change", (e) => {
+      if (!localStorage.getItem("theme")) root.classList.toggle("dark", e.matches);
+    });
+  }
 
   document.addEventListener("DOMContentLoaded", () => {
     const btn = document.getElementById("theme-toggle");

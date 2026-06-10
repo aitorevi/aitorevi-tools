@@ -43,46 +43,44 @@
 
   <main class="wrap">
     <header>
-      <span class="badge"><span class="dot" aria-hidden="true"></span>100% en tu navegador · sin subir nada</span>
-      <h1>Separar PDF</h1>
-      <p class="subtitle">Divide cualquier PDF en páginas sueltas y descárgalas una a una o todas en un ZIP.</p>
+      <span class="badge"><span class="dot" aria-hidden="true"></span>{{t.badge}}</span>
+      <h1>{{t.h1}}</h1>
+      <p class="subtitle">{{t.subtitle}}</p>
     </header>
 
     <section class="card" aria-labelledby="app-title">
-      <h2 id="app-title" class="sr">Herramienta para separar PDF</h2>
+      <h2 id="app-title" class="sr">{{t.cardAria}}</h2>
 
-      <!-- Paso 1: cargar -->
       <div id="loader">
         <div id="dropzone" class="dropzone" tabindex="0" role="button"
-             aria-label="Selecciona o arrastra un archivo PDF">
+             aria-label="{{t.dropAria}}">
           <div class="icon" aria-hidden="true">📄</div>
-          <div class="lead">Arrastra tu PDF aquí o <strong>haz clic para elegirlo</strong></div>
-          <div class="hint">Solo se procesa en tu dispositivo. Nada se envía a internet.</div>
+          <div class="lead">{{t.lead}}</div>
+          <div class="hint">{{t.hint}}</div>
         </div>
         <input id="file-input" type="file" accept="application/pdf,.pdf" class="visually-hidden" />
       </div>
 
-      <!-- Paso 2: páginas -->
       <div id="workspace" class="hidden">
         <div class="file-bar">
           <div class="info">
-            <span class="name" id="file-name">documento.pdf</span>
+            <span class="name" id="file-name">{{t.fileName}}</span>
             <span class="meta" id="file-meta">—</span>
           </div>
-          <button class="btn ghost" id="reset-btn" type="button">Cambiar PDF</button>
+          <button class="btn ghost" id="reset-btn" type="button">{{t.reset}}</button>
         </div>
 
         <div class="toolbar">
-          <button class="btn" id="select-all" type="button">Seleccionar todo</button>
-          <button class="btn" id="select-none" type="button">Quitar selección</button>
-          <span class="count" id="selected-count">0 seleccionadas</span>
+          <button class="btn" id="select-all" type="button">{{t.selectAll}}</button>
+          <button class="btn" id="select-none" type="button">{{t.selectNone}}</button>
+          <span class="count" id="selected-count"></span>
         </div>
 
-        <ul class="pages" id="pages-list" aria-label="Páginas del PDF"></ul>
+        <ul class="pages" id="pages-list" aria-label="{{t.pagesAria}}"></ul>
 
         <div class="actions">
-          <button class="btn primary" id="zip-btn" type="button">⬇ Descargar selección en ZIP</button>
-          <button class="btn ghost" id="individual-btn" type="button">Descargar una a una</button>
+          <button class="btn primary" id="zip-btn" type="button">{{t.zipBtn}}</button>
+          <button class="btn ghost" id="individual-btn" type="button">{{t.individualBtn}}</button>
         </div>
 
         <div class="progress" id="progress" aria-hidden="true"><i></i></div>

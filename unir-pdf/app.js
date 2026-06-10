@@ -10,11 +10,13 @@ import {
   mergedFileName,
 } from "./lib.js";
 import { wireDropzone } from "../lib/dropzone.js";
+import { msgs, fmt, plural } from "../lib/i18n.js";
 
 (() => {
   "use strict";
 
   const { PDFDocument } = window.PDFLib;
+  const M = msgs("unir-pdf");
 
   // --- Estado ---
   let items = []; // { id, name, size, bytes, pages }
@@ -58,7 +60,7 @@ import { wireDropzone } from "../lib/dropzone.js";
     workspace.classList.remove("hidden");
     const n = items.length;
     const p = totalPages();
-    countEl.textContent = `${n} ${n === 1 ? "archivo" : "archivos"} · ${p} ${p === 1 ? "página" : "páginas"}`;
+    countEl.textContent = `${n} ${plural(n, M.files)} · ${p} ${plural(p, M.pages)}`;
     mergeBtn.disabled = n < 2;
     renderList();
   }
@@ -72,12 +74,12 @@ import { wireDropzone } from "../lib/dropzone.js";
         <span class="order">${idx + 1}</span>
         <div class="info">
           <span class="fname">${escapeHtml(it.name)}</span>
-          <span class="fmeta">${it.pages} ${it.pages === 1 ? "página" : "páginas"} · ${formatBytes(it.size)}</span>
+          <span class="fmeta">${it.pages} ${plural(it.pages, M.pages)} · ${formatBytes(it.size)}</span>
         </div>
         <div class="row-actions">
-          <button class="icon-btn" type="button" data-act="up" ${idx === 0 ? "disabled" : ""} aria-label="Subir ${escapeHtml(it.name)}" title="Subir">▲</button>
-          <button class="icon-btn" type="button" data-act="down" ${idx === items.length - 1 ? "disabled" : ""} aria-label="Bajar ${escapeHtml(it.name)}" title="Bajar">▼</button>
-          <button class="icon-btn" type="button" data-act="remove" aria-label="Quitar ${escapeHtml(it.name)}" title="Quitar">✕</button>
+          <button class="icon-btn" type="button" data-act="up" ${idx === 0 ? "disabled" : ""} aria-label="${M.moveUp} ${escapeHtml(it.name)}" title="${M.moveUp}">▲</button>
+          <button class="icon-btn" type="button" data-act="down" ${idx === items.length - 1 ? "disabled" : ""} aria-label="${M.moveDown} ${escapeHtml(it.name)}" title="${M.moveDown}">▼</button>
+          <button class="icon-btn" type="button" data-act="remove" aria-label="${M.remove} ${escapeHtml(it.name)}" title="${M.remove}">✕</button>
         </div>`;
       li.querySelector('[data-act="up"]').addEventListener("click", () => move(idx, -1));
       li.querySelector('[data-act="down"]').addEventListener("click", () => move(idx, 1));
@@ -110,10 +112,10 @@ import { wireDropzone } from "../lib/dropzone.js";
   async function addFiles(fileLike) {
     const files = Array.from(fileLike || []).filter(isPdf);
     if (files.length === 0) {
-      setStatus("Eso no parece un PDF. Añade archivos PDF.", "error");
+      setStatus(M.notPdf, "error");
       return;
     }
-    setStatus(`Leyendo ${files.length} ${files.length === 1 ? "archivo" : "archivos"}…`);
+    setStatus(fmt(M.reading, { n: files.length, files: plural(files.length, M.files) }));
     let added = 0;
     let failed = 0;
     for (const file of files) {
@@ -129,9 +131,9 @@ import { wireDropzone } from "../lib/dropzone.js";
     }
     refresh();
     if (failed) {
-      setStatus(`${added} añadido(s); ${failed} no se pudieron leer (¿dañados o protegidos?).`, "error");
+      setStatus(fmt(M.addedFailed, { added, failed }), "error");
     } else {
-      setStatus(items.length < 2 ? "Añade al menos otro PDF para unir." : "");
+      setStatus(items.length < 2 ? M.needMore : "");
     }
   }
 
@@ -139,15 +141,15 @@ import { wireDropzone } from "../lib/dropzone.js";
   async function merge() {
     if (items.length < 2) return;
     mergeBtn.disabled = true;
-    setStatus("Uniendo los PDFs…");
+    setStatus(M.merging);
     try {
       const bytes = await mergePdfs(PDFDocument, items.map((it) => it.bytes));
       const base = sanitizeBaseName(items[0].name);
       triggerDownload(new Blob([bytes], { type: "application/pdf" }), mergedFileName(base));
-      setStatus(`PDF unido con ${totalPages()} páginas descargado.`, "ok");
+      setStatus(fmt(M.mergedOk, { n: totalPages(), pages: plural(totalPages(), M.pages) }), "ok");
     } catch (err) {
       console.error(err);
-      setStatus("No se pudo unir los PDFs.", "error");
+      setStatus(M.mergeError, "error");
     } finally {
       mergeBtn.disabled = items.length < 2;
     }

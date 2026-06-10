@@ -9,11 +9,13 @@ import {
   outputFileName,
 } from "./lib.js";
 import { wireDropzone } from "../lib/dropzone.js";
+import { msgs, fmt, plural } from "../lib/i18n.js";
 
 (() => {
   "use strict";
 
   const { PDFDocument } = window.PDFLib;
+  const M = msgs("imagen-a-pdf");
 
   // { id, name, size, type, bytes, w, h, thumb }
   let items = [];
@@ -60,7 +62,7 @@ import { wireDropzone } from "../lib/dropzone.js";
     loader.classList.add("hidden");
     workspace.classList.remove("hidden");
     const n = items.length;
-    countEl.textContent = `${n} ${n === 1 ? "imagen" : "imágenes"}`;
+    countEl.textContent = `${n} ${plural(n, M.images)}`;
     createBtn.disabled = n < 1;
     renderList();
   }
@@ -78,9 +80,9 @@ import { wireDropzone } from "../lib/dropzone.js";
           <span class="fmeta">${it.w}×${it.h} · ${formatBytes(it.size)}</span>
         </div>
         <div class="row-actions">
-          <button class="icon-btn" type="button" data-act="up" ${idx === 0 ? "disabled" : ""} aria-label="Subir ${escapeHtml(it.name)}" title="Subir">▲</button>
-          <button class="icon-btn" type="button" data-act="down" ${idx === items.length - 1 ? "disabled" : ""} aria-label="Bajar ${escapeHtml(it.name)}" title="Bajar">▼</button>
-          <button class="icon-btn" type="button" data-act="remove" aria-label="Quitar ${escapeHtml(it.name)}" title="Quitar">✕</button>
+          <button class="icon-btn" type="button" data-act="up" ${idx === 0 ? "disabled" : ""} aria-label="${M.moveUp} ${escapeHtml(it.name)}" title="${M.moveUp}">▲</button>
+          <button class="icon-btn" type="button" data-act="down" ${idx === items.length - 1 ? "disabled" : ""} aria-label="${M.moveDown} ${escapeHtml(it.name)}" title="${M.moveDown}">▼</button>
+          <button class="icon-btn" type="button" data-act="remove" aria-label="${M.remove} ${escapeHtml(it.name)}" title="${M.remove}">✕</button>
         </div>`;
       li.querySelector('[data-act="up"]').addEventListener("click", () => move(idx, -1));
       li.querySelector('[data-act="down"]').addEventListener("click", () => move(idx, 1));
@@ -115,10 +117,10 @@ import { wireDropzone } from "../lib/dropzone.js";
   async function addFiles(fileLike) {
     const files = Array.from(fileLike || []).filter(isSupportedImage);
     if (files.length === 0) {
-      setStatus("Añade imágenes JPG o PNG.", "error");
+      setStatus(M.addImages, "error");
       return;
     }
-    setStatus(`Leyendo ${files.length} ${files.length === 1 ? "imagen" : "imágenes"}…`);
+    setStatus(fmt(M.reading, { n: files.length, images: plural(files.length, M.images) }));
     for (const file of files) {
       const bytes = await file.arrayBuffer();
       const thumb = URL.createObjectURL(file);
@@ -141,15 +143,15 @@ import { wireDropzone } from "../lib/dropzone.js";
   async function createPdf() {
     if (items.length === 0) return;
     createBtn.disabled = true;
-    setStatus("Creando el PDF…");
+    setStatus(M.creating);
     try {
       const bytes = await imagesToPdf(PDFDocument, items.map((i) => ({ bytes: i.bytes, type: i.type })));
       const base = sanitizeBaseName(items[0].name) || "imagenes";
       triggerDownload(new Blob([bytes], { type: "application/pdf" }), outputFileName(base));
-      setStatus(`PDF con ${items.length} ${items.length === 1 ? "imagen" : "imágenes"} descargado.`, "ok");
+      setStatus(fmt(M.createdOk, { n: items.length, images: plural(items.length, M.images) }), "ok");
     } catch (err) {
       console.error(err);
-      setStatus("No se pudo crear el PDF.", "error");
+      setStatus(M.createError, "error");
     } finally {
       createBtn.disabled = items.length < 1;
     }
