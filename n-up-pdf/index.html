@@ -50,6 +50,15 @@
       background: rgb(var(--accent) / 0.10); color: rgb(var(--accent));
       font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .72rem; font-weight: 600;
     }
+
+    /* En móvil: dibujo arriba, botón abajo. En escritorio: botón a la izquierda
+       (centrado en altura) y dibujo a la derecha. */
+    .nup-output { display: flex; flex-direction: column; gap: 22px; }
+    .nup-output .nup-diagram-wrap { margin: 0; }
+    @media (min-width: 600px) {
+      .nup-output { flex-direction: row; align-items: center; justify-content: space-between; gap: 28px; }
+      .nup-output .actions { order: -1; margin-bottom: 0; }
+    }
   </style>
 </head>
 <body>
@@ -122,13 +131,15 @@
           </label>
         </div>
 
-        <div class="nup-diagram-wrap" aria-hidden="true">
-          <span class="nup-diagram-label">Así se reparte cada hoja</span>
-          <div class="nup-diagram" id="nup-diagram"></div>
-        </div>
+        <div class="nup-output">
+          <div class="nup-diagram-wrap" aria-hidden="true">
+            <span class="nup-diagram-label">Así se reparte cada hoja</span>
+            <div class="nup-diagram" id="nup-diagram"></div>
+          </div>
 
-        <div class="actions">
-          <button class="btn primary" id="apply-btn" type="button" disabled>⬇ Generar y descargar</button>
+          <div class="actions">
+            <button class="btn primary" id="apply-btn" type="button" disabled>⬇ Generar y descargar</button>
+          </div>
         </div>
 
         <p class="status" id="status" role="status" aria-live="polite"></p>
