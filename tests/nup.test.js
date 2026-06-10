@@ -34,6 +34,11 @@ describe("nUpPdf", () => {
     const { width, height } = (await PDFDocument.load(out)).getPage(0).getSize();
     expect(width).toBeGreaterThan(height);
   });
+
+  it("varios PDFs: combina las páginas en orden (3+2, 4 por hoja → 2 hojas)", async () => {
+    const out = await nUpPdf(PDFLib, [await makePdf(3), await makePdf(2)], { perSheet: 4 });
+    expect((await PDFDocument.load(out)).getPageCount()).toBe(2);
+  });
 });
 
 describe("nUpFileName", () => {

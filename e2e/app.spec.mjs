@@ -179,8 +179,8 @@ test("marca de agua: con el texto vacío no descarga (muestra error)", async ({ 
 // --- n-up PDF ---
 
 // PDF con contenido (las páginas en blanco no se pueden embeber para n-up).
-async function dropPdfWithContent(page, pages) {
-  await page.evaluate(async (n) => {
+async function dropPdfWithContent(page, pages, name = "doc.pdf") {
+  await page.evaluate(async ({ n, name }) => {
     const { PDFDocument } = window.PDFLib;
     const doc = await PDFDocument.create();
     for (let i = 0; i < n; i++) {
@@ -189,15 +189,17 @@ async function dropPdfWithContent(page, pages) {
     }
     const bytes = await doc.save();
     const dt = new DataTransfer();
-    dt.items.add(new File([bytes], "doc.pdf", { type: "application/pdf" }));
+    dt.items.add(new File([bytes], name, { type: "application/pdf" }));
     window.dispatchEvent(new DragEvent("drop", { dataTransfer: dt, bubbles: true, cancelable: true }));
-  }, pages);
+  }, { n: pages, name });
 }
 
-test("n-up: genera y descarga el PDF recolocado", async ({ page }) => {
+test("n-up: combina varios PDFs y descarga el recolocado", async ({ page }) => {
   await page.goto("/n-up-pdf/");
-  await dropPdfWithContent(page, 8);
+  await dropPdfWithContent(page, 5, "uno.pdf");
+  await dropPdfWithContent(page, 3, "dos.pdf");
   await expect(page.locator("#workspace")).toBeVisible();
+  await expect(page.locator("#file-list .file-row")).toHaveCount(2);
   await page.selectOption("#nup-per", "4");
   const [download] = await Promise.all([
     page.waitForEvent("download"),

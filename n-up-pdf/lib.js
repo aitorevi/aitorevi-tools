@@ -15,12 +15,14 @@ const LAYOUTS = {
 
 /**
  * Genera un PDF con `perSheet` páginas de origen colocadas en cada hoja.
+ * Acepta uno o varios PDFs: las páginas de todos ellos se concatenan en orden y
+ * se reparten de forma continua por las hojas.
  * @param {*} PDFLib - namespace de pdf-lib (window.PDFLib).
- * @param {ArrayBuffer|Uint8Array} srcBytes
+ * @param {ArrayBuffer|Uint8Array|Array<ArrayBuffer|Uint8Array>} sources
  * @param {{perSheet?:number, landscape?:boolean, margin?:number, gap?:number}} options
  * @returns {Promise<Uint8Array>}
  */
-export async function nUpPdf(PDFLib, srcBytes, options = {}) {
+export async function nUpPdf(PDFLib, sources, options = {}) {
   const { PDFDocument } = PDFLib;
   const { perSheet = 2, landscape = false, margin = 24, gap = 12 } = options;
   const [cols, rows] = LAYOUTS[perSheet] || [1, perSheet];
@@ -28,9 +30,14 @@ export async function nUpPdf(PDFLib, srcBytes, options = {}) {
   const sheetWidth = landscape ? A4.height : A4.width;
   const sheetHeight = landscape ? A4.width : A4.height;
 
-  const src = await PDFDocument.load(srcBytes, { ignoreEncryption: true });
+  const list = Array.isArray(sources) ? sources : [sources];
   const out = await PDFDocument.create();
-  const embedded = await out.embedPdf(srcBytes, src.getPageIndices());
+  const embedded = [];
+  for (const bytes of list) {
+    const src = await PDFDocument.load(bytes, { ignoreEncryption: true });
+    const eps = await out.embedPdf(bytes, src.getPageIndices());
+    for (const ep of eps) embedded.push(ep);
+  }
 
   const cellW = (sheetWidth - 2 * margin - (cols - 1) * gap) / cols;
   const cellH = (sheetHeight - 2 * margin - (rows - 1) * gap) / rows;

@@ -93,14 +93,14 @@
       "section": "pdf",
       "libs": ["pdf-lib"],
       "title": "Varias páginas por hoja (n-up) en PDF — gratis y en tu navegador",
-      "description": "Coloca 2, 4, 6 o 9 páginas de un PDF en cada hoja A4 para imprimir, en tu navegador. Gratis, sin registro y sin subir el archivo a ningún servidor.",
+      "description": "Coloca 2, 4, 6 o 9 páginas de uno o varios PDF en cada hoja A4 para imprimir, en tu navegador. Gratis, sin registro y sin subir nada a ningún servidor.",
       "ogTitle": "Varias páginas por hoja (n-up) en PDF",
-      "ogDescription": "Coloca 2, 4, 6 o 9 páginas de un PDF por hoja A4 para imprimir, en tu navegador. Gratis y sin subir nada.",
+      "ogDescription": "Coloca 2, 4, 6 o 9 páginas de uno o varios PDF por hoja A4 para imprimir, en tu navegador. Gratis y sin subir nada.",
       "jsonldName": "Varias páginas por hoja (n-up) en PDF",
-      "jsonldDescription": "Coloca 2, 4, 6 o 9 páginas de un PDF en cada hoja A4 para imprimir, en el navegador, sin subir el archivo a ningún servidor.",
+      "jsonldDescription": "Combina uno o varios PDF y coloca 2, 4, 6 o 9 páginas en cada hoja A4 para imprimir, en el navegador, sin subir los archivos a ningún servidor.",
       "card": {
         "name": "Varias páginas por hoja",
-        "desc": "Coloca 2, 4, 6 o 9 páginas de un PDF en cada hoja A4 para imprimir y ahorrar papel.",
+        "desc": "Coloca 2, 4, 6 o 9 páginas de uno o varios PDF en cada hoja A4 para imprimir y ahorrar papel.",
         "tags": ["PDF", "Imprimir"]
       }
     },
