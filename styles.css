@@ -79,8 +79,8 @@ h2.sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overfl
 .brand {
   display: inline-flex; align-items: baseline; gap: 0;
   font-family: "Outfit", system-ui, sans-serif; font-weight: 900;
-  font-size: 1.5rem; letter-spacing: -0.02em;
-  color: rgb(var(--fg)); text-decoration: none;
+  font-size: 1.5rem; letter-spacing: -0.025em;
+  color: rgb(var(--fg)); text-decoration: none; transition: color .15s;
 }
 /* Mismas dimensiones que el navbar de aitorevi.dev:
    contenedor 80rem, alto h-14→md:h-20, marca text-2xl→md:text-3xl, y el padding
@@ -98,8 +98,14 @@ h2.sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overfl
   .nav-links a[href^="https://www.aitorevi.dev"],
   .nav-divider { display: none; }
 }
-.brand .dot { color: rgb(var(--accent)); transition: color .2s; }
-.brand:hover .dot { color: rgb(var(--accent-soft)); }
+/* Punto y hover idénticos al wordmark de aitorevi.dev: violet-700 (claro) /
+   accent-violet (oscuro); en hover el wordmark pasa a secondary (#4727cc) y el
+   punto a azul (blue-700 claro / blue-400 oscuro). */
+.brand .dot { color: #6d28d9; transition: color .15s; }
+:root.dark .brand .dot { color: #ac91fc; }
+.brand:hover { color: #4727cc; }
+.brand:hover .dot { color: #1d4ed8; }
+:root.dark .brand:hover .dot { color: #60a5fa; }
 .brand .brand-tag {
   align-self: baseline; margin-left: 0.5rem;
   font-family: "JetBrains Mono", ui-monospace, monospace; font-weight: 400;
