@@ -21,7 +21,7 @@ export const STRINGS = {
         "many": "imágenes"
       },
       "navWeb": "Web",
-      "navWebHref": "https://www.aitorevi.dev/work",
+      "navWebHref": "https://www.aitorevi.dev/",
       "navBlog": "Blog",
       "navBlogHref": "https://www.aitorevi.dev/blog",
       "navHome": "Inicio de aitorevi.tools",
@@ -147,7 +147,7 @@ export const STRINGS = {
         "many": "images"
       },
       "navWeb": "Work",
-      "navWebHref": "https://www.aitorevi.dev/en/work",
+      "navWebHref": "https://www.aitorevi.dev/en/",
       "navBlog": "Blog",
       "navBlogHref": "https://www.aitorevi.dev/en/blog",
       "navHome": "aitorevi.tools home",

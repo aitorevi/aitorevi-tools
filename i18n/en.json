@@ -10,7 +10,7 @@
     "files": { "one": "file", "many": "files" },
     "images": { "one": "image", "many": "images" },
     "navWeb": "Work",
-    "navWebHref": "https://www.aitorevi.dev/en/work",
+    "navWebHref": "https://www.aitorevi.dev/en/",
     "navBlog": "Blog",
     "navBlogHref": "https://www.aitorevi.dev/en/blog",
     "navHome": "aitorevi.tools home",
