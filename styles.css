@@ -76,7 +76,7 @@ h2.sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overfl
   padding: 0 1.5rem;
 }
 .brand {
-  display: inline-flex; align-items: baseline; gap: 8px;
+  display: inline-flex; align-items: baseline; gap: 0;
   font-family: "Outfit", system-ui, sans-serif; font-weight: 900;
   font-size: 1.5rem; letter-spacing: -0.02em;
   color: rgb(var(--fg)); text-decoration: none;
@@ -100,7 +100,7 @@ h2.sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overfl
 .brand .dot { color: rgb(var(--accent)); transition: color .2s; }
 .brand:hover .dot { color: rgb(var(--accent-soft)); }
 .brand .brand-tag {
-  align-self: baseline;
+  align-self: baseline; margin-left: 0.5rem;
   font-family: "JetBrains Mono", ui-monospace, monospace; font-weight: 400;
   font-size: .68rem; text-transform: uppercase; letter-spacing: 0.22em;
   color: rgb(var(--muted));
