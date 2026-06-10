@@ -47,7 +47,9 @@ body {
   background: var(--bg-grad) fixed, rgb(var(--bg));
   color: rgb(var(--fg));
   line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
+  /* Sin -webkit-font-smoothing: usamos el suavizado por defecto (auto/subpixel),
+     igual que aitorevi.dev, para que el texto y el logo rendericen con el mismo
+     grosor que el blog. */
   /* Sticky footer: el body ocupa al menos la pantalla y el main crece para
      empujar el footer al fondo cuando el contenido es corto. */
   min-height: 100vh;
