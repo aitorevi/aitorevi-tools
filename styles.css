@@ -67,9 +67,9 @@ h2.sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overfl
   border-bottom: 1px solid rgb(var(--border));
 }
 .nav-inner {
-  max-width: 1000px; margin: 0 auto; height: 56px;
+  max-width: 80rem; margin: 0 auto; height: 56px;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 20px;
+  padding: 0 24px;
 }
 .brand {
   display: inline-flex; align-items: baseline; gap: 8px;
@@ -77,10 +77,21 @@ h2.sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overfl
   font-size: 1.5rem; letter-spacing: -0.02em;
   color: rgb(var(--fg)); text-decoration: none;
 }
-/* Mismas dimensiones que el navbar de aitorevi.dev (h-14 md:h-20, text-2xl md:text-3xl). */
+/* Mismas dimensiones que el navbar de aitorevi.dev:
+   contenedor 80rem, alto h-14→md:h-20, marca text-2xl→md:text-3xl, y el padding
+   lateral pasa de 24px a 40px (md) y a 0 cuando el contenedor cabe (xl, ≥1280). */
 @media (min-width: 768px) {
-  .nav-inner { height: 80px; }
+  .nav-inner { height: 80px; padding: 0 40px; }
   .brand { font-size: 1.875rem; }
+}
+@media (min-width: 1280px) {
+  .nav-inner { padding: 0; }
+}
+/* En móvil estrecho, ocultar los enlaces externos (Web/Blog) y el separador para
+   que no se amontonen; quedan marca + selector de idioma + tema. */
+@media (max-width: 520px) {
+  .nav-links a[href^="https://www.aitorevi.dev"],
+  .nav-divider { display: none; }
 }
 .brand .dot { color: rgb(var(--accent)); transition: color .2s; }
 .brand:hover .dot { color: rgb(var(--accent-soft)); }
