@@ -8,7 +8,7 @@
  * Regla de oro: el HTML generado NO se edita a mano. Edita el origen y ejecuta `npm run build`.
  * Sin dependencias: solo Node estándar.
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
@@ -16,12 +16,17 @@ const ROOT = dirname(fileURLToPath(import.meta.url));
 const ORIGIN = "https://tools.aitorevi.dev";
 
 const read = (p) => readFileSync(join(ROOT, p), "utf8");
-const write = (p, s) => writeFileSync(join(ROOT, p), s.endsWith("\n") ? s : s + "\n");
+const write = (p, s) => {
+  const fp = join(ROOT, p);
+  mkdirSync(dirname(fp), { recursive: true });
+  writeFileSync(fp, s.endsWith("\n") ? s : s + "\n");
+};
 
 const registry = JSON.parse(read("tools.json"));
 const NAVBAR = read("partials/navbar.html").replace(/\s+$/, "");
 const FOOT_SOCIAL = read("partials/foot-social.html").replace(/\s+$/, "");
 const MIT = read("partials/license-mit.txt").replace(/\s+$/, "");
+const OFL = read("partials/license-ofl.txt").replace(/\s+$/, "");
 
 // --- helpers de librerías ----------------------------------------------------
 
@@ -33,31 +38,6 @@ function footLegal(tool) {
   if (hasLib(tool, "pdf-lib"))
     return "pdf-lib se usa bajo licencia MIT. Esta herramienta se ofrece tal cual, sin garantías. Tus archivos se procesan íntegramente en tu navegador y no se envían a ningún servidor.";
   return "Esta herramienta se ofrece tal cual, sin garantías. Tus imágenes se procesan íntegramente en tu navegador y no se envían a ningún servidor.";
-}
-
-function licensesBlock(tool) {
-  if (!hasLib(tool, "pdf-lib")) return "";
-  const entries = [
-    "        <p><strong>pdf-lib</strong> — Copyright (c) 2019 Andrew Dillon</p>",
-  ];
-  if (hasLib(tool, "jszip")) {
-    entries.push(
-      "        <p><strong>JSZip</strong> — Copyright (c) 2009-2016 Stuart Knightley, David Duponchel,\n          Franz Buchinger, António Afonso · usada bajo MIT (licencia dual MIT/GPLv3)</p>"
-    );
-  }
-  const distributed = hasLib(tool, "jszip")
-    ? "Ambas se distribuyen bajo los términos de la licencia MIT:"
-    : "Se distribuye bajo los términos de la licencia MIT:";
-  return `
-    <details class="licenses">
-      <summary>Licencias</summary>
-      <div class="license-body">
-${entries.join("\n")}
-        <p>${distributed}</p>
-        <pre>${MIT}</pre>
-      </div>
-    </details>
-`;
 }
 
 function scripts(tool) {
@@ -138,17 +118,57 @@ ${FOOT_SOCIAL}
       <span>No dependencies, runs in your browser</span>
     </p>
 
-    <p class="foot-copy">© 2026 aitorevi · tools.aitorevi.dev</p>
+    <p class="foot-copy">© 2026 aitorevi · tools.aitorevi.dev · <a href="/licencias/">Licencias</a></p>
   </footer>`;
 }
 
-/** Aviso legal + licencias, ahora en el cuerpo de cada herramienta (no en el pie). */
+/** Aviso legal en el cuerpo de cada herramienta. Las licencias de terceros viven
+ *  en la página /licencias/ (enlazada desde el pie). */
 function pageLegal(tool) {
-  const licenses = licensesBlock(tool).trim();
-  const lic = licenses ? `\n      ${licenses}` : "";
-  return `    <section class="legal" aria-label="Aviso legal y licencias">
-      <p class="legal-note">${footLegal(tool)}</p>${lic}
+  return `    <section class="legal" aria-label="Aviso legal">
+      <p class="legal-note">${footLegal(tool)}</p>
     </section>`;
+}
+
+/** Tarjeta de una dependencia en la página /licencias/. */
+function licenseCard(name, meta, text) {
+  return `    <section class="card lic-card">
+      <h2 class="lic-name">${name}</h2>
+      <p class="lic-meta">${meta}</p>
+      <pre class="license-text">${text}</pre>
+    </section>`;
+}
+
+/** Página única con las licencias de terceros (software y fuentes). */
+function buildLicenses() {
+  const main = `  <main class="wrap">
+    <header>
+      <span class="badge"><span class="dot" aria-hidden="true"></span>Software y fuentes de terceros</span>
+      <h1>Licencias</h1>
+      <p class="subtitle">aitorevi.tools usa estas librerías y fuentes de código abierto, con sus avisos de copyright y licencias.</p>
+    </header>
+
+${licenseCard("pdf-lib", "Copyright (c) 2019 Andrew Dillon · licencia MIT", MIT)}
+
+${licenseCard("JSZip", "Copyright (c) 2009-2016 Stuart Knightley y otros · licencia MIT (dual MIT/GPLv3). Incluye la librería pako (MIT).", MIT)}
+
+${licenseCard("Outfit", "Copyright 2021 The Outfit Project Authors · SIL Open Font License 1.1", OFL)}
+
+${licenseCard("JetBrains Mono", "Copyright 2020 The JetBrains Mono Project Authors · SIL Open Font License 1.1", OFL)}
+  </main>`;
+  const html = page({
+    head: head({
+      title: "Licencias — aitorevi.tools",
+      description: "Librerías y fuentes de terceros usadas en aitorevi.tools, con sus licencias (MIT y SIL Open Font License).",
+      canonical: `${ORIGIN}/licencias/`,
+      ogTitle: "Licencias — aitorevi.tools",
+      ogDescription: "Software y fuentes de terceros usadas en aitorevi.tools y sus licencias.",
+      jsonld: "",
+    }),
+    main,
+    footerHtml: footer(),
+  });
+  write("licencias/index.html", html);
 }
 
 /** Separa un <style> inicial (que va al <head>) del resto del cuerpo (el <main>). */
@@ -263,6 +283,7 @@ function buildSitemap() {
   const urls = [
     { loc: `${ORIGIN}/`, priority: "0.8" },
     ...registry.tools.map((t) => ({ loc: `${ORIGIN}/${t.slug}/`, priority: "1.0" })),
+    { loc: `${ORIGIN}/licencias/`, priority: "0.2" },
   ];
   const body = urls
     .map(
@@ -287,14 +308,15 @@ for (const tool of registry.tools) {
   count++;
 }
 buildHub();
+buildLicenses();
 buildSitemap();
 
 // Guardas: ningún placeholder sin resolver en la salida.
-const outputs = ["index.html", "sitemap.xml", ...registry.tools.map((t) => `${t.slug}/index.html`)];
+const outputs = ["index.html", "licencias/index.html", "sitemap.xml", ...registry.tools.map((t) => `${t.slug}/index.html`)];
 const leftover = outputs.filter((p) => /\{\{|\}\}/.test(read(p)));
 if (leftover.length) {
   console.error(`✗ placeholders sin resolver en: ${leftover.join(", ")}`);
   process.exit(1);
 }
 
-console.log(`✓ build OK — ${count} tools + hub + sitemap (${outputs.length} ficheros)`);
+console.log(`✓ build OK — ${count} tools + hub + licencias + sitemap (${outputs.length} ficheros)`);
