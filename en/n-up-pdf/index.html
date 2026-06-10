@@ -70,15 +70,15 @@
 <body>
   <header class="site-nav">
     <div class="nav-inner">
-      <a class="brand" href="/en/" aria-label="Inicio de aitorevi.tools">
+      <a class="brand" href="/en/" aria-label="aitorevi.tools home">
         aitorevi<span class="dot" aria-hidden="true">.</span><span class="brand-tag">tools</span>
       </a>
-      <nav class="nav-links" aria-label="Navegación">
-        <a href="https://www.aitorevi.dev/work" target="_blank" rel="noopener">Web</a>
-        <a href="https://www.aitorevi.dev/blog" target="_blank" rel="noopener">Blog</a>
+      <nav class="nav-links" aria-label="aitorevi.tools">
+        <a href="https://www.aitorevi.dev/en/work" target="_blank" rel="noopener">Work</a>
+        <a href="https://www.aitorevi.dev/en/blog" target="_blank" rel="noopener">Blog</a>
         <a class="lang-switch" href="/n-up-pdf/" hreflang="es" aria-label="Ver en español" data-lang-switch>ES</a>
         <button id="theme-toggle" class="theme-toggle" type="button"
-                aria-label="Cambiar entre tema claro y oscuro" title="Cambiar tema">
+                aria-label="Toggle light and dark theme" title="Toggle theme">
           <svg class="icon-moon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
           </svg>
@@ -92,60 +92,60 @@
 
 <main class="wrap">
     <header>
-      <span class="badge"><span class="dot" aria-hidden="true"></span>100% en tu navegador · sin subir nada</span>
-      <h1>Varias páginas por hoja</h1>
-      <p class="subtitle">Coloca 2, 4, 6 o 9 páginas de uno o varios PDF en cada hoja A4. Ideal para imprimir y ahorrar papel.</p>
+      <span class="badge"><span class="dot" aria-hidden="true"></span>100% in your browser · nothing uploaded</span>
+      <h1>Pages per sheet</h1>
+      <p class="subtitle">Place 2, 4, 6 or 9 pages from one or more PDFs on each A4 sheet. Great for printing and saving paper.</p>
     </header>
 
     <section class="card" aria-labelledby="app-title">
-      <h2 id="app-title" class="sr">Herramienta para colocar varias páginas por hoja</h2>
+      <h2 id="app-title" class="sr">Place multiple pages per sheet tool</h2>
 
       <div id="loader">
         <div id="dropzone" class="dropzone" tabindex="0" role="button"
-             aria-label="Selecciona o arrastra archivos PDF">
+             aria-label="Select or drop PDF files">
           <div class="icon" aria-hidden="true">🗂️</div>
-          <div class="lead">Arrastra tus PDFs aquí o <strong>haz clic para elegirlos</strong></div>
-          <div class="hint">Puedes seleccionar varios. Nada se envía a internet.</div>
+          <div class="lead">Drag your PDFs here or <strong>click to choose them</strong></div>
+          <div class="hint">You can select several. Nothing is sent to the internet.</div>
         </div>
         <input id="file-input" type="file" accept="application/pdf,.pdf" multiple class="visually-hidden" />
       </div>
 
       <div id="workspace" class="hidden">
         <div class="toolbar">
-          <button class="btn" id="add-more-btn" type="button">Añadir más</button>
-          <button class="btn ghost" id="clear-btn" type="button">Vaciar</button>
-          <span class="count" id="count">0 archivos</span>
+          <button class="btn" id="add-more-btn" type="button">Add more</button>
+          <button class="btn ghost" id="clear-btn" type="button">Clear</button>
+          <span class="count" id="count"></span>
         </div>
 
-        <ul class="file-list" id="file-list" aria-label="PDFs a combinar (en orden)"></ul>
+        <ul class="file-list" id="file-list" aria-label="PDFs to combine (in order)"></ul>
 
         <div class="controls">
           <label class="field">
-            <span class="field-label">Páginas por hoja</span>
+            <span class="field-label">Pages per sheet</span>
             <select id="nup-per">
-              <option value="2">2 por hoja</option>
-              <option value="4">4 por hoja</option>
-              <option value="6">6 por hoja</option>
-              <option value="9">9 por hoja</option>
+              <option value="2">2 per sheet</option>
+              <option value="4">4 per sheet</option>
+              <option value="6">6 per sheet</option>
+              <option value="9">9 per sheet</option>
             </select>
           </label>
           <label class="field">
-            <span class="field-label">Orientación de la hoja</span>
+            <span class="field-label">Sheet orientation</span>
             <select id="nup-orient">
-              <option value="portrait">Vertical (A4)</option>
-              <option value="landscape">Horizontal (A4)</option>
+              <option value="portrait">Portrait (A4)</option>
+              <option value="landscape">Landscape (A4)</option>
             </select>
           </label>
         </div>
 
         <div class="nup-output">
           <div class="nup-diagram-wrap" aria-hidden="true">
-            <span class="nup-diagram-label">Así se reparte cada hoja</span>
+            <span class="nup-diagram-label">How each sheet is arranged</span>
             <div class="nup-diagram" id="nup-diagram"></div>
           </div>
 
           <div class="actions">
-            <button class="btn primary" id="apply-btn" type="button" disabled>⬇ Generar y descargar</button>
+            <button class="btn primary" id="apply-btn" type="button" disabled>⬇ Generate and download</button>
           </div>
         </div>
 
@@ -156,10 +156,10 @@
 
   <footer class="site-footer">
     <div class="foot-social">
-      <a href="https://es.linkedin.com/in/aitor-reviriego-amor" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Aitor Reviriego">
+      <a href="https://es.linkedin.com/in/aitor-reviriego-amor" target="_blank" rel="noopener noreferrer" aria-label="Aitor Reviriego on LinkedIn">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>
       </a>
-      <a href="https://github.com/aitorevi" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Aitor Reviriego">
+      <a href="https://github.com/aitorevi" target="_blank" rel="noopener noreferrer" aria-label="Aitor Reviriego on GitHub">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
       </a>
     </div>

@@ -5,20 +5,20 @@
 
   <main class="wrap">
     <header>
-      <span class="badge"><span class="dot" aria-hidden="true"></span>100% en tu navegador · sin subir nada</span>
-      <h1>Quitar metadatos de una imagen</h1>
-      <p class="subtitle">Elimina EXIF, ubicación GPS y datos de cámara de tus fotos antes de compartirlas. Sin perder calidad.</p>
+      <span class="badge"><span class="dot" aria-hidden="true"></span>{{t.badge}}</span>
+      <h1>{{t.h1}}</h1>
+      <p class="subtitle">{{t.subtitle}}</p>
     </header>
 
     <section class="card" aria-labelledby="app-title">
-      <h2 id="app-title" class="sr">Herramienta para quitar metadatos de imágenes</h2>
+      <h2 id="app-title" class="sr">{{t.cardAria}}</h2>
 
       <div id="loader">
         <div id="dropzone" class="dropzone" tabindex="0" role="button"
-             aria-label="Selecciona o arrastra una imagen JPG o PNG">
+             aria-label="{{t.dropAria}}">
           <div class="icon" aria-hidden="true">🛡️</div>
-          <div class="lead">Arrastra tu foto aquí o <strong>haz clic para elegirla</strong></div>
-          <div class="hint">JPG o PNG · nada se envía a internet.</div>
+          <div class="lead">{{t.lead}}</div>
+          <div class="hint">{{t.hint}}</div>
         </div>
         <input id="file-input" type="file" accept="image/jpeg,image/png,.jpg,.jpeg,.png" class="visually-hidden" />
       </div>
@@ -27,16 +27,16 @@
         <div class="file-bar">
           <img id="preview" class="thumb" alt="" />
           <div class="info">
-            <span class="name" id="file-name">imagen.jpg</span>
+            <span class="name" id="file-name">{{t.fileName}}</span>
             <span class="meta" id="file-info">—</span>
           </div>
-          <button class="btn ghost" id="reset-btn" type="button">Cambiar imagen</button>
+          <button class="btn ghost" id="reset-btn" type="button">{{t.reset}}</button>
         </div>
 
-        <p class="note"><b>Sin pérdida:</b> se eliminan solo los metadatos (EXIF/GPS/XMP); los píxeles de tu imagen quedan idénticos.</p>
+        <p class="note">{{t.note}}</p>
 
         <div class="actions">
-          <button class="btn primary" id="clean-btn" type="button">⬇ Quitar metadatos y descargar</button>
+          <button class="btn primary" id="clean-btn" type="button">{{t.cleanBtn}}</button>
         </div>
 
         <p class="status" id="status" role="status" aria-live="polite"></p>

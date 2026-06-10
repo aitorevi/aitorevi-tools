@@ -29,60 +29,60 @@
 
   <main class="wrap">
     <header>
-      <span class="badge"><span class="dot" aria-hidden="true"></span>100% en tu navegador · sin subir nada</span>
-      <h1>Varias páginas por hoja</h1>
-      <p class="subtitle">Coloca 2, 4, 6 o 9 páginas de uno o varios PDF en cada hoja A4. Ideal para imprimir y ahorrar papel.</p>
+      <span class="badge"><span class="dot" aria-hidden="true"></span>{{t.badge}}</span>
+      <h1>{{t.h1}}</h1>
+      <p class="subtitle">{{t.subtitle}}</p>
     </header>
 
     <section class="card" aria-labelledby="app-title">
-      <h2 id="app-title" class="sr">Herramienta para colocar varias páginas por hoja</h2>
+      <h2 id="app-title" class="sr">{{t.cardAria}}</h2>
 
       <div id="loader">
         <div id="dropzone" class="dropzone" tabindex="0" role="button"
-             aria-label="Selecciona o arrastra archivos PDF">
+             aria-label="{{t.dropAria}}">
           <div class="icon" aria-hidden="true">🗂️</div>
-          <div class="lead">Arrastra tus PDFs aquí o <strong>haz clic para elegirlos</strong></div>
-          <div class="hint">Puedes seleccionar varios. Nada se envía a internet.</div>
+          <div class="lead">{{t.lead}}</div>
+          <div class="hint">{{t.hint}}</div>
         </div>
         <input id="file-input" type="file" accept="application/pdf,.pdf" multiple class="visually-hidden" />
       </div>
 
       <div id="workspace" class="hidden">
         <div class="toolbar">
-          <button class="btn" id="add-more-btn" type="button">Añadir más</button>
-          <button class="btn ghost" id="clear-btn" type="button">Vaciar</button>
-          <span class="count" id="count">0 archivos</span>
+          <button class="btn" id="add-more-btn" type="button">{{t.addMore}}</button>
+          <button class="btn ghost" id="clear-btn" type="button">{{t.clear}}</button>
+          <span class="count" id="count"></span>
         </div>
 
-        <ul class="file-list" id="file-list" aria-label="PDFs a combinar (en orden)"></ul>
+        <ul class="file-list" id="file-list" aria-label="{{t.listAria}}"></ul>
 
         <div class="controls">
           <label class="field">
-            <span class="field-label">Páginas por hoja</span>
+            <span class="field-label">{{t.labelPer}}</span>
             <select id="nup-per">
-              <option value="2">2 por hoja</option>
-              <option value="4">4 por hoja</option>
-              <option value="6">6 por hoja</option>
-              <option value="9">9 por hoja</option>
+              <option value="2">2 {{t.optPer}}</option>
+              <option value="4">4 {{t.optPer}}</option>
+              <option value="6">6 {{t.optPer}}</option>
+              <option value="9">9 {{t.optPer}}</option>
             </select>
           </label>
           <label class="field">
-            <span class="field-label">Orientación de la hoja</span>
+            <span class="field-label">{{t.labelOrient}}</span>
             <select id="nup-orient">
-              <option value="portrait">Vertical (A4)</option>
-              <option value="landscape">Horizontal (A4)</option>
+              <option value="portrait">{{t.optPortrait}}</option>
+              <option value="landscape">{{t.optLandscape}}</option>
             </select>
           </label>
         </div>
 
         <div class="nup-output">
           <div class="nup-diagram-wrap" aria-hidden="true">
-            <span class="nup-diagram-label">Así se reparte cada hoja</span>
+            <span class="nup-diagram-label">{{t.diagramLabel}}</span>
             <div class="nup-diagram" id="nup-diagram"></div>
           </div>
 
           <div class="actions">
-            <button class="btn primary" id="apply-btn" type="button" disabled>⬇ Generar y descargar</button>
+            <button class="btn primary" id="apply-btn" type="button" disabled>{{t.applyBtn}}</button>
           </div>
         </div>
 

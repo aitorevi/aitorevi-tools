@@ -44,7 +44,7 @@
       <a class="brand" href="/" aria-label="Inicio de aitorevi.tools">
         aitorevi<span class="dot" aria-hidden="true">.</span><span class="brand-tag">tools</span>
       </a>
-      <nav class="nav-links" aria-label="Navegación">
+      <nav class="nav-links" aria-label="aitorevi.tools">
         <a href="https://www.aitorevi.dev/work" target="_blank" rel="noopener">Web</a>
         <a href="https://www.aitorevi.dev/blog" target="_blank" rel="noopener">Blog</a>
         <a class="lang-switch" href="/en/merge-pdf/" hreflang="en" aria-label="View in English" data-lang-switch>EN</a>
@@ -71,7 +71,6 @@
     <section class="card" aria-labelledby="app-title">
       <h2 id="app-title" class="sr">Herramienta para unir PDF</h2>
 
-      <!-- Paso 1: cargar -->
       <div id="loader">
         <div id="dropzone" class="dropzone" tabindex="0" role="button"
              aria-label="Selecciona o arrastra varios archivos PDF">
@@ -82,12 +81,11 @@
         <input id="file-input" type="file" accept="application/pdf,.pdf" multiple class="visually-hidden" />
       </div>
 
-      <!-- Paso 2: ordenar y unir -->
       <div id="workspace" class="hidden">
         <div class="toolbar">
           <button class="btn" id="add-more-btn" type="button">Añadir más</button>
           <button class="btn ghost" id="clear-btn" type="button">Vaciar</button>
-          <span class="count" id="count">0 archivos</span>
+          <span class="count" id="count"></span>
         </div>
 
         <ul class="file-list" id="file-list" aria-label="PDFs a unir (en orden)"></ul>

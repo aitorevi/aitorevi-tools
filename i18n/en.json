@@ -1,6 +1,23 @@
 {
   "common": {
-    "badge": "100% in your browser · nothing uploaded"
+    "badge": "100% in your browser · nothing uploaded",
+    "addMore": "Add more",
+    "clear": "Clear",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "remove": "Remove",
+    "pages": { "one": "page", "many": "pages" },
+    "files": { "one": "file", "many": "files" },
+    "images": { "one": "image", "many": "images" },
+    "navWeb": "Work",
+    "navWebHref": "https://www.aitorevi.dev/en/work",
+    "navBlog": "Blog",
+    "navBlogHref": "https://www.aitorevi.dev/en/blog",
+    "navHome": "aitorevi.tools home",
+    "themeAria": "Toggle light and dark theme",
+    "themeTitle": "Toggle theme",
+    "linkedinAria": "Aitor Reviriego on LinkedIn",
+    "githubAria": "Aitor Reviriego on GitHub"
   },
   "hub": {
     "title": "aitorevi.tools — mini tools that run in your browser",
@@ -98,6 +115,25 @@
         "name": "Merge PDF",
         "desc": "Combine several PDFs into a single document. Reorder them as you like before downloading.",
         "tags": ["PDF", "No server"]
+      },
+      "ui": {
+        "h1": "Merge PDF",
+        "subtitle": "Combine several PDFs into a single document. Reorder them as you like and download the result.",
+        "cardAria": "Merge PDF tool",
+        "dropAria": "Select or drop several PDF files",
+        "lead": "Drag your PDFs here or <strong>click to choose them</strong>",
+        "hint": "You can select several. Nothing is sent to the internet.",
+        "listAria": "PDFs to merge (in order)",
+        "mergeBtn": "⬇ Merge and download"
+      },
+      "msg": {
+        "notPdf": "That doesn't look like a PDF. Add PDF files.",
+        "reading": "Reading {n} {files}…",
+        "addedFailed": "{added} added; {failed} couldn't be read (damaged or protected?).",
+        "needMore": "Add at least one more PDF to merge.",
+        "merging": "Merging the PDFs…",
+        "mergedOk": "Merged PDF with {n} {pages} downloaded.",
+        "mergeError": "Couldn't merge the PDFs."
       }
     },
     "imagen-a-pdf": {
@@ -113,6 +149,23 @@
         "name": "Image to PDF",
         "desc": "Convert your JPG or PNG images into a PDF. Reorder them before downloading.",
         "tags": ["PDF", "Images"]
+      },
+      "ui": {
+        "h1": "Image to PDF",
+        "subtitle": "Convert your JPG or PNG images into a PDF. Reorder them as you like and download the document.",
+        "cardAria": "Convert images to PDF tool",
+        "dropAria": "Select or drop JPG or PNG images",
+        "lead": "Drag your images here or <strong>click to choose them</strong>",
+        "hint": "JPG or PNG · you can select several. Nothing is sent to the internet.",
+        "listAria": "Images to convert (in order)",
+        "createBtn": "⬇ Create and download PDF"
+      },
+      "msg": {
+        "addImages": "Add JPG or PNG images.",
+        "reading": "Reading {n} {images}…",
+        "creating": "Creating the PDF…",
+        "createdOk": "PDF with {n} {images} downloaded.",
+        "createError": "Couldn't create the PDF."
       }
     },
     "marca-de-agua-pdf": {
@@ -128,6 +181,30 @@
         "name": "PDF watermark",
         "desc": "Add diagonal text to every page of a PDF, with adjustable opacity and size.",
         "tags": ["PDF", "No server"]
+      },
+      "ui": {
+        "h1": "PDF watermark",
+        "subtitle": "Add diagonal text to every page of your PDF. Adjust the text, opacity and size.",
+        "cardAria": "Add a watermark to a PDF tool",
+        "dropAria": "Select or drop a PDF file",
+        "lead": "Drag your PDF here or <strong>click to choose it</strong>",
+        "hint": "It's processed only on your device. Nothing is sent to the internet.",
+        "fileName": "document.pdf",
+        "reset": "Change PDF",
+        "labelText": "Text",
+        "textDefault": "CONFIDENTIAL",
+        "labelOpacity": "Opacity",
+        "labelSize": "Size",
+        "applyBtn": "⬇ Apply and download"
+      },
+      "msg": {
+        "notPdf": "That file doesn't look like a PDF.",
+        "reading": "Reading the PDF…",
+        "readError": "Couldn't read the PDF. It may be damaged or protected.",
+        "needText": "Type the watermark text.",
+        "applying": "Applying the watermark…",
+        "appliedOk": "Watermarked PDF ({n} {pages}) downloaded.",
+        "applyError": "Couldn't apply the watermark."
       }
     },
     "n-up-pdf": {
@@ -143,6 +220,31 @@
         "name": "Pages per sheet",
         "desc": "Place 2, 4, 6 or 9 pages from one or more PDFs on each A4 sheet to print and save paper.",
         "tags": ["PDF", "Print"]
+      },
+      "ui": {
+        "h1": "Pages per sheet",
+        "subtitle": "Place 2, 4, 6 or 9 pages from one or more PDFs on each A4 sheet. Great for printing and saving paper.",
+        "cardAria": "Place multiple pages per sheet tool",
+        "dropAria": "Select or drop PDF files",
+        "lead": "Drag your PDFs here or <strong>click to choose them</strong>",
+        "hint": "You can select several. Nothing is sent to the internet.",
+        "listAria": "PDFs to combine (in order)",
+        "labelPer": "Pages per sheet",
+        "optPer": "per sheet",
+        "labelOrient": "Sheet orientation",
+        "optPortrait": "Portrait (A4)",
+        "optLandscape": "Landscape (A4)",
+        "diagramLabel": "How each sheet is arranged",
+        "applyBtn": "⬇ Generate and download"
+      },
+      "msg": {
+        "reading": "Reading {n} {files}…",
+        "notPdf": "That doesn't look like a PDF. Add PDF files.",
+        "failedRead": "{failed} couldn't be read (damaged or protected?).",
+        "arranging": "Rearranging the pages…",
+        "arrangedOk": "PDF with {per} per sheet ({sheets} {sheetsWord}) downloaded.",
+        "arrangeError": "Couldn't rearrange the PDF.",
+        "sheets": { "one": "sheet", "many": "sheets" }
       }
     },
     "comprimir-imagen": {
@@ -158,6 +260,35 @@
         "name": "Compress image",
         "desc": "Reduce the size of your images by adjusting quality and size, without them leaving your browser.",
         "tags": ["Images", "No server"]
+      },
+      "ui": {
+        "h1": "Compress image",
+        "subtitle": "Reduce the size of your images by adjusting quality and dimensions. All in your browser.",
+        "cardAria": "Compress images tool",
+        "dropAria": "Select or drop an image",
+        "lead": "Drag your image here or <strong>click to choose it</strong>",
+        "hint": "JPG, PNG, WebP… Nothing is sent to the internet.",
+        "previewAlt": "Preview of the compression result",
+        "reset": "Change image",
+        "labelFormat": "Format",
+        "optWebp": "WebP (recommended)",
+        "labelMaxSide": "Max size",
+        "labelTarget": "Target size (KB)",
+        "targetPlaceholder": "auto (optional)",
+        "labelQuality": "Quality",
+        "compressBtn": "⬇ Compress and download"
+      },
+      "msg": {
+        "notImage": "That doesn't look like an image.",
+        "reading": "Reading the image…",
+        "readError": "Couldn't read the image.",
+        "originalLabel": "Original:",
+        "calculating": "Calculating result…",
+        "resultLabel": "Result:",
+        "qualityWord": "quality",
+        "overNote": " — can't go lower at this resolution",
+        "downloadedLabel": "Downloaded:",
+        "compressError": "Couldn't compress the image."
       }
     },
     "convertir-imagen": {
@@ -173,6 +304,29 @@
         "name": "Convert image",
         "desc": "Convert between PNG, JPG and WebP, choosing the output format and quality.",
         "tags": ["Images", "No server"]
+      },
+      "ui": {
+        "h1": "Convert image",
+        "subtitle": "Convert between PNG, JPG and WebP. Choose the output format and quality; all in your browser.",
+        "cardAria": "Convert images tool",
+        "dropAria": "Select or drop an image",
+        "lead": "Drag your image here or <strong>click to choose it</strong>",
+        "hint": "PNG, JPG, WebP… Nothing is sent to the internet.",
+        "previewAlt": "Preview of the conversion result",
+        "reset": "Change image",
+        "labelTo": "Convert to",
+        "labelQuality": "Quality",
+        "convertBtn": "⬇ Convert and download"
+      },
+      "msg": {
+        "notImage": "That doesn't look like an image.",
+        "reading": "Reading the image…",
+        "readError": "Couldn't read the image.",
+        "originalLabel": "Original:",
+        "calculating": "Calculating result…",
+        "resultLabel": "Result:",
+        "downloadedIn": "Saved as",
+        "convertError": "Couldn't convert the image."
       }
     },
     "quitar-metadatos-imagen": {
@@ -188,6 +342,27 @@
         "name": "Remove metadata",
         "desc": "Remove EXIF, GPS location and camera data from your photos, without losing quality.",
         "tags": ["Images", "Privacy"]
+      },
+      "ui": {
+        "h1": "Remove image metadata",
+        "subtitle": "Remove EXIF, GPS location and camera data from your photos before sharing. Without losing quality.",
+        "cardAria": "Remove image metadata tool",
+        "dropAria": "Select or drop a JPG or PNG image",
+        "lead": "Drag your photo here or <strong>click to choose it</strong>",
+        "hint": "JPG or PNG · nothing is sent to the internet.",
+        "fileName": "image.jpg",
+        "reset": "Change image",
+        "note": "<b>Lossless:</b> only metadata is removed (EXIF/GPS/XMP); your image pixels stay identical.",
+        "cleanBtn": "⬇ Remove metadata and download"
+      },
+      "msg": {
+        "notImage": "That doesn't look like an image.",
+        "onlyJpgPng": "Only JPG and PNG for now.",
+        "reading": "Reading the image…",
+        "readError": "Couldn't read the image.",
+        "removedOk": "Metadata removed (−{n}). Your pixels are untouched.",
+        "noneFound": "Downloaded. No metadata found to remove.",
+        "processError": "Couldn't process the image."
       }
     }
   }

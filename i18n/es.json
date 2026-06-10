@@ -1,6 +1,23 @@
 {
   "common": {
-    "badge": "100% en tu navegador · sin subir nada"
+    "badge": "100% en tu navegador · sin subir nada",
+    "addMore": "Añadir más",
+    "clear": "Vaciar",
+    "moveUp": "Subir",
+    "moveDown": "Bajar",
+    "remove": "Quitar",
+    "pages": { "one": "página", "many": "páginas" },
+    "files": { "one": "archivo", "many": "archivos" },
+    "images": { "one": "imagen", "many": "imágenes" },
+    "navWeb": "Web",
+    "navWebHref": "https://www.aitorevi.dev/work",
+    "navBlog": "Blog",
+    "navBlogHref": "https://www.aitorevi.dev/blog",
+    "navHome": "Inicio de aitorevi.tools",
+    "themeAria": "Cambiar entre tema claro y oscuro",
+    "themeTitle": "Cambiar tema",
+    "linkedinAria": "LinkedIn de Aitor Reviriego",
+    "githubAria": "GitHub de Aitor Reviriego"
   },
   "hub": {
     "title": "aitorevi.tools — mini-herramientas que corren en tu navegador",
@@ -98,6 +115,25 @@
         "name": "Unir PDF",
         "desc": "Combina varios PDFs en un único documento. Reordénalos como quieras antes de descargar.",
         "tags": ["PDF", "Sin servidor"]
+      },
+      "ui": {
+        "h1": "Unir PDF",
+        "subtitle": "Combina varios PDFs en un único documento. Reordénalos como quieras y descarga el resultado.",
+        "cardAria": "Herramienta para unir PDF",
+        "dropAria": "Selecciona o arrastra varios archivos PDF",
+        "lead": "Arrastra tus PDFs aquí o <strong>haz clic para elegirlos</strong>",
+        "hint": "Puedes seleccionar varios. Nada se envía a internet.",
+        "listAria": "PDFs a unir (en orden)",
+        "mergeBtn": "⬇ Unir y descargar"
+      },
+      "msg": {
+        "notPdf": "Eso no parece un PDF. Añade archivos PDF.",
+        "reading": "Leyendo {n} {files}…",
+        "addedFailed": "{added} añadido(s); {failed} no se pudieron leer (¿dañados o protegidos?).",
+        "needMore": "Añade al menos otro PDF para unir.",
+        "merging": "Uniendo los PDFs…",
+        "mergedOk": "PDF unido con {n} {pages} descargado.",
+        "mergeError": "No se pudo unir los PDFs."
       }
     },
     "imagen-a-pdf": {
@@ -113,6 +149,23 @@
         "name": "Imagen a PDF",
         "desc": "Convierte tus imágenes JPG o PNG en un PDF. Reordénalas antes de descargar.",
         "tags": ["PDF", "Imágenes"]
+      },
+      "ui": {
+        "h1": "Imagen a PDF",
+        "subtitle": "Convierte tus imágenes JPG o PNG en un PDF. Reordénalas como quieras y descarga el documento.",
+        "cardAria": "Herramienta para convertir imágenes a PDF",
+        "dropAria": "Selecciona o arrastra imágenes JPG o PNG",
+        "lead": "Arrastra tus imágenes aquí o <strong>haz clic para elegirlas</strong>",
+        "hint": "JPG o PNG · puedes seleccionar varias. Nada se envía a internet.",
+        "listAria": "Imágenes a convertir (en orden)",
+        "createBtn": "⬇ Crear y descargar PDF"
+      },
+      "msg": {
+        "addImages": "Añade imágenes JPG o PNG.",
+        "reading": "Leyendo {n} {images}…",
+        "creating": "Creando el PDF…",
+        "createdOk": "PDF con {n} {images} descargado.",
+        "createError": "No se pudo crear el PDF."
       }
     },
     "marca-de-agua-pdf": {
@@ -128,6 +181,30 @@
         "name": "Marca de agua en PDF",
         "desc": "Añade un texto en diagonal a todas las páginas de un PDF, con opacidad y tamaño ajustables.",
         "tags": ["PDF", "Sin servidor"]
+      },
+      "ui": {
+        "h1": "Marca de agua en PDF",
+        "subtitle": "Añade un texto en diagonal a todas las páginas de tu PDF. Ajusta el texto, la opacidad y el tamaño.",
+        "cardAria": "Herramienta para añadir marca de agua a un PDF",
+        "dropAria": "Selecciona o arrastra un archivo PDF",
+        "lead": "Arrastra tu PDF aquí o <strong>haz clic para elegirlo</strong>",
+        "hint": "Solo se procesa en tu dispositivo. Nada se envía a internet.",
+        "fileName": "documento.pdf",
+        "reset": "Cambiar PDF",
+        "labelText": "Texto",
+        "textDefault": "CONFIDENCIAL",
+        "labelOpacity": "Opacidad",
+        "labelSize": "Tamaño",
+        "applyBtn": "⬇ Aplicar y descargar"
+      },
+      "msg": {
+        "notPdf": "Ese archivo no parece un PDF.",
+        "reading": "Leyendo el PDF…",
+        "readError": "No se pudo leer el PDF. Puede estar dañado o protegido.",
+        "needText": "Escribe el texto de la marca de agua.",
+        "applying": "Aplicando la marca de agua…",
+        "appliedOk": "PDF con marca de agua ({n} {pages}) descargado.",
+        "applyError": "No se pudo aplicar la marca de agua."
       }
     },
     "n-up-pdf": {
@@ -143,6 +220,31 @@
         "name": "Varias páginas por hoja",
         "desc": "Coloca 2, 4, 6 o 9 páginas de uno o varios PDF en cada hoja A4 para imprimir y ahorrar papel.",
         "tags": ["PDF", "Imprimir"]
+      },
+      "ui": {
+        "h1": "Varias páginas por hoja",
+        "subtitle": "Coloca 2, 4, 6 o 9 páginas de uno o varios PDF en cada hoja A4. Ideal para imprimir y ahorrar papel.",
+        "cardAria": "Herramienta para colocar varias páginas por hoja",
+        "dropAria": "Selecciona o arrastra archivos PDF",
+        "lead": "Arrastra tus PDFs aquí o <strong>haz clic para elegirlos</strong>",
+        "hint": "Puedes seleccionar varios. Nada se envía a internet.",
+        "listAria": "PDFs a combinar (en orden)",
+        "labelPer": "Páginas por hoja",
+        "optPer": "por hoja",
+        "labelOrient": "Orientación de la hoja",
+        "optPortrait": "Vertical (A4)",
+        "optLandscape": "Horizontal (A4)",
+        "diagramLabel": "Así se reparte cada hoja",
+        "applyBtn": "⬇ Generar y descargar"
+      },
+      "msg": {
+        "reading": "Leyendo {n} {files}…",
+        "notPdf": "Eso no parece un PDF. Añade archivos PDF.",
+        "failedRead": "{failed} no se pudieron leer (¿dañados o protegidos?).",
+        "arranging": "Recolocando las páginas…",
+        "arrangedOk": "PDF con {per} por hoja ({sheets} {sheetsWord}) descargado.",
+        "arrangeError": "No se pudo recolocar el PDF.",
+        "sheets": { "one": "hoja", "many": "hojas" }
       }
     },
     "comprimir-imagen": {
@@ -158,6 +260,35 @@
         "name": "Comprimir imagen",
         "desc": "Reduce el peso de tus imágenes ajustando calidad y tamaño, sin que salgan de tu navegador.",
         "tags": ["Imágenes", "Sin servidor"]
+      },
+      "ui": {
+        "h1": "Comprimir imagen",
+        "subtitle": "Reduce el peso de tus imágenes ajustando la calidad y el tamaño. Todo en tu navegador.",
+        "cardAria": "Herramienta para comprimir imágenes",
+        "dropAria": "Selecciona o arrastra una imagen",
+        "lead": "Arrastra tu imagen aquí o <strong>haz clic para elegirla</strong>",
+        "hint": "JPG, PNG, WebP… Nada se envía a internet.",
+        "previewAlt": "Vista previa del resultado de la compresión",
+        "reset": "Cambiar imagen",
+        "labelFormat": "Formato",
+        "optWebp": "WebP (recomendado)",
+        "labelMaxSide": "Tamaño máximo",
+        "labelTarget": "Peso objetivo (KB)",
+        "targetPlaceholder": "auto (opcional)",
+        "labelQuality": "Calidad",
+        "compressBtn": "⬇ Comprimir y descargar"
+      },
+      "msg": {
+        "notImage": "Eso no parece una imagen.",
+        "reading": "Leyendo la imagen…",
+        "readError": "No se pudo leer la imagen.",
+        "originalLabel": "Original:",
+        "calculating": "Calculando resultado…",
+        "resultLabel": "Resultado:",
+        "qualityWord": "calidad",
+        "overNote": " — no baja más a esta resolución",
+        "downloadedLabel": "Descargada:",
+        "compressError": "No se pudo comprimir la imagen."
       }
     },
     "convertir-imagen": {
@@ -173,6 +304,29 @@
         "name": "Convertir imagen",
         "desc": "Convierte entre PNG, JPG y WebP eligiendo el formato y la calidad de salida.",
         "tags": ["Imágenes", "Sin servidor"]
+      },
+      "ui": {
+        "h1": "Convertir imagen",
+        "subtitle": "Convierte entre PNG, JPG y WebP. Elige el formato de salida y la calidad; todo en tu navegador.",
+        "cardAria": "Herramienta para convertir imágenes",
+        "dropAria": "Selecciona o arrastra una imagen",
+        "lead": "Arrastra tu imagen aquí o <strong>haz clic para elegirla</strong>",
+        "hint": "PNG, JPG, WebP… Nada se envía a internet.",
+        "previewAlt": "Vista previa del resultado de la conversión",
+        "reset": "Cambiar imagen",
+        "labelTo": "Convertir a",
+        "labelQuality": "Calidad",
+        "convertBtn": "⬇ Convertir y descargar"
+      },
+      "msg": {
+        "notImage": "Eso no parece una imagen.",
+        "reading": "Leyendo la imagen…",
+        "readError": "No se pudo leer la imagen.",
+        "originalLabel": "Original:",
+        "calculating": "Calculando resultado…",
+        "resultLabel": "Resultado:",
+        "downloadedIn": "Descargado en",
+        "convertError": "No se pudo convertir la imagen."
       }
     },
     "quitar-metadatos-imagen": {
@@ -188,6 +342,27 @@
         "name": "Quitar metadatos",
         "desc": "Elimina EXIF, ubicación GPS y datos de cámara de tus fotos, sin perder calidad.",
         "tags": ["Imágenes", "Privacidad"]
+      },
+      "ui": {
+        "h1": "Quitar metadatos de una imagen",
+        "subtitle": "Elimina EXIF, ubicación GPS y datos de cámara de tus fotos antes de compartirlas. Sin perder calidad.",
+        "cardAria": "Herramienta para quitar metadatos de imágenes",
+        "dropAria": "Selecciona o arrastra una imagen JPG o PNG",
+        "lead": "Arrastra tu foto aquí o <strong>haz clic para elegirla</strong>",
+        "hint": "JPG o PNG · nada se envía a internet.",
+        "fileName": "imagen.jpg",
+        "reset": "Cambiar imagen",
+        "note": "<b>Sin pérdida:</b> se eliminan solo los metadatos (EXIF/GPS/XMP); los píxeles de tu imagen quedan idénticos.",
+        "cleanBtn": "⬇ Quitar metadatos y descargar"
+      },
+      "msg": {
+        "notImage": "Eso no parece una imagen.",
+        "onlyJpgPng": "De momento solo JPG y PNG.",
+        "reading": "Leyendo la imagen…",
+        "readError": "No se pudo leer la imagen.",
+        "removedOk": "Metadatos eliminados (−{n}). Los píxeles no se han tocado.",
+        "noneFound": "Descargada. No se han encontrado metadatos que eliminar.",
+        "processError": "No se pudo procesar la imagen."
       }
     }
   }

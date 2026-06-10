@@ -132,16 +132,17 @@ ${jsonld}${styleBlock}
 function navbar(lang, otherUrl) {
   const s = SWITCH[lang];
   const switchHtml = `        <a class="lang-switch" href="${otherUrl}" hreflang="${s.other}" aria-label="${s.aria}" data-lang-switch>${s.label}</a>`;
-  return NAVBAR
+  const nav = NAVBAR
     .replace('href="/" aria-label', `href="/${hubPath(lang)}" aria-label`)
     .replace("{{langSwitch}}", switchHtml);
+  return fillTemplate(nav, I18N[lang].common);
 }
 
 /** Pie único. El tagline va en inglés en ambos idiomas; el enlace de licencias se traduce. */
 function footer(lang) {
   const lc = I18N[lang].licenses;
   return `  <footer class="site-footer">
-${FOOT_SOCIAL}
+${fillTemplate(FOOT_SOCIAL, I18N[lang].common)}
 
     <p class="foot-tagline">
       <a href="https://www.aitorevi.dev" target="_blank" rel="noopener">aitorevi.dev</a>
@@ -259,7 +260,7 @@ ${cards.join("\n\n")}
 
   const main = `  <main class="wrap wide">
     <header>
-      <span class="badge"><span class="dot" aria-hidden="true"></span>100% en tu navegador · sin subir nada</span>
+      <span class="badge"><span class="dot" aria-hidden="true"></span>${t.common.badge}</span>
       <h1>${hub.h1}</h1>
       <p class="subtitle">${hub.subtitle}</p>
     </header>
@@ -353,12 +354,14 @@ ${blocks.join("\n")}
 
 /** Módulo JS con los mensajes dinámicos por idioma (los usa app.js vía lib/i18n.js). */
 function buildRuntimeStrings() {
-  const pick = (lang) =>
-    Object.fromEntries(
-      registry.tools
-        .filter((t) => I18N[lang].tools[t.id] && I18N[lang].tools[t.id].msg)
-        .map((t) => [t.id, I18N[lang].tools[t.id].msg])
-    );
+  const pick = (lang) => {
+    const out = { _common: I18N[lang].common };
+    for (const t of registry.tools) {
+      const msg = I18N[lang].tools[t.id] && I18N[lang].tools[t.id].msg;
+      if (msg) out[t.id] = msg;
+    }
+    return out;
+  };
   const data = Object.fromEntries(LANGS.map((l) => [l, pick(l)]));
   write("i18n/strings.js", `// Generado por build.mjs — no editar a mano.\nexport const STRINGS = ${JSON.stringify(data, null, 2)};\n`);
 }

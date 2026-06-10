@@ -9,9 +9,12 @@ import {
   watermarkedFileName,
 } from "./lib.js";
 import { wireDropzone } from "../lib/dropzone.js";
+import { msgs, fmt, plural } from "../lib/i18n.js";
 
 (() => {
   "use strict";
+
+  const M = msgs("marca-de-agua-pdf");
 
   const { PDFDocument } = window.PDFLib;
 
@@ -47,23 +50,23 @@ import { wireDropzone } from "../lib/dropzone.js";
   async function loadFile(file) {
     if (!file) return;
     if (!isPdf(file)) {
-      setStatus("Ese archivo no parece un PDF.", "error");
+      setStatus(M.notPdf, "error");
       return;
     }
-    setStatus("Leyendo el PDF…");
+    setStatus(M.reading);
     try {
       srcBytes = await file.arrayBuffer();
       const doc = await PDFDocument.load(srcBytes, { ignoreEncryption: true });
       pageCount = doc.getPageCount();
       baseName = sanitizeBaseName(file.name);
       fileNameEl.textContent = file.name;
-      fileMetaEl.textContent = `${pageCount} ${pageCount === 1 ? "página" : "páginas"} · ${formatBytes(file.size)}`;
+      fileMetaEl.textContent = `${pageCount} ${plural(pageCount, M.pages)} · ${formatBytes(file.size)}`;
       loader.classList.add("hidden");
       workspace.classList.remove("hidden");
       setStatus("");
     } catch (err) {
       console.error(err);
-      setStatus("No se pudo leer el PDF. Puede estar dañado o protegido.", "error");
+      setStatus(M.readError, "error");
     }
   }
 
@@ -71,11 +74,11 @@ import { wireDropzone } from "../lib/dropzone.js";
     if (!srcBytes) return;
     const text = textInput.value.trim();
     if (!text) {
-      setStatus("Escribe el texto de la marca de agua.", "error");
+      setStatus(M.needText, "error");
       return;
     }
     applyBtn.disabled = true;
-    setStatus("Aplicando la marca de agua…");
+    setStatus(M.applying);
     try {
       const bytes = await addWatermark(window.PDFLib, srcBytes, {
         text,
@@ -83,10 +86,10 @@ import { wireDropzone } from "../lib/dropzone.js";
         fontSize: Number(sizeInput.value),
       });
       triggerDownload(new Blob([bytes], { type: "application/pdf" }), watermarkedFileName(baseName));
-      setStatus(`PDF con marca de agua (${pageCount} ${pageCount === 1 ? "página" : "páginas"}) descargado.`, "ok");
+      setStatus(fmt(M.appliedOk, { n: pageCount, pages: plural(pageCount, M.pages) }), "ok");
     } catch (err) {
       console.error(err);
-      setStatus("No se pudo aplicar la marca de agua.", "error");
+      setStatus(M.applyError, "error");
     } finally {
       applyBtn.disabled = false;
     }
