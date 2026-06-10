@@ -191,13 +191,13 @@ button.btn.primary, a.btn.primary {
 }
 button.btn.primary:hover:not(:disabled), a.btn.primary:hover:not(:disabled) {
   transform: translateY(-1px);
-  border-color: rgb(var(--accent) / 0.70);
-  background: rgb(var(--accent) / 0.16);
+  border-color: rgb(var(--accent) / 0.60);
+  background: rgb(var(--accent) / 0.13);
 }
-/* Glow suave y difuso solo en oscuro (en claro el blog no usa sombra). */
+/* Glow muy discreto solo en oscuro (en claro el blog no usa sombra). */
 :root.dark button.btn.primary:hover:not(:disabled),
 :root.dark a.btn.primary:hover:not(:disabled) {
-  box-shadow: 0 0 40px rgb(var(--accent) / 0.30);
+  box-shadow: 0 0 18px rgb(var(--accent) / 0.12);
 }
 /* Deshabilitado: neutro y plano (no un primario a media opacidad), para que se
    lea claramente como inactivo e igual en todas las variantes. El hover solo
