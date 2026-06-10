@@ -114,7 +114,6 @@
     <section class="card" aria-labelledby="app-title">
       <h2 id="app-title" class="sr">Herramienta para separar PDF</h2>
 
-      <!-- Paso 1: cargar -->
       <div id="loader">
         <div id="dropzone" class="dropzone" tabindex="0" role="button"
              aria-label="Selecciona o arrastra un archivo PDF">
@@ -125,7 +124,6 @@
         <input id="file-input" type="file" accept="application/pdf,.pdf" class="visually-hidden" />
       </div>
 
-      <!-- Paso 2: páginas -->
       <div id="workspace" class="hidden">
         <div class="file-bar">
           <div class="info">
@@ -138,7 +136,7 @@
         <div class="toolbar">
           <button class="btn" id="select-all" type="button">Seleccionar todo</button>
           <button class="btn" id="select-none" type="button">Quitar selección</button>
-          <span class="count" id="selected-count">0 seleccionadas</span>
+          <span class="count" id="selected-count"></span>
         </div>
 
         <ul class="pages" id="pages-list" aria-label="Páginas del PDF"></ul>

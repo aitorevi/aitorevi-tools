@@ -169,6 +169,14 @@ function splitBody(raw) {
   return { style: "", main: trimmed.trimEnd() };
 }
 
+/** Rellena {{t.clave}} en una plantilla con `dict[clave]`. */
+function fillTemplate(str, dict) {
+  return str.replace(/\{\{t\.([\w.]+)\}\}/g, (m, key) => {
+    const v = key.split(".").reduce((o, k) => (o == null ? undefined : o[k]), dict);
+    return v == null ? m : v;
+  });
+}
+
 function page({ lang, head: headHtml, navbarHtml, main, footerHtml, scriptsHtml = "" }) {
   const scriptBlock = scriptsHtml ? `\n\n${scriptsHtml}` : "";
   return `<!DOCTYPE html>
@@ -190,7 +198,10 @@ function buildTool(tool, lang) {
   const T = I18N[lang].tools[tool.id];
   const canonical = toolUrl(tool, lang);
   const urls = Object.fromEntries(LANGS.map((l) => [l, toolUrl(tool, l)]));
-  const { style, main } = splitBody(read(`${tool.id}/body.html`));
+  const dict = { ...I18N[lang].common, ...(T.ui || {}) };
+  const raw = splitBody(read(`${tool.id}/body.html`));
+  const style = fillTemplate(raw.style, dict);
+  const main = fillTemplate(raw.main, dict);
   const html = page({
     lang,
     head: head({
@@ -340,6 +351,18 @@ ${blocks.join("\n")}
 </urlset>`);
 }
 
+/** Módulo JS con los mensajes dinámicos por idioma (los usa app.js vía lib/i18n.js). */
+function buildRuntimeStrings() {
+  const pick = (lang) =>
+    Object.fromEntries(
+      registry.tools
+        .filter((t) => I18N[lang].tools[t.id] && I18N[lang].tools[t.id].msg)
+        .map((t) => [t.id, I18N[lang].tools[t.id].msg])
+    );
+  const data = Object.fromEntries(LANGS.map((l) => [l, pick(l)]));
+  write("i18n/strings.js", `// Generado por build.mjs — no editar a mano.\nexport const STRINGS = ${JSON.stringify(data, null, 2)};\n`);
+}
+
 // --- run ---------------------------------------------------------------------
 
 const outputs = [];
@@ -355,6 +378,7 @@ for (const lang of LANGS) {
 }
 buildSitemap();
 outputs.push("sitemap.xml");
+buildRuntimeStrings();
 
 // Guarda: ningún placeholder sin resolver en la salida.
 const leftover = outputs.filter((p) => /\{\{|\}\}/.test(read(p)));

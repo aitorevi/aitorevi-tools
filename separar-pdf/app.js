@@ -12,11 +12,13 @@ import {
   extractPage as extractPageLib,
 } from "./lib.js";
 import { wireDropzone } from "../lib/dropzone.js";
+import { msgs, fmt, plural } from "../lib/i18n.js";
 
 (() => {
   "use strict";
 
   const { PDFDocument } = window.PDFLib;
+  const M = msgs("separar-pdf");
 
   // --- Estado ---
   let srcBytes = null;     // ArrayBuffer del PDF original
@@ -65,8 +67,7 @@ import { wireDropzone } from "../lib/dropzone.js";
 
   function updateSelectedCount() {
     const n = selectedPages().length;
-    selectedCountEl.textContent =
-      n === 1 ? "1 seleccionada" : `${n} seleccionadas`;
+    selectedCountEl.textContent = `${n} ${plural(n, M.selected)}`;
     const noneSelected = n === 0;
     $("zip-btn").disabled = noneSelected;
     $("individual-btn").disabled = noneSelected;
@@ -77,24 +78,24 @@ import { wireDropzone } from "../lib/dropzone.js";
   async function loadFile(file) {
     if (!file) return;
     if (!isPdf(file)) {
-      setStatus("Ese archivo no parece un PDF. Prueba con otro.", "error");
+      setStatus(M.notPdf, "error");
       return;
     }
 
-    setStatus("Leyendo el PDF…");
+    setStatus(M.reading);
     try {
       srcBytes = await file.arrayBuffer();
       const doc = await PDFDocument.load(srcBytes, { ignoreEncryption: true });
       pageCount = doc.getPageCount();
 
       if (pageCount === 0) {
-        setStatus("El PDF no tiene páginas.", "error");
+        setStatus(M.noPages, "error");
         return;
       }
 
       baseName = sanitizeBaseName(file.name);
       fileNameEl.textContent = file.name;
-      fileMetaEl.textContent = `${pageCount} ${pageCount === 1 ? "página" : "páginas"} · ${formatBytes(file.size)}`;
+      fileMetaEl.textContent = `${pageCount} ${plural(pageCount, M.pages)} · ${formatBytes(file.size)}`;
 
       renderPages(pageCount);
       loader.classList.add("hidden");
@@ -102,10 +103,7 @@ import { wireDropzone } from "../lib/dropzone.js";
       setStatus("");
     } catch (err) {
       console.error(err);
-      setStatus(
-        "No se pudo leer el PDF. Puede estar dañado o protegido con contraseña.",
-        "error"
-      );
+      setStatus(M.readError, "error");
     }
   }
 
@@ -123,13 +121,13 @@ import { wireDropzone } from "../lib/dropzone.js";
 
       const label = document.createElement("label");
       label.setAttribute("for", `page-${i}`);
-      label.innerHTML = `<span class="num">${i}</span><span class="tag">página</span>`;
+      label.innerHTML = `<span class="num">${i}</span><span class="tag">${M.pageTag}</span>`;
 
       const dl = document.createElement("button");
       dl.type = "button";
       dl.className = "dl";
-      dl.title = `Descargar solo la página ${i}`;
-      dl.setAttribute("aria-label", `Descargar solo la página ${i}`);
+      dl.title = fmt(M.dlTitle, { n: i });
+      dl.setAttribute("aria-label", fmt(M.dlTitle, { n: i }));
       dl.textContent = "⬇";
       dl.addEventListener("click", (e) => {
         e.preventDefault();
@@ -147,14 +145,14 @@ import { wireDropzone } from "../lib/dropzone.js";
   // --- Acciones de descarga ---
 
   async function downloadSingle(pageNumber) {
-    setStatus(`Preparando la página ${pageNumber}…`);
+    setStatus(fmt(M.preparing, { n: pageNumber }));
     try {
       const bytes = await extractPage(pageNumber - 1);
       triggerDownload(new Blob([bytes], { type: "application/pdf" }), pageFileName(baseName, pageNumber));
-      setStatus(`Página ${pageNumber} descargada.`, "ok");
+      setStatus(fmt(M.pageDownloaded, { n: pageNumber }), "ok");
     } catch (err) {
       console.error(err);
-      setStatus(`No se pudo extraer la página ${pageNumber}.`, "error");
+      setStatus(fmt(M.extractError, { n: pageNumber }), "error");
     }
   }
 
@@ -165,7 +163,7 @@ import { wireDropzone } from "../lib/dropzone.js";
     const zipBtn = $("zip-btn");
     zipBtn.disabled = true;
     showProgress(true);
-    setStatus(`Generando ${pages.length} páginas…`);
+    setStatus(fmt(M.generating, { n: pages.length }));
 
     try {
       const zip = new JSZip();
@@ -179,10 +177,10 @@ import { wireDropzone } from "../lib/dropzone.js";
         setProgress(meta.percent / 100);
       });
       triggerDownload(blob, zipFileName(baseName));
-      setStatus(`ZIP con ${pages.length} páginas descargado.`, "ok");
+      setStatus(fmt(M.zipDownloaded, { n: pages.length }), "ok");
     } catch (err) {
       console.error(err);
-      setStatus("No se pudo generar el ZIP.", "error");
+      setStatus(M.zipError, "error");
     } finally {
       showProgress(false);
       zipBtn.disabled = false;
@@ -196,16 +194,13 @@ import { wireDropzone } from "../lib/dropzone.js";
 
     if (
       pages.length > 5 &&
-      !window.confirm(
-        `Vas a descargar ${pages.length} archivos por separado. ` +
-          `Tu navegador puede pedirte permiso para descargas múltiples. ¿Continuar?`
-      )
+      !window.confirm(fmt(M.confirmMany, { n: pages.length }))
     ) {
       return;
     }
 
     $("individual-btn").disabled = true;
-    setStatus(`Descargando ${pages.length} páginas…`);
+    setStatus(fmt(M.downloadingMany, { n: pages.length }));
     try {
       for (let i = 0; i < pages.length; i++) {
         const pageNumber = pages[i];
@@ -214,10 +209,10 @@ import { wireDropzone } from "../lib/dropzone.js";
         // Pequeño margen entre descargas para no saturar el navegador.
         await new Promise((r) => setTimeout(r, 350));
       }
-      setStatus(`${pages.length} páginas descargadas.`, "ok");
+      setStatus(fmt(M.manyDownloaded, { n: pages.length }), "ok");
     } catch (err) {
       console.error(err);
-      setStatus("Hubo un problema durante las descargas.", "error");
+      setStatus(M.manyError, "error");
     } finally {
       updateSelectedCount();
     }

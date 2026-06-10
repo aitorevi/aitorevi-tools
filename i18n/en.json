@@ -1,4 +1,7 @@
 {
+  "common": {
+    "badge": "100% in your browser · nothing uploaded"
+  },
   "hub": {
     "title": "aitorevi.tools — mini tools that run in your browser",
     "description": "A collection of free web mini-tools that run 100% in your browser, with no sign-up and without uploading files to any server.",
@@ -45,6 +48,41 @@
         "name": "Split PDF",
         "desc": "Split any PDF into single pages and download them one by one or all together in a ZIP.",
         "tags": ["PDF", "No server"]
+      },
+      "ui": {
+        "h1": "Split PDF",
+        "subtitle": "Split any PDF into single pages and download them one by one or all in a ZIP.",
+        "cardAria": "Split PDF tool",
+        "dropAria": "Select or drop a PDF file",
+        "lead": "Drag your PDF here or <strong>click to choose it</strong>",
+        "hint": "It's processed only on your device. Nothing is sent to the internet.",
+        "fileName": "document.pdf",
+        "reset": "Change PDF",
+        "selectAll": "Select all",
+        "selectNone": "Clear selection",
+        "pagesAria": "PDF pages",
+        "zipBtn": "⬇ Download selection as ZIP",
+        "individualBtn": "Download one by one"
+      },
+      "msg": {
+        "pages": { "one": "page", "many": "pages" },
+        "selected": { "one": "selected", "many": "selected" },
+        "pageTag": "page",
+        "notPdf": "That file doesn't look like a PDF. Try another one.",
+        "reading": "Reading the PDF…",
+        "noPages": "The PDF has no pages.",
+        "readError": "Couldn't read the PDF. It may be damaged or password-protected.",
+        "dlTitle": "Download only page {n}",
+        "preparing": "Preparing page {n}…",
+        "pageDownloaded": "Page {n} downloaded.",
+        "extractError": "Couldn't extract page {n}.",
+        "generating": "Generating {n} pages…",
+        "zipDownloaded": "ZIP with {n} pages downloaded.",
+        "zipError": "Couldn't generate the ZIP.",
+        "confirmMany": "You're about to download {n} files separately. Your browser may ask permission for multiple downloads. Continue?",
+        "downloadingMany": "Downloading {n} pages…",
+        "manyDownloaded": "{n} pages downloaded.",
+        "manyError": "There was a problem during the downloads."
       }
     },
     "unir-pdf": {

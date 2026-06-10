@@ -106,46 +106,44 @@
 
 <main class="wrap">
     <header>
-      <span class="badge"><span class="dot" aria-hidden="true"></span>100% en tu navegador · sin subir nada</span>
-      <h1>Separar PDF</h1>
-      <p class="subtitle">Divide cualquier PDF en páginas sueltas y descárgalas una a una o todas en un ZIP.</p>
+      <span class="badge"><span class="dot" aria-hidden="true"></span>100% in your browser · nothing uploaded</span>
+      <h1>Split PDF</h1>
+      <p class="subtitle">Split any PDF into single pages and download them one by one or all in a ZIP.</p>
     </header>
 
     <section class="card" aria-labelledby="app-title">
-      <h2 id="app-title" class="sr">Herramienta para separar PDF</h2>
+      <h2 id="app-title" class="sr">Split PDF tool</h2>
 
-      <!-- Paso 1: cargar -->
       <div id="loader">
         <div id="dropzone" class="dropzone" tabindex="0" role="button"
-             aria-label="Selecciona o arrastra un archivo PDF">
+             aria-label="Select or drop a PDF file">
           <div class="icon" aria-hidden="true">📄</div>
-          <div class="lead">Arrastra tu PDF aquí o <strong>haz clic para elegirlo</strong></div>
-          <div class="hint">Solo se procesa en tu dispositivo. Nada se envía a internet.</div>
+          <div class="lead">Drag your PDF here or <strong>click to choose it</strong></div>
+          <div class="hint">It's processed only on your device. Nothing is sent to the internet.</div>
         </div>
         <input id="file-input" type="file" accept="application/pdf,.pdf" class="visually-hidden" />
       </div>
 
-      <!-- Paso 2: páginas -->
       <div id="workspace" class="hidden">
         <div class="file-bar">
           <div class="info">
-            <span class="name" id="file-name">documento.pdf</span>
+            <span class="name" id="file-name">document.pdf</span>
             <span class="meta" id="file-meta">—</span>
           </div>
-          <button class="btn ghost" id="reset-btn" type="button">Cambiar PDF</button>
+          <button class="btn ghost" id="reset-btn" type="button">Change PDF</button>
         </div>
 
         <div class="toolbar">
-          <button class="btn" id="select-all" type="button">Seleccionar todo</button>
-          <button class="btn" id="select-none" type="button">Quitar selección</button>
-          <span class="count" id="selected-count">0 seleccionadas</span>
+          <button class="btn" id="select-all" type="button">Select all</button>
+          <button class="btn" id="select-none" type="button">Clear selection</button>
+          <span class="count" id="selected-count"></span>
         </div>
 
-        <ul class="pages" id="pages-list" aria-label="Páginas del PDF"></ul>
+        <ul class="pages" id="pages-list" aria-label="PDF pages"></ul>
 
         <div class="actions">
-          <button class="btn primary" id="zip-btn" type="button">⬇ Descargar selección en ZIP</button>
-          <button class="btn ghost" id="individual-btn" type="button">Descargar una a una</button>
+          <button class="btn primary" id="zip-btn" type="button">⬇ Download selection as ZIP</button>
+          <button class="btn ghost" id="individual-btn" type="button">Download one by one</button>
         </div>
 
         <div class="progress" id="progress" aria-hidden="true"><i></i></div>

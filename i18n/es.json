@@ -1,4 +1,7 @@
 {
+  "common": {
+    "badge": "100% en tu navegador · sin subir nada"
+  },
   "hub": {
     "title": "aitorevi.tools — mini-herramientas que corren en tu navegador",
     "description": "Colección de mini-herramientas web gratuitas que funcionan 100% en tu navegador, sin registro y sin subir archivos a ningún servidor.",
@@ -45,6 +48,41 @@
         "name": "Separar PDF",
         "desc": "Divide cualquier PDF en páginas sueltas y descárgalas una a una o todas juntas en un ZIP.",
         "tags": ["PDF", "Sin servidor"]
+      },
+      "ui": {
+        "h1": "Separar PDF",
+        "subtitle": "Divide cualquier PDF en páginas sueltas y descárgalas una a una o todas en un ZIP.",
+        "cardAria": "Herramienta para separar PDF",
+        "dropAria": "Selecciona o arrastra un archivo PDF",
+        "lead": "Arrastra tu PDF aquí o <strong>haz clic para elegirlo</strong>",
+        "hint": "Solo se procesa en tu dispositivo. Nada se envía a internet.",
+        "fileName": "documento.pdf",
+        "reset": "Cambiar PDF",
+        "selectAll": "Seleccionar todo",
+        "selectNone": "Quitar selección",
+        "pagesAria": "Páginas del PDF",
+        "zipBtn": "⬇ Descargar selección en ZIP",
+        "individualBtn": "Descargar una a una"
+      },
+      "msg": {
+        "pages": { "one": "página", "many": "páginas" },
+        "selected": { "one": "seleccionada", "many": "seleccionadas" },
+        "pageTag": "página",
+        "notPdf": "Ese archivo no parece un PDF. Prueba con otro.",
+        "reading": "Leyendo el PDF…",
+        "noPages": "El PDF no tiene páginas.",
+        "readError": "No se pudo leer el PDF. Puede estar dañado o protegido con contraseña.",
+        "dlTitle": "Descargar solo la página {n}",
+        "preparing": "Preparando la página {n}…",
+        "pageDownloaded": "Página {n} descargada.",
+        "extractError": "No se pudo extraer la página {n}.",
+        "generating": "Generando {n} páginas…",
+        "zipDownloaded": "ZIP con {n} páginas descargado.",
+        "zipError": "No se pudo generar el ZIP.",
+        "confirmMany": "Vas a descargar {n} archivos por separado. Tu navegador puede pedirte permiso para descargas múltiples. ¿Continuar?",
+        "downloadingMany": "Descargando {n} páginas…",
+        "manyDownloaded": "{n} páginas descargadas.",
+        "manyError": "Hubo un problema durante las descargas."
       }
     },
     "unir-pdf": {
