@@ -406,3 +406,31 @@ test("formatear-html-css: detecta y formatea CSS", async ({ page }) => {
   await page.click('[data-act="format"]');
   await expect(page.locator(".code-out")).toHaveValue(/\.a \{\n {2}color: red;/);
 });
+
+// --- Código: JSON a C# / TypeScript ---
+
+test("json-a-csharp: ejemplo precargado → generar C# y TypeScript → copiar", async ({ page }) => {
+  await page.goto("/json-a-csharp/");
+  const output = page.locator(".code-out");
+
+  await expect(page.locator('.code-area[data-role="input"]')).not.toHaveValue("");
+  await expect(page.locator('[data-role="select"]')).toBeVisible();
+
+  // C# (lenguaje por defecto). quicktype es pesado: damos margen de tiempo.
+  await page.click('[data-act="format"]');
+  await expect(output).toHaveValue(/public partial class Root/, { timeout: 15000 });
+
+  // Cambiar a TypeScript regenera la salida.
+  await page.selectOption('[data-role="select"]', "typescript");
+  await expect(output).toHaveValue(/export interface Root/, { timeout: 15000 });
+
+  await page.click('[data-act="copy"]');
+  await expect(page.locator('[data-act="copy"]')).toContainText("¡Copiado!");
+});
+
+test("json-a-csharp: JSON inválido muestra error", async ({ page }) => {
+  await page.goto("/json-a-csharp/");
+  await page.fill('.code-area[data-role="input"]', "{ no es json");
+  await page.click('[data-act="format"]');
+  await expect(page.locator(".code-alert")).not.toBeEmpty();
+});

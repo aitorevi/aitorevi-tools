@@ -89,6 +89,12 @@
       "section": "codigo",
       "libs": ["js-beautify"],
       "slug": { "es": "formatear-html-css", "en": "format-html-css" }
+    },
+    {
+      "id": "json-a-csharp",
+      "section": "codigo",
+      "libs": ["quicktype-core"],
+      "slug": { "es": "json-a-csharp", "en": "json-to-csharp" }
     }
   ]
 }

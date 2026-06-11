@@ -28,7 +28,8 @@
     "codeSample": "Probar ejemplo",
     "codePlaceholder": "Pega aquí tu código…",
     "codeError": "No se pudo procesar:",
-    "codeDialect": "Dialecto"
+    "codeDialect": "Dialecto",
+    "codeTarget": "Lenguaje"
   },
   "hub": {
     "title": "aitorevi.tools — mini-herramientas que corren en tu navegador",
@@ -61,6 +62,7 @@
       "sql-formatter": "Copyright (c) 2016-2020 ZeroTurnaround LLC y colaboradores · licencia MIT",
       "js-yaml": "Copyright (c) 2011-2015 Vitaly Puzrin · licencia MIT",
       "js-beautify": "Copyright (c) 2007-2018 Einar Lielmanis, Liam Newman y colaboradores · licencia MIT",
+      "quicktype-core": "Copyright (c) quicktype, Inc. y colaboradores · licencia Apache 2.0",
       "outfit": "Copyright 2021 The Outfit Project Authors · SIL Open Font License 1.1",
       "jetbrains": "Copyright 2020 The JetBrains Mono Project Authors · SIL Open Font License 1.1"
     }
@@ -164,6 +166,26 @@
         "h1": "Formatear HTML / CSS",
         "subtitle": "Pega tu HTML o CSS para embellecerlo con sangría de 2 espacios. Detecta el lenguaje automáticamente y todo ocurre en tu navegador.",
         "cardAria": "Herramienta para formatear HTML y CSS"
+      }
+    },
+    "json-a-csharp": {
+      "meta": {
+        "title": "JSON a C# y TypeScript — genera clases online, en tu navegador",
+        "description": "Genera clases C# o interfaces TypeScript a partir de un JSON al instante en tu navegador. Inferencia de tipos con quicktype. Gratis, sin registro y sin subir nada.",
+        "ogTitle": "JSON a C# y TypeScript — generar clases",
+        "ogDescription": "Genera clases C# o interfaces TypeScript desde un JSON, en tu navegador. Gratis y sin subir nada.",
+        "jsonldName": "JSON a C#",
+        "jsonldDescription": "Genera clases C# o interfaces TypeScript desde un JSON en el navegador, sin enviar el texto a ningún servidor."
+      },
+      "card": {
+        "name": "JSON a C# / TypeScript",
+        "desc": "Genera clases C# o interfaces TypeScript a partir de un JSON, con inferencia de tipos.",
+        "tags": ["Código", "Sin servidor"]
+      },
+      "ui": {
+        "h1": "JSON a C# / TypeScript",
+        "subtitle": "Pega un JSON y elige el lenguaje para generar las clases C# o las interfaces TypeScript. La inferencia de tipos ocurre en tu navegador.",
+        "cardAria": "Herramienta para generar clases C# o TypeScript desde JSON"
       }
     },
     "separar-pdf": {

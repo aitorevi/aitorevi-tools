@@ -28,6 +28,7 @@ const NAVBAR = read("partials/navbar.html").replace(/\s+$/, "");
 const FOOT_SOCIAL = read("partials/foot-social.html").replace(/\s+$/, "");
 const MIT = read("partials/license-mit.txt").replace(/\s+$/, "");
 const OFL = read("partials/license-ofl.txt").replace(/\s+$/, "");
+const APACHE = read("partials/license-apache-2.0.txt").replace(/\s+$/, "");
 
 const LANGS = registry.site.languages;          // ["es", "en"]
 const DEFAULT_LANG = registry.site.defaultLang; // "es"
@@ -59,6 +60,7 @@ function scripts(tool) {
   if (hasLib(tool, "sql-formatter")) lines.push('  <script src="/vendor/sql-formatter.min.js"></script>');
   if (hasLib(tool, "js-yaml")) lines.push('  <script src="/vendor/js-yaml.min.js"></script>');
   if (hasLib(tool, "js-beautify")) lines.push('  <script src="/vendor/js-beautify.min.js"></script>');
+  if (hasLib(tool, "quicktype-core")) lines.push('  <script src="/vendor/quicktype-core.min.js"></script>');
   lines.push(`  <script type="module" src="/${tool.id}/app.js"></script>`);
   return lines.join("\n");
 }
@@ -325,6 +327,8 @@ ${licenseCard("sql-formatter", lc.meta["sql-formatter"], MIT)}
 ${licenseCard("js-yaml", lc.meta["js-yaml"], MIT)}
 
 ${licenseCard("js-beautify", lc.meta["js-beautify"], MIT)}
+
+${licenseCard("quicktype-core", lc.meta["quicktype-core"], APACHE)}
 
 ${licenseCard("Outfit", lc.meta.outfit, OFL)}
 

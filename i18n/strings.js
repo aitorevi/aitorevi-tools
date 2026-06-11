@@ -39,7 +39,8 @@ export const STRINGS = {
       "codeSample": "Probar ejemplo",
       "codePlaceholder": "Pega aquí tu código…",
       "codeError": "No se pudo procesar:",
-      "codeDialect": "Dialecto"
+      "codeDialect": "Dialecto",
+      "codeTarget": "Lenguaje"
     },
     "separar-pdf": {
       "pages": {
@@ -175,7 +176,8 @@ export const STRINGS = {
       "codeSample": "Try example",
       "codePlaceholder": "Paste your code here…",
       "codeError": "Could not process:",
-      "codeDialect": "Dialect"
+      "codeDialect": "Dialect",
+      "codeTarget": "Language"
     },
     "separar-pdf": {
       "pages": {

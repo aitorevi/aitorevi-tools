@@ -28,7 +28,8 @@
     "codeSample": "Try example",
     "codePlaceholder": "Paste your code here…",
     "codeError": "Could not process:",
-    "codeDialect": "Dialect"
+    "codeDialect": "Dialect",
+    "codeTarget": "Language"
   },
   "hub": {
     "title": "aitorevi.tools — mini tools that run in your browser",
@@ -61,6 +62,7 @@
       "sql-formatter": "Copyright (c) 2016-2020 ZeroTurnaround LLC and contributors · MIT license",
       "js-yaml": "Copyright (c) 2011-2015 Vitaly Puzrin · MIT license",
       "js-beautify": "Copyright (c) 2007-2018 Einar Lielmanis, Liam Newman and contributors · MIT license",
+      "quicktype-core": "Copyright (c) quicktype, Inc. and contributors · Apache 2.0 license",
       "outfit": "Copyright 2021 The Outfit Project Authors · SIL Open Font License 1.1",
       "jetbrains": "Copyright 2020 The JetBrains Mono Project Authors · SIL Open Font License 1.1"
     }
@@ -164,6 +166,26 @@
         "h1": "Format HTML / CSS",
         "subtitle": "Paste your HTML or CSS to beautify it with 2-space indent. It auto-detects the language and everything happens in your browser.",
         "cardAria": "Tool to format HTML and CSS"
+      }
+    },
+    "json-a-csharp": {
+      "meta": {
+        "title": "JSON to C# and TypeScript — generate classes online, in your browser",
+        "description": "Generate C# classes or TypeScript interfaces from JSON instantly in your browser. Type inference powered by quicktype. Free, no sign-up and nothing uploaded.",
+        "ogTitle": "JSON to C# and TypeScript — generate classes",
+        "ogDescription": "Generate C# classes or TypeScript interfaces from JSON, in your browser. Free and nothing uploaded.",
+        "jsonldName": "JSON to C#",
+        "jsonldDescription": "Generate C# classes or TypeScript interfaces from JSON in the browser, without sending the text to any server."
+      },
+      "card": {
+        "name": "JSON to C# / TypeScript",
+        "desc": "Generate C# classes or TypeScript interfaces from JSON, with type inference.",
+        "tags": ["Code", "No server"]
+      },
+      "ui": {
+        "h1": "JSON to C# / TypeScript",
+        "subtitle": "Paste JSON and pick the language to generate C# classes or TypeScript interfaces. Type inference happens in your browser.",
+        "cardAria": "Tool to generate C# or TypeScript types from JSON"
       }
     },
     "separar-pdf": {
