@@ -441,11 +441,16 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
   transition: border-color .2s ease, box-shadow .2s ease;
 }
 .code-area::placeholder { color: rgb(var(--muted) / 0.7); }
-.code-area:hover { border-color: rgb(var(--muted) / 0.45); }
-.code-area:focus-visible {
-  outline: none; border-color: rgb(var(--accent-soft));
-  box-shadow: 0 0 0 3px rgb(var(--accent-soft) / 0.25);
-}
+.code-area:focus { outline: none; }
+/* Hover/foco sutil del panel completo (barra + textarea), al estilo de las
+   tarjetas del hub: cambio de borde tenue y un leve resplandor difuso en foco,
+   en lugar del aro duro de antes. */
+.code-pane { border-radius: 12px; transition: box-shadow .18s ease; }
+.code-pane:hover .code-bar,
+.code-pane:hover .code-area { border-color: rgb(var(--muted) / 0.4); }
+.code-pane:has(.code-area:focus) .code-bar,
+.code-pane:has(.code-area:focus) .code-area { border-color: rgb(var(--accent) / 0.45); }
+.code-pane:has(.code-area:focus) { box-shadow: 0 0 18px rgb(var(--accent) / 0.1); }
 .code-out { background: rgb(var(--surface) / 0.5); }
 
 /* Cabecera tipo ventana de cada panel: puntos de semáforo + etiqueta + icono de
@@ -457,6 +462,7 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
   height: 2.25rem; padding: 0 12px; flex: 0 0 auto;
   background: rgb(var(--fg) / 0.045);
   border: 1px solid rgb(var(--border)); border-radius: 12px 12px 0 0;
+  transition: border-color .18s ease;
 }
 .code-dots { display: inline-flex; gap: 7px; flex: 0 0 auto; }
 .code-dots i { width: 11px; height: 11px; border-radius: 50%; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.07) inset; }
