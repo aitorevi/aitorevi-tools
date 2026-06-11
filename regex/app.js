@@ -2,14 +2,13 @@
 // lógica pura vive en ./lib.js. Todo en local, sin red.
 import { findMatches, highlightHtml, SAMPLE_PATTERN, SAMPLE_FLAGS, SAMPLE_TEXT } from "./lib.js";
 import { GUIDE } from "./guide.js";
+import { renderGuide } from "../lib/tool-guide.js";
 import { msgs, fmt, plural } from "../lib/i18n.js";
 
 (() => {
   "use strict";
   const M = msgs("regex");
   const $ = (id) => document.getElementById(id);
-  const esc = (s) =>
-    String(s).replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
   const patternEl = $("re-pattern");
   const flagsEl = $("re-flags");
   const textEl = $("re-text");
@@ -38,27 +37,6 @@ import { msgs, fmt, plural } from "../lib/i18n.js";
     }
   }
 
-  function renderGuide() {
-    const host = $("regex-guide");
-    const g = M.guide;
-    if (!host || !g) return;
-    const groups = GUIDE.map((group) => {
-      const rows = group.rows
-        .map(
-          ([token, key]) =>
-            `<dt><code>${esc(token)}</code></dt><dd>${esc((g.desc && g.desc[key]) || key)}</dd>`
-        )
-        .join("");
-      return `<div class="regex-guide-group">
-          <h3>${esc((g.groups && g.groups[group.name]) || group.name)}</h3>
-          <dl>${rows}</dl>
-        </div>`;
-    }).join("");
-    host.innerHTML = `<h2 class="regex-guide-title">${esc(g.title)}</h2>
-      <p class="regex-guide-intro">${esc(g.intro)}</p>
-      <div class="regex-guide-grid">${groups}</div>`;
-  }
-
   for (const el of [patternEl, flagsEl, textEl]) el.addEventListener("input", render);
 
   // Precargado, como las demás herramientas.
@@ -66,5 +44,5 @@ import { msgs, fmt, plural } from "../lib/i18n.js";
   flagsEl.value = SAMPLE_FLAGS;
   textEl.value = SAMPLE_TEXT;
   render();
-  renderGuide();
+  renderGuide($("regex-guide"), GUIDE, M.guide);
 })();

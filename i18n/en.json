@@ -235,7 +235,36 @@
       "msg": {
         "expired": "Expired",
         "expires": "Expires:",
-        "issued": "Issued:"
+        "issued": "Issued:",
+        "guide": {
+          "title": "JWT notes",
+          "intro": "A JWT has three dot-separated parts encoded in Base64URL. The payload carries the data (claims):",
+          "groups": {
+            "parts": "Token parts",
+            "registered": "Standard (registered) claims",
+            "header": "Header fields",
+            "common": "Common claims"
+          },
+          "desc": {
+            "header": "Token algorithm and type",
+            "payload": "The token data (claims)",
+            "signature": "Signature that verifies the token; needs the key (not checked here)",
+            "iss": "Issuer: who issued the token",
+            "sub": "Subject: who it identifies (usually the user)",
+            "aud": "Audience: who the token is for",
+            "exp": "Expiration: expires after this date (UNIX)",
+            "nbf": "Not before: not valid before this date (UNIX)",
+            "iat": "Issued at: when it was issued (UNIX)",
+            "jti": "JWT ID: unique token identifier",
+            "alg": "Signing algorithm (HS256, RS256…)",
+            "typ": "Token type, usually \"JWT\"",
+            "kid": "Key ID: which key signed the token",
+            "name": "User name (common, not standard)",
+            "email": "User email (common, not standard)",
+            "role": "Role or permissions (common, not standard)",
+            "scope": "Granted permissions (OAuth)"
+          }
+        }
       }
     },
     "regex": {

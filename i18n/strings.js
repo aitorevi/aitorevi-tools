@@ -139,7 +139,36 @@ export const STRINGS = {
     "jwt": {
       "expired": "Expirado",
       "expires": "Expira:",
-      "issued": "Emitido:"
+      "issued": "Emitido:",
+      "guide": {
+        "title": "Notas sobre JWT",
+        "intro": "Un JWT tiene tres partes separadas por puntos y codificadas en Base64URL. El payload lleva los datos (claims):",
+        "groups": {
+          "parts": "Partes del token",
+          "registered": "Claims estándar (registrados)",
+          "header": "Campos del header",
+          "common": "Claims habituales"
+        },
+        "desc": {
+          "header": "Algoritmo y tipo del token",
+          "payload": "Los datos del token (claims)",
+          "signature": "Firma que verifica el token; necesita la clave (aquí no se comprueba)",
+          "iss": "Issuer: quién emitió el token",
+          "sub": "Subject: a quién identifica (normalmente el usuario)",
+          "aud": "Audience: para quién es el token",
+          "exp": "Expiration: caduca tras esta fecha (UNIX)",
+          "nbf": "Not before: no vale antes de esta fecha (UNIX)",
+          "iat": "Issued at: cuándo se emitió (UNIX)",
+          "jti": "JWT ID: identificador único del token",
+          "alg": "Algoritmo de firma (HS256, RS256…)",
+          "typ": "Tipo del token, normalmente \"JWT\"",
+          "kid": "Key ID: qué clave firmó el token",
+          "name": "Nombre del usuario (habitual, no estándar)",
+          "email": "Correo del usuario (habitual, no estándar)",
+          "role": "Rol o permisos (habitual, no estándar)",
+          "scope": "Permisos concedidos (OAuth)"
+        }
+      }
     },
     "regex": {
       "matchesCount": {
@@ -330,7 +359,36 @@ export const STRINGS = {
     "jwt": {
       "expired": "Expired",
       "expires": "Expires:",
-      "issued": "Issued:"
+      "issued": "Issued:",
+      "guide": {
+        "title": "JWT notes",
+        "intro": "A JWT has three dot-separated parts encoded in Base64URL. The payload carries the data (claims):",
+        "groups": {
+          "parts": "Token parts",
+          "registered": "Standard (registered) claims",
+          "header": "Header fields",
+          "common": "Common claims"
+        },
+        "desc": {
+          "header": "Token algorithm and type",
+          "payload": "The token data (claims)",
+          "signature": "Signature that verifies the token; needs the key (not checked here)",
+          "iss": "Issuer: who issued the token",
+          "sub": "Subject: who it identifies (usually the user)",
+          "aud": "Audience: who the token is for",
+          "exp": "Expiration: expires after this date (UNIX)",
+          "nbf": "Not before: not valid before this date (UNIX)",
+          "iat": "Issued at: when it was issued (UNIX)",
+          "jti": "JWT ID: unique token identifier",
+          "alg": "Signing algorithm (HS256, RS256…)",
+          "typ": "Token type, usually \"JWT\"",
+          "kid": "Key ID: which key signed the token",
+          "name": "User name (common, not standard)",
+          "email": "User email (common, not standard)",
+          "role": "Role or permissions (common, not standard)",
+          "scope": "Granted permissions (OAuth)"
+        }
+      }
     },
     "regex": {
       "matchesCount": {

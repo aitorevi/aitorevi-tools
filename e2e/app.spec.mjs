@@ -473,6 +473,10 @@ test("jwt: ejemplo precargado → muestra header y payload → copiar", async ({
   // Botón de copiar del payload (segundo .code-copy).
   await page.locator("#jwt-payload").locator("xpath=following-sibling::button").click();
   await expect(page.locator(".jwt-tool .code-copy").last()).toContainText("¡Copiado!");
+
+  // Notas de JWT (guía) renderizadas debajo.
+  await expect(page.locator("#jwt-guide .tool-guide-title")).toBeVisible();
+  expect(await page.locator("#jwt-guide code").count()).toBeGreaterThan(10);
 });
 
 test("jwt: token inválido muestra error", async ({ page }) => {
@@ -491,8 +495,8 @@ test("regex: ejemplo precargado resalta las coincidencias", async ({ page }) => 
   await expect(page.locator("#re-count")).toContainText("2");
 
   // La guía de regex se renderiza debajo, con sus chips de símbolos.
-  await expect(page.locator(".regex-guide-title")).toBeVisible();
-  expect(await page.locator(".regex-guide-group code").count()).toBeGreaterThan(10);
+  await expect(page.locator(".tool-guide-title")).toBeVisible();
+  expect(await page.locator(".tool-guide-group code").count()).toBeGreaterThan(10);
 });
 
 test("regex: cambiar el patrón actualiza las coincidencias; uno inválido da error", async ({ page }) => {

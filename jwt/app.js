@@ -1,8 +1,10 @@
 // Decodificar JWT — cableado del DOM (UI propia; no usa mountCodeTool). La
 // lógica pura vive en ./lib.js. Todo en local: el token nunca sale del navegador.
 import { decodeJwt, unixToIso, isExpired, SAMPLE } from "./lib.js";
+import { GUIDE } from "./guide.js";
 import { msgs } from "../lib/i18n.js";
 import { createCopyButton, wireCopyButton } from "../lib/copy-button.js";
+import { renderGuide } from "../lib/tool-guide.js";
 
 (() => {
   "use strict";
@@ -72,4 +74,5 @@ import { createCopyButton, wireCopyButton } from "../lib/copy-button.js";
   input.addEventListener("input", render);
   input.value = SAMPLE; // precargado, como las demás herramientas
   render();
+  renderGuide(document.getElementById("jwt-guide"), GUIDE, M.guide);
 })();

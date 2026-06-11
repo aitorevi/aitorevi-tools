@@ -235,7 +235,36 @@
       "msg": {
         "expired": "Expirado",
         "expires": "Expira:",
-        "issued": "Emitido:"
+        "issued": "Emitido:",
+        "guide": {
+          "title": "Notas sobre JWT",
+          "intro": "Un JWT tiene tres partes separadas por puntos y codificadas en Base64URL. El payload lleva los datos (claims):",
+          "groups": {
+            "parts": "Partes del token",
+            "registered": "Claims estándar (registrados)",
+            "header": "Campos del header",
+            "common": "Claims habituales"
+          },
+          "desc": {
+            "header": "Algoritmo y tipo del token",
+            "payload": "Los datos del token (claims)",
+            "signature": "Firma que verifica el token; necesita la clave (aquí no se comprueba)",
+            "iss": "Issuer: quién emitió el token",
+            "sub": "Subject: a quién identifica (normalmente el usuario)",
+            "aud": "Audience: para quién es el token",
+            "exp": "Expiration: caduca tras esta fecha (UNIX)",
+            "nbf": "Not before: no vale antes de esta fecha (UNIX)",
+            "iat": "Issued at: cuándo se emitió (UNIX)",
+            "jti": "JWT ID: identificador único del token",
+            "alg": "Algoritmo de firma (HS256, RS256…)",
+            "typ": "Tipo del token, normalmente \"JWT\"",
+            "kid": "Key ID: qué clave firmó el token",
+            "name": "Nombre del usuario (habitual, no estándar)",
+            "email": "Correo del usuario (habitual, no estándar)",
+            "role": "Rol o permisos (habitual, no estándar)",
+            "scope": "Permisos concedidos (OAuth)"
+          }
+        }
       }
     },
     "regex": {
