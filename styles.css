@@ -466,7 +466,7 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
    de aitorevi.dev: icono que cambia a un check verde + tooltip al hover. */
 .code-pane-out { position: relative; }
 .code-copy {
-  position: absolute; top: 31px; right: 4px;
+  position: absolute; top: 31px; right: 0;
   display: inline-flex; align-items: center; justify-content: center;
   padding: 8px; border: none; background: transparent; border-radius: 8px;
   color: rgb(var(--muted)); cursor: pointer;
