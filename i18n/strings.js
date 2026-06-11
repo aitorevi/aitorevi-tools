@@ -226,8 +226,11 @@ export const STRINGS = {
         "title": "HTML y CSS",
         "intro": "La herramienta detecta el lenguaje: si empieza por «<» lo trata como HTML; si no, como CSS.",
         "groups": {
-          "html": "HTML",
-          "css": "CSS"
+          "htmlSyntax": "HTML · sintaxis",
+          "htmlElements": "HTML · elementos comunes",
+          "cssSyntax": "CSS · sintaxis",
+          "cssSelectors": "CSS · selectores",
+          "cssValues": "CSS · valores comunes"
         },
         "desc": {
           "openTag": "Abre un elemento",
@@ -235,11 +238,28 @@ export const STRINGS = {
           "selfClose": "Elemento sin contenido (img, br, input…)",
           "attr": "Atributo del elemento (clave=\"valor\")",
           "htmlComment": "Comentario en HTML",
+          "doctype": "Declara un documento HTML5 (primera línea)",
+          "div": "Contenedor de bloque genérico",
+          "span": "Contenedor en línea genérico",
+          "anchor": "Enlace a otra página o ancla",
+          "img": "Imagen",
+          "list": "Lista (no ordenada) con sus elementos",
+          "headings": "Títulos, de h1 (mayor) a h6 (menor)",
           "rule": "Regla: un selector y su bloque de declaraciones",
           "declaration": "Declaración: propiedad y valor, termina en ;",
-          "classSel": "Selecciona los elementos con esa clase",
-          "idSel": "Selecciona el elemento con ese id",
-          "cssComment": "Comentario en CSS"
+          "cssComment": "Comentario en CSS",
+          "classSel": "Elementos con esa clase",
+          "idSel": "El elemento con ese id (único en la página)",
+          "typeSel": "Todos los elementos de ese tipo",
+          "groupSel": "Aplica a varios selectores a la vez",
+          "descendantSel": "Elementos b que están dentro de a",
+          "pseudoSel": "Estado del elemento (hover, focus…)",
+          "px": "Píxeles: tamaño absoluto",
+          "rem": "Relativo al tamaño de fuente raíz",
+          "percent": "Porcentaje respecto al contenedor",
+          "hex": "Color hexadecimal (#rrggbb)",
+          "rgb": "Color por componentes (rgb / rgba)",
+          "layout": "Modo de colocación (propiedad display)"
         }
       }
     },
@@ -553,8 +573,11 @@ export const STRINGS = {
         "title": "HTML and CSS",
         "intro": "The tool detects the language: if it starts with «<» it treats it as HTML; otherwise, as CSS.",
         "groups": {
-          "html": "HTML",
-          "css": "CSS"
+          "htmlSyntax": "HTML · syntax",
+          "htmlElements": "HTML · common elements",
+          "cssSyntax": "CSS · syntax",
+          "cssSelectors": "CSS · selectors",
+          "cssValues": "CSS · common values"
         },
         "desc": {
           "openTag": "Opens an element",
@@ -562,11 +585,28 @@ export const STRINGS = {
           "selfClose": "Element with no content (img, br, input…)",
           "attr": "Element attribute (name=\"value\")",
           "htmlComment": "HTML comment",
+          "doctype": "Declares an HTML5 document (first line)",
+          "div": "Generic block container",
+          "span": "Generic inline container",
+          "anchor": "Link to another page or anchor",
+          "img": "Image",
+          "list": "List (unordered) with its items",
+          "headings": "Headings, from h1 (largest) to h6 (smallest)",
           "rule": "Rule: a selector and its block of declarations",
           "declaration": "Declaration: property and value, ends with ;",
-          "classSel": "Selects elements with that class",
-          "idSel": "Selects the element with that id",
-          "cssComment": "CSS comment"
+          "cssComment": "CSS comment",
+          "classSel": "Elements with that class",
+          "idSel": "The element with that id (unique on the page)",
+          "typeSel": "All elements of that type",
+          "groupSel": "Applies to several selectors at once",
+          "descendantSel": "Elements b inside a",
+          "pseudoSel": "Element state (hover, focus…)",
+          "px": "Pixels: absolute size",
+          "rem": "Relative to the root font size",
+          "percent": "Percentage of the container",
+          "hex": "Hex color (#rrggbb)",
+          "rgb": "Color by components (rgb / rgba)",
+          "layout": "Layout mode (display property)"
         }
       }
     },
