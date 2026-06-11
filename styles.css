@@ -431,6 +431,7 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
 .code-io { display: grid; gap: 16px; }
 @media (min-width: 720px) { .code-io { grid-template-columns: 1fr 1fr; } }
 .code-pane { display: flex; flex-direction: column; gap: 9px; min-width: 0; }
+.code-tool--sm .code-area { min-height: clamp(160px, 28vh, 280px); }
 .code-area {
   width: 100%; min-height: clamp(360px, 60vh, 660px); resize: vertical; display: block;
   font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .85rem; line-height: 1.6;
