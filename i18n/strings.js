@@ -158,6 +158,26 @@ export const STRINGS = {
         }
       }
     },
+    "formatear-xml": {
+      "guide": {
+        "title": "Notas sobre XML",
+        "intro": "El XML anida elementos bien formados: cada apertura tiene su cierre. Construcciones:",
+        "groups": {
+          "structure": "Estructura",
+          "special": "Especiales"
+        },
+        "desc": {
+          "openTag": "Abre un elemento",
+          "closeTag": "Cierra el elemento (mismo nombre)",
+          "selfClose": "Elemento vacío, sin contenido",
+          "attr": "Atributo del elemento (clave=\"valor\")",
+          "comment": "Comentario",
+          "cdata": "Texto literal: no se interpreta como XML",
+          "declaration": "Declaración: versión y codificación",
+          "entity": "Entidad para caracteres especiales (&lt; &gt; &amp; …)"
+        }
+      }
+    },
     "formatear-sql": {
       "guide": {
         "title": "Dialectos y notas de SQL",
@@ -462,6 +482,26 @@ export const STRINGS = {
           "trailingComma": "No comma after the last element",
           "singleQuote": "Single quotes are not valid (use double)",
           "noComments": "JSON does not allow comments"
+        }
+      }
+    },
+    "formatear-xml": {
+      "guide": {
+        "title": "XML notes",
+        "intro": "XML nests well-formed elements: every opening tag has its closing tag. Constructs:",
+        "groups": {
+          "structure": "Structure",
+          "special": "Special"
+        },
+        "desc": {
+          "openTag": "Opens an element",
+          "closeTag": "Closes the element (same name)",
+          "selfClose": "Empty element, with no content",
+          "attr": "Element attribute (name=\"value\")",
+          "comment": "Comment",
+          "cdata": "Literal text: not parsed as XML",
+          "declaration": "Declaration: version and encoding",
+          "entity": "Entity for special characters (&lt; &gt; &amp; …)"
         }
       }
     },

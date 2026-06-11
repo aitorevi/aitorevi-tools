@@ -126,6 +126,23 @@
         "h1": "Formatear XML",
         "subtitle": "Pega tu XML para embellecerlo (con sangría de 2 espacios) o minificarlo. Valida el anidamiento de etiquetas y todo ocurre en tu navegador.",
         "cardAria": "Herramienta para formatear y minificar XML"
+      },
+      "msg": {
+        "guide": {
+          "title": "Notas sobre XML",
+          "intro": "El XML anida elementos bien formados: cada apertura tiene su cierre. Construcciones:",
+          "groups": { "structure": "Estructura", "special": "Especiales" },
+          "desc": {
+            "openTag": "Abre un elemento",
+            "closeTag": "Cierra el elemento (mismo nombre)",
+            "selfClose": "Elemento vacío, sin contenido",
+            "attr": "Atributo del elemento (clave=\"valor\")",
+            "comment": "Comentario",
+            "cdata": "Texto literal: no se interpreta como XML",
+            "declaration": "Declaración: versión y codificación",
+            "entity": "Entidad para caracteres especiales (&lt; &gt; &amp; …)"
+          }
+        }
       }
     },
     "formatear-sql": {

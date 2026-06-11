@@ -126,6 +126,23 @@
         "h1": "Format XML",
         "subtitle": "Paste your XML to beautify it (2-space indent) or minify it. It validates tag nesting and everything happens in your browser.",
         "cardAria": "Tool to format and minify XML"
+      },
+      "msg": {
+        "guide": {
+          "title": "XML notes",
+          "intro": "XML nests well-formed elements: every opening tag has its closing tag. Constructs:",
+          "groups": { "structure": "Structure", "special": "Special" },
+          "desc": {
+            "openTag": "Opens an element",
+            "closeTag": "Closes the element (same name)",
+            "selfClose": "Empty element, with no content",
+            "attr": "Element attribute (name=\"value\")",
+            "comment": "Comment",
+            "cdata": "Literal text: not parsed as XML",
+            "declaration": "Declaration: version and encoding",
+            "entity": "Entity for special characters (&lt; &gt; &amp; …)"
+          }
+        }
       }
     },
     "formatear-sql": {
