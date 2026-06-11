@@ -60,6 +60,7 @@
       "jszip": "Copyright (c) 2009-2016 Stuart Knightley and others · MIT license (dual MIT/GPLv3). Includes the pako library (MIT).",
       "sql-formatter": "Copyright (c) 2016-2020 ZeroTurnaround LLC and contributors · MIT license",
       "js-yaml": "Copyright (c) 2011-2015 Vitaly Puzrin · MIT license",
+      "js-beautify": "Copyright (c) 2007-2018 Einar Lielmanis, Liam Newman and contributors · MIT license",
       "outfit": "Copyright 2021 The Outfit Project Authors · SIL Open Font License 1.1",
       "jetbrains": "Copyright 2020 The JetBrains Mono Project Authors · SIL Open Font License 1.1"
     }
@@ -143,6 +144,26 @@
         "h1": "Format YAML",
         "subtitle": "Paste your YAML to normalize it to block style with 2-space indent. It validates the syntax and everything happens in your browser.",
         "cardAria": "Tool to format and validate YAML"
+      }
+    },
+    "formatear-html-css": {
+      "meta": {
+        "title": "Format HTML and CSS — beautify online, in your browser",
+        "description": "Beautify (pretty-print) HTML and CSS instantly in your browser. Auto-detects the language and applies 2-space indent. Free, no sign-up and nothing uploaded.",
+        "ogTitle": "Format HTML and CSS — beautify",
+        "ogDescription": "Beautify HTML and CSS in your browser, with auto-detection. Free and nothing uploaded.",
+        "jsonldName": "Format HTML and CSS",
+        "jsonldDescription": "Beautify HTML and CSS in the browser, detecting the language, without sending the text to any server."
+      },
+      "card": {
+        "name": "Format HTML/CSS",
+        "desc": "Beautify HTML and CSS with 2-space indent. Auto-detects the language.",
+        "tags": ["Code", "No server"]
+      },
+      "ui": {
+        "h1": "Format HTML / CSS",
+        "subtitle": "Paste your HTML or CSS to beautify it with 2-space indent. It auto-detects the language and everything happens in your browser.",
+        "cardAria": "Tool to format HTML and CSS"
       }
     },
     "separar-pdf": {

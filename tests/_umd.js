@@ -13,6 +13,6 @@ export function loadUMD(relPath, globalName) {
   globalThis.self = globalThis;
   // eslint-disable-next-line no-new-func
   new Function("module", "exports", "self", "window", code)(m, m.exports, globalThis, globalThis);
-  if (m.exports && (m.exports.format || m.exports.load)) return m.exports;
+  if (m.exports && Object.keys(m.exports).length > 0) return m.exports;
   return globalThis[globalName];
 }

@@ -83,6 +83,12 @@
       "section": "codigo",
       "libs": ["js-yaml"],
       "slug": { "es": "formatear-yaml", "en": "format-yaml" }
+    },
+    {
+      "id": "formatear-html-css",
+      "section": "codigo",
+      "libs": ["js-beautify"],
+      "slug": { "es": "formatear-html-css", "en": "format-html-css" }
     }
   ]
 }

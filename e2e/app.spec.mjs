@@ -385,3 +385,24 @@ test("formatear-yaml: YAML inválido muestra error y deja la salida vacía", asy
   await expect(page.locator(".code-alert")).not.toBeEmpty();
   await expect(page.locator(".code-out")).toHaveValue("");
 });
+
+// --- Código: Formatear HTML/CSS ---
+
+test("formatear-html-css: ejemplo (HTML) precargado → formatear → copiar", async ({ page }) => {
+  await page.goto("/formatear-html-css/");
+  const output = page.locator(".code-out");
+
+  await expect(page.locator('.code-area[data-role="input"]')).not.toHaveValue("");
+  await page.click('[data-act="format"]');
+  await expect(output).toHaveValue(/\n {2}<h2>/);
+
+  await page.click('[data-act="copy"]');
+  await expect(page.locator('[data-act="copy"]')).toContainText("¡Copiado!");
+});
+
+test("formatear-html-css: detecta y formatea CSS", async ({ page }) => {
+  await page.goto("/formatear-html-css/");
+  await page.fill('.code-area[data-role="input"]', ".a{color:red;margin:0}");
+  await page.click('[data-act="format"]');
+  await expect(page.locator(".code-out")).toHaveValue(/\.a \{\n {2}color: red;/);
+});

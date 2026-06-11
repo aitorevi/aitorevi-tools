@@ -60,6 +60,7 @@
       "jszip": "Copyright (c) 2009-2016 Stuart Knightley y otros · licencia MIT (dual MIT/GPLv3). Incluye la librería pako (MIT).",
       "sql-formatter": "Copyright (c) 2016-2020 ZeroTurnaround LLC y colaboradores · licencia MIT",
       "js-yaml": "Copyright (c) 2011-2015 Vitaly Puzrin · licencia MIT",
+      "js-beautify": "Copyright (c) 2007-2018 Einar Lielmanis, Liam Newman y colaboradores · licencia MIT",
       "outfit": "Copyright 2021 The Outfit Project Authors · SIL Open Font License 1.1",
       "jetbrains": "Copyright 2020 The JetBrains Mono Project Authors · SIL Open Font License 1.1"
     }
@@ -143,6 +144,26 @@
         "h1": "Formatear YAML",
         "subtitle": "Pega tu YAML para normalizarlo a estilo bloque con sangría de 2 espacios. Valida la sintaxis y todo ocurre en tu navegador.",
         "cardAria": "Herramienta para formatear y validar YAML"
+      }
+    },
+    "formatear-html-css": {
+      "meta": {
+        "title": "Formatear HTML y CSS — embellece online, en tu navegador",
+        "description": "Embellece (pretty-print) HTML y CSS al instante en tu navegador. Detecta el lenguaje automáticamente y aplica sangría de 2 espacios. Gratis, sin registro y sin subir nada.",
+        "ogTitle": "Formatear HTML y CSS — embellecer",
+        "ogDescription": "Embellece HTML y CSS en tu navegador, con autodetección. Gratis y sin subir nada.",
+        "jsonldName": "Formatear HTML y CSS",
+        "jsonldDescription": "Embellece HTML y CSS en el navegador, detectando el lenguaje, sin enviar el texto a ningún servidor."
+      },
+      "card": {
+        "name": "Formatear HTML/CSS",
+        "desc": "Embellece HTML y CSS con sangría de 2 espacios. Detecta el lenguaje solo.",
+        "tags": ["Código", "Sin servidor"]
+      },
+      "ui": {
+        "h1": "Formatear HTML / CSS",
+        "subtitle": "Pega tu HTML o CSS para embellecerlo con sangría de 2 espacios. Detecta el lenguaje automáticamente y todo ocurre en tu navegador.",
+        "cardAria": "Herramienta para formatear HTML y CSS"
       }
     },
     "separar-pdf": {
