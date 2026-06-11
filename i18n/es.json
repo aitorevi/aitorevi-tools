@@ -27,7 +27,8 @@
     "codeCopied": "¡Copiado!",
     "codeSample": "Probar ejemplo",
     "codePlaceholder": "Pega aquí tu código…",
-    "codeError": "No se pudo procesar:"
+    "codeError": "No se pudo procesar:",
+    "codeDialect": "Dialecto"
   },
   "hub": {
     "title": "aitorevi.tools — mini-herramientas que corren en tu navegador",
@@ -57,6 +58,8 @@
     "meta": {
       "pdf-lib": "Copyright (c) 2019 Andrew Dillon · licencia MIT",
       "jszip": "Copyright (c) 2009-2016 Stuart Knightley y otros · licencia MIT (dual MIT/GPLv3). Incluye la librería pako (MIT).",
+      "sql-formatter": "Copyright (c) 2016-2020 ZeroTurnaround LLC y colaboradores · licencia MIT",
+      "js-yaml": "Copyright (c) 2011-2015 Vitaly Puzrin · licencia MIT",
       "outfit": "Copyright 2021 The Outfit Project Authors · SIL Open Font License 1.1",
       "jetbrains": "Copyright 2020 The JetBrains Mono Project Authors · SIL Open Font License 1.1"
     }
@@ -100,6 +103,46 @@
         "h1": "Formatear XML",
         "subtitle": "Pega tu XML para embellecerlo (con sangría de 2 espacios) o minificarlo. Valida el anidamiento de etiquetas y todo ocurre en tu navegador.",
         "cardAria": "Herramienta para formatear y minificar XML"
+      }
+    },
+    "formatear-sql": {
+      "meta": {
+        "title": "Formatear SQL — embellece consultas online, en tu navegador",
+        "description": "Embellece (pretty-print) consultas SQL al instante en tu navegador, con soporte multi-dialecto (MySQL, PostgreSQL, SQLite, T-SQL, PL/SQL, BigQuery). Gratis, sin registro y sin subir nada.",
+        "ogTitle": "Formatear SQL — embellecer consultas",
+        "ogDescription": "Embellece consultas SQL en tu navegador, multi-dialecto. Gratis y sin subir nada.",
+        "jsonldName": "Formatear SQL",
+        "jsonldDescription": "Embellece consultas SQL en el navegador, multi-dialecto, sin enviar el texto a ningún servidor."
+      },
+      "card": {
+        "name": "Formatear SQL",
+        "desc": "Embellece consultas SQL con sangría y palabras clave en mayúscula. Multi-dialecto.",
+        "tags": ["Código", "Sin servidor"]
+      },
+      "ui": {
+        "h1": "Formatear SQL",
+        "subtitle": "Pega tu consulta SQL y elige el dialecto para embellecerla con sangría de 2 espacios y palabras clave en mayúscula. Todo ocurre en tu navegador.",
+        "cardAria": "Herramienta para formatear SQL"
+      }
+    },
+    "formatear-yaml": {
+      "meta": {
+        "title": "Formatear YAML — embellece y valida online, en tu navegador",
+        "description": "Formatea (pretty-print) y valida YAML al instante en tu navegador: normaliza a estilo bloque con sangría de 2 espacios y señala los errores de sintaxis. Gratis, sin registro y sin subir nada.",
+        "ogTitle": "Formatear YAML — embellecer y validar",
+        "ogDescription": "Embellece y valida YAML en tu navegador. Gratis y sin subir nada.",
+        "jsonldName": "Formatear YAML",
+        "jsonldDescription": "Formatea y valida YAML en el navegador, sin enviar el texto a ningún servidor."
+      },
+      "card": {
+        "name": "Formatear YAML",
+        "desc": "Normaliza y valida YAML a estilo bloque con sangría de 2 espacios.",
+        "tags": ["Código", "Sin servidor"]
+      },
+      "ui": {
+        "h1": "Formatear YAML",
+        "subtitle": "Pega tu YAML para normalizarlo a estilo bloque con sangría de 2 espacios. Valida la sintaxis y todo ocurre en tu navegador.",
+        "cardAria": "Herramienta para formatear y validar YAML"
       }
     },
     "separar-pdf": {

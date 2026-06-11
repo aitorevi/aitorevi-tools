@@ -342,3 +342,46 @@ test("formatear-xml: XML mal formado muestra error y deja la salida vacía", asy
   await expect(page.locator(".code-alert")).not.toBeEmpty();
   await expect(page.locator(".code-out")).toHaveValue("");
 });
+
+// --- Código: Formatear SQL ---
+
+test("formatear-sql: ejemplo precargado → formatear (multi-dialecto) → copiar", async ({ page }) => {
+  await page.goto("/formatear-sql/");
+  const input = page.locator('.code-area[data-role="input"]');
+  const output = page.locator(".code-out");
+
+  await expect(input).not.toHaveValue("");
+  await expect(page.locator('[data-role="select"]')).toBeVisible();
+
+  await page.click('[data-act="format"]');
+  await expect(output).toHaveValue(/SELECT/);
+
+  // Cambiar de dialecto re-formatea la salida.
+  await page.selectOption('[data-role="select"]', "mysql");
+  await expect(output).toHaveValue(/SELECT/);
+
+  await page.click('[data-act="copy"]');
+  await expect(page.locator('[data-act="copy"]')).toContainText("¡Copiado!");
+});
+
+// --- Código: Formatear YAML ---
+
+test("formatear-yaml: ejemplo precargado → formatear → copiar", async ({ page }) => {
+  await page.goto("/formatear-yaml/");
+  const output = page.locator(".code-out");
+
+  await expect(page.locator('.code-area[data-role="input"]')).not.toHaveValue("");
+  await page.click('[data-act="format"]');
+  await expect(output).toHaveValue(/name: aitorevi\.tools/);
+
+  await page.click('[data-act="copy"]');
+  await expect(page.locator('[data-act="copy"]')).toContainText("¡Copiado!");
+});
+
+test("formatear-yaml: YAML inválido muestra error y deja la salida vacía", async ({ page }) => {
+  await page.goto("/formatear-yaml/");
+  await page.fill('.code-area[data-role="input"]', "a: [1, 2");
+  await page.click('[data-act="format"]');
+  await expect(page.locator(".code-alert")).not.toBeEmpty();
+  await expect(page.locator(".code-out")).toHaveValue("");
+});

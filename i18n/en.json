@@ -27,7 +27,8 @@
     "codeCopied": "Copied!",
     "codeSample": "Try example",
     "codePlaceholder": "Paste your code here…",
-    "codeError": "Could not process:"
+    "codeError": "Could not process:",
+    "codeDialect": "Dialect"
   },
   "hub": {
     "title": "aitorevi.tools — mini tools that run in your browser",
@@ -57,6 +58,8 @@
     "meta": {
       "pdf-lib": "Copyright (c) 2019 Andrew Dillon · MIT license",
       "jszip": "Copyright (c) 2009-2016 Stuart Knightley and others · MIT license (dual MIT/GPLv3). Includes the pako library (MIT).",
+      "sql-formatter": "Copyright (c) 2016-2020 ZeroTurnaround LLC and contributors · MIT license",
+      "js-yaml": "Copyright (c) 2011-2015 Vitaly Puzrin · MIT license",
       "outfit": "Copyright 2021 The Outfit Project Authors · SIL Open Font License 1.1",
       "jetbrains": "Copyright 2020 The JetBrains Mono Project Authors · SIL Open Font License 1.1"
     }
@@ -100,6 +103,46 @@
         "h1": "Format XML",
         "subtitle": "Paste your XML to beautify it (2-space indent) or minify it. It validates tag nesting and everything happens in your browser.",
         "cardAria": "Tool to format and minify XML"
+      }
+    },
+    "formatear-sql": {
+      "meta": {
+        "title": "Format SQL — beautify queries online, in your browser",
+        "description": "Beautify (pretty-print) SQL queries instantly in your browser, with multi-dialect support (MySQL, PostgreSQL, SQLite, T-SQL, PL/SQL, BigQuery). Free, no sign-up and nothing uploaded.",
+        "ogTitle": "Format SQL — beautify queries",
+        "ogDescription": "Beautify SQL queries in your browser, multi-dialect. Free and nothing uploaded.",
+        "jsonldName": "Format SQL",
+        "jsonldDescription": "Beautify SQL queries in the browser, multi-dialect, without sending the text to any server."
+      },
+      "card": {
+        "name": "Format SQL",
+        "desc": "Beautify SQL queries with indentation and uppercase keywords. Multi-dialect.",
+        "tags": ["Code", "No server"]
+      },
+      "ui": {
+        "h1": "Format SQL",
+        "subtitle": "Paste your SQL query and pick the dialect to beautify it with 2-space indent and uppercase keywords. Everything happens in your browser.",
+        "cardAria": "Tool to format SQL"
+      }
+    },
+    "formatear-yaml": {
+      "meta": {
+        "title": "Format YAML — beautify and validate online, in your browser",
+        "description": "Format (pretty-print) and validate YAML instantly in your browser: normalize to block style with 2-space indent and point out syntax errors. Free, no sign-up and nothing uploaded.",
+        "ogTitle": "Format YAML — beautify and validate",
+        "ogDescription": "Beautify and validate YAML in your browser. Free and nothing uploaded.",
+        "jsonldName": "Format YAML",
+        "jsonldDescription": "Format and validate YAML in the browser, without sending the text to any server."
+      },
+      "card": {
+        "name": "Format YAML",
+        "desc": "Normalize and validate YAML to block style with 2-space indent.",
+        "tags": ["Code", "No server"]
+      },
+      "ui": {
+        "h1": "Format YAML",
+        "subtitle": "Paste your YAML to normalize it to block style with 2-space indent. It validates the syntax and everything happens in your browser.",
+        "cardAria": "Tool to format and validate YAML"
       }
     },
     "separar-pdf": {

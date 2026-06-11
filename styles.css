@@ -416,6 +416,8 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
 /* Contenedor ancho: dos panes de código cómodos lado a lado (~80 columnas). */
 .wrap.wrap-code { max-width: 1200px; }
 .code-tool { display: flex; flex-direction: column; gap: 16px; }
+.code-controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
+.code-select { max-width: 260px; flex: 1 1 200px; }
 .code-io { display: grid; gap: 16px; }
 @media (min-width: 720px) { .code-io { grid-template-columns: 1fr 1fr; } }
 .code-pane { display: flex; flex-direction: column; gap: 9px; min-width: 0; }

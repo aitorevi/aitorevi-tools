@@ -56,6 +56,8 @@ function scripts(tool) {
   const lines = [];
   if (hasLib(tool, "pdf-lib")) lines.push('  <script src="/vendor/pdf-lib.min.js"></script>');
   if (hasLib(tool, "jszip")) lines.push('  <script src="/vendor/jszip.min.js"></script>');
+  if (hasLib(tool, "sql-formatter")) lines.push('  <script src="/vendor/sql-formatter.min.js"></script>');
+  if (hasLib(tool, "js-yaml")) lines.push('  <script src="/vendor/js-yaml.min.js"></script>');
   lines.push(`  <script type="module" src="/${tool.id}/app.js"></script>`);
   return lines.join("\n");
 }
@@ -316,6 +318,10 @@ function buildLicenses(lang) {
 ${licenseCard("pdf-lib", lc.meta["pdf-lib"], MIT)}
 
 ${licenseCard("JSZip", lc.meta.jszip, MIT)}
+
+${licenseCard("sql-formatter", lc.meta["sql-formatter"], MIT)}
+
+${licenseCard("js-yaml", lc.meta["js-yaml"], MIT)}
 
 ${licenseCard("Outfit", lc.meta.outfit, OFL)}
 

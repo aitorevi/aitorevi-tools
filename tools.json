@@ -71,6 +71,18 @@
       "section": "codigo",
       "libs": [],
       "slug": { "es": "formatear-xml", "en": "format-xml" }
+    },
+    {
+      "id": "formatear-sql",
+      "section": "codigo",
+      "libs": ["sql-formatter"],
+      "slug": { "es": "formatear-sql", "en": "format-sql" }
+    },
+    {
+      "id": "formatear-yaml",
+      "section": "codigo",
+      "libs": ["js-yaml"],
+      "slug": { "es": "formatear-yaml", "en": "format-yaml" }
     }
   ]
 }
