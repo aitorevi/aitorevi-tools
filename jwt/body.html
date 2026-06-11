@@ -9,7 +9,10 @@
       <h2 id="app-title" class="sr">{{t.cardAria}}</h2>
       <div class="code-tool jwt-tool">
         <label class="code-pane">
-          <span class="field-label">{{t.token}}</span>
+          <div class="code-bar">
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="code-bar-label">{{t.token}}</span>
+          </div>
           <textarea class="code-area jwt-input" id="jwt-input" spellcheck="false"
                     autocapitalize="off" autocomplete="off" autocorrect="off"
                     placeholder="{{t.tokenPlaceholder}}" aria-label="{{t.token}}"></textarea>
@@ -20,12 +23,18 @@
 
         <div class="code-io">
           <div class="code-pane code-pane-out">
-            <span class="field-label">{{t.header}}</span>
+            <div class="code-bar">
+              <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="code-bar-label">{{t.header}}</span>
+            </div>
             <textarea class="code-area code-out" id="jwt-header" readonly
                       spellcheck="false" aria-label="{{t.header}}"></textarea>
           </div>
           <div class="code-pane code-pane-out">
-            <span class="field-label">{{t.payload}}</span>
+            <div class="code-bar">
+              <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="code-bar-label">{{t.payload}}</span>
+            </div>
             <textarea class="code-area code-out" id="jwt-payload" readonly
                       spellcheck="false" aria-label="{{t.payload}}"></textarea>
           </div>

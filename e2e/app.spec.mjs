@@ -470,8 +470,8 @@ test("jwt: ejemplo precargado → muestra header y payload → copiar", async ({
   await expect(page.locator("#jwt-payload")).toHaveValue(/"role": "admin"/);
   await expect(page.locator("#jwt-info")).toContainText("HS256");
 
-  // Botón de copiar del payload (segundo .code-copy).
-  await page.locator("#jwt-payload").locator("xpath=following-sibling::button").click();
+  // Botón de copiar del payload (en la barra de su panel; el último .code-copy).
+  await page.locator(".jwt-tool .code-copy").last().click();
   await expect(page.locator(".jwt-tool .code-copy").last()).toContainText("¡Copiado!");
 
   // Notas de JWT (guía) renderizadas debajo.

@@ -79,7 +79,10 @@
       <h2 id="app-title" class="sr">Tool to decode JSON Web Tokens</h2>
       <div class="code-tool jwt-tool">
         <label class="code-pane">
-          <span class="field-label">Token</span>
+          <div class="code-bar">
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="code-bar-label">Token</span>
+          </div>
           <textarea class="code-area jwt-input" id="jwt-input" spellcheck="false"
                     autocapitalize="off" autocomplete="off" autocorrect="off"
                     placeholder="Paste your JWT here (eyJ…)…" aria-label="Token"></textarea>
@@ -90,12 +93,18 @@
 
         <div class="code-io">
           <div class="code-pane code-pane-out">
-            <span class="field-label">Header</span>
+            <div class="code-bar">
+              <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="code-bar-label">Header</span>
+            </div>
             <textarea class="code-area code-out" id="jwt-header" readonly
                       spellcheck="false" aria-label="Header"></textarea>
           </div>
           <div class="code-pane code-pane-out">
-            <span class="field-label">Payload</span>
+            <div class="code-bar">
+              <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="code-bar-label">Payload</span>
+            </div>
             <textarea class="code-area code-out" id="jwt-payload" readonly
                       spellcheck="false" aria-label="Payload"></textarea>
           </div>

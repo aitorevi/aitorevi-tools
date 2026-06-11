@@ -438,6 +438,28 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
 }
 .code-out { background: rgb(var(--surface) / 0.5); }
 
+/* Cabecera tipo ventana de cada panel: puntos de semáforo + etiqueta + icono de
+   copiar a la derecha (como los bloques de código de aitorevi.dev). La barra y el
+   textarea se conectan formando una "ventana". */
+.code-pane:has(.code-bar) { gap: 0; }
+.code-bar {
+  display: flex; align-items: center; gap: 10px;
+  height: 2.25rem; padding: 0 12px; flex: 0 0 auto;
+  background: rgb(var(--fg) / 0.045);
+  border: 1px solid rgb(var(--border)); border-radius: 12px 12px 0 0;
+}
+.code-dots { display: inline-flex; gap: 7px; flex: 0 0 auto; }
+.code-dots i { width: 11px; height: 11px; border-radius: 50%; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.07) inset; }
+.code-dots i:nth-child(1) { background: #ff5f56; }
+.code-dots i:nth-child(2) { background: #ffbd2e; }
+.code-dots i:nth-child(3) { background: #27c93f; }
+.code-bar-label {
+  font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .68rem;
+  text-transform: uppercase; letter-spacing: 0.14em; color: rgb(var(--muted));
+}
+.code-bar .code-copy { margin-left: auto; }
+.code-bar + .code-area { border-top: none; border-top-left-radius: 0; border-top-right-radius: 0; }
+
 /* Scrollbars finas integradas en la caja del textarea: más estrechas que la
    global del sitio, thumb redondeado y discreto, y un track transparente con
    inset (vía borde del color del fondo) para que no toquen las esquinas
@@ -521,13 +543,13 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
    de aitorevi.dev: icono que cambia a un check verde + tooltip al hover. */
 .code-pane-out { position: relative; }
 .code-copy {
-  position: absolute; top: 31px; right: 0;
+  position: relative;
   display: inline-flex; align-items: center; justify-content: center;
-  padding: 8px; border: none; border-radius: 8px; background: transparent;
+  padding: 6px; border: none; border-radius: 7px; background: transparent;
   color: rgb(var(--muted)); cursor: pointer;
   transition: color .2s ease, background .2s ease;
 }
-.code-copy:hover:not(:disabled) { color: rgb(var(--accent)); background: rgb(var(--fg) / 0.06); }
+.code-copy:hover:not(:disabled) { color: rgb(var(--accent)); background: rgb(var(--fg) / 0.08); }
 .code-copy:focus-visible { outline: none; box-shadow: 0 0 0 3px rgb(var(--accent-soft) / 0.4); }
 .code-copy:disabled { opacity: .35; cursor: not-allowed; }
 .code-copy svg { width: 20px; height: 20px; }

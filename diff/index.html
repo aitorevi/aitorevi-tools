@@ -80,12 +80,18 @@
       <div class="code-tool diff-tool">
         <div class="code-io">
           <label class="code-pane">
-            <span class="field-label">Original</span>
+            <div class="code-bar">
+              <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="code-bar-label">Original</span>
+            </div>
             <textarea class="code-area" id="diff-a" spellcheck="false"
                       aria-label="Original"></textarea>
           </label>
           <label class="code-pane">
-            <span class="field-label">Modificado</span>
+            <div class="code-bar">
+              <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="code-bar-label">Modificado</span>
+            </div>
             <textarea class="code-area" id="diff-b" spellcheck="false"
                       aria-label="Modificado"></textarea>
           </label>
@@ -95,7 +101,10 @@
         <p class="jwt-info" id="diff-summary" aria-live="polite"></p>
 
         <div class="code-pane">
-          <span class="field-label">Diferencias</span>
+          <div class="code-bar">
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="code-bar-label">Diferencias</span>
+          </div>
           <div class="code-area diff-output" id="diff-output" aria-live="polite"></div>
         </div>
       </div>

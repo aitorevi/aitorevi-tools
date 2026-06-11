@@ -28,12 +28,18 @@
 
         <div class="code-io">
           <label class="code-pane">
-            <span class="field-label">{{t.testText}}</span>
+            <div class="code-bar">
+              <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="code-bar-label">{{t.testText}}</span>
+            </div>
             <textarea class="code-area" id="re-text" spellcheck="false"
                       aria-label="{{t.testText}}"></textarea>
           </label>
           <div class="code-pane">
-            <span class="field-label">{{t.codeOutput}}</span>
+            <div class="code-bar">
+              <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="code-bar-label">{{t.codeOutput}}</span>
+            </div>
             <div class="code-area regex-output" id="re-output" aria-live="polite"></div>
           </div>
         </div>

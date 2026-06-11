@@ -10,12 +10,18 @@
       <div class="code-tool diff-tool">
         <div class="code-io">
           <label class="code-pane">
-            <span class="field-label">{{t.original}}</span>
+            <div class="code-bar">
+              <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="code-bar-label">{{t.original}}</span>
+            </div>
             <textarea class="code-area" id="diff-a" spellcheck="false"
                       aria-label="{{t.original}}"></textarea>
           </label>
           <label class="code-pane">
-            <span class="field-label">{{t.modified}}</span>
+            <div class="code-bar">
+              <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="code-bar-label">{{t.modified}}</span>
+            </div>
             <textarea class="code-area" id="diff-b" spellcheck="false"
                       aria-label="{{t.modified}}"></textarea>
           </label>
@@ -25,7 +31,10 @@
         <p class="jwt-info" id="diff-summary" aria-live="polite"></p>
 
         <div class="code-pane">
-          <span class="field-label">{{t.differences}}</span>
+          <div class="code-bar">
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="code-bar-label">{{t.differences}}</span>
+          </div>
           <div class="code-area diff-output" id="diff-output" aria-live="polite"></div>
         </div>
       </div>

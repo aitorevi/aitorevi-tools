@@ -20,7 +20,7 @@ import { renderGuide } from "../lib/tool-guide.js";
   const labels = { copy: M.codeCopy, copied: M.codeCopied };
   const addCopy = (textarea) => {
     const btn = createCopyButton(labels);
-    textarea.closest(".code-pane-out").appendChild(btn);
+    textarea.closest(".code-pane-out").querySelector(".code-bar").appendChild(btn);
     return wireCopyButton(btn, () => textarea.value, labels);
   };
   const syncHeaderCopy = addCopy(headerOut);
