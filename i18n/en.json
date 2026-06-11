@@ -63,6 +63,7 @@
       "js-yaml": "Copyright (c) 2011-2015 Vitaly Puzrin · MIT license",
       "js-beautify": "Copyright (c) 2007-2018 Einar Lielmanis, Liam Newman and contributors · MIT license",
       "quicktype-core": "Copyright (c) quicktype, Inc. and contributors · Apache 2.0 license",
+      "prettier": "Copyright © James Long and contributors · MIT license",
       "outfit": "Copyright 2021 The Outfit Project Authors · SIL Open Font License 1.1",
       "jetbrains": "Copyright 2020 The JetBrains Mono Project Authors · SIL Open Font License 1.1"
     }
@@ -166,6 +167,26 @@
         "h1": "Format HTML / CSS",
         "subtitle": "Paste your HTML or CSS to beautify it with 2-space indent. It auto-detects the language and everything happens in your browser.",
         "cardAria": "Tool to format HTML and CSS"
+      }
+    },
+    "formatear-js": {
+      "meta": {
+        "title": "Format JavaScript and TypeScript — Prettier online, in your browser",
+        "description": "Beautify (pretty-print) JavaScript and TypeScript code instantly in your browser with Prettier. Free, no sign-up and nothing is uploaded to any server.",
+        "ogTitle": "Format JavaScript and TypeScript — Prettier",
+        "ogDescription": "Beautify JavaScript and TypeScript in your browser with Prettier. Free and nothing uploaded.",
+        "jsonldName": "Format JavaScript",
+        "jsonldDescription": "Beautify JavaScript and TypeScript with Prettier in the browser, without sending the text to any server."
+      },
+      "card": {
+        "name": "Format JS / TS",
+        "desc": "Beautify JavaScript and TypeScript with Prettier, the standard formatter.",
+        "tags": ["Code", "No server"]
+      },
+      "ui": {
+        "h1": "Format JavaScript / TypeScript",
+        "subtitle": "Paste your JavaScript or TypeScript code and pick the language to beautify it with Prettier. Everything happens in your browser.",
+        "cardAria": "Tool to format JavaScript and TypeScript"
       }
     },
     "json-a-csharp": {

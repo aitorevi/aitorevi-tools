@@ -91,6 +91,12 @@
       "slug": { "es": "formatear-html-css", "en": "format-html-css" }
     },
     {
+      "id": "formatear-js",
+      "section": "codigo",
+      "libs": ["prettier"],
+      "slug": { "es": "formatear-js", "en": "format-js" }
+    },
+    {
       "id": "json-a-csharp",
       "section": "codigo",
       "libs": ["quicktype-core"],

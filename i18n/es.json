@@ -63,6 +63,7 @@
       "js-yaml": "Copyright (c) 2011-2015 Vitaly Puzrin · licencia MIT",
       "js-beautify": "Copyright (c) 2007-2018 Einar Lielmanis, Liam Newman y colaboradores · licencia MIT",
       "quicktype-core": "Copyright (c) quicktype, Inc. y colaboradores · licencia Apache 2.0",
+      "prettier": "Copyright © James Long y colaboradores · licencia MIT",
       "outfit": "Copyright 2021 The Outfit Project Authors · SIL Open Font License 1.1",
       "jetbrains": "Copyright 2020 The JetBrains Mono Project Authors · SIL Open Font License 1.1"
     }
@@ -166,6 +167,26 @@
         "h1": "Formatear HTML / CSS",
         "subtitle": "Pega tu HTML o CSS para embellecerlo con sangría de 2 espacios. Detecta el lenguaje automáticamente y todo ocurre en tu navegador.",
         "cardAria": "Herramienta para formatear HTML y CSS"
+      }
+    },
+    "formatear-js": {
+      "meta": {
+        "title": "Formatear JavaScript y TypeScript — Prettier online, en tu navegador",
+        "description": "Embellece (pretty-print) código JavaScript y TypeScript al instante en tu navegador con Prettier. Gratis, sin registro y sin subir nada a ningún servidor.",
+        "ogTitle": "Formatear JavaScript y TypeScript — Prettier",
+        "ogDescription": "Embellece JavaScript y TypeScript en tu navegador con Prettier. Gratis y sin subir nada.",
+        "jsonldName": "Formatear JavaScript",
+        "jsonldDescription": "Embellece JavaScript y TypeScript con Prettier en el navegador, sin enviar el texto a ningún servidor."
+      },
+      "card": {
+        "name": "Formatear JS / TS",
+        "desc": "Embellece JavaScript y TypeScript con Prettier, el formateador estándar.",
+        "tags": ["Código", "Sin servidor"]
+      },
+      "ui": {
+        "h1": "Formatear JavaScript / TypeScript",
+        "subtitle": "Pega tu código JavaScript o TypeScript y elige el lenguaje para embellecerlo con Prettier. Todo ocurre en tu navegador.",
+        "cardAria": "Herramienta para formatear JavaScript y TypeScript"
       }
     },
     "json-a-csharp": {

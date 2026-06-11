@@ -61,6 +61,7 @@ function scripts(tool) {
   if (hasLib(tool, "js-yaml")) lines.push('  <script src="/vendor/js-yaml.min.js"></script>');
   if (hasLib(tool, "js-beautify")) lines.push('  <script src="/vendor/js-beautify.min.js"></script>');
   if (hasLib(tool, "quicktype-core")) lines.push('  <script src="/vendor/quicktype-core.min.js"></script>');
+  if (hasLib(tool, "prettier")) lines.push('  <script src="/vendor/prettier.min.js"></script>');
   lines.push(`  <script type="module" src="/${tool.id}/app.js"></script>`);
   return lines.join("\n");
 }
@@ -327,6 +328,8 @@ ${licenseCard("sql-formatter", lc.meta["sql-formatter"], MIT)}
 ${licenseCard("js-yaml", lc.meta["js-yaml"], MIT)}
 
 ${licenseCard("js-beautify", lc.meta["js-beautify"], MIT)}
+
+${licenseCard("Prettier", lc.meta.prettier, MIT)}
 
 ${licenseCard("quicktype-core", lc.meta["quicktype-core"], APACHE)}
 

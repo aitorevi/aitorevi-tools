@@ -434,3 +434,29 @@ test("json-a-csharp: JSON inválido muestra error", async ({ page }) => {
   await page.click('[data-act="format"]');
   await expect(page.locator(".code-alert")).not.toBeEmpty();
 });
+
+// --- Código: Formatear JS/TS (Prettier) ---
+
+test("formatear-js: ejemplo precargado → formatear (JS y TS) → copiar", async ({ page }) => {
+  await page.goto("/formatear-js/");
+  const output = page.locator(".code-out");
+
+  await expect(page.locator('.code-area[data-role="input"]')).not.toHaveValue("");
+  await expect(page.locator('[data-role="select"]')).toBeVisible();
+
+  await page.click('[data-act="format"]');
+  await expect(output).toHaveValue(/const greet = \(name\) =>/, { timeout: 15000 });
+
+  await page.selectOption('[data-role="select"]', "typescript");
+  await expect(output).toHaveValue(/const greet/, { timeout: 15000 });
+
+  await page.click('[data-act="copy"]');
+  await expect(page.locator('[data-act="copy"]')).toContainText("¡Copiado!");
+});
+
+test("formatear-js: JS con error de sintaxis muestra error", async ({ page }) => {
+  await page.goto("/formatear-js/");
+  await page.fill('.code-area[data-role="input"]', "const x = {");
+  await page.click('[data-act="format"]');
+  await expect(page.locator(".code-alert")).not.toBeEmpty();
+});
