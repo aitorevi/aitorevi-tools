@@ -406,6 +406,8 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
 .status.ok { color: rgb(var(--ok)); }
 
 /* ── Herramientas de código (entrada → formatear/minificar → copiar) ── */
+/* Contenedor ancho: dos panes de código cómodos lado a lado (~80 columnas). */
+.wrap.wrap-code { max-width: 1200px; }
 .code-tool { display: flex; flex-direction: column; gap: 16px; }
 .code-io { display: grid; gap: 16px; }
 @media (min-width: 720px) { .code-io { grid-template-columns: 1fr 1fr; } }
