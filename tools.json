@@ -119,6 +119,24 @@
       "section": "codigo",
       "libs": [],
       "slug": { "es": "diff", "en": "diff" }
+    },
+    {
+      "id": "base64",
+      "section": "codigo",
+      "libs": [],
+      "slug": { "es": "base64", "en": "base64" }
+    },
+    {
+      "id": "hash",
+      "section": "codigo",
+      "libs": [],
+      "slug": { "es": "hash", "en": "hash" }
+    },
+    {
+      "id": "url",
+      "section": "codigo",
+      "libs": [],
+      "slug": { "es": "url-encode", "en": "url-encode" }
     }
   ]
 }

@@ -29,7 +29,12 @@
     "codePlaceholder": "Paste your code here…",
     "codeError": "Could not process:",
     "codeDialect": "Dialect",
-    "codeTarget": "Language"
+    "codeTarget": "Language",
+    "transformMode": "Mode",
+    "transformEncode": "Encode",
+    "transformDecode": "Decode",
+    "hashAlgorithm": "Algorithm",
+    "transformPlaceholder": "Type or paste here…"
   },
   "hub": {
     "title": "aitorevi.tools — mini tools that run in your browser",
@@ -473,6 +478,66 @@
       },
       "msg": {
         "identical": "The texts are identical"
+      }
+    },
+    "base64": {
+      "meta": {
+        "title": "Base64 — encode and decode online, in your browser",
+        "description": "Encode and decode Base64 (text ↔ Base64) instantly in your browser, with UTF-8 support. Free, no sign-up and nothing is uploaded to any server.",
+        "ogTitle": "Base64 — encode and decode",
+        "ogDescription": "Encode and decode Base64 in your browser, with UTF-8. Free and nothing uploaded.",
+        "jsonldName": "Base64",
+        "jsonldDescription": "Encode and decode Base64 in the browser, without sending anything to any server."
+      },
+      "card": {
+        "name": "Base64",
+        "desc": "Encode text to Base64 and decode back, with UTF-8.",
+        "tags": ["Code", "No server"]
+      },
+      "ui": {
+        "h1": "Base64",
+        "subtitle": "Encode text to Base64 or decode Base64 to text. Pick the mode; everything happens in your browser.",
+        "cardAria": "Tool to encode and decode Base64"
+      }
+    },
+    "hash": {
+      "meta": {
+        "title": "Hash generator — SHA-256, SHA-1, SHA-512 in your browser",
+        "description": "Compute the hash (SHA-256, SHA-1, SHA-384, SHA-512) of a text instantly in your browser with Web Crypto. Free, no sign-up and nothing uploaded.",
+        "ogTitle": "Hash generator — SHA-256, SHA-1, SHA-512",
+        "ogDescription": "Compute the SHA hash of a text in your browser. Free and nothing uploaded.",
+        "jsonldName": "Hash generator",
+        "jsonldDescription": "Compute the SHA hash of a text in the browser, without sending anything to any server."
+      },
+      "card": {
+        "name": "Hash generator",
+        "desc": "Compute SHA-256, SHA-1, SHA-384 or SHA-512 of a text.",
+        "tags": ["Code", "No server"]
+      },
+      "ui": {
+        "h1": "Hash generator",
+        "subtitle": "Type a text and pick the algorithm to see its hash. A hash is one-way (it cannot be reversed); everything happens in your browser.",
+        "cardAria": "Tool to generate SHA hashes of a text"
+      }
+    },
+    "url": {
+      "meta": {
+        "title": "URL encode — encode and decode online, in your browser",
+        "description": "Encode and decode text for URLs (percent-encoding) instantly in your browser. Free, no sign-up and nothing is uploaded to any server.",
+        "ogTitle": "URL encode — encode and decode",
+        "ogDescription": "Encode and decode text for URLs in your browser. Free and nothing uploaded.",
+        "jsonldName": "URL encode",
+        "jsonldDescription": "Encode and decode URL percent-encoding in the browser, without sending anything to any server."
+      },
+      "card": {
+        "name": "URL encode",
+        "desc": "Encode and decode text for URLs (percent-encoding).",
+        "tags": ["Code", "No server"]
+      },
+      "ui": {
+        "h1": "URL encode / decode",
+        "subtitle": "Encode text to use it in a URL or decode the percent-encoding. Pick the mode; all in your browser.",
+        "cardAria": "Tool to encode and decode URLs"
       }
     },
     "separar-pdf": {

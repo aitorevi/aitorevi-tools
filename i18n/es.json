@@ -29,7 +29,12 @@
     "codePlaceholder": "Pega aquí tu código…",
     "codeError": "No se pudo procesar:",
     "codeDialect": "Dialecto",
-    "codeTarget": "Lenguaje"
+    "codeTarget": "Lenguaje",
+    "transformMode": "Modo",
+    "transformEncode": "Codificar",
+    "transformDecode": "Decodificar",
+    "hashAlgorithm": "Algoritmo",
+    "transformPlaceholder": "Escribe o pega aquí…"
   },
   "hub": {
     "title": "aitorevi.tools — mini-herramientas que corren en tu navegador",
@@ -473,6 +478,66 @@
       },
       "msg": {
         "identical": "Los textos son idénticos"
+      }
+    },
+    "base64": {
+      "meta": {
+        "title": "Base64 — codifica y decodifica online, en tu navegador",
+        "description": "Codifica y decodifica Base64 (texto ↔ Base64) al instante en tu navegador, con soporte UTF-8. Gratis, sin registro y sin subir nada a ningún servidor.",
+        "ogTitle": "Base64 — codificar y decodificar",
+        "ogDescription": "Codifica y decodifica Base64 en tu navegador, con UTF-8. Gratis y sin subir nada.",
+        "jsonldName": "Base64",
+        "jsonldDescription": "Codifica y decodifica Base64 en el navegador, sin enviar nada a ningún servidor."
+      },
+      "card": {
+        "name": "Base64",
+        "desc": "Codifica texto a Base64 y decodifica de vuelta, con UTF-8.",
+        "tags": ["Código", "Sin servidor"]
+      },
+      "ui": {
+        "h1": "Base64",
+        "subtitle": "Codifica texto a Base64 o decodifica Base64 a texto. Elige el modo; todo ocurre en tu navegador.",
+        "cardAria": "Herramienta para codificar y decodificar Base64"
+      }
+    },
+    "hash": {
+      "meta": {
+        "title": "Generador de hash — SHA-256, SHA-1, SHA-512 en tu navegador",
+        "description": "Calcula el hash (SHA-256, SHA-1, SHA-384, SHA-512) de un texto al instante en tu navegador con Web Crypto. Gratis, sin registro y sin subir nada.",
+        "ogTitle": "Generador de hash — SHA-256, SHA-1, SHA-512",
+        "ogDescription": "Calcula el hash SHA de un texto en tu navegador. Gratis y sin subir nada.",
+        "jsonldName": "Generador de hash",
+        "jsonldDescription": "Calcula el hash SHA de un texto en el navegador, sin enviar nada a ningún servidor."
+      },
+      "card": {
+        "name": "Generador de hash",
+        "desc": "Calcula SHA-256, SHA-1, SHA-384 o SHA-512 de un texto.",
+        "tags": ["Código", "Sin servidor"]
+      },
+      "ui": {
+        "h1": "Generador de hash",
+        "subtitle": "Escribe un texto y elige el algoritmo para ver su hash. Un hash es de un solo sentido (no se puede revertir); todo ocurre en tu navegador.",
+        "cardAria": "Herramienta para generar hashes SHA de un texto"
+      }
+    },
+    "url": {
+      "meta": {
+        "title": "Codificar URL — encode y decode online, en tu navegador",
+        "description": "Codifica y decodifica texto para URLs (percent-encoding) al instante en tu navegador. Gratis, sin registro y sin subir nada a ningún servidor.",
+        "ogTitle": "Codificar URL — encode y decode",
+        "ogDescription": "Codifica y decodifica texto para URLs en tu navegador. Gratis y sin subir nada.",
+        "jsonldName": "Codificar URL",
+        "jsonldDescription": "Codifica y decodifica el percent-encoding de URLs en el navegador, sin enviar nada a ningún servidor."
+      },
+      "card": {
+        "name": "Codificar URL",
+        "desc": "Codifica y decodifica texto para URLs (percent-encoding).",
+        "tags": ["Código", "Sin servidor"]
+      },
+      "ui": {
+        "h1": "Codificar / decodificar URL",
+        "subtitle": "Codifica texto para usarlo en una URL o decodifica el percent-encoding. Elige el modo; todo en tu navegador.",
+        "cardAria": "Herramienta para codificar y decodificar URLs"
       }
     },
     "separar-pdf": {

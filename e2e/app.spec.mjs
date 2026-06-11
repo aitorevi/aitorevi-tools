@@ -528,6 +528,30 @@ test("diff: textos idénticos lo indican y no marcan cambios", async ({ page }) 
   await expect(page.locator("#diff-summary")).not.toBeEmpty();
 });
 
+// --- Código: Base64, hash, URL (transform en vivo) ---
+
+test("base64: codifica el ejemplo y decodifica al cambiar de modo", async ({ page }) => {
+  await page.goto("/base64/");
+  const out = page.locator(".code-out");
+  await expect(out).toHaveValue(/^SGVsbG8/); // el ejemplo, codificado
+  await page.fill('.code-area[data-role="input"]', "SGVsbG8=");
+  await page.selectOption('[data-role="select"]', "decode");
+  await expect(out).toHaveValue("Hello");
+});
+
+test("hash: muestra el SHA-256 y cambia con el algoritmo", async ({ page }) => {
+  await page.goto("/hash/");
+  const out = page.locator(".code-out");
+  await expect(out).toHaveValue(/^[0-9a-f]{64}$/); // SHA-256
+  await page.selectOption('[data-role="select"]', "SHA-1");
+  await expect(out).toHaveValue(/^[0-9a-f]{40}$/); // SHA-1
+});
+
+test("url: codifica el ejemplo (percent-encoding)", async ({ page }) => {
+  await page.goto("/url-encode/");
+  await expect(page.locator(".code-out")).toHaveValue(/%20|%26/);
+});
+
 test("código: las guías de JSON, XML, YAML, SQL y HTML/CSS se renderizan", async ({ page }) => {
   for (const [path, id] of [
     ["/formatear-json/", "json-guide"],

@@ -40,7 +40,12 @@ export const STRINGS = {
       "codePlaceholder": "Pega aquí tu código…",
       "codeError": "No se pudo procesar:",
       "codeDialect": "Dialecto",
-      "codeTarget": "Lenguaje"
+      "codeTarget": "Lenguaje",
+      "transformMode": "Modo",
+      "transformEncode": "Codificar",
+      "transformDecode": "Decodificar",
+      "hashAlgorithm": "Algoritmo",
+      "transformPlaceholder": "Escribe o pega aquí…"
     },
     "separar-pdf": {
       "pages": {
@@ -387,7 +392,12 @@ export const STRINGS = {
       "codePlaceholder": "Paste your code here…",
       "codeError": "Could not process:",
       "codeDialect": "Dialect",
-      "codeTarget": "Language"
+      "codeTarget": "Language",
+      "transformMode": "Mode",
+      "transformEncode": "Encode",
+      "transformDecode": "Decode",
+      "hashAlgorithm": "Algorithm",
+      "transformPlaceholder": "Type or paste here…"
     },
     "separar-pdf": {
       "pages": {

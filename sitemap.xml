@@ -229,6 +229,42 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://tools.aitorevi.dev/base64/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/base64/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/base64/" />
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://tools.aitorevi.dev/en/base64/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/base64/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/base64/" />
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://tools.aitorevi.dev/hash/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/hash/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/hash/" />
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://tools.aitorevi.dev/en/hash/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/hash/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/hash/" />
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://tools.aitorevi.dev/url-encode/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/url-encode/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/url-encode/" />
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://tools.aitorevi.dev/en/url-encode/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/url-encode/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/url-encode/" />
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://tools.aitorevi.dev/licencias/</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/licencias/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/licenses/" />
