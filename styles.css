@@ -532,7 +532,7 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
   font-size: 1.15rem; margin: 0 0 4px; color: rgb(var(--fg));
 }
 .tool-guide-intro { margin: 0 0 18px; color: rgb(var(--muted)); font-size: .92rem; }
-.tool-guide-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 0 30px; }
+.tool-guide-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 0 30px; }
 .tool-guide-group { margin: 0 0 20px; }
 .tool-guide-group h3 {
   margin: 0 0 10px; font-family: "JetBrains Mono", ui-monospace, monospace;
