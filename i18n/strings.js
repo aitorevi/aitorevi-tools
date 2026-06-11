@@ -201,6 +201,28 @@ export const STRINGS = {
         }
       }
     },
+    "formatear-html-css": {
+      "guide": {
+        "title": "HTML y CSS",
+        "intro": "La herramienta detecta el lenguaje: si empieza por «<» lo trata como HTML; si no, como CSS.",
+        "groups": {
+          "html": "HTML",
+          "css": "CSS"
+        },
+        "desc": {
+          "openTag": "Abre un elemento",
+          "closeTag": "Cierra el elemento",
+          "selfClose": "Elemento sin contenido (img, br, input…)",
+          "attr": "Atributo del elemento (clave=\"valor\")",
+          "htmlComment": "Comentario en HTML",
+          "rule": "Regla: un selector y su bloque de declaraciones",
+          "declaration": "Declaración: propiedad y valor, termina en ;",
+          "classSel": "Selecciona los elementos con esa clase",
+          "idSel": "Selecciona el elemento con ese id",
+          "cssComment": "Comentario en CSS"
+        }
+      }
+    },
     "jwt": {
       "expired": "Expirado",
       "expires": "Expira:",
@@ -483,6 +505,28 @@ export const STRINGS = {
           "boolTrap": "yes/no/on/off read as booleans; quote the text",
           "quote": "Quotes force text (numbers, yes/no…)",
           "docSep": "Separates multiple documents in one file"
+        }
+      }
+    },
+    "formatear-html-css": {
+      "guide": {
+        "title": "HTML and CSS",
+        "intro": "The tool detects the language: if it starts with «<» it treats it as HTML; otherwise, as CSS.",
+        "groups": {
+          "html": "HTML",
+          "css": "CSS"
+        },
+        "desc": {
+          "openTag": "Opens an element",
+          "closeTag": "Closes the element",
+          "selfClose": "Element with no content (img, br, input…)",
+          "attr": "Element attribute (name=\"value\")",
+          "htmlComment": "HTML comment",
+          "rule": "Rule: a selector and its block of declarations",
+          "declaration": "Declaration: property and value, ends with ;",
+          "classSel": "Selects elements with that class",
+          "idSel": "Selects the element with that id",
+          "cssComment": "CSS comment"
         }
       }
     },

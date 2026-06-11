@@ -528,11 +528,12 @@ test("diff: textos idénticos lo indican y no marcan cambios", async ({ page }) 
   await expect(page.locator("#diff-summary")).not.toBeEmpty();
 });
 
-test("código: las guías de JSON, YAML y SQL se renderizan", async ({ page }) => {
+test("código: las guías de JSON, YAML, SQL y HTML/CSS se renderizan", async ({ page }) => {
   for (const [path, id] of [
     ["/formatear-json/", "json-guide"],
     ["/formatear-yaml/", "yaml-guide"],
     ["/formatear-sql/", "sql-guide"],
+    ["/formatear-html-css/", "htmlcss-guide"],
   ]) {
     await page.goto(path);
     await expect(page.locator(`#${id} .tool-guide-title`)).toBeVisible();
