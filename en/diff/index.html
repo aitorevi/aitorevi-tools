@@ -78,8 +78,8 @@
     <section class="card" aria-labelledby="app-title">
       <h2 id="app-title" class="sr">Tool to compare two texts</h2>
       <div class="code-tool diff-tool">
-        <div class="code-io">
-          <label class="code-pane">
+        <div class="diff-grid">
+          <label class="code-pane diff-original">
             <div class="code-bar">
               <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
               <span class="code-bar-label">Original</span>
@@ -88,7 +88,7 @@
             <textarea class="code-area" id="diff-a" spellcheck="false"
                       aria-label="Original"></textarea>
           </label>
-          <label class="code-pane">
+          <label class="code-pane diff-modified">
             <div class="code-bar">
               <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
               <span class="code-bar-label">Modified</span>
@@ -97,19 +97,18 @@
             <textarea class="code-area" id="diff-b" spellcheck="false"
                       aria-label="Modified"></textarea>
           </label>
+          <div class="code-pane diff-result">
+            <div class="code-bar">
+              <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="code-bar-label">Differences</span>
+              <span class="code-bar-actions"></span>
+            </div>
+            <div class="code-area diff-output" id="diff-output" aria-live="polite"></div>
+          </div>
         </div>
 
         <p class="code-alert" id="diff-alert" role="alert"></p>
         <p class="jwt-info" id="diff-summary" aria-live="polite"></p>
-
-        <div class="code-pane">
-          <div class="code-bar">
-            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="code-bar-label">Differences</span>
-            <span class="code-bar-actions"></span>
-          </div>
-          <div class="code-area diff-output" id="diff-output" aria-live="polite"></div>
-        </div>
       </div>
     </section>
   </main>

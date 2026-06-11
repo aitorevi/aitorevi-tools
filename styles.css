@@ -558,6 +558,22 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
 .diff-add { background: rgb(var(--ok) / 0.16); }
 .diff-del { background: rgb(var(--danger) / 0.16); }
 .diff-eq { color: rgb(var(--muted)); }
+/* Layout del diff: apilado en móvil; entradas lado a lado y resultado debajo en
+   tablet; y los tres paneles en una fila (Original · Diferencias · Modificado,
+   estilo JetBrains) en pantallas grandes. */
+.diff-grid { display: grid; gap: 16px; }
+@media (min-width: 720px) and (max-width: 1199px) {
+  .diff-grid { grid-template-columns: 1fr 1fr; }
+  .diff-original { grid-column: 1; grid-row: 1; }
+  .diff-modified { grid-column: 2; grid-row: 1; }
+  .diff-result   { grid-column: 1 / -1; grid-row: 2; }
+}
+@media (min-width: 1200px) {
+  .diff-grid { grid-template-columns: 1fr 1fr 1fr; }
+  .diff-original { grid-column: 1; grid-row: 1; }
+  .diff-result   { grid-column: 2; grid-row: 1; }
+  .diff-modified { grid-column: 3; grid-row: 1; }
+}
 
 /* Botón de copiar en la esquina del resultado, igual que los bloques de código
    de aitorevi.dev: icono que cambia a un check verde + tooltip al hover. */
