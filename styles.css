@@ -523,11 +523,14 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
 .code-copy {
   position: absolute; top: 31px; right: 0;
   display: inline-flex; align-items: center; justify-content: center;
-  padding: 8px; border: none; background: transparent; border-radius: 8px;
+  padding: 8px; border: none; border-radius: 8px;
+  /* Fondo opaco (color del propio textarea) para que el texto de la salida no
+     se vea por debajo del icono cuando la línea es larga (p. ej. un hash). */
+  background: rgb(var(--surface));
   color: rgb(var(--muted)); cursor: pointer;
   transition: color .2s ease, background .2s ease;
 }
-.code-copy:hover:not(:disabled) { color: rgb(var(--accent)); background: rgb(var(--fg) / 0.06); }
+.code-copy:hover:not(:disabled) { color: rgb(var(--accent)); background: rgb(var(--surface-2)); }
 .code-copy:focus-visible { outline: none; box-shadow: 0 0 0 3px rgb(var(--accent-soft) / 0.4); }
 .code-copy:disabled { opacity: .35; cursor: not-allowed; }
 .code-copy svg { width: 20px; height: 20px; }
