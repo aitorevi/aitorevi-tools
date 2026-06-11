@@ -25,6 +25,7 @@
     "codeMinify": "Minify",
     "codeCopy": "Copy",
     "codeCopied": "Copied!",
+    "codeWrap": "Wrap lines",
     "codeSample": "Try example",
     "codePlaceholder": "Paste your code here…",
     "codeError": "Could not process:",

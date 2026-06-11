@@ -3,6 +3,7 @@
 import { findMatches, highlightHtml, SAMPLE_PATTERN, SAMPLE_FLAGS, SAMPLE_TEXT } from "./lib.js";
 import { GUIDE } from "./guide.js";
 import { renderGuide } from "../lib/tool-guide.js";
+import { createWrapToggle } from "../lib/wrap-toggle.js";
 import { msgs, fmt, plural } from "../lib/i18n.js";
 
 (() => {
@@ -16,6 +17,11 @@ import { msgs, fmt, plural } from "../lib/i18n.js";
   const count = $("re-count");
   const alertBox = $("re-alert");
   if (!patternEl) return;
+
+  // Ajuste de línea activado por defecto: lectura cómoda de textos/logs largos.
+  const wrapLabels = { wrap: M.codeWrap };
+  textEl.closest(".code-pane").querySelector(".code-bar-actions").append(createWrapToggle(textEl, true, wrapLabels));
+  output.closest(".code-pane").querySelector(".code-bar-actions").append(createWrapToggle(output, true, wrapLabels));
 
   function render() {
     alertBox.textContent = "";

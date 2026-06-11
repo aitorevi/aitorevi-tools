@@ -457,8 +457,12 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
   font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .68rem;
   text-transform: uppercase; letter-spacing: 0.14em; color: rgb(var(--muted));
 }
-.code-bar .code-copy { margin-left: auto; }
+.code-bar-actions { margin-left: auto; display: inline-flex; align-items: center; gap: 2px; }
 .code-bar + .code-area { border-top: none; border-top-left-radius: 0; border-top-right-radius: 0; }
+
+/* Ajuste de línea (word-wrap) activado: el texto se ajusta al ancho y se oculta
+   el scroll horizontal. Por defecto (.code-area) es pre + scroll horizontal. */
+.code-area.is-wrapped { white-space: pre-wrap; overflow-wrap: anywhere; overflow-x: hidden; }
 
 /* Scrollbars finas integradas en la caja del textarea: más estrechas que la
    global del sitio, thumb redondeado y discreto, y un track transparente con
@@ -542,17 +546,19 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
 /* Botón de copiar en la esquina del resultado, igual que los bloques de código
    de aitorevi.dev: icono que cambia a un check verde + tooltip al hover. */
 .code-pane-out { position: relative; }
-.code-copy {
+.code-copy, .code-wrap {
   position: relative;
   display: inline-flex; align-items: center; justify-content: center;
   padding: 6px; border: none; border-radius: 7px; background: transparent;
   color: rgb(var(--muted)); cursor: pointer;
   transition: color .2s ease, background .2s ease;
 }
-.code-copy:hover:not(:disabled) { color: rgb(var(--accent)); background: rgb(var(--fg) / 0.08); }
-.code-copy:focus-visible { outline: none; box-shadow: 0 0 0 3px rgb(var(--accent-soft) / 0.4); }
-.code-copy:disabled { opacity: .35; cursor: not-allowed; }
-.code-copy svg { width: 20px; height: 20px; }
+.code-copy:hover:not(:disabled), .code-wrap:hover:not(:disabled) { color: rgb(var(--accent)); background: rgb(var(--fg) / 0.08); }
+.code-copy:focus-visible, .code-wrap:focus-visible { outline: none; box-shadow: 0 0 0 3px rgb(var(--accent-soft) / 0.4); }
+.code-copy:disabled, .code-wrap:disabled { opacity: .35; cursor: not-allowed; }
+/* Word-wrap activo: el icono se ilumina en acento. */
+.code-wrap[aria-pressed="true"] { color: rgb(var(--accent)); }
+.code-copy svg, .code-wrap svg { width: 20px; height: 20px; }
 .code-copy .code-copy-icon { display: block; }
 .code-copy .code-copy-check { display: none; color: rgb(var(--ok)); }
 .code-copy[data-copied="true"] .code-copy-icon { display: none; }
@@ -566,7 +572,8 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
   opacity: 0; pointer-events: none; transition: opacity .15s ease;
   box-shadow: 0 6px 18px rgb(0 0 0 / 0.25);
 }
-.code-copy:hover .code-copy-tip, .code-copy:focus-visible .code-copy-tip { opacity: 1; }
+.code-copy:hover .code-copy-tip, .code-copy:focus-visible .code-copy-tip,
+.code-wrap:hover .code-copy-tip, .code-wrap:focus-visible .code-copy-tip { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .code-copy[data-copied="true"] .code-copy-check { animation: none; } }
 
 /* Barra de acciones de las herramientas multi-archivo */

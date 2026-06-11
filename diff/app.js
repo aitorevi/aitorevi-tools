@@ -2,6 +2,7 @@
 // pura vive en ./lib.js. Todo en local, sin red.
 import { diffLines, diffStats, SAMPLE_A, SAMPLE_B } from "./lib.js";
 import { msgs } from "../lib/i18n.js";
+import { createWrapToggle } from "../lib/wrap-toggle.js";
 
 (() => {
   "use strict";
@@ -13,6 +14,12 @@ import { msgs } from "../lib/i18n.js";
   const summary = $("diff-summary");
   const alertBox = $("diff-alert");
   if (!aEl) return;
+
+  // Por defecto sin ajuste de línea (mantiene la alineación exacta de líneas).
+  const wrapLabels = { wrap: M.codeWrap };
+  for (const el of [aEl, bEl, output]) {
+    el.closest(".code-pane").querySelector(".code-bar-actions").append(createWrapToggle(el, false, wrapLabels));
+  }
 
   const PREFIX = { eq: " ", add: "+", del: "−" };
   const esc = (s) =>

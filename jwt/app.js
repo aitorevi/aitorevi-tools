@@ -4,6 +4,7 @@ import { decodeJwt, unixToIso, isExpired, SAMPLE } from "./lib.js";
 import { GUIDE } from "./guide.js";
 import { msgs } from "../lib/i18n.js";
 import { createCopyButton, wireCopyButton } from "../lib/copy-button.js";
+import { createWrapToggle } from "../lib/wrap-toggle.js";
 import { renderGuide } from "../lib/tool-guide.js";
 
 (() => {
@@ -18,13 +19,19 @@ import { renderGuide } from "../lib/tool-guide.js";
   if (!input) return;
 
   const labels = { copy: M.codeCopy, copied: M.codeCopied };
+  const wrapLabels = { wrap: M.codeWrap };
+  const actionsOf = (textarea) => textarea.closest(".code-pane").querySelector(".code-bar-actions");
   const addCopy = (textarea) => {
+    const actions = actionsOf(textarea);
     const btn = createCopyButton(labels);
-    textarea.closest(".code-pane-out").querySelector(".code-bar").appendChild(btn);
+    actions.appendChild(btn);
+    actions.prepend(createWrapToggle(textarea, false, wrapLabels)); // JSON → estructura, sin wrap
     return wireCopyButton(btn, () => textarea.value, labels);
   };
   const syncHeaderCopy = addCopy(headerOut);
   const syncPayloadCopy = addCopy(payloadOut);
+  // El token es una única cadena larga: ajuste de línea activado por defecto.
+  actionsOf(input).append(createWrapToggle(input, true, wrapLabels));
 
   const fmtClaim = (label, seconds) => {
     const iso = unixToIso(seconds);

@@ -552,6 +552,23 @@ test("url: codifica el ejemplo (percent-encoding)", async ({ page }) => {
   await expect(page.locator(".code-out")).toHaveValue(/%20|%26/);
 });
 
+test("código: el toggle de word-wrap aplica .is-wrapped con los defaults correctos", async ({ page }) => {
+  // Formateador: entrada sin wrap por defecto; el toggle lo activa.
+  await page.goto("/formatear-json/");
+  const inputTa = page.locator('[data-role="input"]');
+  const inWrap = page.locator('.code-pane:not(.code-pane-out) .code-wrap');
+  await expect(inWrap).toHaveAttribute("aria-pressed", "false");
+  await expect(inputTa).not.toHaveClass(/is-wrapped/);
+  await inWrap.click();
+  await expect(inWrap).toHaveAttribute("aria-pressed", "true");
+  await expect(inputTa).toHaveClass(/is-wrapped/);
+
+  // Base64: entrada y salida con wrap activado por defecto.
+  await page.goto("/base64/");
+  await expect(page.locator('[data-role="input"]')).toHaveClass(/is-wrapped/);
+  await expect(page.locator(".code-out")).toHaveClass(/is-wrapped/);
+});
+
 test("código: las guías de JSON, XML, YAML, SQL y HTML/CSS se renderizan", async ({ page }) => {
   for (const [path, id] of [
     ["/formatear-json/", "json-guide"],
