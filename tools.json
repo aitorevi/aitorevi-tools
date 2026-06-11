@@ -101,6 +101,12 @@
       "section": "codigo",
       "libs": ["quicktype-core"],
       "slug": { "es": "json-a-csharp", "en": "json-to-csharp" }
+    },
+    {
+      "id": "jwt",
+      "section": "codigo",
+      "libs": [],
+      "slug": { "es": "jwt", "en": "jwt" }
     }
   ]
 }

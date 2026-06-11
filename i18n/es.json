@@ -209,6 +209,35 @@
         "cardAria": "Herramienta para generar clases C# o TypeScript desde JSON"
       }
     },
+    "jwt": {
+      "meta": {
+        "title": "Decodificar JWT — inspecciona tokens online, en tu navegador",
+        "description": "Decodifica el header y el payload de un JSON Web Token (JWT) al instante en tu navegador. No verifica la firma; sólo inspecciona. El token nunca sale de tu dispositivo.",
+        "ogTitle": "Decodificar JWT — inspeccionar tokens",
+        "ogDescription": "Decodifica el header y el payload de un JWT en tu navegador. El token no se sube a ningún servidor.",
+        "jsonldName": "Decodificar JWT",
+        "jsonldDescription": "Decodifica el header y el payload de un JWT en el navegador, sin enviar el token a ningún servidor."
+      },
+      "card": {
+        "name": "Decodificar JWT",
+        "desc": "Inspecciona el header y el payload de un JSON Web Token sin que salga del navegador.",
+        "tags": ["Código", "Sin servidor"]
+      },
+      "ui": {
+        "h1": "Decodificar JWT",
+        "subtitle": "Pega un JSON Web Token para ver su header y su payload. No se verifica la firma (eso necesita la clave); el token nunca sale de tu navegador.",
+        "cardAria": "Herramienta para decodificar JSON Web Tokens",
+        "token": "Token",
+        "tokenPlaceholder": "Pega aquí tu JWT (eyJ…)…",
+        "header": "Header",
+        "payload": "Payload"
+      },
+      "msg": {
+        "expired": "Expirado",
+        "expires": "Expira:",
+        "issued": "Emitido:"
+      }
+    },
     "separar-pdf": {
       "meta": {
         "title": "Separar PDF — divide un PDF en páginas sueltas, gratis y en tu navegador",

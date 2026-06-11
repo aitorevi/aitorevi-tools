@@ -464,6 +464,16 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
 }
 .code-alert:empty { display: none; }
 
+/* Decodificador de JWT (UI propia, reutiliza .code-tool/.code-area). */
+.jwt-tool .jwt-input { min-height: 8rem; }
+.jwt-info {
+  margin: 0; font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: .8rem; line-height: 1.6; color: rgb(var(--muted));
+}
+.jwt-info:empty { display: none; }
+.jwt-info b { color: rgb(var(--accent)); font-weight: 600; }
+.jwt-expired { color: rgb(var(--danger)); font-weight: 600; }
+
 /* Botón de copiar en la esquina del resultado, igual que los bloques de código
    de aitorevi.dev: icono que cambia a un check verde + tooltip al hover. */
 .code-pane-out { position: relative; }

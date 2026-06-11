@@ -193,6 +193,18 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://tools.aitorevi.dev/jwt/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/jwt/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/jwt/" />
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://tools.aitorevi.dev/en/jwt/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/jwt/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/jwt/" />
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://tools.aitorevi.dev/licencias/</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/licencias/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/licenses/" />

@@ -135,6 +135,11 @@ export const STRINGS = {
       "removedOk": "Metadatos eliminados (−{n}). Los píxeles no se han tocado.",
       "noneFound": "Descargada. No se han encontrado metadatos que eliminar.",
       "processError": "No se pudo procesar la imagen."
+    },
+    "jwt": {
+      "expired": "Expirado",
+      "expires": "Expira:",
+      "issued": "Emitido:"
     }
   },
   "en": {
@@ -272,6 +277,11 @@ export const STRINGS = {
       "removedOk": "Metadata removed (−{n}). Your pixels are untouched.",
       "noneFound": "Downloaded. No metadata found to remove.",
       "processError": "Couldn't process the image."
+    },
+    "jwt": {
+      "expired": "Expired",
+      "expires": "Expires:",
+      "issued": "Issued:"
     }
   }
 };

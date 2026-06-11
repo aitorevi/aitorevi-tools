@@ -460,3 +460,24 @@ test("formatear-js: JS con error de sintaxis muestra error", async ({ page }) =>
   await page.click('[data-act="format"]');
   await expect(page.locator(".code-alert")).not.toBeEmpty();
 });
+
+// --- Código: Decodificar JWT ---
+
+test("jwt: ejemplo precargado → muestra header y payload → copiar", async ({ page }) => {
+  await page.goto("/jwt/");
+  await expect(page.locator("#jwt-input")).not.toHaveValue("");
+  await expect(page.locator("#jwt-header")).toHaveValue(/"alg": "HS256"/);
+  await expect(page.locator("#jwt-payload")).toHaveValue(/"role": "admin"/);
+  await expect(page.locator("#jwt-info")).toContainText("HS256");
+
+  // Botón de copiar del payload (segundo .code-copy).
+  await page.locator("#jwt-payload").locator("xpath=following-sibling::button").click();
+  await expect(page.locator(".jwt-tool .code-copy").last()).toContainText("¡Copiado!");
+});
+
+test("jwt: token inválido muestra error", async ({ page }) => {
+  await page.goto("/jwt/");
+  await page.fill("#jwt-input", "esto-no-es-un-jwt");
+  await expect(page.locator("#jwt-alert")).not.toBeEmpty();
+  await expect(page.locator("#jwt-header")).toHaveValue("");
+});

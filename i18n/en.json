@@ -209,6 +209,35 @@
         "cardAria": "Tool to generate C# or TypeScript types from JSON"
       }
     },
+    "jwt": {
+      "meta": {
+        "title": "Decode JWT — inspect tokens online, in your browser",
+        "description": "Decode the header and payload of a JSON Web Token (JWT) instantly in your browser. It does not verify the signature; it only inspects. The token never leaves your device.",
+        "ogTitle": "Decode JWT — inspect tokens",
+        "ogDescription": "Decode the header and payload of a JWT in your browser. The token is not uploaded to any server.",
+        "jsonldName": "Decode JWT",
+        "jsonldDescription": "Decode the header and payload of a JWT in the browser, without sending the token to any server."
+      },
+      "card": {
+        "name": "Decode JWT",
+        "desc": "Inspect the header and payload of a JSON Web Token without it leaving the browser.",
+        "tags": ["Code", "No server"]
+      },
+      "ui": {
+        "h1": "Decode JWT",
+        "subtitle": "Paste a JSON Web Token to see its header and payload. The signature is not verified (that needs the key); the token never leaves your browser.",
+        "cardAria": "Tool to decode JSON Web Tokens",
+        "token": "Token",
+        "tokenPlaceholder": "Paste your JWT here (eyJ…)…",
+        "header": "Header",
+        "payload": "Payload"
+      },
+      "msg": {
+        "expired": "Expired",
+        "expires": "Expires:",
+        "issued": "Issued:"
+      }
+    },
     "separar-pdf": {
       "meta": {
         "title": "Split PDF — split a PDF into single pages, free and in your browser",
