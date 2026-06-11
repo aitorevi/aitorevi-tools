@@ -262,7 +262,47 @@
         "testText": "Test text"
       },
       "msg": {
-        "matchesCount": { "one": "{n} match", "many": "{n} matches" }
+        "matchesCount": { "one": "{n} match", "many": "{n} matches" },
+        "guide": {
+          "title": "Quick regex guide",
+          "intro": "A regular expression describes a text pattern by combining these building blocks:",
+          "groups": {
+            "anchors": "Anchors",
+            "classes": "Character classes",
+            "quantifiers": "Quantifiers",
+            "groups": "Groups and alternation",
+            "flags": "Flags"
+          },
+          "desc": {
+            "start": "Start of line or text",
+            "end": "End of line or text",
+            "wordBoundary": "Word boundary",
+            "nonBoundary": "Where there is NO word boundary",
+            "any": "Any character (except newline)",
+            "digit": "A digit (0–9)",
+            "nonDigit": "Anything that is not a digit",
+            "word": "Letter, digit or underscore",
+            "space": "Space, tab or newline",
+            "set": "Any of the characters a, b or c",
+            "negSet": "Any character except a, b or c",
+            "range": "A character in the a–z range",
+            "zeroMore": "Previous element 0 or more times",
+            "oneMore": "Previous element 1 or more times",
+            "optional": "Optional: 0 or 1 time",
+            "exactly": "Exactly n times",
+            "between": "Between n and m times",
+            "lazy": "Lazy version: matches as little as possible",
+            "capture": "Capturing group",
+            "nonCapture": "Non-capturing group (groups only)",
+            "named": "Named group",
+            "alternation": "a or b (alternation)",
+            "backref": "Reference to capturing group #1",
+            "flagG": "Global: all matches, not just the first",
+            "flagI": "Case-insensitive",
+            "flagM": "Multiline: ^ and $ match on each line",
+            "flagS": "The dot . also matches the newline"
+          }
+        }
       }
     },
     "diff": {

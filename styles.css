@@ -483,6 +483,29 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
   background: rgb(var(--accent) / 0.28); color: inherit;
   border-radius: 3px; padding: 0 1px;
 }
+/* Chuleta de regex debajo de la herramienta. */
+.regex-guide { margin-top: 4px; padding-top: 24px; border-top: 1px solid rgb(var(--border)); }
+.regex-guide-title {
+  font-family: "Outfit", system-ui, sans-serif; font-weight: 800;
+  font-size: 1.15rem; margin: 0 0 4px; color: rgb(var(--fg));
+}
+.regex-guide-intro { margin: 0 0 18px; color: rgb(var(--muted)); font-size: .92rem; }
+.regex-guide-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px 28px; }
+.regex-guide-group h3 {
+  margin: 0 0 10px; font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: .72rem; text-transform: uppercase; letter-spacing: 0.14em; color: rgb(var(--accent));
+}
+.regex-guide-group dl {
+  margin: 0; display: grid; grid-template-columns: auto 1fr;
+  gap: 8px 12px; align-items: baseline;
+}
+.regex-guide-group dt { margin: 0; }
+.regex-guide-group dt code {
+  font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .82rem;
+  background: rgb(var(--surface-2) / 0.8); border: 1px solid rgb(var(--border));
+  border-radius: 6px; padding: 1px 7px; color: rgb(var(--fg)); white-space: nowrap;
+}
+.regex-guide-group dd { margin: 0; color: rgb(var(--muted)); font-size: .85rem; line-height: 1.4; }
 
 /* Diff de texto (UI propia). */
 .diff-output { white-space: normal; }

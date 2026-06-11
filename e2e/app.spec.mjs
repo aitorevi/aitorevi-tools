@@ -489,6 +489,10 @@ test("regex: ejemplo precargado resalta las coincidencias", async ({ page }) => 
   await expect(page.locator("#re-pattern")).not.toHaveValue("");
   await expect(page.locator("#re-output mark")).toHaveCount(2);
   await expect(page.locator("#re-count")).toContainText("2");
+
+  // La guía de regex se renderiza debajo, con sus chips de símbolos.
+  await expect(page.locator(".regex-guide-title")).toBeVisible();
+  expect(await page.locator(".regex-guide-group code").count()).toBeGreaterThan(10);
 });
 
 test("regex: cambiar el patrón actualiza las coincidencias; uno inválido da error", async ({ page }) => {

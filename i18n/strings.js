@@ -145,6 +145,46 @@ export const STRINGS = {
       "matchesCount": {
         "one": "{n} coincidencia",
         "many": "{n} coincidencias"
+      },
+      "guide": {
+        "title": "Guía rápida de regex",
+        "intro": "Una expresión regular describe un patrón de texto combinando estos elementos:",
+        "groups": {
+          "anchors": "Anclas",
+          "classes": "Clases de caracteres",
+          "quantifiers": "Cuantificadores",
+          "groups": "Grupos y alternativas",
+          "flags": "Flags"
+        },
+        "desc": {
+          "start": "Inicio de línea o del texto",
+          "end": "Fin de línea o del texto",
+          "wordBoundary": "Límite de palabra",
+          "nonBoundary": "Donde NO hay límite de palabra",
+          "any": "Cualquier carácter (salvo el salto de línea)",
+          "digit": "Un dígito (0–9)",
+          "nonDigit": "Cualquier cosa que no sea un dígito",
+          "word": "Letra, dígito o guion bajo",
+          "space": "Espacio, tabulador o salto de línea",
+          "set": "Cualquiera de los caracteres a, b o c",
+          "negSet": "Cualquier carácter excepto a, b o c",
+          "range": "Un carácter del rango a–z",
+          "zeroMore": "El elemento anterior 0 o más veces",
+          "oneMore": "El elemento anterior 1 o más veces",
+          "optional": "Opcional: 0 o 1 vez",
+          "exactly": "Exactamente n veces",
+          "between": "Entre n y m veces",
+          "lazy": "Versión perezosa: captura lo mínimo posible",
+          "capture": "Grupo de captura",
+          "nonCapture": "Grupo sin captura (solo agrupa)",
+          "named": "Grupo con nombre",
+          "alternation": "a o b (alternativa)",
+          "backref": "Referencia al grupo capturado nº 1",
+          "flagG": "Global: todas las coincidencias, no solo la primera",
+          "flagI": "Ignora mayúsculas y minúsculas",
+          "flagM": "Multilínea: ^ y $ casan en cada línea",
+          "flagS": "El punto . también incluye el salto de línea"
+        }
       }
     },
     "diff": {
@@ -296,6 +336,46 @@ export const STRINGS = {
       "matchesCount": {
         "one": "{n} match",
         "many": "{n} matches"
+      },
+      "guide": {
+        "title": "Quick regex guide",
+        "intro": "A regular expression describes a text pattern by combining these building blocks:",
+        "groups": {
+          "anchors": "Anchors",
+          "classes": "Character classes",
+          "quantifiers": "Quantifiers",
+          "groups": "Groups and alternation",
+          "flags": "Flags"
+        },
+        "desc": {
+          "start": "Start of line or text",
+          "end": "End of line or text",
+          "wordBoundary": "Word boundary",
+          "nonBoundary": "Where there is NO word boundary",
+          "any": "Any character (except newline)",
+          "digit": "A digit (0–9)",
+          "nonDigit": "Anything that is not a digit",
+          "word": "Letter, digit or underscore",
+          "space": "Space, tab or newline",
+          "set": "Any of the characters a, b or c",
+          "negSet": "Any character except a, b or c",
+          "range": "A character in the a–z range",
+          "zeroMore": "Previous element 0 or more times",
+          "oneMore": "Previous element 1 or more times",
+          "optional": "Optional: 0 or 1 time",
+          "exactly": "Exactly n times",
+          "between": "Between n and m times",
+          "lazy": "Lazy version: matches as little as possible",
+          "capture": "Capturing group",
+          "nonCapture": "Non-capturing group (groups only)",
+          "named": "Named group",
+          "alternation": "a or b (alternation)",
+          "backref": "Reference to capturing group #1",
+          "flagG": "Global: all matches, not just the first",
+          "flagI": "Case-insensitive",
+          "flagM": "Multiline: ^ and $ match on each line",
+          "flagS": "The dot . also matches the newline"
+        }
       }
     },
     "diff": {
