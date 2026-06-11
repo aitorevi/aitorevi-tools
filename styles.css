@@ -413,8 +413,12 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
 .status.ok { color: rgb(var(--ok)); }
 
 /* ── Herramientas de código (entrada → formatear/minificar → copiar) ── */
-/* Contenedor ancho: dos panes de código cómodos lado a lado (~80 columnas). */
-.wrap.wrap-code { max-width: 1200px; }
+/* El contenedor de código usa el mismo ancho máximo que el navbar (80rem, que
+   escala 1280→1360px con el root a 1536px) y su mismo padding lateral responsivo
+   (1.5rem → 2.5rem → 0 en xl), para que la zona de código se alinee con el navbar. */
+.wrap.wrap-code { max-width: 80rem; padding-left: 1.5rem; padding-right: 1.5rem; }
+@media (min-width: 768px) { .wrap.wrap-code { padding-left: 2.5rem; padding-right: 2.5rem; } }
+@media (min-width: 1280px) { .wrap.wrap-code { padding-left: 0; padding-right: 0; } }
 .code-tool { display: flex; flex-direction: column; gap: 16px; }
 .code-controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
 .code-select { max-width: 260px; flex: 1 1 200px; }
