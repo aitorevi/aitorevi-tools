@@ -4,7 +4,7 @@
     "googleVerification": "6QRl2tKL7ajQ943dVydSquhPEVvxQiwGh4hqfnS7Zfo",
     "languages": ["es", "en"],
     "defaultLang": "es",
-    "soonCard": { "section": "imagen" }
+    "soonCard": { "section": "codigo" }
   },
   "sections": [
     { "id": "pdf", "anchor": "sec-pdf" },
