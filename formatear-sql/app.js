@@ -2,7 +2,10 @@
 // común en ../lib/code-tool.js. El formateador (sql-formatter) llega como global
 // del UMD vendorizado (window.sqlFormatter) y se inyecta en format.
 import { format, DIALECTS, SAMPLE } from "./lib.js";
+import { GUIDE } from "./guide.js";
 import { mountCodeTool } from "../lib/code-tool.js";
+import { renderGuide } from "../lib/tool-guide.js";
+import { msgs } from "../lib/i18n.js";
 
 mountCodeTool({
   mount: "#code-tool",
@@ -11,3 +14,5 @@ mountCodeTool({
   sample: SAMPLE,
   select: { labelKey: "codeDialect", choices: DIALECTS, value: "sql" },
 });
+
+renderGuide(document.getElementById("sql-guide"), GUIDE, msgs("formatear-sql").guide);

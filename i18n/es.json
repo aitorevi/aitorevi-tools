@@ -87,6 +87,25 @@
         "h1": "Formatear JSON",
         "subtitle": "Pega tu JSON para embellecerlo (con sangría de 2 espacios) o minificarlo. Valida la sintaxis y todo ocurre en tu navegador.",
         "cardAria": "Herramienta para formatear y minificar JSON"
+      },
+      "msg": {
+        "guide": {
+          "title": "Reglas de JSON",
+          "intro": "JSON representa datos con estos tipos y reglas. La mayoría de errores vienen de saltárselas:",
+          "groups": { "types": "Tipos de dato", "rules": "Reglas y errores típicos" },
+          "desc": {
+            "strType": "Texto, siempre entre comillas dobles",
+            "numType": "Número (entero o decimal), sin comillas",
+            "boolType": "Booleano: true o false",
+            "nullType": "Valor nulo / vacío",
+            "arrType": "Array: lista ordenada de valores",
+            "objType": "Objeto: pares clave/valor",
+            "keysRule": "Las claves van siempre entre comillas dobles",
+            "trailingComma": "No se permite coma tras el último elemento",
+            "singleQuote": "Las comillas simples no son válidas (usa dobles)",
+            "noComments": "JSON no admite comentarios"
+          }
+        }
       }
     },
     "formatear-xml": {
@@ -127,6 +146,25 @@
         "h1": "Formatear SQL",
         "subtitle": "Pega tu consulta SQL y elige el dialecto para embellecerla con sangría de 2 espacios y palabras clave en mayúscula. Todo ocurre en tu navegador.",
         "cardAria": "Herramienta para formatear SQL"
+      },
+      "msg": {
+        "guide": {
+          "title": "Dialectos y notas de SQL",
+          "intro": "Elige el dialecto que uses para que el formato respete su sintaxis.",
+          "groups": { "dialects": "Dialectos", "notes": "Notas" },
+          "desc": {
+            "std": "Estándar genérico (ANSI)",
+            "mysql": "MySQL y MariaDB",
+            "postgresql": "PostgreSQL",
+            "sqlite": "SQLite",
+            "tsql": "Transact-SQL — Microsoft SQL Server",
+            "plsql": "PL/SQL — Oracle",
+            "bigquery": "Google BigQuery",
+            "semicolon": "Separa sentencias",
+            "keywords": "El formateador pone las palabras clave en MAYÚSCULA",
+            "quoting": "Las comillas de identificadores varían según el dialecto"
+          }
+        }
       }
     },
     "formatear-yaml": {
@@ -147,6 +185,24 @@
         "h1": "Formatear YAML",
         "subtitle": "Pega tu YAML para normalizarlo a estilo bloque con sangría de 2 espacios. Valida la sintaxis y todo ocurre en tu navegador.",
         "cardAria": "Herramienta para formatear y validar YAML"
+      },
+      "msg": {
+        "guide": {
+          "title": "Notas sobre YAML",
+          "intro": "YAML anida con indentación de espacios (nunca tabuladores). Elementos y trampas frecuentes:",
+          "groups": { "structure": "Estructura", "gotchas": "Trampas habituales" },
+          "desc": {
+            "pair": "Separa la clave del valor (clave: valor)",
+            "listItem": "Elemento de una lista",
+            "comment": "Comentario hasta el fin de línea",
+            "literal": "Bloque literal: conserva los saltos de línea",
+            "folded": "Bloque plegado: une las líneas con espacios",
+            "noTabs": "Los tabuladores están prohibidos; usa espacios",
+            "boolTrap": "yes/no/on/off se leen como booleanos; comilla el texto",
+            "quote": "Comillas para forzar texto (números, yes/no…)",
+            "docSep": "Separa varios documentos en un mismo archivo"
+          }
+        }
       }
     },
     "formatear-html-css": {

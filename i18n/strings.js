@@ -136,6 +136,71 @@ export const STRINGS = {
       "noneFound": "Descargada. No se han encontrado metadatos que eliminar.",
       "processError": "No se pudo procesar la imagen."
     },
+    "formatear-json": {
+      "guide": {
+        "title": "Reglas de JSON",
+        "intro": "JSON representa datos con estos tipos y reglas. La mayoría de errores vienen de saltárselas:",
+        "groups": {
+          "types": "Tipos de dato",
+          "rules": "Reglas y errores típicos"
+        },
+        "desc": {
+          "strType": "Texto, siempre entre comillas dobles",
+          "numType": "Número (entero o decimal), sin comillas",
+          "boolType": "Booleano: true o false",
+          "nullType": "Valor nulo / vacío",
+          "arrType": "Array: lista ordenada de valores",
+          "objType": "Objeto: pares clave/valor",
+          "keysRule": "Las claves van siempre entre comillas dobles",
+          "trailingComma": "No se permite coma tras el último elemento",
+          "singleQuote": "Las comillas simples no son válidas (usa dobles)",
+          "noComments": "JSON no admite comentarios"
+        }
+      }
+    },
+    "formatear-sql": {
+      "guide": {
+        "title": "Dialectos y notas de SQL",
+        "intro": "Elige el dialecto que uses para que el formato respete su sintaxis.",
+        "groups": {
+          "dialects": "Dialectos",
+          "notes": "Notas"
+        },
+        "desc": {
+          "std": "Estándar genérico (ANSI)",
+          "mysql": "MySQL y MariaDB",
+          "postgresql": "PostgreSQL",
+          "sqlite": "SQLite",
+          "tsql": "Transact-SQL — Microsoft SQL Server",
+          "plsql": "PL/SQL — Oracle",
+          "bigquery": "Google BigQuery",
+          "semicolon": "Separa sentencias",
+          "keywords": "El formateador pone las palabras clave en MAYÚSCULA",
+          "quoting": "Las comillas de identificadores varían según el dialecto"
+        }
+      }
+    },
+    "formatear-yaml": {
+      "guide": {
+        "title": "Notas sobre YAML",
+        "intro": "YAML anida con indentación de espacios (nunca tabuladores). Elementos y trampas frecuentes:",
+        "groups": {
+          "structure": "Estructura",
+          "gotchas": "Trampas habituales"
+        },
+        "desc": {
+          "pair": "Separa la clave del valor (clave: valor)",
+          "listItem": "Elemento de una lista",
+          "comment": "Comentario hasta el fin de línea",
+          "literal": "Bloque literal: conserva los saltos de línea",
+          "folded": "Bloque plegado: une las líneas con espacios",
+          "noTabs": "Los tabuladores están prohibidos; usa espacios",
+          "boolTrap": "yes/no/on/off se leen como booleanos; comilla el texto",
+          "quote": "Comillas para forzar texto (números, yes/no…)",
+          "docSep": "Separa varios documentos en un mismo archivo"
+        }
+      }
+    },
     "jwt": {
       "expired": "Expirado",
       "expires": "Expira:",
@@ -355,6 +420,71 @@ export const STRINGS = {
       "removedOk": "Metadata removed (−{n}). Your pixels are untouched.",
       "noneFound": "Downloaded. No metadata found to remove.",
       "processError": "Couldn't process the image."
+    },
+    "formatear-json": {
+      "guide": {
+        "title": "JSON rules",
+        "intro": "JSON represents data with these types and rules. Most errors come from breaking them:",
+        "groups": {
+          "types": "Data types",
+          "rules": "Rules and common mistakes"
+        },
+        "desc": {
+          "strType": "Text, always in double quotes",
+          "numType": "Number (integer or decimal), no quotes",
+          "boolType": "Boolean: true or false",
+          "nullType": "Null / empty value",
+          "arrType": "Array: an ordered list of values",
+          "objType": "Object: key/value pairs",
+          "keysRule": "Keys are always in double quotes",
+          "trailingComma": "No comma after the last element",
+          "singleQuote": "Single quotes are not valid (use double)",
+          "noComments": "JSON does not allow comments"
+        }
+      }
+    },
+    "formatear-sql": {
+      "guide": {
+        "title": "SQL dialects and notes",
+        "intro": "Pick the dialect you use so the formatting respects its syntax.",
+        "groups": {
+          "dialects": "Dialects",
+          "notes": "Notes"
+        },
+        "desc": {
+          "std": "Generic standard (ANSI)",
+          "mysql": "MySQL and MariaDB",
+          "postgresql": "PostgreSQL",
+          "sqlite": "SQLite",
+          "tsql": "Transact-SQL — Microsoft SQL Server",
+          "plsql": "PL/SQL — Oracle",
+          "bigquery": "Google BigQuery",
+          "semicolon": "Separates statements",
+          "keywords": "The formatter uppercases the keywords",
+          "quoting": "Identifier quoting varies by dialect"
+        }
+      }
+    },
+    "formatear-yaml": {
+      "guide": {
+        "title": "YAML notes",
+        "intro": "YAML nests with space indentation (never tabs). Building blocks and common gotchas:",
+        "groups": {
+          "structure": "Structure",
+          "gotchas": "Common gotchas"
+        },
+        "desc": {
+          "pair": "Separates the key from the value (key: value)",
+          "listItem": "A list item",
+          "comment": "Comment until the end of the line",
+          "literal": "Literal block: keeps line breaks",
+          "folded": "Folded block: joins lines with spaces",
+          "noTabs": "Tabs are not allowed; use spaces",
+          "boolTrap": "yes/no/on/off read as booleans; quote the text",
+          "quote": "Quotes force text (numbers, yes/no…)",
+          "docSep": "Separates multiple documents in one file"
+        }
+      }
     },
     "jwt": {
       "expired": "Expired",
