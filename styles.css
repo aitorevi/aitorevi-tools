@@ -436,12 +436,7 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
   outline: none; border-color: rgb(var(--accent-soft));
   box-shadow: 0 0 0 3px rgb(var(--accent-soft) / 0.25);
 }
-.code-out {
-  background: rgb(var(--surface) / 0.5);
-  /* La salida hace wrap (incluido un hash o Base64 largo sin espacios) para que
-     se vea entera; el padding derecho deja sitio al icono de copiar. */
-  white-space: pre-wrap; overflow-wrap: anywhere; padding-right: 2.75rem;
-}
+.code-out { background: rgb(var(--surface) / 0.5); }
 
 /* Scrollbars finas integradas en la caja del textarea: más estrechas que la
    global del sitio, thumb redondeado y discreto, y un track transparente con
