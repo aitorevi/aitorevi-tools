@@ -15,4 +15,4 @@ export function decodeUrl(text) {
   }
 }
 
-export const SAMPLE = "hola mundo & más = símbolos/raros?";
+export const SAMPLE = "https://mi-web.com/buscar?q=café & más";

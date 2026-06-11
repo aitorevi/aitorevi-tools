@@ -539,6 +539,30 @@
         "h1": "URL encode / decode",
         "subtitle": "Encode text to use it in a URL or decode the percent-encoding. Pick the mode; all in your browser.",
         "cardAria": "Tool to encode and decode URLs"
+      },
+      "msg": {
+        "guide": {
+          "title": "Quick reference",
+          "intro": "Special characters must be percent-encoded to avoid breaking URL parsing.",
+          "groups": {
+            "chars": "Characters → encoded",
+            "use": "When to use it"
+          },
+          "desc": {
+            "spaceEnc": "%20",
+            "ampEnc": "%26",
+            "eqEnc": "%3D",
+            "qmEnc": "%3F",
+            "slashEnc": "%2F",
+            "hashEnc": "%23",
+            "accentEnc": "%C3%A1 / %C3%A9 / %C3%AD …",
+            "enjeEnc": "%C3%B1",
+            "useQuery": "Search parameter with accents or special characters",
+            "useRedirect": "Full URL as a parameter value — ?, = and & must be encoded",
+            "useForm": "POST form body (application/x-www-form-urlencoded)",
+            "useDebug": "Decode %XX text: paste it in decode mode to read it"
+          }
+        }
       }
     },
     "separar-pdf": {

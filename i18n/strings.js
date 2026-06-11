@@ -351,6 +351,30 @@ export const STRINGS = {
     },
     "diff": {
       "identical": "Los textos son idénticos"
+    },
+    "url": {
+      "guide": {
+        "title": "Referencia rápida",
+        "intro": "Los caracteres especiales deben codificarse para no romper el parsing de la URL.",
+        "groups": {
+          "chars": "Caracteres → codificado",
+          "use": "Cuándo usarlo"
+        },
+        "desc": {
+          "spaceEnc": "%20",
+          "ampEnc": "%26",
+          "eqEnc": "%3D",
+          "qmEnc": "%3F",
+          "slashEnc": "%2F",
+          "hashEnc": "%23",
+          "accentEnc": "%C3%A1 / %C3%A9 / %C3%AD …",
+          "enjeEnc": "%C3%B1",
+          "useQuery": "Parámetro de búsqueda con tildes o símbolos",
+          "useRedirect": "URL completa como valor de parámetro — el ?, = y & deben codificarse",
+          "useForm": "Cuerpo de formulario POST (application/x-www-form-urlencoded)",
+          "useDebug": "Decodificar texto con %XX: pégalo en modo decode para leerlo"
+        }
+      }
     }
   },
   "en": {
@@ -704,6 +728,30 @@ export const STRINGS = {
     },
     "diff": {
       "identical": "The texts are identical"
+    },
+    "url": {
+      "guide": {
+        "title": "Quick reference",
+        "intro": "Special characters must be percent-encoded to avoid breaking URL parsing.",
+        "groups": {
+          "chars": "Characters → encoded",
+          "use": "When to use it"
+        },
+        "desc": {
+          "spaceEnc": "%20",
+          "ampEnc": "%26",
+          "eqEnc": "%3D",
+          "qmEnc": "%3F",
+          "slashEnc": "%2F",
+          "hashEnc": "%23",
+          "accentEnc": "%C3%A1 / %C3%A9 / %C3%AD …",
+          "enjeEnc": "%C3%B1",
+          "useQuery": "Search parameter with accents or special characters",
+          "useRedirect": "Full URL as a parameter value — ?, = and & must be encoded",
+          "useForm": "POST form body (application/x-www-form-urlencoded)",
+          "useDebug": "Decode %XX text: paste it in decode mode to read it"
+        }
+      }
     }
   }
 };
