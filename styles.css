@@ -484,6 +484,13 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
   border-radius: 3px; padding: 0 1px;
 }
 
+/* Diff de texto (UI propia). */
+.diff-output { white-space: normal; }
+.diff-line { white-space: pre; padding: 1px 6px; border-radius: 3px; }
+.diff-add { background: rgb(var(--ok) / 0.16); }
+.diff-del { background: rgb(var(--danger) / 0.16); }
+.diff-eq { color: rgb(var(--muted)); }
+
 /* Botón de copiar en la esquina del resultado, igual que los bloques de código
    de aitorevi.dev: icono que cambia a un check verde + tooltip al hover. */
 .code-pane-out { position: relative; }

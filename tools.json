@@ -113,6 +113,12 @@
       "section": "codigo",
       "libs": [],
       "slug": { "es": "regex", "en": "regex" }
+    },
+    {
+      "id": "diff",
+      "section": "codigo",
+      "libs": [],
+      "slug": { "es": "diff", "en": "diff" }
     }
   ]
 }

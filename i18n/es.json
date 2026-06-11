@@ -265,6 +265,32 @@
         "matchesCount": { "one": "{n} coincidencia", "many": "{n} coincidencias" }
       }
     },
+    "diff": {
+      "meta": {
+        "title": "Diff de texto — compara dos textos en tu navegador",
+        "description": "Compara dos textos línea a línea y ve las diferencias resaltadas (añadidas en verde, quitadas en rojo) al instante. Gratis, sin registro y todo en tu navegador.",
+        "ogTitle": "Diff de texto — comparar dos textos",
+        "ogDescription": "Compara dos textos y ve las diferencias línea a línea en tu navegador. Gratis y sin subir nada.",
+        "jsonldName": "Diff de texto",
+        "jsonldDescription": "Compara dos textos línea a línea en el navegador, resaltando las diferencias, sin enviar nada a ningún servidor."
+      },
+      "card": {
+        "name": "Diff de texto",
+        "desc": "Compara dos textos línea a línea y resalta lo añadido y lo quitado.",
+        "tags": ["Código", "Sin servidor"]
+      },
+      "ui": {
+        "h1": "Diff de texto",
+        "subtitle": "Pega dos textos para compararlos línea a línea. Las diferencias se resaltan al instante y todo ocurre en tu navegador.",
+        "cardAria": "Herramienta para comparar dos textos",
+        "original": "Original",
+        "modified": "Modificado",
+        "differences": "Diferencias"
+      },
+      "msg": {
+        "identical": "Los textos son idénticos"
+      }
+    },
     "separar-pdf": {
       "meta": {
         "title": "Separar PDF — divide un PDF en páginas sueltas, gratis y en tu navegador",

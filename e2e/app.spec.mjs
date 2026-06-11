@@ -500,3 +500,22 @@ test("regex: cambiar el patrón actualiza las coincidencias; uno inválido da er
   await page.fill("#re-pattern", "(");
   await expect(page.locator("#re-alert")).not.toBeEmpty();
 });
+
+// --- Código: Diff de texto ---
+
+test("diff: ejemplo precargado muestra añadidas y quitadas", async ({ page }) => {
+  await page.goto("/diff/");
+  await expect(page.locator("#diff-a")).not.toHaveValue("");
+  await expect(page.locator(".diff-output .diff-add")).toHaveCount(3);
+  await expect(page.locator(".diff-output .diff-del")).toHaveCount(2);
+  await expect(page.locator("#diff-summary")).toContainText("+3");
+});
+
+test("diff: textos idénticos lo indican y no marcan cambios", async ({ page }) => {
+  await page.goto("/diff/");
+  await page.fill("#diff-a", "igual\nlinea");
+  await page.fill("#diff-b", "igual\nlinea");
+  await expect(page.locator(".diff-output .diff-add")).toHaveCount(0);
+  await expect(page.locator(".diff-output .diff-del")).toHaveCount(0);
+  await expect(page.locator("#diff-summary")).not.toBeEmpty();
+});

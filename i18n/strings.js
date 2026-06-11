@@ -146,6 +146,9 @@ export const STRINGS = {
         "one": "{n} coincidencia",
         "many": "{n} coincidencias"
       }
+    },
+    "diff": {
+      "identical": "Los textos son idénticos"
     }
   },
   "en": {
@@ -294,6 +297,9 @@ export const STRINGS = {
         "one": "{n} match",
         "many": "{n} matches"
       }
+    },
+    "diff": {
+      "identical": "The texts are identical"
     }
   }
 };

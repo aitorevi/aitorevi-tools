@@ -265,6 +265,32 @@
         "matchesCount": { "one": "{n} match", "many": "{n} matches" }
       }
     },
+    "diff": {
+      "meta": {
+        "title": "Text diff — compare two texts in your browser",
+        "description": "Compare two texts line by line and see the differences highlighted (added in green, removed in red) instantly. Free, no sign-up and all in your browser.",
+        "ogTitle": "Text diff — compare two texts",
+        "ogDescription": "Compare two texts and see the differences line by line in your browser. Free and nothing uploaded.",
+        "jsonldName": "Text diff",
+        "jsonldDescription": "Compare two texts line by line in the browser, highlighting the differences, without sending anything to any server."
+      },
+      "card": {
+        "name": "Text diff",
+        "desc": "Compare two texts line by line and highlight what was added and removed.",
+        "tags": ["Code", "No server"]
+      },
+      "ui": {
+        "h1": "Text diff",
+        "subtitle": "Paste two texts to compare them line by line. Differences are highlighted instantly and everything happens in your browser.",
+        "cardAria": "Tool to compare two texts",
+        "original": "Original",
+        "modified": "Modified",
+        "differences": "Differences"
+      },
+      "msg": {
+        "identical": "The texts are identical"
+      }
+    },
     "separar-pdf": {
       "meta": {
         "title": "Split PDF — split a PDF into single pages, free and in your browser",
