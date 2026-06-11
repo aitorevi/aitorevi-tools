@@ -292,14 +292,14 @@ test("EN: el selector lleva del hub español al inglés", async ({ page }) => {
 
 // --- Código: Formatear JSON ---
 
-test("formatear-json: probar ejemplo → formatear → copiar", async ({ page }) => {
+test("formatear-json: ejemplo precargado → formatear → copiar", async ({ page }) => {
   await page.goto("/formatear-json/");
   const input = page.locator('.code-area[data-role="input"]');
   const output = page.locator(".code-out");
 
-  // "Probar ejemplo" rellena la entrada.
-  await page.click('[data-act="sample"]');
+  // La entrada llega ya precargada con el ejemplo (la salida sigue vacía).
   await expect(input).not.toHaveValue("");
+  await expect(output).toHaveValue("");
 
   // "Formatear" produce JSON con sangría en la salida.
   await page.click('[data-act="format"]');
