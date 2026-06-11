@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tester de regex — prueba expresiones regulares en tu navegador</title>
+  <meta name="description" content="Prueba expresiones regulares contra un texto y ve las coincidencias resaltadas al instante, con flags (g, i, m, s, u, y). Gratis, sin registro y todo en tu navegador." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="canonical" href="https://tools.aitorevi.dev/regex/" />
+  <link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/regex/" />
+  <link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/regex/" />
+  <link rel="alternate" hreflang="x-default" href="https://tools.aitorevi.dev/regex/" />
+  <meta name="color-scheme" content="dark light" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="aitorevi.tools" />
+  <meta property="og:locale" content="es_ES" />
+  <meta property="og:url" content="https://tools.aitorevi.dev/regex/" />
+  <meta property="og:title" content="Tester de regex — probar expresiones regulares" />
+  <meta property="og:description" content="Prueba expresiones regulares y ve las coincidencias resaltadas en tu navegador. Gratis y sin subir nada." />
+  <meta property="og:image" content="https://tools.aitorevi.dev/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="/fonts/fonts.css" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="/theme.js"></script>
+  <script src="/lang.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Tester de regex",
+    "url": "https://tools.aitorevi.dev/regex/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "es",
+    "description": "Prueba expresiones regulares contra un texto en el navegador, resaltando las coincidencias, sin enviar nada a ningún servidor.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "author": { "@type": "Person", "name": "Aitor Reviriego", "url": "https://www.aitorevi.dev" }
+  }
+  </script>
+</head>
+<body>
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="/" aria-label="Inicio de aitorevi.tools">
+        aitorevi<span class="dot" aria-hidden="true">.</span><span class="brand-tag">tools</span>
+      </a>
+      <nav class="nav-links" aria-label="aitorevi.tools">
+        <a href="https://www.aitorevi.dev/" target="_blank" rel="noopener">Web</a>
+        <a href="https://www.aitorevi.dev/blog" target="_blank" rel="noopener">Blog</a>
+        <span class="nav-divider" aria-hidden="true"></span>
+        <div class="nav-prefs">
+        <div class="lang-group" role="group" aria-label="Idioma">
+          <a href="/regex/" hreflang="es" aria-current="true" class="lang is-active" data-lang-switch aria-label="Español">ES</a>
+          <span class="sep" aria-hidden="true">|</span>
+          <a href="/en/regex/" hreflang="en" class="lang" data-lang-switch aria-label="English">EN</a>
+        </div>
+        <button id="theme-toggle" class="theme-toggle" type="button"
+                aria-label="Cambiar entre tema claro y oscuro" title="Cambiar tema">
+          <svg class="icon-moon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+          </svg>
+          <svg class="icon-sun" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+          </svg>
+        </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+<main class="wrap wrap-code">
+    <header>
+      <span class="badge"><span class="dot" aria-hidden="true"></span>100% en tu navegador · sin subir nada</span>
+      <h1>Tester de regex</h1>
+      <p class="subtitle">Escribe una expresión regular y un texto de prueba para ver las coincidencias resaltadas al instante. Todo ocurre en tu navegador.</p>
+    </header>
+
+    <section class="card" aria-labelledby="app-title">
+      <h2 id="app-title" class="sr">Herramienta para probar expresiones regulares</h2>
+      <div class="code-tool regex-tool">
+        <div class="code-controls">
+          <label class="field regex-pattern">
+            <span class="field-label">Patrón</span>
+            <input type="text" id="re-pattern" spellcheck="false" autocapitalize="off"
+                   autocomplete="off" autocorrect="off" placeholder="Tu expresión regular…"
+                   aria-label="Patrón" />
+          </label>
+          <label class="field regex-flags">
+            <span class="field-label">Flags</span>
+            <input type="text" id="re-flags" spellcheck="false" autocapitalize="off"
+                   autocomplete="off" autocorrect="off" placeholder="gimsuy"
+                   aria-label="Flags" />
+          </label>
+        </div>
+
+        <p class="code-alert" id="re-alert" role="alert"></p>
+        <p class="jwt-info" id="re-count" aria-live="polite"></p>
+
+        <div class="code-io">
+          <label class="code-pane">
+            <span class="field-label">Texto de prueba</span>
+            <textarea class="code-area" id="re-text" spellcheck="false"
+                      aria-label="Texto de prueba"></textarea>
+          </label>
+          <div class="code-pane">
+            <span class="field-label">Resultado</span>
+            <div class="code-area regex-output" id="re-output" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="foot-social">
+      <a href="https://es.linkedin.com/in/aitor-reviriego-amor" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Aitor Reviriego">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>
+      </a>
+      <a href="https://github.com/aitorevi" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Aitor Reviriego">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+    </div>
+
+    <p class="foot-tagline">
+      <a href="https://www.aitorevi.dev" target="_blank" rel="noopener">aitorevi.dev</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <span>No dependencies, runs in your browser</span>
+    </p>
+
+    <p class="foot-copy">© 2026 aitorevi · tools.aitorevi.dev · <a href="/licencias/">Licencias</a></p>
+  </footer>
+
+  <script type="module" src="/regex/app.js"></script>
+</body>
+</html>

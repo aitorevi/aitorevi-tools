@@ -1,0 +1,42 @@
+<main class="wrap wrap-code">
+    <header>
+      <span class="badge"><span class="dot" aria-hidden="true"></span>{{t.badge}}</span>
+      <h1>{{t.h1}}</h1>
+      <p class="subtitle">{{t.subtitle}}</p>
+    </header>
+
+    <section class="card" aria-labelledby="app-title">
+      <h2 id="app-title" class="sr">{{t.cardAria}}</h2>
+      <div class="code-tool regex-tool">
+        <div class="code-controls">
+          <label class="field regex-pattern">
+            <span class="field-label">{{t.pattern}}</span>
+            <input type="text" id="re-pattern" spellcheck="false" autocapitalize="off"
+                   autocomplete="off" autocorrect="off" placeholder="{{t.patternPlaceholder}}"
+                   aria-label="{{t.pattern}}" />
+          </label>
+          <label class="field regex-flags">
+            <span class="field-label">{{t.flags}}</span>
+            <input type="text" id="re-flags" spellcheck="false" autocapitalize="off"
+                   autocomplete="off" autocorrect="off" placeholder="gimsuy"
+                   aria-label="{{t.flags}}" />
+          </label>
+        </div>
+
+        <p class="code-alert" id="re-alert" role="alert"></p>
+        <p class="jwt-info" id="re-count" aria-live="polite"></p>
+
+        <div class="code-io">
+          <label class="code-pane">
+            <span class="field-label">{{t.testText}}</span>
+            <textarea class="code-area" id="re-text" spellcheck="false"
+                      aria-label="{{t.testText}}"></textarea>
+          </label>
+          <div class="code-pane">
+            <span class="field-label">{{t.codeOutput}}</span>
+            <div class="code-area regex-output" id="re-output" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>

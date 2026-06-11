@@ -140,6 +140,12 @@ export const STRINGS = {
       "expired": "Expirado",
       "expires": "Expira:",
       "issued": "Emitido:"
+    },
+    "regex": {
+      "matchesCount": {
+        "one": "{n} coincidencia",
+        "many": "{n} coincidencias"
+      }
     }
   },
   "en": {
@@ -282,6 +288,12 @@ export const STRINGS = {
       "expired": "Expired",
       "expires": "Expires:",
       "issued": "Issued:"
+    },
+    "regex": {
+      "matchesCount": {
+        "one": "{n} match",
+        "many": "{n} matches"
+      }
     }
   }
 };

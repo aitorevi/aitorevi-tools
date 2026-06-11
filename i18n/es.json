@@ -238,6 +238,33 @@
         "issued": "Emitido:"
       }
     },
+    "regex": {
+      "meta": {
+        "title": "Tester de regex — prueba expresiones regulares en tu navegador",
+        "description": "Prueba expresiones regulares contra un texto y ve las coincidencias resaltadas al instante, con flags (g, i, m, s, u, y). Gratis, sin registro y todo en tu navegador.",
+        "ogTitle": "Tester de regex — probar expresiones regulares",
+        "ogDescription": "Prueba expresiones regulares y ve las coincidencias resaltadas en tu navegador. Gratis y sin subir nada.",
+        "jsonldName": "Tester de regex",
+        "jsonldDescription": "Prueba expresiones regulares contra un texto en el navegador, resaltando las coincidencias, sin enviar nada a ningún servidor."
+      },
+      "card": {
+        "name": "Tester de regex",
+        "desc": "Prueba expresiones regulares y resalta las coincidencias en vivo, con flags.",
+        "tags": ["Código", "Sin servidor"]
+      },
+      "ui": {
+        "h1": "Tester de regex",
+        "subtitle": "Escribe una expresión regular y un texto de prueba para ver las coincidencias resaltadas al instante. Todo ocurre en tu navegador.",
+        "cardAria": "Herramienta para probar expresiones regulares",
+        "pattern": "Patrón",
+        "patternPlaceholder": "Tu expresión regular…",
+        "flags": "Flags",
+        "testText": "Texto de prueba"
+      },
+      "msg": {
+        "matchesCount": { "one": "{n} coincidencia", "many": "{n} coincidencias" }
+      }
+    },
     "separar-pdf": {
       "meta": {
         "title": "Separar PDF — divide un PDF en páginas sueltas, gratis y en tu navegador",

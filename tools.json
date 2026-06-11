@@ -107,6 +107,12 @@
       "section": "codigo",
       "libs": [],
       "slug": { "es": "jwt", "en": "jwt" }
+    },
+    {
+      "id": "regex",
+      "section": "codigo",
+      "libs": [],
+      "slug": { "es": "regex", "en": "regex" }
     }
   ]
 }

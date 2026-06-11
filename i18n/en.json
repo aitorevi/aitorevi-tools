@@ -238,6 +238,33 @@
         "issued": "Issued:"
       }
     },
+    "regex": {
+      "meta": {
+        "title": "Regex tester — test regular expressions in your browser",
+        "description": "Test regular expressions against a text and see the matches highlighted instantly, with flags (g, i, m, s, u, y). Free, no sign-up and all in your browser.",
+        "ogTitle": "Regex tester — test regular expressions",
+        "ogDescription": "Test regular expressions and see the matches highlighted in your browser. Free and nothing uploaded.",
+        "jsonldName": "Regex tester",
+        "jsonldDescription": "Test regular expressions against a text in the browser, highlighting the matches, without sending anything to any server."
+      },
+      "card": {
+        "name": "Regex tester",
+        "desc": "Test regular expressions and highlight matches live, with flags.",
+        "tags": ["Code", "No server"]
+      },
+      "ui": {
+        "h1": "Regex tester",
+        "subtitle": "Type a regular expression and a test text to see the matches highlighted instantly. Everything happens in your browser.",
+        "cardAria": "Tool to test regular expressions",
+        "pattern": "Pattern",
+        "patternPlaceholder": "Your regular expression…",
+        "flags": "Flags",
+        "testText": "Test text"
+      },
+      "msg": {
+        "matchesCount": { "one": "{n} match", "many": "{n} matches" }
+      }
+    },
     "separar-pdf": {
       "meta": {
         "title": "Split PDF — split a PDF into single pages, free and in your browser",

@@ -481,3 +481,22 @@ test("jwt: token inválido muestra error", async ({ page }) => {
   await expect(page.locator("#jwt-alert")).not.toBeEmpty();
   await expect(page.locator("#jwt-header")).toHaveValue("");
 });
+
+// --- Código: Tester de regex ---
+
+test("regex: ejemplo precargado resalta las coincidencias", async ({ page }) => {
+  await page.goto("/regex/");
+  await expect(page.locator("#re-pattern")).not.toHaveValue("");
+  await expect(page.locator("#re-output mark")).toHaveCount(2);
+  await expect(page.locator("#re-count")).toContainText("2");
+});
+
+test("regex: cambiar el patrón actualiza las coincidencias; uno inválido da error", async ({ page }) => {
+  await page.goto("/regex/");
+  await page.fill("#re-pattern", "\\d+");
+  await page.fill("#re-text", "a1 b22 c333");
+  await expect(page.locator("#re-output mark")).toHaveCount(3);
+
+  await page.fill("#re-pattern", "(");
+  await expect(page.locator("#re-alert")).not.toBeEmpty();
+});
