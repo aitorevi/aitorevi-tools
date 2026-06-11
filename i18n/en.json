@@ -82,6 +82,26 @@
         "cardAria": "Tool to format and minify JSON"
       }
     },
+    "formatear-xml": {
+      "meta": {
+        "title": "Format XML — beautify and minify online, in your browser",
+        "description": "Beautify (pretty-print) and minify XML instantly in your browser. Validates tag nesting and points out the error. Free, no sign-up and nothing is uploaded to any server.",
+        "ogTitle": "Format XML — beautify and minify",
+        "ogDescription": "Beautify and minify XML in your browser. Validates tag nesting. Free and nothing uploaded.",
+        "jsonldName": "Format XML",
+        "jsonldDescription": "Format and minify XML in the browser, validating tag nesting, without sending the text to any server."
+      },
+      "card": {
+        "name": "Format XML",
+        "desc": "Beautify or minify XML and validate tag nesting instantly.",
+        "tags": ["Code", "No server"]
+      },
+      "ui": {
+        "h1": "Format XML",
+        "subtitle": "Paste your XML to beautify it (2-space indent) or minify it. It validates tag nesting and everything happens in your browser.",
+        "cardAria": "Tool to format and minify XML"
+      }
+    },
     "separar-pdf": {
       "meta": {
         "title": "Split PDF — split a PDF into single pages, free and in your browser",

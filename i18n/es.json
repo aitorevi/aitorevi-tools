@@ -82,6 +82,26 @@
         "cardAria": "Herramienta para formatear y minificar JSON"
       }
     },
+    "formatear-xml": {
+      "meta": {
+        "title": "Formatear XML — embellece y minifica online, en tu navegador",
+        "description": "Formatea (pretty-print) y minifica XML al instante en tu navegador. Valida el anidamiento de etiquetas y señala el error. Gratis, sin registro y sin subir nada a ningún servidor.",
+        "ogTitle": "Formatear XML — embellecer y minificar",
+        "ogDescription": "Embellece y minifica XML en tu navegador. Valida el anidamiento de etiquetas. Gratis y sin subir nada.",
+        "jsonldName": "Formatear XML",
+        "jsonldDescription": "Formatea y minifica XML en el navegador, validando el anidamiento de etiquetas, sin enviar el texto a ningún servidor."
+      },
+      "card": {
+        "name": "Formatear XML",
+        "desc": "Embellece o minifica XML y valida el anidamiento de etiquetas al instante.",
+        "tags": ["Código", "Sin servidor"]
+      },
+      "ui": {
+        "h1": "Formatear XML",
+        "subtitle": "Pega tu XML para embellecerlo (con sangría de 2 espacios) o minificarlo. Valida el anidamiento de etiquetas y todo ocurre en tu navegador.",
+        "cardAria": "Herramienta para formatear y minificar XML"
+      }
+    },
     "separar-pdf": {
       "meta": {
         "title": "Separar PDF — divide un PDF en páginas sueltas, gratis y en tu navegador",

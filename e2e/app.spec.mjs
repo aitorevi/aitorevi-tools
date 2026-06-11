@@ -317,3 +317,28 @@ test("formatear-json: JSON inválido muestra error y deja la salida vacía", asy
   await expect(page.locator(".code-alert")).not.toBeEmpty();
   await expect(page.locator(".code-out")).toHaveValue("");
 });
+
+// --- Código: Formatear XML ---
+
+test("formatear-xml: ejemplo precargado → formatear → copiar", async ({ page }) => {
+  await page.goto("/formatear-xml/");
+  const input = page.locator('.code-area[data-role="input"]');
+  const output = page.locator(".code-out");
+
+  await expect(input).not.toHaveValue("");
+  await expect(output).toHaveValue("");
+
+  await page.click('[data-act="format"]');
+  await expect(output).toHaveValue(/\n {2}<to>Aitor<\/to>/);
+
+  await page.click('[data-act="copy"]');
+  await expect(page.locator('[data-act="copy"]')).toContainText("¡Copiado!");
+});
+
+test("formatear-xml: XML mal formado muestra error y deja la salida vacía", async ({ page }) => {
+  await page.goto("/formatear-xml/");
+  await page.fill('.code-area[data-role="input"]', "<a><b></a>");
+  await page.click('[data-act="format"]');
+  await expect(page.locator(".code-alert")).not.toBeEmpty();
+  await expect(page.locator(".code-out")).toHaveValue("");
+});
