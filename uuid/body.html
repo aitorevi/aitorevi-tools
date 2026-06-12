@@ -1,0 +1,34 @@
+<main class="wrap wrap-code">
+    <header>
+      <span class="badge"><span class="dot" aria-hidden="true"></span>{{t.badge}}</span>
+      <h1>{{t.h1}}</h1>
+      <p class="subtitle">{{t.subtitle}}</p>
+    </header>
+
+    <section class="card" aria-labelledby="app-title">
+      <h2 id="app-title" class="sr">{{t.cardAria}}</h2>
+      <div class="code-tool code-tool--sm">
+        <div class="code-controls">
+          <label class="field">
+            <span class="field-label">{{t.count}}</span>
+            <select id="uuid-count" class="code-select">
+              <option value="1">1</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+            </select>
+          </label>
+          <button id="uuid-regen" type="button" class="btn">{{t.regenerate}}</button>
+        </div>
+        <div class="code-io code-io--single">
+          <div class="code-pane code-pane-out">
+            <div class="code-bar">
+              <span class="code-dots"></span>
+              <span class="code-bar-label">UUID</span>
+              <span class="code-bar-actions" id="uuid-actions"></span>
+            </div>
+            <textarea id="uuid-out" class="code-area" readonly aria-label="{{t.outputAria}}"></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
