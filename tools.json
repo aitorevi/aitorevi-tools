@@ -139,6 +139,18 @@
       "slug": { "es": "url-encode", "en": "url-encode" }
     },
     {
+      "id": "timestamp",
+      "section": "codigo",
+      "libs": [],
+      "slug": { "es": "timestamp", "en": "timestamp" }
+    },
+    {
+      "id": "uuid",
+      "section": "codigo",
+      "libs": [],
+      "slug": { "es": "uuid", "en": "uuid" }
+    },
+    {
       "id": "convertir-datos",
       "section": "codigo",
       "libs": ["js-yaml", "fast-xml-parser", "smol-toml"],
