@@ -76,6 +76,20 @@
     .tool-card.is-soon { opacity: .6; box-shadow: none; cursor: default; }
     .tool-card.is-soon .tool-cta { color: rgb(var(--muted)); }
 
+    .hub-search-wrap { margin-top: 20px; }
+    .hub-search {
+      width: 100%; max-width: 420px;
+      padding: 10px 16px;
+      background: rgb(var(--surface) / 0.7); color: rgb(var(--fg));
+      border: 1px solid rgb(var(--border)); border-radius: 10px;
+      font-family: inherit; font-size: .95rem;
+      outline: none; transition: border-color .15s;
+    }
+    .hub-search:focus { border-color: rgb(var(--accent)); }
+    .hub-search::placeholder { color: rgb(var(--muted)); }
+    .hub-empty {
+      color: rgb(var(--muted)); font-size: .95rem; margin: 0 0 24px; padding: 0;
+    }
     .tools-section + .tools-section { margin-top: 44px; }
     .section-title {
       display: flex; align-items: center; gap: 12px;
@@ -125,7 +139,11 @@
       <span class="badge"><span class="dot" aria-hidden="true"></span>100% in your browser · nothing uploaded</span>
       <h1>Tools</h1>
       <p class="subtitle">Free web mini-utilities that run entirely in your browser. No sign-up, no server, and your files never leave your device.</p>
+      <div class="hub-search-wrap">
+        <input type="search" id="hub-search" class="hub-search" placeholder="Search tool…" aria-label="Search tools" autocomplete="off" />
+      </div>
     </header>
+    <p id="hub-empty" class="hub-empty" hidden>No tools match your search.</p>
 
     <section class="tools-section" aria-labelledby="sec-pdf">
       <h2 class="section-title" id="sec-pdf"><span class="dot" aria-hidden="true"></span>PDF</h2>
@@ -266,6 +284,18 @@
           <div class="tool-tags"><span>Code</span><span>No server</span></div>
         </a>
 
+        <a class="tool-card" href="/en/timestamp/">
+          <h3 class="tool-name">Timestamp converter</h3>
+          <p class="tool-desc">Epoch ↔ human-readable date (ISO 8601, local, UTC). Auto-detects seconds or milliseconds.</p>
+          <div class="tool-tags"><span>Code</span><span>No server</span></div>
+        </a>
+
+        <a class="tool-card" href="/en/uuid/">
+          <h3 class="tool-name">UUID generator</h3>
+          <p class="tool-desc">Generate v4 UUIDs with Web Crypto. No network, no traces.</p>
+          <div class="tool-tags"><span>Code</span><span>No server</span></div>
+        </a>
+
         <a class="tool-card" href="/en/convert-data/">
           <h3 class="tool-name">Data converter</h3>
           <p class="tool-desc">Convert between CSV, JSON, YAML, XML and TOML in one click. Reversible.</p>
@@ -299,5 +329,7 @@
 
     <p class="foot-copy">© 2026 aitorevi · tools.aitorevi.dev · <a href="/en/licenses/">Licenses</a></p>
   </footer>
+
+  <script src="/hub.js" type="module"></script>
 </body>
 </html>

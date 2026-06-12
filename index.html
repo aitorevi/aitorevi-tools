@@ -77,6 +77,20 @@
     .tool-card.is-soon { opacity: .6; box-shadow: none; cursor: default; }
     .tool-card.is-soon .tool-cta { color: rgb(var(--muted)); }
 
+    .hub-search-wrap { margin-top: 20px; }
+    .hub-search {
+      width: 100%; max-width: 420px;
+      padding: 10px 16px;
+      background: rgb(var(--surface) / 0.7); color: rgb(var(--fg));
+      border: 1px solid rgb(var(--border)); border-radius: 10px;
+      font-family: inherit; font-size: .95rem;
+      outline: none; transition: border-color .15s;
+    }
+    .hub-search:focus { border-color: rgb(var(--accent)); }
+    .hub-search::placeholder { color: rgb(var(--muted)); }
+    .hub-empty {
+      color: rgb(var(--muted)); font-size: .95rem; margin: 0 0 24px; padding: 0;
+    }
     .tools-section + .tools-section { margin-top: 44px; }
     .section-title {
       display: flex; align-items: center; gap: 12px;
@@ -126,7 +140,11 @@
       <span class="badge"><span class="dot" aria-hidden="true"></span>100% en tu navegador · sin subir nada</span>
       <h1>Herramientas</h1>
       <p class="subtitle">Mini-utilidades web gratuitas que funcionan íntegramente en tu navegador. Sin registro, sin servidor y sin que tus archivos salgan de tu dispositivo.</p>
+      <div class="hub-search-wrap">
+        <input type="search" id="hub-search" class="hub-search" placeholder="Buscar herramienta…" aria-label="Buscar en las herramientas" autocomplete="off" />
+      </div>
     </header>
+    <p id="hub-empty" class="hub-empty" hidden>Ninguna herramienta coincide con la búsqueda.</p>
 
     <section class="tools-section" aria-labelledby="sec-pdf">
       <h2 class="section-title" id="sec-pdf"><span class="dot" aria-hidden="true"></span>PDF</h2>
@@ -267,6 +285,18 @@
           <div class="tool-tags"><span>Código</span><span>Sin servidor</span></div>
         </a>
 
+        <a class="tool-card" href="/timestamp/">
+          <h3 class="tool-name">Conversor de timestamps</h3>
+          <p class="tool-desc">Epoch ↔ fecha legible (ISO 8601, local, UTC). Auto-detecta segundos o milisegundos.</p>
+          <div class="tool-tags"><span>Código</span><span>Sin servidor</span></div>
+        </a>
+
+        <a class="tool-card" href="/uuid/">
+          <h3 class="tool-name">Generador de UUID</h3>
+          <p class="tool-desc">Genera UUIDs v4 con Web Crypto. Sin red, sin trazas.</p>
+          <div class="tool-tags"><span>Código</span><span>Sin servidor</span></div>
+        </a>
+
         <a class="tool-card" href="/convertir-datos/">
           <h3 class="tool-name">Conversor de datos</h3>
           <p class="tool-desc">Convierte entre CSV, JSON, YAML, XML y TOML con un clic. Reversible.</p>
@@ -300,5 +330,7 @@
 
     <p class="foot-copy">© 2026 aitorevi · tools.aitorevi.dev · <a href="/licencias/">Licencias</a></p>
   </footer>
+
+  <script src="/hub.js" type="module"></script>
 </body>
 </html>

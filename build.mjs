@@ -280,7 +280,11 @@ ${cards.join("\n\n")}
       <span class="badge"><span class="dot" aria-hidden="true"></span>${t.common.badge}</span>
       <h1>${hub.h1}</h1>
       <p class="subtitle">${hub.subtitle}</p>
+      <div class="hub-search-wrap">
+        <input type="search" id="hub-search" class="hub-search" placeholder="${hub.searchPlaceholder}" aria-label="${hub.searchLabel}" autocomplete="off" />
+      </div>
     </header>
+    <p id="hub-empty" class="hub-empty" hidden>${hub.searchEmpty}</p>
 
 ${sectionsHtml}
   </main>`;
@@ -306,6 +310,7 @@ ${sectionsHtml}
     navbarHtml: navbar(lang, pageUrls(hubPath("es"), hubPath("en"))),
     main,
     footerHtml: footer(lang),
+    scriptsHtml: `  <script src="/hub.js" type="module"></script>`,
   });
   write(hubPath(lang) + "index.html", html);
 }
