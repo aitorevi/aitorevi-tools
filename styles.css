@@ -525,6 +525,7 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
 .jwt-sign-controls .code-select { flex: 0 0 auto; }
 .convert-controls { display: flex; align-items: flex-end; gap: 8px; flex-wrap: wrap; }
 .convert-controls .code-select { flex: 1 1 8rem; }
+.uuid-count-select { flex: 0 0 auto; width: 6rem; }
 .convert-swap {
   flex: 0 0 auto; height: 2.5rem; padding: 0 14px;
   border: 1px solid rgb(var(--border)); border-radius: 8px;
