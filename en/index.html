@@ -90,6 +90,13 @@
     .hub-empty {
       color: rgb(var(--muted)); font-size: .95rem; margin: 0 0 24px; padding: 0;
     }
+    .tools-subsection + .tools-subsection { margin-top: 28px; }
+    .subsection-title {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: .68rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em;
+      color: rgb(var(--muted) / 0.7);
+      margin: 0 0 14px; padding: 0;
+    }
     .tools-section + .tools-section { margin-top: 44px; }
     .section-title {
       display: flex; align-items: center; gap: 12px;
@@ -147,7 +154,9 @@
 
     <section class="tools-section" aria-labelledby="sec-pdf">
       <h2 class="section-title" id="sec-pdf"><span class="dot" aria-hidden="true"></span>PDF</h2>
-      <div class="tools-grid">
+      <div class="tools-subsection" data-subsection="organizar">
+        <h3 class="subsection-title">Organize</h3>
+        <div class="tools-grid">
         <a class="tool-card" href="/en/split-pdf/">
           <h3 class="tool-name">Split PDF</h3>
           <p class="tool-desc">Split any PDF into single pages and download them one by one or all together in a ZIP.</p>
@@ -160,6 +169,17 @@
           <div class="tool-tags"><span>PDF</span><span>No server</span></div>
         </a>
 
+        <a class="tool-card" href="/en/n-up-pdf/">
+          <h3 class="tool-name">Pages per sheet</h3>
+          <p class="tool-desc">Place 2, 4, 6 or 9 pages from one or more PDFs on each A4 sheet to print and save paper.</p>
+          <div class="tool-tags"><span>PDF</span><span>Print</span></div>
+        </a>
+        </div>
+      </div>
+
+      <div class="tools-subsection" data-subsection="transformar">
+        <h3 class="subsection-title">Transform</h3>
+        <div class="tools-grid">
         <a class="tool-card" href="/en/image-to-pdf/">
           <h3 class="tool-name">Image to PDF</h3>
           <p class="tool-desc">Convert your JPG or PNG images into a PDF. Reorder them before downloading.</p>
@@ -171,12 +191,7 @@
           <p class="tool-desc">Add diagonal text to every page of a PDF, with adjustable opacity and size.</p>
           <div class="tool-tags"><span>PDF</span><span>No server</span></div>
         </a>
-
-        <a class="tool-card" href="/en/n-up-pdf/">
-          <h3 class="tool-name">Pages per sheet</h3>
-          <p class="tool-desc">Place 2, 4, 6 or 9 pages from one or more PDFs on each A4 sheet to print and save paper.</p>
-          <div class="tool-tags"><span>PDF</span><span>Print</span></div>
-        </a>
+        </div>
       </div>
     </section>
 
@@ -205,7 +220,9 @@
 
     <section class="tools-section" aria-labelledby="sec-code">
       <h2 class="section-title" id="sec-code"><span class="dot" aria-hidden="true"></span>Code</h2>
-      <div class="tools-grid">
+      <div class="tools-subsection" data-subsection="formatear">
+        <h3 class="subsection-title">Format</h3>
+        <div class="tools-grid">
         <a class="tool-card" href="/en/format-json/">
           <h3 class="tool-name">Format JSON</h3>
           <p class="tool-desc">Beautify or minify JSON and validate the syntax instantly.</p>
@@ -241,19 +258,12 @@
           <p class="tool-desc">Beautify JavaScript and TypeScript with Prettier, the standard formatter.</p>
           <div class="tool-tags"><span>Code</span><span>No server</span></div>
         </a>
+        </div>
+      </div>
 
-        <a class="tool-card" href="/en/json-to-csharp/">
-          <h3 class="tool-name">JSON to C# / TypeScript</h3>
-          <p class="tool-desc">Generate C# classes or TypeScript interfaces from JSON, with type inference.</p>
-          <div class="tool-tags"><span>Code</span><span>No server</span></div>
-        </a>
-
-        <a class="tool-card" href="/en/jwt/">
-          <h3 class="tool-name">JWT</h3>
-          <p class="tool-desc">Decode the header and payload of a JWT or sign it with HMAC for testing.</p>
-          <div class="tool-tags"><span>Code</span><span>No server</span></div>
-        </a>
-
+      <div class="tools-subsection" data-subsection="analizar">
+        <h3 class="subsection-title">Analyze</h3>
+        <div class="tools-grid">
         <a class="tool-card" href="/en/regex/">
           <h3 class="tool-name">Regex tester</h3>
           <p class="tool-desc">Test regular expressions and highlight matches live, with flags.</p>
@@ -265,7 +275,12 @@
           <p class="tool-desc">Compare two texts line by line and highlight what was added and removed.</p>
           <div class="tool-tags"><span>Code</span><span>No server</span></div>
         </a>
+        </div>
+      </div>
 
+      <div class="tools-subsection" data-subsection="codificar">
+        <h3 class="subsection-title">Encode</h3>
+        <div class="tools-grid">
         <a class="tool-card" href="/en/base64/">
           <h3 class="tool-name">Base64</h3>
           <p class="tool-desc">Encode text to Base64 and decode back, with UTF-8.</p>
@@ -284,6 +299,34 @@
           <div class="tool-tags"><span>Code</span><span>No server</span></div>
         </a>
 
+        <a class="tool-card" href="/en/jwt/">
+          <h3 class="tool-name">JWT</h3>
+          <p class="tool-desc">Decode the header and payload of a JWT or sign it with HMAC for testing.</p>
+          <div class="tool-tags"><span>Code</span><span>No server</span></div>
+        </a>
+        </div>
+      </div>
+
+      <div class="tools-subsection" data-subsection="convertir">
+        <h3 class="subsection-title">Convert</h3>
+        <div class="tools-grid">
+        <a class="tool-card" href="/en/json-to-csharp/">
+          <h3 class="tool-name">JSON to C# / TypeScript</h3>
+          <p class="tool-desc">Generate C# classes or TypeScript interfaces from JSON, with type inference.</p>
+          <div class="tool-tags"><span>Code</span><span>No server</span></div>
+        </a>
+
+        <a class="tool-card" href="/en/convert-data/">
+          <h3 class="tool-name">Data converter</h3>
+          <p class="tool-desc">Convert between CSV, JSON, YAML, XML and TOML in one click. Reversible.</p>
+          <div class="tool-tags"><span>Code</span><span>No server</span></div>
+        </a>
+        </div>
+      </div>
+
+      <div class="tools-subsection" data-subsection="generar">
+        <h3 class="subsection-title">Generate</h3>
+        <div class="tools-grid">
         <a class="tool-card" href="/en/timestamp/">
           <h3 class="tool-name">Timestamp converter</h3>
           <p class="tool-desc">Epoch ↔ human-readable date (ISO 8601, local, UTC). Auto-detects seconds or milliseconds.</p>
@@ -296,16 +339,11 @@
           <div class="tool-tags"><span>Code</span><span>No server</span></div>
         </a>
 
-        <a class="tool-card" href="/en/convert-data/">
-          <h3 class="tool-name">Data converter</h3>
-          <p class="tool-desc">Convert between CSV, JSON, YAML, XML and TOML in one click. Reversible.</p>
-          <div class="tool-tags"><span>Code</span><span>No server</span></div>
-        </a>
-
         <div class="tool-card is-soon" aria-disabled="true">
           <h3 class="tool-name">More tools</h3>
           <p class="tool-desc">I'm preparing new mini-utilities focused on privacy and speed. Check back soon.</p>
           <span class="tool-cta">Coming soon</span>
+        </div>
         </div>
       </div>
     </section>

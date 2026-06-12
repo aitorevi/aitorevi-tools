@@ -1077,5 +1077,14 @@
       },
       "msg": {}
     }
+  },
+  "subsections": {
+    "organizar": "Organize",
+    "transformar": "Transform",
+    "formatear": "Format",
+    "analizar": "Analyze",
+    "codificar": "Encode",
+    "convertir": "Convert",
+    "generar": "Generate"
   }
 }

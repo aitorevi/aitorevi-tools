@@ -83,6 +83,18 @@ export const STRINGS = {
       "mergedOk": "PDF unido con {n} {pages} descargado.",
       "mergeError": "No se pudo unir los PDFs."
     },
+    "n-up-pdf": {
+      "reading": "Leyendo {n} {files}…",
+      "notPdf": "Eso no parece un PDF. Añade archivos PDF.",
+      "failedRead": "{failed} no se pudieron leer (¿dañados o protegidos?).",
+      "arranging": "Recolocando las páginas…",
+      "arrangedOk": "PDF con {per} por hoja ({sheets} {sheetsWord}) descargado.",
+      "arrangeError": "No se pudo recolocar el PDF.",
+      "sheets": {
+        "one": "hoja",
+        "many": "hojas"
+      }
+    },
     "imagen-a-pdf": {
       "addImages": "Añade imágenes JPG o PNG.",
       "reading": "Leyendo {n} {images}…",
@@ -98,18 +110,6 @@ export const STRINGS = {
       "applying": "Aplicando la marca de agua…",
       "appliedOk": "PDF con marca de agua ({n} {pages}) descargado.",
       "applyError": "No se pudo aplicar la marca de agua."
-    },
-    "n-up-pdf": {
-      "reading": "Leyendo {n} {files}…",
-      "notPdf": "Eso no parece un PDF. Añade archivos PDF.",
-      "failedRead": "{failed} no se pudieron leer (¿dañados o protegidos?).",
-      "arranging": "Recolocando las páginas…",
-      "arrangedOk": "PDF con {per} por hoja ({sheets} {sheetsWord}) descargado.",
-      "arrangeError": "No se pudo recolocar el PDF.",
-      "sheets": {
-        "one": "hoja",
-        "many": "hojas"
-      }
     },
     "comprimir-imagen": {
       "notImage": "Eso no parece una imagen.",
@@ -269,41 +269,6 @@ export const STRINGS = {
         }
       }
     },
-    "jwt": {
-      "expired": "Expirado",
-      "expires": "Expira:",
-      "issued": "Emitido:",
-      "signError": "Error al firmar:",
-      "guide": {
-        "title": "Notas sobre JWT",
-        "intro": "Un JWT tiene tres partes separadas por puntos y codificadas en Base64URL. El payload lleva los datos (claims):",
-        "groups": {
-          "parts": "Partes del token",
-          "registered": "Claims estándar (registrados)",
-          "header": "Campos del header",
-          "common": "Claims habituales"
-        },
-        "desc": {
-          "header": "Algoritmo y tipo del token",
-          "payload": "Los datos del token (claims)",
-          "signature": "Firma que verifica el token; necesita la clave (aquí no se comprueba)",
-          "iss": "Issuer: quién emitió el token",
-          "sub": "Subject: a quién identifica (normalmente el usuario)",
-          "aud": "Audience: para quién es el token",
-          "exp": "Expiration: caduca tras esta fecha (UNIX)",
-          "nbf": "Not before: no vale antes de esta fecha (UNIX)",
-          "iat": "Issued at: cuándo se emitió (UNIX)",
-          "jti": "JWT ID: identificador único del token",
-          "alg": "Algoritmo de firma (HS256, RS256…)",
-          "typ": "Tipo del token, normalmente \"JWT\"",
-          "kid": "Key ID: qué clave firmó el token",
-          "name": "Nombre del usuario (habitual, no estándar)",
-          "email": "Correo del usuario (habitual, no estándar)",
-          "role": "Rol o permisos (habitual, no estándar)",
-          "scope": "Permisos concedidos (OAuth)"
-        }
-      }
-    },
     "regex": {
       "matchesCount": {
         "one": "{n} coincidencia",
@@ -377,13 +342,48 @@ export const STRINGS = {
         }
       }
     },
-    "timestamp": {},
-    "uuid": {},
+    "jwt": {
+      "expired": "Expirado",
+      "expires": "Expira:",
+      "issued": "Emitido:",
+      "signError": "Error al firmar:",
+      "guide": {
+        "title": "Notas sobre JWT",
+        "intro": "Un JWT tiene tres partes separadas por puntos y codificadas en Base64URL. El payload lleva los datos (claims):",
+        "groups": {
+          "parts": "Partes del token",
+          "registered": "Claims estándar (registrados)",
+          "header": "Campos del header",
+          "common": "Claims habituales"
+        },
+        "desc": {
+          "header": "Algoritmo y tipo del token",
+          "payload": "Los datos del token (claims)",
+          "signature": "Firma que verifica el token; necesita la clave (aquí no se comprueba)",
+          "iss": "Issuer: quién emitió el token",
+          "sub": "Subject: a quién identifica (normalmente el usuario)",
+          "aud": "Audience: para quién es el token",
+          "exp": "Expiration: caduca tras esta fecha (UNIX)",
+          "nbf": "Not before: no vale antes de esta fecha (UNIX)",
+          "iat": "Issued at: cuándo se emitió (UNIX)",
+          "jti": "JWT ID: identificador único del token",
+          "alg": "Algoritmo de firma (HS256, RS256…)",
+          "typ": "Tipo del token, normalmente \"JWT\"",
+          "kid": "Key ID: qué clave firmó el token",
+          "name": "Nombre del usuario (habitual, no estándar)",
+          "email": "Correo del usuario (habitual, no estándar)",
+          "role": "Rol o permisos (habitual, no estándar)",
+          "scope": "Permisos concedidos (OAuth)"
+        }
+      }
+    },
     "convertir-datos": {
       "convertError": "Error al convertir:",
       "warnWrap": "Los arrays se han envuelto en una clave `items` (TOML/XML no admiten raíz de array)",
       "warnYamlCoerce": "YAML puede cambiar tipos: '30' (texto) → 30 (número). Verifica el resultado."
-    }
+    },
+    "timestamp": {},
+    "uuid": {}
   },
   "en": {
     "_common": {
@@ -468,6 +468,18 @@ export const STRINGS = {
       "mergedOk": "Merged PDF with {n} {pages} downloaded.",
       "mergeError": "Couldn't merge the PDFs."
     },
+    "n-up-pdf": {
+      "reading": "Reading {n} {files}…",
+      "notPdf": "That doesn't look like a PDF. Add PDF files.",
+      "failedRead": "{failed} couldn't be read (damaged or protected?).",
+      "arranging": "Rearranging the pages…",
+      "arrangedOk": "PDF with {per} per sheet ({sheets} {sheetsWord}) downloaded.",
+      "arrangeError": "Couldn't rearrange the PDF.",
+      "sheets": {
+        "one": "sheet",
+        "many": "sheets"
+      }
+    },
     "imagen-a-pdf": {
       "addImages": "Add JPG or PNG images.",
       "reading": "Reading {n} {images}…",
@@ -483,18 +495,6 @@ export const STRINGS = {
       "applying": "Applying the watermark…",
       "appliedOk": "Watermarked PDF ({n} {pages}) downloaded.",
       "applyError": "Couldn't apply the watermark."
-    },
-    "n-up-pdf": {
-      "reading": "Reading {n} {files}…",
-      "notPdf": "That doesn't look like a PDF. Add PDF files.",
-      "failedRead": "{failed} couldn't be read (damaged or protected?).",
-      "arranging": "Rearranging the pages…",
-      "arrangedOk": "PDF with {per} per sheet ({sheets} {sheetsWord}) downloaded.",
-      "arrangeError": "Couldn't rearrange the PDF.",
-      "sheets": {
-        "one": "sheet",
-        "many": "sheets"
-      }
     },
     "comprimir-imagen": {
       "notImage": "That doesn't look like an image.",
@@ -654,41 +654,6 @@ export const STRINGS = {
         }
       }
     },
-    "jwt": {
-      "expired": "Expired",
-      "expires": "Expires:",
-      "issued": "Issued:",
-      "signError": "Signing error:",
-      "guide": {
-        "title": "JWT notes",
-        "intro": "A JWT has three dot-separated parts encoded in Base64URL. The payload carries the data (claims):",
-        "groups": {
-          "parts": "Token parts",
-          "registered": "Standard (registered) claims",
-          "header": "Header fields",
-          "common": "Common claims"
-        },
-        "desc": {
-          "header": "Token algorithm and type",
-          "payload": "The token data (claims)",
-          "signature": "Signature that verifies the token; needs the key (not checked here)",
-          "iss": "Issuer: who issued the token",
-          "sub": "Subject: who it identifies (usually the user)",
-          "aud": "Audience: who the token is for",
-          "exp": "Expiration: expires after this date (UNIX)",
-          "nbf": "Not before: not valid before this date (UNIX)",
-          "iat": "Issued at: when it was issued (UNIX)",
-          "jti": "JWT ID: unique token identifier",
-          "alg": "Signing algorithm (HS256, RS256…)",
-          "typ": "Token type, usually \"JWT\"",
-          "kid": "Key ID: which key signed the token",
-          "name": "User name (common, not standard)",
-          "email": "User email (common, not standard)",
-          "role": "Role or permissions (common, not standard)",
-          "scope": "Granted permissions (OAuth)"
-        }
-      }
-    },
     "regex": {
       "matchesCount": {
         "one": "{n} match",
@@ -762,12 +727,47 @@ export const STRINGS = {
         }
       }
     },
-    "timestamp": {},
-    "uuid": {},
+    "jwt": {
+      "expired": "Expired",
+      "expires": "Expires:",
+      "issued": "Issued:",
+      "signError": "Signing error:",
+      "guide": {
+        "title": "JWT notes",
+        "intro": "A JWT has three dot-separated parts encoded in Base64URL. The payload carries the data (claims):",
+        "groups": {
+          "parts": "Token parts",
+          "registered": "Standard (registered) claims",
+          "header": "Header fields",
+          "common": "Common claims"
+        },
+        "desc": {
+          "header": "Token algorithm and type",
+          "payload": "The token data (claims)",
+          "signature": "Signature that verifies the token; needs the key (not checked here)",
+          "iss": "Issuer: who issued the token",
+          "sub": "Subject: who it identifies (usually the user)",
+          "aud": "Audience: who the token is for",
+          "exp": "Expiration: expires after this date (UNIX)",
+          "nbf": "Not before: not valid before this date (UNIX)",
+          "iat": "Issued at: when it was issued (UNIX)",
+          "jti": "JWT ID: unique token identifier",
+          "alg": "Signing algorithm (HS256, RS256…)",
+          "typ": "Token type, usually \"JWT\"",
+          "kid": "Key ID: which key signed the token",
+          "name": "User name (common, not standard)",
+          "email": "User email (common, not standard)",
+          "role": "Role or permissions (common, not standard)",
+          "scope": "Granted permissions (OAuth)"
+        }
+      }
+    },
     "convertir-datos": {
       "convertError": "Conversion error:",
       "warnWrap": "Arrays have been wrapped in an `items` key (TOML/XML do not support a root-level array)",
       "warnYamlCoerce": "YAML may change data types: '30' (string) → 30 (number). Check the result."
-    }
+    },
+    "timestamp": {},
+    "uuid": {}
   }
 };

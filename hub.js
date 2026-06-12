@@ -16,15 +16,22 @@
 
     sections.forEach((section) => {
       const cards = section.querySelectorAll(".tool-card:not(.is-soon)");
-      let sectionVisible = false;
       cards.forEach((card) => {
         const text = normalize(card.querySelector(".tool-name")?.textContent + " " + card.querySelector(".tool-desc")?.textContent);
-        const match = q === "" || text.includes(q);
-        card.hidden = !match;
-        if (match) sectionVisible = true;
+        card.hidden = q !== "" && !text.includes(q);
       });
-      section.hidden = !sectionVisible && q !== "";
-      if (sectionVisible || q === "") anyVisible = true;
+
+      // Hide sub-sections whose every card is hidden
+      section.querySelectorAll(".tools-subsection").forEach((sub) => {
+        const subCards = sub.querySelectorAll(".tool-card:not(.is-soon)");
+        const subVisible = q === "" || [...subCards].some((c) => !c.hidden);
+        sub.hidden = !subVisible;
+      });
+
+      // Hide the whole section if nothing is visible
+      const sectionVisible = q === "" || [...cards].some((c) => !c.hidden);
+      section.hidden = !sectionVisible;
+      if (sectionVisible) anyVisible = true;
     });
 
     if (emptyEl) emptyEl.hidden = anyVisible || q === "";

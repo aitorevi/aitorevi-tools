@@ -4,7 +4,7 @@
     "googleVerification": "6QRl2tKL7ajQ943dVydSquhPEVvxQiwGh4hqfnS7Zfo",
     "languages": ["es", "en"],
     "defaultLang": "es",
-    "soonCard": { "section": "codigo" }
+    "soonCard": { "section": "codigo", "subsection": "generar" }
   },
   "sections": [
     { "id": "pdf", "anchor": "sec-pdf" },
@@ -15,32 +15,37 @@
     {
       "id": "separar-pdf",
       "section": "pdf",
+      "subsection": "organizar",
       "libs": ["pdf-lib", "jszip"],
       "slug": { "es": "separar-pdf", "en": "split-pdf" }
     },
     {
       "id": "unir-pdf",
       "section": "pdf",
+      "subsection": "organizar",
       "libs": ["pdf-lib"],
       "slug": { "es": "unir-pdf", "en": "merge-pdf" }
     },
     {
+      "id": "n-up-pdf",
+      "section": "pdf",
+      "subsection": "organizar",
+      "libs": ["pdf-lib"],
+      "slug": { "es": "n-up-pdf", "en": "n-up-pdf" }
+    },
+    {
       "id": "imagen-a-pdf",
       "section": "pdf",
+      "subsection": "transformar",
       "libs": ["pdf-lib"],
       "slug": { "es": "imagen-a-pdf", "en": "image-to-pdf" }
     },
     {
       "id": "marca-de-agua-pdf",
       "section": "pdf",
+      "subsection": "transformar",
       "libs": ["pdf-lib"],
       "slug": { "es": "marca-de-agua-pdf", "en": "watermark-pdf" }
-    },
-    {
-      "id": "n-up-pdf",
-      "section": "pdf",
-      "libs": ["pdf-lib"],
-      "slug": { "es": "n-up-pdf", "en": "n-up-pdf" }
     },
     {
       "id": "comprimir-imagen",
@@ -63,98 +68,114 @@
     {
       "id": "formatear-json",
       "section": "codigo",
+      "subsection": "formatear",
       "libs": [],
       "slug": { "es": "formatear-json", "en": "format-json" }
     },
     {
       "id": "formatear-xml",
       "section": "codigo",
+      "subsection": "formatear",
       "libs": [],
       "slug": { "es": "formatear-xml", "en": "format-xml" }
     },
     {
       "id": "formatear-sql",
       "section": "codigo",
+      "subsection": "formatear",
       "libs": ["sql-formatter"],
       "slug": { "es": "formatear-sql", "en": "format-sql" }
     },
     {
       "id": "formatear-yaml",
       "section": "codigo",
+      "subsection": "formatear",
       "libs": ["js-yaml"],
       "slug": { "es": "formatear-yaml", "en": "format-yaml" }
     },
     {
       "id": "formatear-html-css",
       "section": "codigo",
+      "subsection": "formatear",
       "libs": ["js-beautify"],
       "slug": { "es": "formatear-html-css", "en": "format-html-css" }
     },
     {
       "id": "formatear-js",
       "section": "codigo",
+      "subsection": "formatear",
       "libs": ["prettier"],
       "slug": { "es": "formatear-js", "en": "format-js" }
     },
     {
-      "id": "json-a-csharp",
-      "section": "codigo",
-      "libs": ["quicktype-core"],
-      "slug": { "es": "json-a-csharp", "en": "json-to-csharp" }
-    },
-    {
-      "id": "jwt",
-      "section": "codigo",
-      "libs": [],
-      "slug": { "es": "jwt", "en": "jwt" }
-    },
-    {
       "id": "regex",
       "section": "codigo",
+      "subsection": "analizar",
       "libs": [],
       "slug": { "es": "regex", "en": "regex" }
     },
     {
       "id": "diff",
       "section": "codigo",
+      "subsection": "analizar",
       "libs": [],
       "slug": { "es": "diff", "en": "diff" }
     },
     {
       "id": "base64",
       "section": "codigo",
+      "subsection": "codificar",
       "libs": [],
       "slug": { "es": "base64", "en": "base64" }
     },
     {
       "id": "hash",
       "section": "codigo",
+      "subsection": "codificar",
       "libs": [],
       "slug": { "es": "hash", "en": "hash" }
     },
     {
       "id": "url",
       "section": "codigo",
+      "subsection": "codificar",
       "libs": [],
       "slug": { "es": "url-encode", "en": "url-encode" }
     },
     {
+      "id": "jwt",
+      "section": "codigo",
+      "subsection": "codificar",
+      "libs": [],
+      "slug": { "es": "jwt", "en": "jwt" }
+    },
+    {
+      "id": "json-a-csharp",
+      "section": "codigo",
+      "subsection": "convertir",
+      "libs": ["quicktype-core"],
+      "slug": { "es": "json-a-csharp", "en": "json-to-csharp" }
+    },
+    {
+      "id": "convertir-datos",
+      "section": "codigo",
+      "subsection": "convertir",
+      "libs": ["js-yaml", "fast-xml-parser", "smol-toml"],
+      "slug": { "es": "convertir-datos", "en": "convert-data" }
+    },
+    {
       "id": "timestamp",
       "section": "codigo",
+      "subsection": "generar",
       "libs": [],
       "slug": { "es": "timestamp", "en": "timestamp" }
     },
     {
       "id": "uuid",
       "section": "codigo",
+      "subsection": "generar",
       "libs": [],
       "slug": { "es": "uuid", "en": "uuid" }
-    },
-    {
-      "id": "convertir-datos",
-      "section": "codigo",
-      "libs": ["js-yaml", "fast-xml-parser", "smol-toml"],
-      "slug": { "es": "convertir-datos", "en": "convert-data" }
     }
   ]
 }

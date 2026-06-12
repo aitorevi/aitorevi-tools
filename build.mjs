@@ -264,13 +264,33 @@ function buildHub(lang) {
   const hub = t.hub;
   const sectionsHtml = registry.sections
     .map((section) => {
-      const cards = registry.tools.filter((x) => x.section === section.id).map((x) => hubCard(x, lang));
-      if (registry.site.soonCard && registry.site.soonCard.section === section.id) cards.push(soonCard(hub.soonCard));
+      const tools = registry.tools.filter((x) => x.section === section.id);
+      const useSubsections = tools.some((x) => x.subsection);
+
+      let innerHtml;
+      if (!useSubsections) {
+        const cards = tools.map((x) => hubCard(x, lang));
+        if (registry.site.soonCard && registry.site.soonCard.section === section.id) cards.push(soonCard(hub.soonCard));
+        innerHtml = `      <div class="tools-grid">\n${cards.join("\n\n")}\n      </div>`;
+      } else {
+        const order = [...new Set(tools.map((x) => x.subsection).filter(Boolean))];
+        innerHtml = order.map((sub) => {
+          const cards = tools.filter((x) => x.subsection === sub).map((x) => hubCard(x, lang));
+          if (registry.site.soonCard && registry.site.soonCard.section === section.id && registry.site.soonCard.subsection === sub) {
+            cards.push(soonCard(hub.soonCard));
+          }
+          return `      <div class="tools-subsection" data-subsection="${sub}">
+        <h3 class="subsection-title">${t.subsections[sub] ?? sub}</h3>
+        <div class="tools-grid">
+${cards.join("\n\n")}
+        </div>
+      </div>`;
+        }).join("\n\n");
+      }
+
       return `    <section class="tools-section" aria-labelledby="${section.anchor}">
       <h2 class="section-title" id="${section.anchor}"><span class="dot" aria-hidden="true"></span>${t.sections[section.id]}</h2>
-      <div class="tools-grid">
-${cards.join("\n\n")}
-      </div>
+${innerHtml}
     </section>`;
     })
     .join("\n\n");
