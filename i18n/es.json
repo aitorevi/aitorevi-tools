@@ -1043,15 +1043,11 @@
       },
       "ui": {
         "h1": "Conversor de timestamps",
-        "subtitle": "Pega un Unix timestamp (segundos o ms) o una fecha ISO 8601 y convierte al instante.",
+        "subtitle": "Pega un número (Unix timestamp en segundos o ms) y obtén la fecha, o pega una fecha ISO 8601 y obtén el epoch. Se detecta automáticamente.",
         "cardAria": "Herramienta para convertir Unix timestamps a fecha legible y viceversa",
         "badge": "100% en tu navegador · sin subir nada"
       },
-      "msg": {
-        "mode": "Modo",
-        "epochToHuman": "Epoch → Fecha",
-        "humanToEpoch": "Fecha → Epoch"
-      }
+      "msg": {}
     },
     "uuid": {
       "meta": {

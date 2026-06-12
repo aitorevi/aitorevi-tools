@@ -377,11 +377,7 @@ export const STRINGS = {
         }
       }
     },
-    "timestamp": {
-      "mode": "Modo",
-      "epochToHuman": "Epoch → Fecha",
-      "humanToEpoch": "Fecha → Epoch"
-    },
+    "timestamp": {},
     "uuid": {},
     "convertir-datos": {
       "convertError": "Error al convertir:",
@@ -766,11 +762,7 @@ export const STRINGS = {
         }
       }
     },
-    "timestamp": {
-      "mode": "Mode",
-      "epochToHuman": "Epoch → Date",
-      "humanToEpoch": "Date → Epoch"
-    },
+    "timestamp": {},
     "uuid": {},
     "convertir-datos": {
       "convertError": "Conversion error:",

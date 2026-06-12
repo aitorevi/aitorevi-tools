@@ -1043,15 +1043,11 @@
       },
       "ui": {
         "h1": "Timestamp converter",
-        "subtitle": "Paste a Unix timestamp (seconds or ms) or an ISO 8601 date and convert instantly.",
+        "subtitle": "Paste a number (Unix timestamp in seconds or ms) to get the date, or paste an ISO 8601 date to get the epoch. Auto-detected.",
         "cardAria": "Tool to convert Unix timestamps to human-readable dates and back",
         "badge": "100% in your browser · nothing uploaded"
       },
-      "msg": {
-        "mode": "Mode",
-        "epochToHuman": "Epoch → Date",
-        "humanToEpoch": "Date → Epoch"
-      }
+      "msg": {}
     },
     "uuid": {
       "meta": {
