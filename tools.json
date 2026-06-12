@@ -137,6 +137,12 @@
       "section": "codigo",
       "libs": [],
       "slug": { "es": "url-encode", "en": "url-encode" }
+    },
+    {
+      "id": "convertir-datos",
+      "section": "codigo",
+      "libs": ["js-yaml", "fast-xml-parser", "smol-toml"],
+      "slug": { "es": "convertir-datos", "en": "convert-data" }
     }
   ]
 }

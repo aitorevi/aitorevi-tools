@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JWT: decode and sign tokens — online, in your browser</title>
-  <meta name="description" content="Decode the header and payload of a JWT or sign test tokens with HMAC (HS256/384/512). The token never leaves your device." />
+  <title>Data converter — CSV, JSON, YAML, XML, TOML online</title>
+  <meta name="description" content="Convert between CSV, JSON, YAML, XML and TOML instantly in your browser. No server and nothing uploaded." />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="canonical" href="https://tools.aitorevi.dev/en/jwt/" />
-  <link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/jwt/" />
-  <link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/jwt/" />
-  <link rel="alternate" hreflang="x-default" href="https://tools.aitorevi.dev/jwt/" />
+  <link rel="canonical" href="https://tools.aitorevi.dev/en/convert-data/" />
+  <link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/convertir-datos/" />
+  <link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/convert-data/" />
+  <link rel="alternate" hreflang="x-default" href="https://tools.aitorevi.dev/convertir-datos/" />
   <meta name="color-scheme" content="dark light" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="aitorevi.tools" />
   <meta property="og:locale" content="en_US" />
-  <meta property="og:url" content="https://tools.aitorevi.dev/en/jwt/" />
-  <meta property="og:title" content="JWT: decode and sign tokens" />
-  <meta property="og:description" content="Decode JWTs or sign test tokens with HS256/384/512 in your browser. No server." />
+  <meta property="og:url" content="https://tools.aitorevi.dev/en/convert-data/" />
+  <meta property="og:title" content="Data converter — CSV, JSON, YAML, XML, TOML" />
+  <meta property="og:description" content="Convert between CSV, JSON, YAML, XML and TOML in your browser. No server." />
   <meta property="og:image" content="https://tools.aitorevi.dev/og.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="stylesheet" href="/fonts/fonts.css" />
@@ -27,12 +27,12 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "JWT: decode and sign",
-    "url": "https://tools.aitorevi.dev/en/jwt/",
+    "name": "Data converter",
+    "url": "https://tools.aitorevi.dev/en/convert-data/",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Web",
     "inLanguage": "en",
-    "description": "Decode or sign JSON Web Tokens in the browser, without sending anything to any server.",
+    "description": "Convert between CSV, JSON, YAML, XML and TOML in the browser, without sending anything to any server.",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
     "author": { "@type": "Person", "name": "Aitor Reviriego", "url": "https://www.aitorevi.dev" }
   }
@@ -50,9 +50,9 @@
         <span class="nav-divider" aria-hidden="true"></span>
         <div class="nav-prefs">
         <div class="lang-group" role="group" aria-label="Language">
-          <a href="/jwt/" hreflang="es" class="lang" data-lang-switch aria-label="Español">ES</a>
+          <a href="/convertir-datos/" hreflang="es" class="lang" data-lang-switch aria-label="Español">ES</a>
           <span class="sep" aria-hidden="true">|</span>
-          <a href="/en/jwt/" hreflang="en" aria-current="true" class="lang is-active" data-lang-switch aria-label="English">EN</a>
+          <a href="/en/convert-data/" hreflang="en" aria-current="true" class="lang is-active" data-lang-switch aria-label="English">EN</a>
         </div>
         <button id="theme-toggle" class="theme-toggle" type="button"
                 aria-label="Toggle light and dark theme" title="Toggle theme">
@@ -71,106 +71,60 @@
 <main class="wrap wrap-code">
     <header>
       <span class="badge"><span class="dot" aria-hidden="true"></span>100% in your browser · nothing uploaded</span>
-      <h1>JWT: decode and sign</h1>
-      <p class="subtitle">Decode the header and payload of a token, or sign it with HMAC for testing. Everything in your browser, the token never leaves your device.</p>
+      <h1>Data converter</h1>
+      <p class="subtitle">Convert between CSV, JSON, YAML, XML and TOML. Pick input and output formats and use ⇄ to reverse the conversion. Everything in your browser.</p>
     </header>
 
     <section class="card" aria-labelledby="app-title">
-      <h2 id="app-title" class="sr">Tool to decode and sign JSON Web Tokens</h2>
-      <div class="code-tool code-tool--sm jwt-tool">
+      <h2 id="app-title" class="sr">Tool to convert between data formats</h2>
+      <div class="code-tool code-tool--sm">
 
-        <!-- Selector de modo -->
-        <div class="code-controls">
+        <div class="code-controls convert-controls">
           <label class="field code-select">
-            <span class="field-label">Mode</span>
-            <select id="jwt-mode" aria-label="Mode">
-              <option value="decode">Decode</option>
-              <option value="sign">Sign (HS256/384/512)</option>
+            <span class="field-label">From</span>
+            <select id="from-format" aria-label="From">
+              <option value="csv" selected>CSV</option>
+              <option value="json">JSON</option>
+              <option value="yaml">YAML</option>
+              <option value="xml">XML</option>
+              <option value="toml">TOML</option>
+            </select>
+          </label>
+          <button type="button" id="swap-btn" class="convert-swap" aria-label="Swap conversion">⇄</button>
+          <label class="field code-select">
+            <span class="field-label">To</span>
+            <select id="to-format" aria-label="To">
+              <option value="csv">CSV</option>
+              <option value="json" selected>JSON</option>
+              <option value="yaml">YAML</option>
+              <option value="xml">XML</option>
+              <option value="toml">TOML</option>
             </select>
           </label>
         </div>
 
-        <!-- Modo decode -->
-        <div id="jwt-decode-section">
+        <div class="code-io">
           <label class="code-pane">
             <div class="code-bar">
               <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-              <span class="code-bar-label">Token</span>
+              <span class="code-bar-label" id="input-label">CSV</span>
               <span class="code-bar-actions"></span>
             </div>
-            <textarea class="code-area jwt-input" id="jwt-input" spellcheck="false"
-                      autocapitalize="off" autocomplete="off" autocorrect="off"
-                      placeholder="Paste your JWT here (eyJ…)…" aria-label="Token"></textarea>
+            <textarea class="code-area" id="input-data" spellcheck="false"
+                      aria-label="Input data"></textarea>
           </label>
-
-          <p class="code-alert" id="jwt-alert" role="alert"></p>
-          <p class="jwt-info" id="jwt-info" aria-live="polite"></p>
-
-          <div class="code-io">
-            <div class="code-pane code-pane-out">
-              <div class="code-bar">
-                <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-                <span class="code-bar-label">Header</span>
-                <span class="code-bar-actions"></span>
-              </div>
-              <textarea class="code-area code-out" id="jwt-header" readonly
-                        spellcheck="false" aria-label="Header"></textarea>
+          <div class="code-pane code-pane-out">
+            <div class="code-bar">
+              <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="code-bar-label" id="output-label">JSON</span>
+              <span class="code-bar-actions"></span>
             </div>
-            <div class="code-pane code-pane-out">
-              <div class="code-bar">
-                <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-                <span class="code-bar-label">Payload</span>
-                <span class="code-bar-actions"></span>
-              </div>
-              <textarea class="code-area code-out" id="jwt-payload" readonly
-                        spellcheck="false" aria-label="Payload"></textarea>
-            </div>
+            <textarea class="code-area code-out" id="output-data" readonly
+                      spellcheck="false" aria-label="Converted data"></textarea>
           </div>
         </div>
 
-        <!-- Modo sign -->
-        <div id="jwt-sign-section" hidden>
-          <div class="code-controls jwt-sign-controls">
-            <label class="field jwt-sign-secret">
-              <span class="field-label">Secret key</span>
-              <input type="text" id="jwt-secret" spellcheck="false" autocapitalize="off"
-                     autocomplete="off" autocorrect="off"
-                     placeholder="my-secret-key" aria-label="Secret key" />
-            </label>
-            <label class="field code-select">
-              <span class="field-label">Algorithm</span>
-              <select id="jwt-sign-alg" aria-label="Algorithm">
-                <option value="HS256">HS256</option>
-                <option value="HS384">HS384</option>
-                <option value="HS512">HS512</option>
-              </select>
-            </label>
-          </div>
-
-          <div class="code-io">
-            <label class="code-pane">
-              <div class="code-bar">
-                <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-                <span class="code-bar-label">Payload (JSON)</span>
-                <span class="code-bar-actions"></span>
-              </div>
-              <textarea class="code-area" id="jwt-sign-payload" spellcheck="false"
-                        placeholder="{"sub":"1234","name":"Alice"}" aria-label="Payload (JSON)"></textarea>
-            </label>
-            <div class="code-pane code-pane-out">
-              <div class="code-bar">
-                <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-                <span class="code-bar-label">Signed token</span>
-                <span class="code-bar-actions"></span>
-              </div>
-              <textarea class="code-area code-out" id="jwt-token-out" readonly
-                        spellcheck="false" aria-label="Signed token"></textarea>
-            </div>
-          </div>
-          <p class="code-alert" id="jwt-sign-alert" role="alert"></p>
-        </div>
-
-        <section class="tool-guide" id="jwt-guide"></section>
+        <p class="code-alert" id="convert-alert" role="alert"></p>
       </div>
     </section>
   </main>
@@ -194,6 +148,9 @@
     <p class="foot-copy">© 2026 aitorevi · tools.aitorevi.dev · <a href="/en/licenses/">Licenses</a></p>
   </footer>
 
-  <script type="module" src="/jwt/app.js"></script>
+  <script src="/vendor/js-yaml.min.js"></script>
+  <script src="/vendor/fast-xml-parser.min.js"></script>
+  <script src="/vendor/smol-toml.min.js"></script>
+  <script type="module" src="/convertir-datos/app.js"></script>
 </body>
 </html>

@@ -332,31 +332,41 @@
     },
     "jwt": {
       "meta": {
-        "title": "Decodificar JWT — inspecciona tokens online, en tu navegador",
-        "description": "Decodifica el header y el payload de un JSON Web Token (JWT) al instante en tu navegador. No verifica la firma; sólo inspecciona. El token nunca sale de tu dispositivo.",
-        "ogTitle": "Decodificar JWT — inspeccionar tokens",
-        "ogDescription": "Decodifica el header y el payload de un JWT en tu navegador. El token no se sube a ningún servidor.",
-        "jsonldName": "Decodificar JWT",
-        "jsonldDescription": "Decodifica el header y el payload de un JWT en el navegador, sin enviar el token a ningún servidor."
+        "title": "JWT: decodificar y firmar tokens — online, en tu navegador",
+        "description": "Decodifica el header y el payload de un JWT o firma tokens de prueba con HMAC (HS256/384/512). El token nunca sale de tu dispositivo.",
+        "ogTitle": "JWT: decodificar y firmar tokens",
+        "ogDescription": "Decodifica JWTs o firma tokens de prueba con HS256/384/512 en tu navegador. Sin servidor.",
+        "jsonldName": "JWT: decodificar y firmar",
+        "jsonldDescription": "Decodifica o firma JSON Web Tokens en el navegador, sin enviar nada a ningún servidor."
       },
       "card": {
-        "name": "Decodificar JWT",
-        "desc": "Inspecciona el header y el payload de un JSON Web Token sin que salga del navegador.",
+        "name": "JWT",
+        "desc": "Decodifica el header y el payload de un JWT o fírmalo con HMAC para pruebas.",
         "tags": ["Código", "Sin servidor"]
       },
       "ui": {
-        "h1": "Decodificar JWT",
-        "subtitle": "Pega un JSON Web Token para ver su header y su payload. No se verifica la firma (eso necesita la clave); el token nunca sale de tu navegador.",
-        "cardAria": "Herramienta para decodificar JSON Web Tokens",
+        "h1": "JWT: decodificar y firmar",
+        "subtitle": "Decodifica el header y el payload de un token, o fírmalo con HMAC para pruebas. Todo en tu navegador, sin que el token salga del dispositivo.",
+        "cardAria": "Herramienta para decodificar y firmar JSON Web Tokens",
+        "mode": "Modo",
+        "modeDecode": "Decodificar",
+        "modeSign": "Firmar (HS256/384/512)",
         "token": "Token",
         "tokenPlaceholder": "Pega aquí tu JWT (eyJ…)…",
         "header": "Header",
-        "payload": "Payload"
+        "payload": "Payload",
+        "signPayload": "Payload (JSON)",
+        "signPayloadPlaceholder": "{\"sub\":\"1234\",\"name\":\"Alice\"}",
+        "signSecret": "Clave secreta",
+        "signSecretPlaceholder": "mi-clave-secreta",
+        "signAlgorithm": "Algoritmo",
+        "signOutput": "Token firmado"
       },
       "msg": {
         "expired": "Expirado",
         "expires": "Expira:",
         "issued": "Emitido:",
+        "signError": "Error al firmar:",
         "guide": {
           "title": "Notas sobre JWT",
           "intro": "Un JWT tiene tres partes separadas por puntos y codificadas en Base64URL. El payload lleva los datos (claims):",
@@ -563,6 +573,34 @@
             "useDebug": "Decodificar texto con %XX: pégalo en modo decode para leerlo"
           }
         }
+      }
+    },
+    "convertir-datos": {
+      "meta": {
+        "title": "Conversor de datos — CSV, JSON, YAML, XML, TOML online",
+        "description": "Convierte entre CSV, JSON, YAML, XML y TOML al instante en tu navegador. Sin servidor y sin subir nada.",
+        "ogTitle": "Conversor de datos — CSV, JSON, YAML, XML, TOML",
+        "ogDescription": "Convierte entre CSV, JSON, YAML, XML y TOML en tu navegador. Sin servidor.",
+        "jsonldName": "Conversor de datos",
+        "jsonldDescription": "Convierte entre CSV, JSON, YAML, XML y TOML en el navegador, sin enviar nada a ningún servidor."
+      },
+      "card": {
+        "name": "Conversor de datos",
+        "desc": "Convierte entre CSV, JSON, YAML, XML y TOML con un clic. Reversible.",
+        "tags": ["Código", "Sin servidor"]
+      },
+      "ui": {
+        "h1": "Conversor de datos",
+        "subtitle": "Convierte entre CSV, JSON, YAML, XML y TOML. Elige los formatos de entrada y salida y usa ⇄ para invertir la conversión. Todo en tu navegador.",
+        "cardAria": "Herramienta para convertir entre formatos de datos",
+        "from": "De",
+        "to": "A",
+        "swap": "Invertir conversión",
+        "inputAria": "Datos de entrada",
+        "outputAria": "Datos convertidos"
+      },
+      "msg": {
+        "convertError": "Error al convertir:"
       }
     },
     "separar-pdf": {

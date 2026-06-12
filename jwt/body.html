@@ -8,39 +8,96 @@
     <section class="card" aria-labelledby="app-title">
       <h2 id="app-title" class="sr">{{t.cardAria}}</h2>
       <div class="code-tool code-tool--sm jwt-tool">
-        <label class="code-pane">
-          <div class="code-bar">
-            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="code-bar-label">{{t.token}}</span>
-            <span class="code-bar-actions"></span>
-          </div>
-          <textarea class="code-area jwt-input" id="jwt-input" spellcheck="false"
-                    autocapitalize="off" autocomplete="off" autocorrect="off"
-                    placeholder="{{t.tokenPlaceholder}}" aria-label="{{t.token}}"></textarea>
-        </label>
 
-        <p class="code-alert" id="jwt-alert" role="alert"></p>
-        <p class="jwt-info" id="jwt-info" aria-live="polite"></p>
+        <!-- Selector de modo -->
+        <div class="code-controls">
+          <label class="field code-select">
+            <span class="field-label">{{t.mode}}</span>
+            <select id="jwt-mode" aria-label="{{t.mode}}">
+              <option value="decode">{{t.modeDecode}}</option>
+              <option value="sign">{{t.modeSign}}</option>
+            </select>
+          </label>
+        </div>
 
-        <div class="code-io">
-          <div class="code-pane code-pane-out">
+        <!-- Modo decode -->
+        <div id="jwt-decode-section">
+          <label class="code-pane">
             <div class="code-bar">
               <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-              <span class="code-bar-label">{{t.header}}</span>
+              <span class="code-bar-label">{{t.token}}</span>
               <span class="code-bar-actions"></span>
             </div>
-            <textarea class="code-area code-out" id="jwt-header" readonly
-                      spellcheck="false" aria-label="{{t.header}}"></textarea>
-          </div>
-          <div class="code-pane code-pane-out">
-            <div class="code-bar">
-              <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-              <span class="code-bar-label">{{t.payload}}</span>
-              <span class="code-bar-actions"></span>
+            <textarea class="code-area jwt-input" id="jwt-input" spellcheck="false"
+                      autocapitalize="off" autocomplete="off" autocorrect="off"
+                      placeholder="{{t.tokenPlaceholder}}" aria-label="{{t.token}}"></textarea>
+          </label>
+
+          <p class="code-alert" id="jwt-alert" role="alert"></p>
+          <p class="jwt-info" id="jwt-info" aria-live="polite"></p>
+
+          <div class="code-io">
+            <div class="code-pane code-pane-out">
+              <div class="code-bar">
+                <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="code-bar-label">{{t.header}}</span>
+                <span class="code-bar-actions"></span>
+              </div>
+              <textarea class="code-area code-out" id="jwt-header" readonly
+                        spellcheck="false" aria-label="{{t.header}}"></textarea>
             </div>
-            <textarea class="code-area code-out" id="jwt-payload" readonly
-                      spellcheck="false" aria-label="{{t.payload}}"></textarea>
+            <div class="code-pane code-pane-out">
+              <div class="code-bar">
+                <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="code-bar-label">{{t.payload}}</span>
+                <span class="code-bar-actions"></span>
+              </div>
+              <textarea class="code-area code-out" id="jwt-payload" readonly
+                        spellcheck="false" aria-label="{{t.payload}}"></textarea>
+            </div>
           </div>
+        </div>
+
+        <!-- Modo sign -->
+        <div id="jwt-sign-section" hidden>
+          <div class="code-controls jwt-sign-controls">
+            <label class="field jwt-sign-secret">
+              <span class="field-label">{{t.signSecret}}</span>
+              <input type="text" id="jwt-secret" spellcheck="false" autocapitalize="off"
+                     autocomplete="off" autocorrect="off"
+                     placeholder="{{t.signSecretPlaceholder}}" aria-label="{{t.signSecret}}" />
+            </label>
+            <label class="field code-select">
+              <span class="field-label">{{t.signAlgorithm}}</span>
+              <select id="jwt-sign-alg" aria-label="{{t.signAlgorithm}}">
+                <option value="HS256">HS256</option>
+                <option value="HS384">HS384</option>
+                <option value="HS512">HS512</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="code-io">
+            <label class="code-pane">
+              <div class="code-bar">
+                <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="code-bar-label">{{t.signPayload}}</span>
+                <span class="code-bar-actions"></span>
+              </div>
+              <textarea class="code-area" id="jwt-sign-payload" spellcheck="false"
+                        placeholder="{{t.signPayloadPlaceholder}}" aria-label="{{t.signPayload}}"></textarea>
+            </label>
+            <div class="code-pane code-pane-out">
+              <div class="code-bar">
+                <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="code-bar-label">{{t.signOutput}}</span>
+                <span class="code-bar-actions"></span>
+              </div>
+              <textarea class="code-area code-out" id="jwt-token-out" readonly
+                        spellcheck="false" aria-label="{{t.signOutput}}"></textarea>
+            </div>
+          </div>
+          <p class="code-alert" id="jwt-sign-alert" role="alert"></p>
         </div>
 
         <section class="tool-guide" id="jwt-guide"></section>

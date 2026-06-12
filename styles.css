@@ -516,6 +516,19 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
 .jwt-info:empty { display: none; }
 .jwt-info b { color: rgb(var(--accent)); font-weight: 600; }
 .jwt-expired { color: rgb(var(--danger)); font-weight: 600; }
+.jwt-sign-controls { display: flex; gap: 12px; flex-wrap: wrap; }
+.jwt-sign-controls .jwt-sign-secret { flex: 1 1 18rem; }
+.jwt-sign-controls .code-select { flex: 0 0 auto; }
+.convert-controls { display: flex; align-items: flex-end; gap: 8px; flex-wrap: wrap; }
+.convert-controls .code-select { flex: 1 1 8rem; }
+.convert-swap {
+  flex: 0 0 auto; height: 2.5rem; padding: 0 14px;
+  border: 1px solid rgb(var(--border)); border-radius: 8px;
+  background: transparent; color: rgb(var(--muted)); font-size: 1.1rem;
+  cursor: pointer; transition: color .15s, border-color .15s;
+  margin-bottom: 0; align-self: flex-end;
+}
+.convert-swap:hover { color: rgb(var(--accent)); border-color: rgb(var(--accent) / 0.4); }
 
 /* Tester de regex (UI propia). */
 .regex-tool .regex-pattern { flex: 3 1 320px; }

@@ -470,9 +470,9 @@ test("jwt: ejemplo precargado → muestra header y payload → copiar", async ({
   await expect(page.locator("#jwt-payload")).toHaveValue(/"role": "admin"/);
   await expect(page.locator("#jwt-info")).toContainText("HS256");
 
-  // Botón de copiar del payload (en la barra de su panel; el último .code-copy).
-  await page.locator(".jwt-tool .code-copy").last().click();
-  await expect(page.locator(".jwt-tool .code-copy").last()).toContainText("¡Copiado!");
+  // Botón de copiar del payload (en la barra de su panel, dentro del decode section).
+  await page.locator("#jwt-decode-section .code-copy").last().click();
+  await expect(page.locator("#jwt-decode-section .code-copy").last()).toContainText("¡Copiado!");
 
   // Notas de JWT (guía) renderizadas debajo.
   await expect(page.locator("#jwt-guide .tool-guide-title")).toBeVisible();
@@ -550,6 +550,56 @@ test("hash: muestra el SHA-256 y cambia con el algoritmo", async ({ page }) => {
 test("url: codifica el ejemplo (percent-encoding)", async ({ page }) => {
   await page.goto("/url-encode/");
   await expect(page.locator(".code-out")).toHaveValue(/%20|%26/);
+});
+
+// --- Código: JWT firmar ---
+
+test("jwt: modo sign → firma el payload de muestra con HS256", async ({ page }) => {
+  await page.goto("/jwt/");
+  await page.selectOption("#jwt-mode", "sign");
+  await expect(page.locator("#jwt-sign-section")).toBeVisible();
+  await expect(page.locator("#jwt-decode-section")).toBeHidden();
+  // El payload y secreto de muestra producen un token válido (3 partes)
+  await expect(page.locator("#jwt-token-out")).toHaveValue(/^eyJ[\w-]+\.[\w-]+\.[\w-]+$/);
+});
+
+test("jwt: modo sign → cambiar algoritmo produce token diferente", async ({ page }) => {
+  await page.goto("/jwt/");
+  await page.selectOption("#jwt-mode", "sign");
+  const t256 = await page.locator("#jwt-token-out").inputValue();
+  await page.selectOption("#jwt-sign-alg", "HS512");
+  const t512 = await page.locator("#jwt-token-out").inputValue();
+  expect(t256).not.toBe(t512);
+});
+
+// --- Código: Conversor de datos ---
+
+test("convertir-datos: CSV precargado se convierte a JSON automáticamente", async ({ page }) => {
+  await page.goto("/convertir-datos/");
+  const output = page.locator("#output-data");
+  await expect(output).toHaveValue(/Alice/);
+  await expect(output).toHaveValue(/Madrid/);
+  const json = JSON.parse(await output.inputValue());
+  expect(json).toHaveLength(2);
+});
+
+test("convertir-datos: botón ⇄ invierte la conversión", async ({ page }) => {
+  await page.goto("/convertir-datos/");
+  const from = page.locator("#from-format");
+  const to   = page.locator("#to-format");
+  await expect(from).toHaveValue("csv");
+  await expect(to).toHaveValue("json");
+  await page.click("#swap-btn");
+  await expect(from).toHaveValue("json");
+  await expect(to).toHaveValue("csv");
+  // La salida ahora es CSV
+  await expect(page.locator("#output-data")).toHaveValue(/name,age,city/);
+});
+
+test("convertir-datos: CSV → YAML produce YAML válido", async ({ page }) => {
+  await page.goto("/convertir-datos/");
+  await page.selectOption("#to-format", "yaml");
+  await expect(page.locator("#output-data")).toHaveValue(/name: Alice/);
 });
 
 test("código: el toggle de word-wrap aplica .is-wrapped con los defaults correctos", async ({ page }) => {

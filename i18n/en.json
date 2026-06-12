@@ -332,31 +332,41 @@
     },
     "jwt": {
       "meta": {
-        "title": "Decode JWT — inspect tokens online, in your browser",
-        "description": "Decode the header and payload of a JSON Web Token (JWT) instantly in your browser. It does not verify the signature; it only inspects. The token never leaves your device.",
-        "ogTitle": "Decode JWT — inspect tokens",
-        "ogDescription": "Decode the header and payload of a JWT in your browser. The token is not uploaded to any server.",
-        "jsonldName": "Decode JWT",
-        "jsonldDescription": "Decode the header and payload of a JWT in the browser, without sending the token to any server."
+        "title": "JWT: decode and sign tokens — online, in your browser",
+        "description": "Decode the header and payload of a JWT or sign test tokens with HMAC (HS256/384/512). The token never leaves your device.",
+        "ogTitle": "JWT: decode and sign tokens",
+        "ogDescription": "Decode JWTs or sign test tokens with HS256/384/512 in your browser. No server.",
+        "jsonldName": "JWT: decode and sign",
+        "jsonldDescription": "Decode or sign JSON Web Tokens in the browser, without sending anything to any server."
       },
       "card": {
-        "name": "Decode JWT",
-        "desc": "Inspect the header and payload of a JSON Web Token without it leaving the browser.",
+        "name": "JWT",
+        "desc": "Decode the header and payload of a JWT or sign it with HMAC for testing.",
         "tags": ["Code", "No server"]
       },
       "ui": {
-        "h1": "Decode JWT",
-        "subtitle": "Paste a JSON Web Token to see its header and payload. The signature is not verified (that needs the key); the token never leaves your browser.",
-        "cardAria": "Tool to decode JSON Web Tokens",
+        "h1": "JWT: decode and sign",
+        "subtitle": "Decode the header and payload of a token, or sign it with HMAC for testing. Everything in your browser, the token never leaves your device.",
+        "cardAria": "Tool to decode and sign JSON Web Tokens",
+        "mode": "Mode",
+        "modeDecode": "Decode",
+        "modeSign": "Sign (HS256/384/512)",
         "token": "Token",
         "tokenPlaceholder": "Paste your JWT here (eyJ…)…",
         "header": "Header",
-        "payload": "Payload"
+        "payload": "Payload",
+        "signPayload": "Payload (JSON)",
+        "signPayloadPlaceholder": "{\"sub\":\"1234\",\"name\":\"Alice\"}",
+        "signSecret": "Secret key",
+        "signSecretPlaceholder": "my-secret-key",
+        "signAlgorithm": "Algorithm",
+        "signOutput": "Signed token"
       },
       "msg": {
         "expired": "Expired",
         "expires": "Expires:",
         "issued": "Issued:",
+        "signError": "Signing error:",
         "guide": {
           "title": "JWT notes",
           "intro": "A JWT has three dot-separated parts encoded in Base64URL. The payload carries the data (claims):",
@@ -563,6 +573,34 @@
             "useDebug": "Decode %XX text: paste it in decode mode to read it"
           }
         }
+      }
+    },
+    "convertir-datos": {
+      "meta": {
+        "title": "Data converter — CSV, JSON, YAML, XML, TOML online",
+        "description": "Convert between CSV, JSON, YAML, XML and TOML instantly in your browser. No server and nothing uploaded.",
+        "ogTitle": "Data converter — CSV, JSON, YAML, XML, TOML",
+        "ogDescription": "Convert between CSV, JSON, YAML, XML and TOML in your browser. No server.",
+        "jsonldName": "Data converter",
+        "jsonldDescription": "Convert between CSV, JSON, YAML, XML and TOML in the browser, without sending anything to any server."
+      },
+      "card": {
+        "name": "Data converter",
+        "desc": "Convert between CSV, JSON, YAML, XML and TOML in one click. Reversible.",
+        "tags": ["Code", "No server"]
+      },
+      "ui": {
+        "h1": "Data converter",
+        "subtitle": "Convert between CSV, JSON, YAML, XML and TOML. Pick input and output formats and use ⇄ to reverse the conversion. Everything in your browser.",
+        "cardAria": "Tool to convert between data formats",
+        "from": "From",
+        "to": "To",
+        "swap": "Swap conversion",
+        "inputAria": "Input data",
+        "outputAria": "Converted data"
+      },
+      "msg": {
+        "convertError": "Conversion error:"
       }
     },
     "separar-pdf": {

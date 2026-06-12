@@ -62,6 +62,8 @@ function scripts(tool) {
   if (hasLib(tool, "js-beautify")) lines.push('  <script src="/vendor/js-beautify.min.js"></script>');
   if (hasLib(tool, "quicktype-core")) lines.push('  <script src="/vendor/quicktype-core.min.js"></script>');
   if (hasLib(tool, "prettier")) lines.push('  <script src="/vendor/prettier.min.js"></script>');
+  if (hasLib(tool, "fast-xml-parser")) lines.push('  <script src="/vendor/fast-xml-parser.min.js"></script>');
+  if (hasLib(tool, "smol-toml")) lines.push('  <script src="/vendor/smol-toml.min.js"></script>');
   lines.push(`  <script type="module" src="/${tool.id}/app.js"></script>`);
   return lines.join("\n");
 }

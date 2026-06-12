@@ -1,0 +1,60 @@
+<main class="wrap wrap-code">
+    <header>
+      <span class="badge"><span class="dot" aria-hidden="true"></span>{{t.badge}}</span>
+      <h1>{{t.h1}}</h1>
+      <p class="subtitle">{{t.subtitle}}</p>
+    </header>
+
+    <section class="card" aria-labelledby="app-title">
+      <h2 id="app-title" class="sr">{{t.cardAria}}</h2>
+      <div class="code-tool code-tool--sm">
+
+        <div class="code-controls convert-controls">
+          <label class="field code-select">
+            <span class="field-label">{{t.from}}</span>
+            <select id="from-format" aria-label="{{t.from}}">
+              <option value="csv" selected>CSV</option>
+              <option value="json">JSON</option>
+              <option value="yaml">YAML</option>
+              <option value="xml">XML</option>
+              <option value="toml">TOML</option>
+            </select>
+          </label>
+          <button type="button" id="swap-btn" class="convert-swap" aria-label="{{t.swap}}">⇄</button>
+          <label class="field code-select">
+            <span class="field-label">{{t.to}}</span>
+            <select id="to-format" aria-label="{{t.to}}">
+              <option value="csv">CSV</option>
+              <option value="json" selected>JSON</option>
+              <option value="yaml">YAML</option>
+              <option value="xml">XML</option>
+              <option value="toml">TOML</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="code-io">
+          <label class="code-pane">
+            <div class="code-bar">
+              <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="code-bar-label" id="input-label">CSV</span>
+              <span class="code-bar-actions"></span>
+            </div>
+            <textarea class="code-area" id="input-data" spellcheck="false"
+                      aria-label="{{t.inputAria}}"></textarea>
+          </label>
+          <div class="code-pane code-pane-out">
+            <div class="code-bar">
+              <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="code-bar-label" id="output-label">JSON</span>
+              <span class="code-bar-actions"></span>
+            </div>
+            <textarea class="code-area code-out" id="output-data" readonly
+                      spellcheck="false" aria-label="{{t.outputAria}}"></textarea>
+          </div>
+        </div>
+
+        <p class="code-alert" id="convert-alert" role="alert"></p>
+      </div>
+    </section>
+  </main>

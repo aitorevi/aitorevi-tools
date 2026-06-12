@@ -273,6 +273,7 @@ export const STRINGS = {
       "expired": "Expirado",
       "expires": "Expira:",
       "issued": "Emitido:",
+      "signError": "Error al firmar:",
       "guide": {
         "title": "Notas sobre JWT",
         "intro": "Un JWT tiene tres partes separadas por puntos y codificadas en Base64URL. El payload lleva los datos (claims):",
@@ -375,6 +376,9 @@ export const STRINGS = {
           "useDebug": "Decodificar texto con %XX: pégalo en modo decode para leerlo"
         }
       }
+    },
+    "convertir-datos": {
+      "convertError": "Error al convertir:"
     }
   },
   "en": {
@@ -650,6 +654,7 @@ export const STRINGS = {
       "expired": "Expired",
       "expires": "Expires:",
       "issued": "Issued:",
+      "signError": "Signing error:",
       "guide": {
         "title": "JWT notes",
         "intro": "A JWT has three dot-separated parts encoded in Base64URL. The payload carries the data (claims):",
@@ -752,6 +757,9 @@ export const STRINGS = {
           "useDebug": "Decode %XX text: paste it in decode mode to read it"
         }
       }
+    },
+    "convertir-datos": {
+      "convertError": "Conversion error:"
     }
   }
 };
