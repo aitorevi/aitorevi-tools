@@ -61,6 +61,17 @@ describe("JSON → TOML → JSON ida y vuelta", () => {
     expect(back.title).toBe("Test");
     expect(back.count).toBe(3);
   });
+
+  it("array de objetos se envuelve en items", () => {
+    const arr = [{ name: "Alice" }, { name: "Bob" }];
+    const toml = convert(JSON.stringify(arr), "json", "toml", libs);
+    expect(toml).toContain("[[items]]");
+    expect(toml).toContain('name = "Alice"');
+  });
+
+  it("CSV → TOML no lanza error", () => {
+    expect(() => convert(SAMPLE_CSV, "csv", "toml", libs)).not.toThrow();
+  });
 });
 
 describe("mismo formato (no-op)", () => {

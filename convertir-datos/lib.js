@@ -86,16 +86,21 @@ function parseXML(text, libs) {
 
 function stringifyXML(data, libs) {
   const builder = new libs.xml.XMLBuilder(XML_BUILDER_OPTS);
-  // Si no hay un nodo raíz único, envuelve en <root>
-  const keys = Object.keys(data);
-  const wrapped = keys.length === 1 ? data : { root: data };
+  let normalized = Array.isArray(data) ? { items: { item: data } } : data;
+  const keys = Object.keys(normalized);
+  const wrapped = keys.length === 1 ? normalized : { root: normalized };
   return `<?xml version="1.0" encoding="UTF-8"?>\n${builder.build(wrapped)}`;
 }
 
 // ── TOML ───────────────────────────────────────────────────────────────────
 
 function parseTOML(text, libs) { return libs.toml.parse(text); }
-function stringifyTOML(data, libs) { return libs.toml.stringify(data); }
+function stringifyTOML(data, libs) {
+  // TOML only supports objects at the root level, not arrays.
+  // Arrays are wrapped as { items: [...] } → rendered as [[items]] tables.
+  const obj = Array.isArray(data) ? { items: data } : data;
+  return libs.toml.stringify(obj);
+}
 
 // ── Conversor principal ────────────────────────────────────────────────────
 
