@@ -4,6 +4,31 @@
 
 export const FORMATS = ['csv', 'json', 'yaml', 'xml', 'toml'];
 
+// ── Helpers ────────────────────────────────────────────────────────────────
+
+// Extracts a flat array from any intermediate value so CSV can serialize it.
+// Handles: raw arrays, XML-wrapped objects ({ root: { item: [...] } }),
+// plain objects (wrapped as single-row array).
+function toArray(data) {
+  if (Array.isArray(data)) return data;
+  if (data === null || typeof data !== 'object') return [{ value: data }];
+  // Strip XML processing-instruction keys (e.g. '?xml')
+  const keys = Object.keys(data).filter(k => !k.startsWith('?'));
+  if (keys.length === 0) return [];
+  if (keys.length === 1) {
+    const inner = data[keys[0]];
+    if (Array.isArray(inner)) return inner;
+    if (inner && typeof inner === 'object') {
+      const innerKeys = Object.keys(inner).filter(k => !k.startsWith('?'));
+      if (innerKeys.length === 1 && Array.isArray(inner[innerKeys[0]])) {
+        return inner[innerKeys[0]];
+      }
+      return [inner];
+    }
+  }
+  return [data];
+}
+
 // ── CSV ────────────────────────────────────────────────────────────────────
 
 function parseCSV(text) {
@@ -36,16 +61,17 @@ function parseCSV(text) {
 }
 
 function stringifyCSV(data) {
-  if (!Array.isArray(data) || data.length === 0) return '';
+  const rows = toArray(data);
+  if (rows.length === 0) return '';
   const escape = v => {
     const s = v == null ? '' : String(v);
     return s.includes(',') || s.includes('"') || s.includes('\n')
       ? `"${s.replace(/"/g, '""')}"`
       : s;
   };
-  const keys = Object.keys(data[0]);
+  const keys = Object.keys(rows[0]);
   const lines = [keys.map(escape).join(',')];
-  for (const row of data) lines.push(keys.map(k => escape(row[k])).join(','));
+  for (const row of rows) lines.push(keys.map(k => escape(row[k])).join(','));
   return lines.join('\n');
 }
 

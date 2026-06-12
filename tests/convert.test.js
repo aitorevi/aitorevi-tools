@@ -52,6 +52,17 @@ describe("JSON → XML → JSON ida y vuelta", () => {
   });
 });
 
+describe("CSV → XML → CSV ida y vuelta", () => {
+  it("recupera los datos originales", () => {
+    const xml = convert(SAMPLE_CSV, "csv", "xml", libs);
+    expect(xml).toContain("<name>Alice</name>");
+    const csv = convert(xml, "xml", "csv", libs);
+    expect(csv).toContain("name,age,city");
+    expect(csv).toContain("Alice");
+    expect(csv).toContain("Barcelona");
+  });
+});
+
 describe("JSON → TOML → JSON ida y vuelta", () => {
   it("objeto plano", () => {
     const obj = { title: "Test", count: 3 };
