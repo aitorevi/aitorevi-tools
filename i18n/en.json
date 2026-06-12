@@ -6,9 +6,18 @@
     "moveUp": "Move up",
     "moveDown": "Move down",
     "remove": "Remove",
-    "pages": { "one": "page", "many": "pages" },
-    "files": { "one": "file", "many": "files" },
-    "images": { "one": "image", "many": "images" },
+    "pages": {
+      "one": "page",
+      "many": "pages"
+    },
+    "files": {
+      "one": "file",
+      "many": "files"
+    },
+    "images": {
+      "one": "image",
+      "many": "images"
+    },
     "navWeb": "Work",
     "navWebHref": "https://www.aitorevi.dev/en/",
     "navBlog": "Blog",
@@ -49,9 +58,16 @@
       "name": "More tools",
       "desc": "I'm preparing new mini-utilities focused on privacy and speed. Check back soon.",
       "cta": "Coming soon"
-    }
+    },
+    "searchPlaceholder": "Search tool…",
+    "searchLabel": "Search tools",
+    "searchEmpty": "No tools match your search."
   },
-  "sections": { "pdf": "PDF", "imagen": "Images", "codigo": "Code" },
+  "sections": {
+    "pdf": "PDF",
+    "imagen": "Images",
+    "codigo": "Code"
+  },
   "licenses": {
     "slug": "licenses",
     "title": "Licenses — aitorevi.tools",
@@ -87,7 +103,10 @@
       "card": {
         "name": "Format JSON",
         "desc": "Beautify or minify JSON and validate the syntax instantly.",
-        "tags": ["Code", "No server"]
+        "tags": [
+          "Code",
+          "No server"
+        ]
       },
       "ui": {
         "h1": "Format JSON",
@@ -98,7 +117,10 @@
         "guide": {
           "title": "JSON rules",
           "intro": "JSON represents data with these types and rules. Most errors come from breaking them:",
-          "groups": { "types": "Data types", "rules": "Rules and common mistakes" },
+          "groups": {
+            "types": "Data types",
+            "rules": "Rules and common mistakes"
+          },
           "desc": {
             "strType": "Text, always in double quotes",
             "numType": "Number (integer or decimal), no quotes",
@@ -126,7 +148,10 @@
       "card": {
         "name": "Format XML",
         "desc": "Beautify or minify XML and validate tag nesting instantly.",
-        "tags": ["Code", "No server"]
+        "tags": [
+          "Code",
+          "No server"
+        ]
       },
       "ui": {
         "h1": "Format XML",
@@ -137,7 +162,10 @@
         "guide": {
           "title": "XML notes",
           "intro": "XML nests well-formed elements: every opening tag has its closing tag. Constructs:",
-          "groups": { "structure": "Structure", "special": "Special" },
+          "groups": {
+            "structure": "Structure",
+            "special": "Special"
+          },
           "desc": {
             "openTag": "Opens an element",
             "closeTag": "Closes the element (same name)",
@@ -163,7 +191,10 @@
       "card": {
         "name": "Format SQL",
         "desc": "Beautify SQL queries with indentation and uppercase keywords. Multi-dialect.",
-        "tags": ["Code", "No server"]
+        "tags": [
+          "Code",
+          "No server"
+        ]
       },
       "ui": {
         "h1": "Format SQL",
@@ -174,7 +205,10 @@
         "guide": {
           "title": "SQL dialects and notes",
           "intro": "Pick the dialect you use so the formatting respects its syntax.",
-          "groups": { "dialects": "Dialects", "notes": "Notes" },
+          "groups": {
+            "dialects": "Dialects",
+            "notes": "Notes"
+          },
           "desc": {
             "std": "Generic standard (ANSI)",
             "mysql": "MySQL and MariaDB",
@@ -202,7 +236,10 @@
       "card": {
         "name": "Format YAML",
         "desc": "Normalize and validate YAML to block style with 2-space indent.",
-        "tags": ["Code", "No server"]
+        "tags": [
+          "Code",
+          "No server"
+        ]
       },
       "ui": {
         "h1": "Format YAML",
@@ -213,7 +250,10 @@
         "guide": {
           "title": "YAML notes",
           "intro": "YAML nests with space indentation (never tabs). Building blocks and common gotchas:",
-          "groups": { "structure": "Structure", "gotchas": "Common gotchas" },
+          "groups": {
+            "structure": "Structure",
+            "gotchas": "Common gotchas"
+          },
           "desc": {
             "pair": "Separates the key from the value (key: value)",
             "listItem": "A list item",
@@ -240,7 +280,10 @@
       "card": {
         "name": "Format HTML/CSS",
         "desc": "Beautify HTML and CSS with 2-space indent. Auto-detects the language.",
-        "tags": ["Code", "No server"]
+        "tags": [
+          "Code",
+          "No server"
+        ]
       },
       "ui": {
         "h1": "Format HTML / CSS",
@@ -302,7 +345,10 @@
       "card": {
         "name": "Format JS / TS",
         "desc": "Beautify JavaScript and TypeScript with Prettier, the standard formatter.",
-        "tags": ["Code", "No server"]
+        "tags": [
+          "Code",
+          "No server"
+        ]
       },
       "ui": {
         "h1": "Format JavaScript / TypeScript",
@@ -322,7 +368,10 @@
       "card": {
         "name": "JSON to C# / TypeScript",
         "desc": "Generate C# classes or TypeScript interfaces from JSON, with type inference.",
-        "tags": ["Code", "No server"]
+        "tags": [
+          "Code",
+          "No server"
+        ]
       },
       "ui": {
         "h1": "JSON to C# / TypeScript",
@@ -342,7 +391,10 @@
       "card": {
         "name": "JWT",
         "desc": "Decode the header and payload of a JWT or sign it with HMAC for testing.",
-        "tags": ["Code", "No server"]
+        "tags": [
+          "Code",
+          "No server"
+        ]
       },
       "ui": {
         "h1": "JWT: decode and sign",
@@ -410,7 +462,10 @@
       "card": {
         "name": "Regex tester",
         "desc": "Test regular expressions and highlight matches live, with flags.",
-        "tags": ["Code", "No server"]
+        "tags": [
+          "Code",
+          "No server"
+        ]
       },
       "ui": {
         "h1": "Regex tester",
@@ -422,7 +477,10 @@
         "testText": "Test text"
       },
       "msg": {
-        "matchesCount": { "one": "{n} match", "many": "{n} matches" },
+        "matchesCount": {
+          "one": "{n} match",
+          "many": "{n} matches"
+        },
         "guide": {
           "title": "Quick regex guide",
           "intro": "A regular expression describes a text pattern by combining these building blocks:",
@@ -477,7 +535,10 @@
       "card": {
         "name": "Text diff",
         "desc": "Compare two texts line by line and highlight what was added and removed.",
-        "tags": ["Code", "No server"]
+        "tags": [
+          "Code",
+          "No server"
+        ]
       },
       "ui": {
         "h1": "Text diff",
@@ -503,7 +564,10 @@
       "card": {
         "name": "Base64",
         "desc": "Encode text to Base64 and decode back, with UTF-8.",
-        "tags": ["Code", "No server"]
+        "tags": [
+          "Code",
+          "No server"
+        ]
       },
       "ui": {
         "h1": "Base64",
@@ -523,7 +587,10 @@
       "card": {
         "name": "Hash generator",
         "desc": "Compute SHA-256, SHA-1, SHA-384 or SHA-512 of a text.",
-        "tags": ["Code", "No server"]
+        "tags": [
+          "Code",
+          "No server"
+        ]
       },
       "ui": {
         "h1": "Hash generator",
@@ -543,7 +610,10 @@
       "card": {
         "name": "URL encode",
         "desc": "Encode and decode text for URLs (percent-encoding).",
-        "tags": ["Code", "No server"]
+        "tags": [
+          "Code",
+          "No server"
+        ]
       },
       "ui": {
         "h1": "URL encode / decode",
@@ -587,7 +657,10 @@
       "card": {
         "name": "Data converter",
         "desc": "Convert between CSV, JSON, YAML, XML and TOML in one click. Reversible.",
-        "tags": ["Code", "No server"]
+        "tags": [
+          "Code",
+          "No server"
+        ]
       },
       "ui": {
         "h1": "Data converter",
@@ -600,7 +673,9 @@
         "outputAria": "Converted data"
       },
       "msg": {
-        "convertError": "Conversion error:"
+        "convertError": "Conversion error:",
+        "warnWrap": "Arrays have been wrapped in an `items` key (TOML/XML do not support a root-level array)",
+        "warnYamlCoerce": "YAML may change data types: '30' (string) → 30 (number). Check the result."
       }
     },
     "separar-pdf": {
@@ -615,7 +690,10 @@
       "card": {
         "name": "Split PDF",
         "desc": "Split any PDF into single pages and download them one by one or all together in a ZIP.",
-        "tags": ["PDF", "No server"]
+        "tags": [
+          "PDF",
+          "No server"
+        ]
       },
       "ui": {
         "h1": "Split PDF",
@@ -633,8 +711,14 @@
         "individualBtn": "Download one by one"
       },
       "msg": {
-        "pages": { "one": "page", "many": "pages" },
-        "selected": { "one": "selected", "many": "selected" },
+        "pages": {
+          "one": "page",
+          "many": "pages"
+        },
+        "selected": {
+          "one": "selected",
+          "many": "selected"
+        },
         "pageTag": "page",
         "notPdf": "That file doesn't look like a PDF. Try another one.",
         "reading": "Reading the PDF…",
@@ -665,7 +749,10 @@
       "card": {
         "name": "Merge PDF",
         "desc": "Combine several PDFs into a single document. Reorder them as you like before downloading.",
-        "tags": ["PDF", "No server"]
+        "tags": [
+          "PDF",
+          "No server"
+        ]
       },
       "ui": {
         "h1": "Merge PDF",
@@ -699,7 +786,10 @@
       "card": {
         "name": "Image to PDF",
         "desc": "Convert your JPG or PNG images into a PDF. Reorder them before downloading.",
-        "tags": ["PDF", "Images"]
+        "tags": [
+          "PDF",
+          "Images"
+        ]
       },
       "ui": {
         "h1": "Image to PDF",
@@ -731,7 +821,10 @@
       "card": {
         "name": "PDF watermark",
         "desc": "Add diagonal text to every page of a PDF, with adjustable opacity and size.",
-        "tags": ["PDF", "No server"]
+        "tags": [
+          "PDF",
+          "No server"
+        ]
       },
       "ui": {
         "h1": "PDF watermark",
@@ -770,7 +863,10 @@
       "card": {
         "name": "Pages per sheet",
         "desc": "Place 2, 4, 6 or 9 pages from one or more PDFs on each A4 sheet to print and save paper.",
-        "tags": ["PDF", "Print"]
+        "tags": [
+          "PDF",
+          "Print"
+        ]
       },
       "ui": {
         "h1": "Pages per sheet",
@@ -795,7 +891,10 @@
         "arranging": "Rearranging the pages…",
         "arrangedOk": "PDF with {per} per sheet ({sheets} {sheetsWord}) downloaded.",
         "arrangeError": "Couldn't rearrange the PDF.",
-        "sheets": { "one": "sheet", "many": "sheets" }
+        "sheets": {
+          "one": "sheet",
+          "many": "sheets"
+        }
       }
     },
     "comprimir-imagen": {
@@ -810,7 +909,10 @@
       "card": {
         "name": "Compress image",
         "desc": "Reduce the size of your images by adjusting quality and size, without them leaving your browser.",
-        "tags": ["Images", "No server"]
+        "tags": [
+          "Images",
+          "No server"
+        ]
       },
       "ui": {
         "h1": "Compress image",
@@ -854,7 +956,10 @@
       "card": {
         "name": "Convert image",
         "desc": "Convert between PNG, JPG and WebP, choosing the output format and quality.",
-        "tags": ["Images", "No server"]
+        "tags": [
+          "Images",
+          "No server"
+        ]
       },
       "ui": {
         "h1": "Convert image",
@@ -892,7 +997,10 @@
       "card": {
         "name": "Remove metadata",
         "desc": "Remove EXIF, GPS location and camera data from your photos, without losing quality.",
-        "tags": ["Images", "Privacy"]
+        "tags": [
+          "Images",
+          "Privacy"
+        ]
       },
       "ui": {
         "h1": "Remove image metadata",
@@ -915,6 +1023,63 @@
         "noneFound": "Downloaded. No metadata found to remove.",
         "processError": "Couldn't process the image."
       }
+    },
+    "timestamp": {
+      "meta": {
+        "title": "Timestamp converter — epoch ↔ human-readable date, in your browser",
+        "description": "Convert Unix timestamps to human-readable dates (ISO 8601, local, UTC) and back. No server, no logs.",
+        "ogTitle": "Timestamp converter — epoch ↔ date",
+        "ogDescription": "Convert Unix timestamps to human-readable dates in your browser. Free and nothing uploaded.",
+        "jsonldName": "Timestamp converter",
+        "jsonldDescription": "Convert Unix timestamps to human-readable dates and back in the browser."
+      },
+      "card": {
+        "name": "Timestamp converter",
+        "desc": "Epoch ↔ human-readable date (ISO 8601, local, UTC). Auto-detects seconds or milliseconds.",
+        "tags": [
+          "Code",
+          "No server"
+        ]
+      },
+      "ui": {
+        "h1": "Timestamp converter",
+        "subtitle": "Paste a Unix timestamp (seconds or ms) or an ISO 8601 date and convert instantly.",
+        "cardAria": "Tool to convert Unix timestamps to human-readable dates and back",
+        "badge": "100% in your browser · nothing uploaded"
+      },
+      "msg": {
+        "mode": "Mode",
+        "epochToHuman": "Epoch → Date",
+        "humanToEpoch": "Date → Epoch"
+      }
+    },
+    "uuid": {
+      "meta": {
+        "title": "UUID generator — v4, in your browser",
+        "description": "Generate one or multiple v4 UUIDs instantly in your browser. No server, no logs, no network.",
+        "ogTitle": "UUID v4 generator",
+        "ogDescription": "Generate v4 UUIDs in your browser. Free and nothing uploaded.",
+        "jsonldName": "UUID generator",
+        "jsonldDescription": "Generate v4 UUIDs in the browser without sending anything to a server."
+      },
+      "card": {
+        "name": "UUID generator",
+        "desc": "Generate v4 UUIDs with Web Crypto. No network, no traces.",
+        "tags": [
+          "Code",
+          "No server"
+        ]
+      },
+      "ui": {
+        "h1": "UUID generator",
+        "subtitle": "Generate one or multiple v4 UUIDs instantly. Everything happens in your browser, nothing sent.",
+        "cardAria": "Tool to generate v4 UUIDs",
+        "badge": "100% in your browser · nothing uploaded",
+        "count": "Count",
+        "regenerate": "Regenerate",
+        "outputAria": "Generated UUIDs"
+      },
+      "msg": {}
     }
   }
 }

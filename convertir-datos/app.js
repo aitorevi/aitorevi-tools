@@ -43,13 +43,27 @@ import { createWrapToggle } from "../lib/wrap-toggle.js";
     if (outputLabel) outputLabel.textContent = FMT_LABEL[to]   || to;
   }
 
+  function getWarning(from, to, inputText) {
+    if (to === 'toml' || to === 'xml') {
+      if (from === 'csv' || inputText.trimStart().startsWith('[')) return 'warnWrap';
+    }
+    if (from === 'yaml' && to !== 'yaml') return 'warnYamlCoerce';
+    return null;
+  }
+
   function render() {
     alertEl.textContent = "";
+    alertEl.classList.remove("code-alert--warn");
     outputEl.value = "";
     const text = inputEl.value;
     if (!text.trim()) { syncCopy(); return; }
     try {
       outputEl.value = convert(text, fromSel.value, toSel.value, libs);
+      const warnKey = getWarning(fromSel.value, toSel.value, text);
+      if (warnKey) {
+        alertEl.classList.add("code-alert--warn");
+        alertEl.textContent = M[warnKey] ?? warnKey;
+      }
     } catch (e) {
       alertEl.textContent = `${M.convertError} ${(e && e.message) || e}`;
     }

@@ -6,9 +6,18 @@
     "moveUp": "Subir",
     "moveDown": "Bajar",
     "remove": "Quitar",
-    "pages": { "one": "página", "many": "páginas" },
-    "files": { "one": "archivo", "many": "archivos" },
-    "images": { "one": "imagen", "many": "imágenes" },
+    "pages": {
+      "one": "página",
+      "many": "páginas"
+    },
+    "files": {
+      "one": "archivo",
+      "many": "archivos"
+    },
+    "images": {
+      "one": "imagen",
+      "many": "imágenes"
+    },
     "navWeb": "Web",
     "navWebHref": "https://www.aitorevi.dev/",
     "navBlog": "Blog",
@@ -49,9 +58,16 @@
       "name": "Más herramientas",
       "desc": "Estoy preparando nuevas mini-utilidades centradas en privacidad y velocidad. Vuelve pronto.",
       "cta": "Próximamente"
-    }
+    },
+    "searchPlaceholder": "Buscar herramienta…",
+    "searchLabel": "Buscar en las herramientas",
+    "searchEmpty": "Ninguna herramienta coincide con la búsqueda."
   },
-  "sections": { "pdf": "PDF", "imagen": "Imágenes", "codigo": "Código" },
+  "sections": {
+    "pdf": "PDF",
+    "imagen": "Imágenes",
+    "codigo": "Código"
+  },
   "licenses": {
     "slug": "licencias",
     "title": "Licencias — aitorevi.tools",
@@ -87,7 +103,10 @@
       "card": {
         "name": "Formatear JSON",
         "desc": "Embellece o minifica JSON y valida la sintaxis al instante.",
-        "tags": ["Código", "Sin servidor"]
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
       },
       "ui": {
         "h1": "Formatear JSON",
@@ -98,7 +117,10 @@
         "guide": {
           "title": "Reglas de JSON",
           "intro": "JSON representa datos con estos tipos y reglas. La mayoría de errores vienen de saltárselas:",
-          "groups": { "types": "Tipos de dato", "rules": "Reglas y errores típicos" },
+          "groups": {
+            "types": "Tipos de dato",
+            "rules": "Reglas y errores típicos"
+          },
           "desc": {
             "strType": "Texto, siempre entre comillas dobles",
             "numType": "Número (entero o decimal), sin comillas",
@@ -126,7 +148,10 @@
       "card": {
         "name": "Formatear XML",
         "desc": "Embellece o minifica XML y valida el anidamiento de etiquetas al instante.",
-        "tags": ["Código", "Sin servidor"]
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
       },
       "ui": {
         "h1": "Formatear XML",
@@ -137,7 +162,10 @@
         "guide": {
           "title": "Notas sobre XML",
           "intro": "El XML anida elementos bien formados: cada apertura tiene su cierre. Construcciones:",
-          "groups": { "structure": "Estructura", "special": "Especiales" },
+          "groups": {
+            "structure": "Estructura",
+            "special": "Especiales"
+          },
           "desc": {
             "openTag": "Abre un elemento",
             "closeTag": "Cierra el elemento (mismo nombre)",
@@ -163,7 +191,10 @@
       "card": {
         "name": "Formatear SQL",
         "desc": "Embellece consultas SQL con sangría y palabras clave en mayúscula. Multi-dialecto.",
-        "tags": ["Código", "Sin servidor"]
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
       },
       "ui": {
         "h1": "Formatear SQL",
@@ -174,7 +205,10 @@
         "guide": {
           "title": "Dialectos y notas de SQL",
           "intro": "Elige el dialecto que uses para que el formato respete su sintaxis.",
-          "groups": { "dialects": "Dialectos", "notes": "Notas" },
+          "groups": {
+            "dialects": "Dialectos",
+            "notes": "Notas"
+          },
           "desc": {
             "std": "Estándar genérico (ANSI)",
             "mysql": "MySQL y MariaDB",
@@ -202,7 +236,10 @@
       "card": {
         "name": "Formatear YAML",
         "desc": "Normaliza y valida YAML a estilo bloque con sangría de 2 espacios.",
-        "tags": ["Código", "Sin servidor"]
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
       },
       "ui": {
         "h1": "Formatear YAML",
@@ -213,7 +250,10 @@
         "guide": {
           "title": "Notas sobre YAML",
           "intro": "YAML anida con indentación de espacios (nunca tabuladores). Elementos y trampas frecuentes:",
-          "groups": { "structure": "Estructura", "gotchas": "Trampas habituales" },
+          "groups": {
+            "structure": "Estructura",
+            "gotchas": "Trampas habituales"
+          },
           "desc": {
             "pair": "Separa la clave del valor (clave: valor)",
             "listItem": "Elemento de una lista",
@@ -240,7 +280,10 @@
       "card": {
         "name": "Formatear HTML/CSS",
         "desc": "Embellece HTML y CSS con sangría de 2 espacios. Detecta el lenguaje solo.",
-        "tags": ["Código", "Sin servidor"]
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
       },
       "ui": {
         "h1": "Formatear HTML / CSS",
@@ -302,7 +345,10 @@
       "card": {
         "name": "Formatear JS / TS",
         "desc": "Embellece JavaScript y TypeScript con Prettier, el formateador estándar.",
-        "tags": ["Código", "Sin servidor"]
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
       },
       "ui": {
         "h1": "Formatear JavaScript / TypeScript",
@@ -322,7 +368,10 @@
       "card": {
         "name": "JSON a C# / TypeScript",
         "desc": "Genera clases C# o interfaces TypeScript a partir de un JSON, con inferencia de tipos.",
-        "tags": ["Código", "Sin servidor"]
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
       },
       "ui": {
         "h1": "JSON a C# / TypeScript",
@@ -342,7 +391,10 @@
       "card": {
         "name": "JWT",
         "desc": "Decodifica el header y el payload de un JWT o fírmalo con HMAC para pruebas.",
-        "tags": ["Código", "Sin servidor"]
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
       },
       "ui": {
         "h1": "JWT: decodificar y firmar",
@@ -410,7 +462,10 @@
       "card": {
         "name": "Tester de regex",
         "desc": "Prueba expresiones regulares y resalta las coincidencias en vivo, con flags.",
-        "tags": ["Código", "Sin servidor"]
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
       },
       "ui": {
         "h1": "Tester de regex",
@@ -422,7 +477,10 @@
         "testText": "Texto de prueba"
       },
       "msg": {
-        "matchesCount": { "one": "{n} coincidencia", "many": "{n} coincidencias" },
+        "matchesCount": {
+          "one": "{n} coincidencia",
+          "many": "{n} coincidencias"
+        },
         "guide": {
           "title": "Guía rápida de regex",
           "intro": "Una expresión regular describe un patrón de texto combinando estos elementos:",
@@ -477,7 +535,10 @@
       "card": {
         "name": "Diff de texto",
         "desc": "Compara dos textos línea a línea y resalta lo añadido y lo quitado.",
-        "tags": ["Código", "Sin servidor"]
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
       },
       "ui": {
         "h1": "Diff de texto",
@@ -503,7 +564,10 @@
       "card": {
         "name": "Base64",
         "desc": "Codifica texto a Base64 y decodifica de vuelta, con UTF-8.",
-        "tags": ["Código", "Sin servidor"]
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
       },
       "ui": {
         "h1": "Base64",
@@ -523,7 +587,10 @@
       "card": {
         "name": "Generador de hash",
         "desc": "Calcula SHA-256, SHA-1, SHA-384 o SHA-512 de un texto.",
-        "tags": ["Código", "Sin servidor"]
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
       },
       "ui": {
         "h1": "Generador de hash",
@@ -543,7 +610,10 @@
       "card": {
         "name": "Codificar URL",
         "desc": "Codifica y decodifica texto para URLs (percent-encoding).",
-        "tags": ["Código", "Sin servidor"]
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
       },
       "ui": {
         "h1": "Codificar / decodificar URL",
@@ -587,7 +657,10 @@
       "card": {
         "name": "Conversor de datos",
         "desc": "Convierte entre CSV, JSON, YAML, XML y TOML con un clic. Reversible.",
-        "tags": ["Código", "Sin servidor"]
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
       },
       "ui": {
         "h1": "Conversor de datos",
@@ -600,7 +673,9 @@
         "outputAria": "Datos convertidos"
       },
       "msg": {
-        "convertError": "Error al convertir:"
+        "convertError": "Error al convertir:",
+        "warnWrap": "Los arrays se han envuelto en una clave `items` (TOML/XML no admiten raíz de array)",
+        "warnYamlCoerce": "YAML puede cambiar tipos: '30' (texto) → 30 (número). Verifica el resultado."
       }
     },
     "separar-pdf": {
@@ -615,7 +690,10 @@
       "card": {
         "name": "Separar PDF",
         "desc": "Divide cualquier PDF en páginas sueltas y descárgalas una a una o todas juntas en un ZIP.",
-        "tags": ["PDF", "Sin servidor"]
+        "tags": [
+          "PDF",
+          "Sin servidor"
+        ]
       },
       "ui": {
         "h1": "Separar PDF",
@@ -633,8 +711,14 @@
         "individualBtn": "Descargar una a una"
       },
       "msg": {
-        "pages": { "one": "página", "many": "páginas" },
-        "selected": { "one": "seleccionada", "many": "seleccionadas" },
+        "pages": {
+          "one": "página",
+          "many": "páginas"
+        },
+        "selected": {
+          "one": "seleccionada",
+          "many": "seleccionadas"
+        },
         "pageTag": "página",
         "notPdf": "Ese archivo no parece un PDF. Prueba con otro.",
         "reading": "Leyendo el PDF…",
@@ -665,7 +749,10 @@
       "card": {
         "name": "Unir PDF",
         "desc": "Combina varios PDFs en un único documento. Reordénalos como quieras antes de descargar.",
-        "tags": ["PDF", "Sin servidor"]
+        "tags": [
+          "PDF",
+          "Sin servidor"
+        ]
       },
       "ui": {
         "h1": "Unir PDF",
@@ -699,7 +786,10 @@
       "card": {
         "name": "Imagen a PDF",
         "desc": "Convierte tus imágenes JPG o PNG en un PDF. Reordénalas antes de descargar.",
-        "tags": ["PDF", "Imágenes"]
+        "tags": [
+          "PDF",
+          "Imágenes"
+        ]
       },
       "ui": {
         "h1": "Imagen a PDF",
@@ -731,7 +821,10 @@
       "card": {
         "name": "Marca de agua en PDF",
         "desc": "Añade un texto en diagonal a todas las páginas de un PDF, con opacidad y tamaño ajustables.",
-        "tags": ["PDF", "Sin servidor"]
+        "tags": [
+          "PDF",
+          "Sin servidor"
+        ]
       },
       "ui": {
         "h1": "Marca de agua en PDF",
@@ -770,7 +863,10 @@
       "card": {
         "name": "Varias páginas por hoja",
         "desc": "Coloca 2, 4, 6 o 9 páginas de uno o varios PDF en cada hoja A4 para imprimir y ahorrar papel.",
-        "tags": ["PDF", "Imprimir"]
+        "tags": [
+          "PDF",
+          "Imprimir"
+        ]
       },
       "ui": {
         "h1": "Varias páginas por hoja",
@@ -795,7 +891,10 @@
         "arranging": "Recolocando las páginas…",
         "arrangedOk": "PDF con {per} por hoja ({sheets} {sheetsWord}) descargado.",
         "arrangeError": "No se pudo recolocar el PDF.",
-        "sheets": { "one": "hoja", "many": "hojas" }
+        "sheets": {
+          "one": "hoja",
+          "many": "hojas"
+        }
       }
     },
     "comprimir-imagen": {
@@ -810,7 +909,10 @@
       "card": {
         "name": "Comprimir imagen",
         "desc": "Reduce el peso de tus imágenes ajustando calidad y tamaño, sin que salgan de tu navegador.",
-        "tags": ["Imágenes", "Sin servidor"]
+        "tags": [
+          "Imágenes",
+          "Sin servidor"
+        ]
       },
       "ui": {
         "h1": "Comprimir imagen",
@@ -854,7 +956,10 @@
       "card": {
         "name": "Convertir imagen",
         "desc": "Convierte entre PNG, JPG y WebP eligiendo el formato y la calidad de salida.",
-        "tags": ["Imágenes", "Sin servidor"]
+        "tags": [
+          "Imágenes",
+          "Sin servidor"
+        ]
       },
       "ui": {
         "h1": "Convertir imagen",
@@ -892,7 +997,10 @@
       "card": {
         "name": "Quitar metadatos",
         "desc": "Elimina EXIF, ubicación GPS y datos de cámara de tus fotos, sin perder calidad.",
-        "tags": ["Imágenes", "Privacidad"]
+        "tags": [
+          "Imágenes",
+          "Privacidad"
+        ]
       },
       "ui": {
         "h1": "Quitar metadatos de una imagen",
@@ -915,6 +1023,63 @@
         "noneFound": "Descargada. No se han encontrado metadatos que eliminar.",
         "processError": "No se pudo procesar la imagen."
       }
+    },
+    "timestamp": {
+      "meta": {
+        "title": "Conversor de timestamps — epoch ↔ fecha legible, en tu navegador",
+        "description": "Convierte timestamps Unix a fecha legible (ISO 8601, local, UTC) y viceversa. Sin servidor, sin registros.",
+        "ogTitle": "Conversor de timestamps — epoch ↔ fecha",
+        "ogDescription": "Convierte Unix timestamps a fecha legible en tu navegador. Gratis y sin subir nada.",
+        "jsonldName": "Conversor de timestamps",
+        "jsonldDescription": "Convierte timestamps Unix a fecha legible y fechas a Unix timestamp en el navegador."
+      },
+      "card": {
+        "name": "Conversor de timestamps",
+        "desc": "Epoch ↔ fecha legible (ISO 8601, local, UTC). Auto-detecta segundos o milisegundos.",
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
+      },
+      "ui": {
+        "h1": "Conversor de timestamps",
+        "subtitle": "Pega un Unix timestamp (segundos o ms) o una fecha ISO 8601 y convierte al instante.",
+        "cardAria": "Herramienta para convertir Unix timestamps a fecha legible y viceversa",
+        "badge": "100% en tu navegador · sin subir nada"
+      },
+      "msg": {
+        "mode": "Modo",
+        "epochToHuman": "Epoch → Fecha",
+        "humanToEpoch": "Fecha → Epoch"
+      }
+    },
+    "uuid": {
+      "meta": {
+        "title": "Generador de UUID — v4, en tu navegador",
+        "description": "Genera uno o varios UUIDs v4 al instante en tu navegador. Sin servidor, sin registro, sin red.",
+        "ogTitle": "Generador de UUID v4",
+        "ogDescription": "Genera UUIDs v4 en tu navegador. Gratis y sin subir nada.",
+        "jsonldName": "Generador de UUID",
+        "jsonldDescription": "Genera UUIDs v4 en el navegador sin enviar nada a ningún servidor."
+      },
+      "card": {
+        "name": "Generador de UUID",
+        "desc": "Genera UUIDs v4 con Web Crypto. Sin red, sin trazas.",
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
+      },
+      "ui": {
+        "h1": "Generador de UUID",
+        "subtitle": "Genera uno o varios UUIDs v4 al instante. Todo ocurre en tu navegador, sin enviar nada.",
+        "cardAria": "Herramienta para generar UUIDs v4",
+        "badge": "100% en tu navegador · sin subir nada",
+        "count": "Cantidad",
+        "regenerate": "Regenerar",
+        "outputAria": "UUIDs generados"
+      },
+      "msg": {}
     }
   }
 }

@@ -377,8 +377,16 @@ export const STRINGS = {
         }
       }
     },
+    "timestamp": {
+      "mode": "Modo",
+      "epochToHuman": "Epoch → Fecha",
+      "humanToEpoch": "Fecha → Epoch"
+    },
+    "uuid": {},
     "convertir-datos": {
-      "convertError": "Error al convertir:"
+      "convertError": "Error al convertir:",
+      "warnWrap": "Los arrays se han envuelto en una clave `items` (TOML/XML no admiten raíz de array)",
+      "warnYamlCoerce": "YAML puede cambiar tipos: '30' (texto) → 30 (número). Verifica el resultado."
     }
   },
   "en": {
@@ -758,8 +766,16 @@ export const STRINGS = {
         }
       }
     },
+    "timestamp": {
+      "mode": "Mode",
+      "epochToHuman": "Epoch → Date",
+      "humanToEpoch": "Date → Epoch"
+    },
+    "uuid": {},
     "convertir-datos": {
-      "convertError": "Conversion error:"
+      "convertError": "Conversion error:",
+      "warnWrap": "Arrays have been wrapped in an `items` key (TOML/XML do not support a root-level array)",
+      "warnYamlCoerce": "YAML may change data types: '30' (string) → 30 (number). Check the result."
     }
   }
 };

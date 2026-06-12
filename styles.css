@@ -14,6 +14,7 @@
   --accent-soft: var(--accent); /* alias del acento: un solo color, sin azul */
   --ok: 5 150 105;            /* emerald-600 (estado de éxito) */
   --danger: 220 38 38;        /* red-600 (estado de error) */
+  --warn: 217 119 6;          /* amber-600 (aviso) */
   --grad-text: linear-gradient(135deg, #4727cc, #7c3aed, #4727cc);
   --radius: 16px;
 }
@@ -32,6 +33,7 @@
   --accent-soft: var(--accent); /* alias del acento: un solo color, sin azul */
   --ok: 52 211 153;         /* emerald-400 (estado de éxito) */
   --danger: 248 113 113;    /* red-400 (estado de error) */
+  --warn: 251 191 36;       /* amber-400 (aviso) */
   --grad-text: linear-gradient(135deg, #ac91fc, #c4b5fd, #ac91fc);
 }
 
@@ -430,6 +432,7 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
 .code-select { max-width: 260px; flex: 1 1 200px; }
 .code-io { display: grid; gap: 16px; }
 @media (min-width: 720px) { .code-io { grid-template-columns: 1fr 1fr; } }
+.code-io--single { grid-template-columns: 1fr; }
 .code-pane { display: flex; flex-direction: column; gap: 9px; min-width: 0; }
 .code-tool--sm .code-area { min-height: clamp(160px, 28vh, 280px); }
 .code-area {
@@ -506,6 +509,7 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
   background: rgb(var(--danger) / 0.10); border: 1px solid rgb(var(--danger) / 0.32);
 }
 .code-alert:empty { display: none; }
+.code-alert--warn { color: rgb(var(--warn)); background: rgb(var(--warn) / 0.10); border-color: rgb(var(--warn) / 0.32); }
 
 /* Decodificador de JWT (UI propia, reutiliza .code-tool/.code-area). */
 .jwt-tool .jwt-input { min-height: 8rem; }
