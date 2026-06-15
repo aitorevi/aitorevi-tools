@@ -131,6 +131,7 @@ ${alternates}
   <link rel="stylesheet" href="/styles.css" />
   <script src="/theme.js"></script>
   <script src="/lang.js"></script>
+  <script src="/nav.js" defer></script>
 ${jsonld}${styleBlock}
 </head>`;
 }
@@ -149,7 +150,7 @@ function navbar(lang, urls) {
         </div>`;
   const nav = NAVBAR
     .replace('href="/" aria-label', `href="/${hubPath(lang)}" aria-label`)
-    .replace("{{langSwitch}}", group);
+    .replaceAll("{{langSwitch}}", group);
   return fillTemplate(nav, I18N[lang].common);
 }
 
@@ -167,7 +168,7 @@ ${fillTemplate(FOOT_SOCIAL, I18N[lang].common)}
       <span>No dependencies, runs in your browser</span>
     </p>
 
-    <p class="foot-copy">© 2026 aitorevi · tools.aitorevi.dev · <a href="/${licPath(lang)}">${lc.h1}</a></p>
+    <p class="foot-copy">© 2026 aitorevi <span class="sep" aria-hidden="true">·</span> tools.aitorevi.dev <span class="sep" aria-hidden="true">·</span> <a href="/${licPath(lang)}">${lc.h1}</a></p>
   </footer>`;
 }
 

@@ -18,11 +18,11 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    const btn = document.getElementById("theme-toggle");
-    if (!btn) return;
-    btn.addEventListener("click", () => {
-      const isDark = root.classList.toggle("dark");
-      localStorage.setItem("theme", isDark ? "dark" : "light");
+    document.querySelectorAll(".theme-toggle").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const isDark = root.classList.toggle("dark");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+      });
     });
   });
 })();

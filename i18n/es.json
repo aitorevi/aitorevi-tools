@@ -23,6 +23,7 @@
     "navBlog": "Blog",
     "navBlogHref": "https://www.aitorevi.dev/blog",
     "navHome": "Inicio de aitorevi.tools",
+    "menuAria": "Abrir menú de navegación",
     "langSelect": "Idioma",
     "themeAria": "Cambiar entre tema claro y oscuro",
     "themeTitle": "Cambiar tema",

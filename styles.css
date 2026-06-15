@@ -103,11 +103,14 @@ h2.sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overfl
 @media (min-width: 1280px) {
   .nav-inner { padding: 0; }
 }
-/* En móvil estrecho, ocultar los enlaces externos (Web/Blog) y el separador para
-   que no se amontonen; quedan marca + selector de idioma + tema. */
-@media (max-width: 520px) {
-  .nav-links a[href^="https://www.aitorevi.dev"],
-  .nav-divider { display: none; }
+/* En móvil, ocultar nav-links y mostrar hamburguesa; en desktop al revés.
+   !important necesario porque .nav-links { display:flex } viene después en cascada. */
+@media (max-width: 767px) {
+  .nav-links { display: none !important; }
+}
+@media (min-width: 768px) {
+  .nav-hamburger { display: none !important; }
+  .nav-mobile-menu { display: none !important; }
 }
 /* Punto y hover idénticos al wordmark de aitorevi.dev: violet-700 (claro) /
    accent-violet (oscuro); en hover el wordmark pasa a secondary (#4727cc) y el
@@ -161,6 +164,48 @@ h2.sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overfl
 .theme-toggle .icon-sun { display: none; }
 :root.dark .theme-toggle .icon-moon { display: none; }
 :root.dark .theme-toggle .icon-sun { display: inline; }
+
+/* ── Hamburguesa ── */
+.nav-hamburger {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.75rem; height: 2.75rem; padding: 0; border: none; background: transparent;
+  color: rgb(var(--muted)); cursor: pointer; border-radius: 9px;
+  transition: color .2s;
+}
+.nav-hamburger:hover { color: rgb(var(--accent)); }
+.nav-hamburger:focus-visible { outline: 3px solid rgb(var(--accent)); outline-offset: 2px; }
+.nav-hamburger svg { width: 1.5rem; height: 1.5rem; }
+.nav-hamburger .ham-close { display: none; }
+.site-nav.nav-open .nav-hamburger .ham-open { display: none; }
+.site-nav.nav-open .nav-hamburger .ham-close { display: inline; }
+
+/* ── Menú mobile ── */
+.nav-mobile-menu {
+  display: none;
+  flex-direction: column; align-items: center; gap: 0;
+  padding: 2rem 1.5rem 2rem;
+  border-top: 1px solid rgb(var(--fg) / 0.07);
+  background: rgb(var(--bg));
+}
+:root.dark .nav-mobile-menu { border-top-color: rgb(var(--fg) / 0.05); }
+.site-nav.nav-open .nav-mobile-menu { display: flex; box-shadow: 0 8px 24px rgb(0 0 0 / 0.08); }
+:root.dark .site-nav.nav-open .nav-mobile-menu { box-shadow: 0 8px 24px rgb(0 0 0 / 0.3); }
+.nav-mobile-link {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 1rem; text-transform: uppercase; letter-spacing: 0.2em;
+  color: rgb(var(--muted)); text-decoration: none;
+  padding: 0.875rem 0; text-align: center;
+  transition: color .2s;
+}
+.nav-mobile-link:hover { color: rgb(var(--accent)); }
+.nav-mobile-sep {
+  width: 2rem; height: 1px;
+  background: rgb(var(--fg) / 0.12);
+  margin: 1.5rem 0;
+}
+.nav-mobile-prefs {
+  display: flex; align-items: center; justify-content: center; gap: 1.25rem;
+}
 
 /* ── Hero ── */
 .badge {
@@ -352,11 +397,13 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
 .foot-copy {
   margin: 0; font-size: 10px;
   text-transform: uppercase; letter-spacing: 0.2em;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.25rem 0.5rem;
 }
 .foot-tagline a, .foot-copy a { transition: color .2s ease; }
 .foot-tagline a:hover, .foot-copy a:hover { color: #4727cc; }
 :root.dark .foot-tagline a:hover, :root.dark .foot-copy a:hover { color: #60a5fa; }
-.foot-tagline .sep { opacity: .5; user-select: none; }
+.foot-tagline .sep, .foot-copy .sep { opacity: .5; user-select: none; }
+@media (max-width: 767px) { .foot-tagline .sep, .foot-copy .sep { display: none; } }
 @media (min-width: 1536px) { .foot-tagline, .foot-copy { font-size: 12px; } }
 
 /* ── Página de licencias (/licencias/) ── */
