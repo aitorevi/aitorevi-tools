@@ -12,10 +12,11 @@
     "test:e2e": "playwright test"
   },
   "devDependencies": {
+    "@keeratita/heic-converter": "0.5.2",
     "@playwright/test": "^1.49.1",
     "esbuild": "^0.28.1",
     "fast-xml-parser": "^5.8.0",
-    "smol-toml": "^1.6.1",
-    "vitest": "^4.1.8"
+    "smol-toml": "^1.9.1",
+    "vitest": "^5.0.5"
   }
 }
