@@ -44,3 +44,19 @@ describe("round-trip", () => {
     expect(() => format(SAMPLE)).not.toThrow();
   });
 });
+
+describe("sin alterar los datos", () => {
+  const source = '{"id":12345678901234567890,"x":1.0,"x":2,"e":"caf\\u00e9"}';
+
+  it("format conserva enteros grandes, claves duplicadas, 1.0 y escapes", () => {
+    const out = format(source);
+    for (const piece of ["12345678901234567890", '"x": 1.0', '"x": 2', "caf\\u00e9"]) {
+      expect(out).toContain(piece);
+    }
+  });
+
+  it("minify devuelve el texto original sin espacios, valor a valor", () => {
+    expect(minify(source)).toBe(source);
+    expect(minify(format(source))).toBe(source);
+  });
+});
