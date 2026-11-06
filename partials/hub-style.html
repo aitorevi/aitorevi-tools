@@ -16,6 +16,8 @@
       text-decoration: none; color: rgb(var(--fg));
       transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
     }
+    /* hub.js oculta las tarjetas con [hidden]; sin esto el display:flex de arriba lo anula. */
+    .tool-card[hidden] { display: none; }
     a.tool-card:hover {
       transform: translateY(-3px);
       border-color: rgb(var(--accent));

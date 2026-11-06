@@ -51,9 +51,9 @@
         <span class="nav-divider" aria-hidden="true"></span>
         <div class="nav-prefs">
         <div class="lang-group" role="group" aria-label="Language">
-          <a href="/unir-pdf/" hreflang="es" class="lang" data-lang-switch aria-label="Español">ES</a>
+          <a href="/unir-pdf/" hreflang="es" class="lang" data-lang-switch aria-label="ES, Español">ES</a>
           <span class="sep" aria-hidden="true">|</span>
-          <a href="/en/merge-pdf/" hreflang="en" aria-current="true" class="lang is-active" data-lang-switch aria-label="English">EN</a>
+          <a href="/en/merge-pdf/" hreflang="en" aria-current="true" class="lang is-active" data-lang-switch aria-label="EN, English">EN</a>
         </div>
         <button id="theme-toggle" class="theme-toggle" type="button"
                 aria-label="Toggle light and dark theme" title="Toggle theme">
@@ -82,9 +82,9 @@
       <div class="nav-mobile-sep" aria-hidden="true"></div>
       <div class="nav-mobile-prefs">
         <div class="lang-group" role="group" aria-label="Language">
-          <a href="/unir-pdf/" hreflang="es" class="lang" data-lang-switch aria-label="Español">ES</a>
+          <a href="/unir-pdf/" hreflang="es" class="lang" data-lang-switch aria-label="ES, Español">ES</a>
           <span class="sep" aria-hidden="true">|</span>
-          <a href="/en/merge-pdf/" hreflang="en" aria-current="true" class="lang is-active" data-lang-switch aria-label="English">EN</a>
+          <a href="/en/merge-pdf/" hreflang="en" aria-current="true" class="lang is-active" data-lang-switch aria-label="EN, English">EN</a>
         </div>
         <button class="theme-toggle" type="button"
                 aria-label="Toggle light and dark theme" title="Toggle theme">
@@ -110,13 +110,12 @@
       <h2 id="app-title" class="sr">Merge PDF tool</h2>
 
       <div id="loader">
-        <div id="dropzone" class="dropzone" tabindex="0" role="button"
-             aria-label="Select or drop several PDF files">
+        <div id="dropzone" class="dropzone" tabindex="0" role="button">
           <div class="icon" aria-hidden="true">📚</div>
           <div class="lead">Drag your PDFs here or <strong>click to choose them</strong></div>
           <div class="hint">You can select several. Nothing is sent to the internet.</div>
         </div>
-        <input id="file-input" type="file" accept="application/pdf,.pdf" multiple class="visually-hidden" />
+        <input id="file-input" type="file" aria-label="Select or drop several PDF files" accept="application/pdf,.pdf" multiple class="visually-hidden" />
       </div>
 
       <div id="workspace" class="hidden">

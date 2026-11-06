@@ -54,6 +54,8 @@
       text-decoration: none; color: rgb(var(--fg));
       transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
     }
+    /* hub.js oculta las tarjetas con [hidden]; sin esto el display:flex de arriba lo anula. */
+    .tool-card[hidden] { display: none; }
     a.tool-card:hover {
       transform: translateY(-3px);
       border-color: rgb(var(--accent));
@@ -124,9 +126,9 @@
         <span class="nav-divider" aria-hidden="true"></span>
         <div class="nav-prefs">
         <div class="lang-group" role="group" aria-label="Language">
-          <a href="/" hreflang="es" class="lang" data-lang-switch aria-label="Español">ES</a>
+          <a href="/" hreflang="es" class="lang" data-lang-switch aria-label="ES, Español">ES</a>
           <span class="sep" aria-hidden="true">|</span>
-          <a href="/en/" hreflang="en" aria-current="true" class="lang is-active" data-lang-switch aria-label="English">EN</a>
+          <a href="/en/" hreflang="en" aria-current="true" class="lang is-active" data-lang-switch aria-label="EN, English">EN</a>
         </div>
         <button id="theme-toggle" class="theme-toggle" type="button"
                 aria-label="Toggle light and dark theme" title="Toggle theme">
@@ -155,9 +157,9 @@
       <div class="nav-mobile-sep" aria-hidden="true"></div>
       <div class="nav-mobile-prefs">
         <div class="lang-group" role="group" aria-label="Language">
-          <a href="/" hreflang="es" class="lang" data-lang-switch aria-label="Español">ES</a>
+          <a href="/" hreflang="es" class="lang" data-lang-switch aria-label="ES, Español">ES</a>
           <span class="sep" aria-hidden="true">|</span>
-          <a href="/en/" hreflang="en" aria-current="true" class="lang is-active" data-lang-switch aria-label="English">EN</a>
+          <a href="/en/" hreflang="en" aria-current="true" class="lang is-active" data-lang-switch aria-label="EN, English">EN</a>
         </div>
         <button class="theme-toggle" type="button"
                 aria-label="Toggle light and dark theme" title="Toggle theme">

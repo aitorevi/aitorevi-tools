@@ -1018,7 +1018,7 @@ export const STRINGS = {
       "srcSchema": "Schema",
       "pathRoot": "(root)",
       "itemJump": "Go to error",
-      "itemJumpAria": "Go to the error in {path} ({source})",
+      "itemJumpAria": "Go to error in {path} ({source})",
       "moreErrors": "…and {n} more errors. Showing the first {shown}.",
       "errorUnit": {
         "one": "error",

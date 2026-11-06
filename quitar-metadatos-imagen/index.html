@@ -56,9 +56,9 @@
         <span class="nav-divider" aria-hidden="true"></span>
         <div class="nav-prefs">
         <div class="lang-group" role="group" aria-label="Idioma">
-          <a href="/quitar-metadatos-imagen/" hreflang="es" aria-current="true" class="lang is-active" data-lang-switch aria-label="Español">ES</a>
+          <a href="/quitar-metadatos-imagen/" hreflang="es" aria-current="true" class="lang is-active" data-lang-switch aria-label="ES, Español">ES</a>
           <span class="sep" aria-hidden="true">|</span>
-          <a href="/en/remove-image-metadata/" hreflang="en" class="lang" data-lang-switch aria-label="English">EN</a>
+          <a href="/en/remove-image-metadata/" hreflang="en" class="lang" data-lang-switch aria-label="EN, English">EN</a>
         </div>
         <button id="theme-toggle" class="theme-toggle" type="button"
                 aria-label="Cambiar entre tema claro y oscuro" title="Cambiar tema">
@@ -87,9 +87,9 @@
       <div class="nav-mobile-sep" aria-hidden="true"></div>
       <div class="nav-mobile-prefs">
         <div class="lang-group" role="group" aria-label="Idioma">
-          <a href="/quitar-metadatos-imagen/" hreflang="es" aria-current="true" class="lang is-active" data-lang-switch aria-label="Español">ES</a>
+          <a href="/quitar-metadatos-imagen/" hreflang="es" aria-current="true" class="lang is-active" data-lang-switch aria-label="ES, Español">ES</a>
           <span class="sep" aria-hidden="true">|</span>
-          <a href="/en/remove-image-metadata/" hreflang="en" class="lang" data-lang-switch aria-label="English">EN</a>
+          <a href="/en/remove-image-metadata/" hreflang="en" class="lang" data-lang-switch aria-label="EN, English">EN</a>
         </div>
         <button class="theme-toggle" type="button"
                 aria-label="Cambiar entre tema claro y oscuro" title="Cambiar tema">
@@ -115,13 +115,12 @@
       <h2 id="app-title" class="sr">Herramienta para quitar metadatos de imágenes</h2>
 
       <div id="loader">
-        <div id="dropzone" class="dropzone" tabindex="0" role="button"
-             aria-label="Selecciona o arrastra una imagen JPG o PNG">
+        <div id="dropzone" class="dropzone" tabindex="0" role="button">
           <div class="icon" aria-hidden="true">🛡️</div>
           <div class="lead">Arrastra tu foto aquí o <strong>haz clic para elegirla</strong></div>
           <div class="hint">JPG o PNG · nada se envía a internet.</div>
         </div>
-        <input id="file-input" type="file" accept="image/jpeg,image/png,.jpg,.jpeg,.png" class="visually-hidden" />
+        <input id="file-input" type="file" aria-label="Selecciona o arrastra una imagen JPG o PNG" accept="image/jpeg,image/png,.jpg,.jpeg,.png" class="visually-hidden" />
       </div>
 
       <div id="workspace" class="hidden">

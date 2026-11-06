@@ -9,13 +9,12 @@
       <h2 id="app-title" class="sr">{{t.cardAria}}</h2>
 
       <div id="loader">
-        <div id="dropzone" class="dropzone" tabindex="0" role="button"
-             aria-label="{{t.dropAria}}">
+        <div id="dropzone" class="dropzone" tabindex="0" role="button">
           <div class="icon" aria-hidden="true">📚</div>
           <div class="lead">{{t.lead}}</div>
           <div class="hint">{{t.hint}}</div>
         </div>
-        <input id="file-input" type="file" accept="application/pdf,.pdf" multiple class="visually-hidden" />
+        <input id="file-input" type="file" aria-label="{{t.dropAria}}" accept="application/pdf,.pdf" multiple class="visually-hidden" />
       </div>
 
       <div id="workspace" class="hidden">
