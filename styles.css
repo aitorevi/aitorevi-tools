@@ -882,3 +882,20 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
   .preview-row .spacer { display: none; }
   .file-bar .btn, .preview-row .btn { width: 100%; }
 }
+
+/* Enlaces a herramientas relacionadas (bloque generado por build.mjs desde tools.json › related) */
+.related-tools { margin-top: 28px; }
+.related-title {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .16em;
+  color: rgb(var(--muted)); margin: 0 0 12px;
+}
+.related-tools ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.related-tools a {
+  display: inline-block; padding: 8px 16px; border-radius: 999px;
+  border: 1px solid rgb(var(--border)); background: rgb(var(--surface) / 0.7);
+  color: rgb(var(--accent)); font-size: .92rem; font-weight: 600; text-decoration: none;
+  transition: border-color .15s;
+}
+.related-tools a:hover { border-color: rgb(var(--accent)); }
+.related-tools a:focus-visible { outline: 3px solid rgb(var(--accent)); outline-offset: 3px; }

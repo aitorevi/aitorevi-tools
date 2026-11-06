@@ -71,7 +71,8 @@ export const STRINGS = {
       "valItemJump": "Ir al error",
       "valItemJumpAria": "Ir al error del valor {value}",
       "valErrorsLabel": "Lista de errores",
-      "valErrorsHint": "Cada error está en la lista de debajo, con un botón para ir a su posición."
+      "valErrorsHint": "Cada error está en la lista de debajo, con un botón para ir a su posición.",
+      "relatedTitle": "Herramientas relacionadas"
     },
     "separar-pdf": {
       "pages": {
@@ -933,7 +934,8 @@ export const STRINGS = {
       "valItemJump": "Go to error",
       "valItemJumpAria": "Go to error in value {value}",
       "valErrorsLabel": "List of errors",
-      "valErrorsHint": "Each error is listed below, with a button to go to its position."
+      "valErrorsHint": "Each error is listed below, with a button to go to its position.",
+      "relatedTitle": "Related tools"
     },
     "separar-pdf": {
       "pages": {

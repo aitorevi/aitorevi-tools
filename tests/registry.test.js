@@ -82,3 +82,47 @@ for (const tool of registry.tools) {
     });
   });
 }
+
+describe("tools.json › related (enlaces entre herramientas)", () => {
+  const withRelated = registry.tools.filter((t) => t.related);
+
+  it("cada related apunta a una herramienta que existe, distinta de sí misma y sin repetir", () => {
+    const ids = new Set(registry.tools.map((t) => t.id));
+    for (const t of withRelated) {
+      expect(new Set(t.related).size, t.id).toBe(t.related.length);
+      for (const r of t.related) {
+        expect(ids.has(r), `${t.id} → ${r}`).toBe(true);
+        expect(r, t.id).not.toBe(t.id);
+      }
+    }
+  });
+
+  it("los enlaces son de ida y vuelta entre herramientas que se complementan", () => {
+    // Un par validar ↔ formatear/codificar se enlaza en los dos sentidos; convertir-datos
+    // es un destino común y no enlaza de vuelta a todas.
+    for (const [a, b] of [["jwt", "validar-jwt"], ["base64", "validar-base64"], ["uuid", "validar-uuid"],
+      ["formatear-json", "validar-json"], ["formatear-xml", "validar-xml"], ["formatear-yaml", "validar-yaml"],
+      ["validar-nif", "validar-iban"]]) {
+      const get = (id) => registry.tools.find((t) => t.id === id).related || [];
+      expect(get(a), `${a} → ${b}`).toContain(b);
+      expect(get(b), `${b} → ${a}`).toContain(a);
+    }
+  });
+
+  for (const lang of ["es", "en"]) {
+    it(`[${lang}] cada página lista sus relacionadas con el nombre de su tarjeta, y las demás no llevan el bloque`, () => {
+      for (const t of registry.tools) {
+        const html = read(`${pagePath(t, lang)}index.html`);
+        if (!t.related) {
+          expect(html, t.id).not.toContain('class="related-tools"');
+          continue;
+        }
+        expect(html, t.id).toContain(`>${I18N[lang].common.relatedTitle}</h2>`);
+        for (const r of t.related) {
+          const rel = registry.tools.find((x) => x.id === r);
+          expect(html, `${t.id} → ${r}`).toContain(`<li><a href="/${pagePath(rel, lang)}">${I18N[lang].tools[r].card.name}</a></li>`);
+        }
+      }
+    });
+  }
+});

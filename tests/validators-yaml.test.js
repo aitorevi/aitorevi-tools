@@ -92,6 +92,18 @@ describe("validateYaml · errores con posición (js-yaml real)", () => {
     expect(run(flow).errors[0]).toMatchObject({ offset: flow.length, line: 1, column: 9, hint: "unclosedFlow" });
   });
 
+  it("comillas sin cerrar con otra clave debajo: se señalan las comillas (js-yaml 5 dice «deficient indentation»)", () => {
+    const double = 'a: "hola\nb: 2';
+    expect(run(double).errors[0]).toMatchObject({ offset: 3, line: 1, column: 4, hint: "unclosedQuote" });
+    expect(run("- 'x\n- y").errors[0]).toMatchObject({ offset: 2, line: 1, column: 3, hint: "unclosedQuote" });
+    expect(run('uno: 1\ndos: "x\ny: 2').errors[0]).toMatchObject({ line: 2, column: 6, hint: "unclosedQuote" });
+  });
+
+  it("«deficient indentation» sin comillas abiertas no se confunde con comillas", () => {
+    const bad = run('a: "ok"\n  b: 2\nc: 1').errors[0];
+    expect(bad.hint).not.toBe("unclosedQuote");
+  });
+
   it("un emoji antes del error no desplaza la posición (UTF-16)", () => {
     const text = "e: 😀\nb: [1";
     expect(run(text).errors[0]).toMatchObject({ offset: text.length, line: 2, column: 6 });

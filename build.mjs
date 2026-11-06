@@ -216,6 +216,24 @@ ${footerHtml}${scriptBlock}
 
 // --- generación --------------------------------------------------------------
 
+/** Bloque «Herramientas relacionadas» (tools.json › related); "" si la tool no declara ninguna. */
+function relatedBlock(tool, lang) {
+  if (!tool.related || !tool.related.length) return "";
+  const items = tool.related.map((id) => {
+    const rel = registry.tools.find((x) => x.id === id);
+    if (!rel) throw new Error(`tools.json: ${tool.id} declara «related» a una tool que no existe: ${id}`);
+    return `        <li><a href="/${toolPath(rel, lang)}">${I18N[lang].tools[id].card.name}</a></li>`;
+  });
+  return `
+    <nav class="related-tools" aria-labelledby="related-title">
+      <h2 id="related-title" class="related-title">${I18N[lang].common.relatedTitle}</h2>
+      <ul>
+${items.join("\n")}
+      </ul>
+    </nav>
+  `;
+}
+
 function buildTool(tool, lang) {
   const T = I18N[lang].tools[tool.id];
   const canonical = toolUrl(tool, lang);
@@ -223,7 +241,8 @@ function buildTool(tool, lang) {
   const dict = { ...I18N[lang].common, ...(T.ui || {}) };
   const raw = splitBody(read(tool.body || `${tool.id}/body.html`));
   const style = fillTemplate(raw.style, dict);
-  const main = fillTemplate(raw.main, dict);
+  // Los enlaces van dentro del <main>, tras la tarjeta de la herramienta.
+  const main = fillTemplate(raw.main, dict).replace(/<\/main>\s*$/, `${relatedBlock(tool, lang)}</main>`);
   const html = page({
     lang,
     head: head({

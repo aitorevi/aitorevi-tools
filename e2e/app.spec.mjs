@@ -1664,3 +1664,19 @@ for (const lang of ["es", "en"]) {
     });
   }
 }
+
+test("enlaces relacionados: de JWT al validador y de vuelta, en ES y EN", async ({ page }) => {
+  await page.goto("/jwt/");
+  const nav = page.getByRole("navigation", { name: "Herramientas relacionadas" });
+  await expect(nav.getByRole("link")).toHaveText(["Validar JWT", "Base64"]);
+  await nav.getByRole("link", { name: "Validar JWT" }).click();
+  await expect(page).toHaveURL(/\/validar-jwt\/$/);
+  await expect(page.locator("main h1")).toHaveText(/Validar JWT/);
+  await page.getByRole("navigation", { name: "Herramientas relacionadas" }).getByRole("link", { name: "JWT", exact: true }).click();
+  await expect(page).toHaveURL(/\/jwt\/$/);
+
+  await page.goto("/en/validate-base64/");
+  const en = page.getByRole("navigation", { name: "Related tools" });
+  await en.getByRole("link", { name: "Base64", exact: true }).click();
+  await expect(page).toHaveURL(/\/en\/base64\/$/);
+});

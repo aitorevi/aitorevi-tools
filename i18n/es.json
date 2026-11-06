@@ -69,7 +69,8 @@
     "valItemJump": "Ir al error",
     "valItemJumpAria": "Ir al error del valor {value}",
     "valErrorsLabel": "Lista de errores",
-    "valErrorsHint": "Cada error está en la lista de debajo, con un botón para ir a su posición."
+    "valErrorsHint": "Cada error está en la lista de debajo, con un botón para ir a su posición.",
+    "relatedTitle": "Herramientas relacionadas"
   },
   "hub": {
     "title": "aitorevi.tools — mini-herramientas que corren en tu navegador",

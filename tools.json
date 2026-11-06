@@ -70,14 +70,16 @@
       "section": "codigo",
       "subsection": "formatear",
       "libs": [],
-      "slug": { "es": "formatear-json", "en": "format-json" }
+      "slug": { "es": "formatear-json", "en": "format-json" },
+      "related": ["validar-json"]
     },
     {
       "id": "formatear-xml",
       "section": "codigo",
       "subsection": "formatear",
       "libs": [],
-      "slug": { "es": "formatear-xml", "en": "format-xml" }
+      "slug": { "es": "formatear-xml", "en": "format-xml" },
+      "related": ["validar-xml"]
     },
     {
       "id": "formatear-sql",
@@ -91,7 +93,8 @@
       "section": "codigo",
       "subsection": "formatear",
       "libs": ["js-yaml"],
-      "slug": { "es": "formatear-yaml", "en": "format-yaml" }
+      "slug": { "es": "formatear-yaml", "en": "format-yaml" },
+      "related": ["validar-yaml", "convertir-datos"]
     },
     {
       "id": "formatear-html-css",
@@ -113,7 +116,8 @@
       "section": "codigo",
       "subsection": "validar",
       "libs": [],
-      "slug": { "es": "validar-json", "en": "validate-json" }
+      "slug": { "es": "validar-json", "en": "validate-json" },
+      "related": ["formatear-json"]
     },
     {
       "id": "validar-xml",
@@ -121,7 +125,8 @@
       "section": "codigo",
       "subsection": "validar",
       "libs": [],
-      "slug": { "es": "validar-xml", "en": "validate-xml" }
+      "slug": { "es": "validar-xml", "en": "validate-xml" },
+      "related": ["formatear-xml"]
     },
     {
       "id": "validar-yaml",
@@ -129,7 +134,8 @@
       "section": "codigo",
       "subsection": "validar",
       "libs": ["js-yaml"],
-      "slug": { "es": "validar-yaml", "en": "validate-yaml" }
+      "slug": { "es": "validar-yaml", "en": "validate-yaml" },
+      "related": ["formatear-yaml", "convertir-datos"]
     },
     {
       "id": "validar-toml",
@@ -137,7 +143,8 @@
       "section": "codigo",
       "subsection": "validar",
       "libs": ["smol-toml"],
-      "slug": { "es": "validar-toml", "en": "validate-toml" }
+      "slug": { "es": "validar-toml", "en": "validate-toml" },
+      "related": ["convertir-datos"]
     },
     {
       "id": "validar-base64",
@@ -145,7 +152,8 @@
       "section": "codigo",
       "subsection": "validar",
       "libs": [],
-      "slug": { "es": "validar-base64", "en": "validate-base64" }
+      "slug": { "es": "validar-base64", "en": "validate-base64" },
+      "related": ["base64", "validar-jwt"]
     },
     {
       "id": "validar-jwt",
@@ -153,7 +161,8 @@
       "section": "codigo",
       "subsection": "validar",
       "libs": [],
-      "slug": { "es": "validar-jwt", "en": "validate-jwt" }
+      "slug": { "es": "validar-jwt", "en": "validate-jwt" },
+      "related": ["jwt", "validar-base64"]
     },
     {
       "id": "validar-uuid",
@@ -161,7 +170,8 @@
       "section": "codigo",
       "subsection": "validar",
       "libs": [],
-      "slug": { "es": "validar-uuid", "en": "validate-uuid" }
+      "slug": { "es": "validar-uuid", "en": "validate-uuid" },
+      "related": ["uuid"]
     },
     {
       "id": "validar-nif",
@@ -169,7 +179,8 @@
       "section": "codigo",
       "subsection": "validar",
       "libs": [],
-      "slug": { "es": "validar-nif", "en": "validate-nif" }
+      "slug": { "es": "validar-nif", "en": "validate-nif" },
+      "related": ["validar-iban"]
     },
     {
       "id": "validar-iban",
@@ -177,7 +188,8 @@
       "section": "codigo",
       "subsection": "validar",
       "libs": [],
-      "slug": { "es": "validar-iban", "en": "validate-iban" }
+      "slug": { "es": "validar-iban", "en": "validate-iban" },
+      "related": ["validar-nif"]
     },
     {
       "id": "regex",
@@ -198,7 +210,8 @@
       "section": "codigo",
       "subsection": "codificar",
       "libs": [],
-      "slug": { "es": "base64", "en": "base64" }
+      "slug": { "es": "base64", "en": "base64" },
+      "related": ["validar-base64", "jwt"]
     },
     {
       "id": "hash",
@@ -219,7 +232,8 @@
       "section": "codigo",
       "subsection": "codificar",
       "libs": [],
-      "slug": { "es": "jwt", "en": "jwt" }
+      "slug": { "es": "jwt", "en": "jwt" },
+      "related": ["validar-jwt", "base64"]
     },
     {
       "id": "json-a-csharp",
@@ -247,7 +261,8 @@
       "section": "codigo",
       "subsection": "generar",
       "libs": [],
-      "slug": { "es": "uuid", "en": "uuid" }
+      "slug": { "es": "uuid", "en": "uuid" },
+      "related": ["validar-uuid"]
     }
   ]
 }
