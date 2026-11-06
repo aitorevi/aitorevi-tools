@@ -24,8 +24,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Playwright (chromium)
-        run: npx playwright install --with-deps chromium
+      - name: Install Playwright (chromium, firefox, webkit)
+        run: npx playwright install --with-deps chromium firefox webkit
 
       - name: Build (verify generated HTML is up to date)
         run: |
@@ -34,6 +34,9 @@ jobs:
             echo "::error::El HTML generado no coincide con la fuente. Ejecuta 'npm run build' y commitea.";
             exit 1;
           }
+
+      - name: Cobertura de la lógica de validación (umbral mínimo)
+        run: npm run test:coverage
 
       - name: Tests (unit + e2e)
         run: npm test

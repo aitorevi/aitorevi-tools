@@ -11,8 +11,12 @@ export default defineConfig({
     baseURL: `http://localhost:${PORT}`,
     trace: "on-first-retry",
   },
+  // Los tres motores: los mensajes de error de DOMParser (XML), los Workers de módulo y
+  // el renderizado del editor cambian entre navegadores.
   projects: [
     { name: "chromium", use: { ...devices["Desktop Chrome"] } },
+    { name: "firefox", use: { ...devices["Desktop Firefox"] } },
+    { name: "webkit", use: { ...devices["Desktop Safari"] } },
   ],
   // Levanta el servidor estático de desarrollo para los tests.
   webServer: {

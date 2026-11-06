@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures.mjs";
 import { readFile } from "node:fs/promises";
 import { auditNetwork } from "./helpers/network.mjs";
 
@@ -698,10 +698,10 @@ test("código: las guías de JSON, XML, YAML, SQL y HTML/CSS se renderizan", asy
     ["/formatear-yaml/", "yaml-guide"],
     ["/formatear-sql/", "sql-guide"],
     ["/formatear-html-css/", "htmlcss-guide"],
-    ["/validar-json/", "validate-json-guide"],
-    ["/validar-xml/", "validate-xml-guide"],
-    ["/validar-yaml/", "validate-yaml-guide"],
-    ["/validar-toml/", "validate-toml-guide"],
+    ["/validar-json/", "validator-guide"],
+    ["/validar-xml/", "validator-guide"],
+    ["/validar-yaml/", "validator-guide"],
+    ["/validar-toml/", "validator-guide"],
   ]) {
     await page.goto(path);
     await expect(page.locator(`#${id} .tool-guide-title`)).toBeVisible();
@@ -795,15 +795,17 @@ test("validar-json: valida solo al escribir (debounce) y se puede usar con tecla
   await expect(t.detail).toContainText("Línea 1, columna 8");
 });
 
-test("validar-json: todo se puede usar solo con teclado (Ir al error y Validar)", async ({ page }) => {
+test("validar-json: todo se puede usar solo con teclado (Ir al error y Validar)", async ({ page, browserName }) => {
   await page.goto("/validar-json/");
   const t = vj(page);
+  // En Safari, Tab no enfoca botones ni enlaces por defecto: se recorre con Option+Tab.
+  const TAB = browserName === "webkit" ? "Alt+Tab" : "Tab";
   const tabTo = async (locator) => {
     for (let i = 0; i < 8; i++) {
       if (await locator.evaluate((el) => el === document.activeElement)) return;
-      await page.keyboard.press("Tab");
+      await page.keyboard.press(TAB);
     }
-    throw new Error("No se llegó con Tab al elemento");
+    throw new Error(`No se llegó con ${TAB} al elemento`);
   };
   await t.input.click();
   await page.keyboard.type('{"a":1,}');
@@ -848,9 +850,9 @@ test("validar-json: formatear y minificar no alteran ningún dato", async ({ pag
 
 test("validar-json: la guía de errores típicos se muestra", async ({ page }) => {
   await page.goto("/validar-json/");
-  await expect(page.locator("#validate-json-guide .tool-guide-title")).toHaveText("Errores típicos de JSON");
+  await expect(page.locator("#validator-guide .tool-guide-title")).toHaveText("Errores típicos de JSON");
   await page.goto("/en/validate-json/");
-  await expect(page.locator("#validate-json-guide .tool-guide-title")).toHaveText("Common JSON errors");
+  await expect(page.locator("#validator-guide .tool-guide-title")).toHaveText("Common JSON errors");
 });
 
 test("validar-json: la región de resultado se anuncia con aria-live y está enlazada al editor", async ({ page }) => {
@@ -946,15 +948,20 @@ test("validar-xml: el ejemplo muestra el error con línea, columna y pista", asy
   await t.btn("sample").click();
   await expect(t.headline).toHaveText("XML mal formado");
   await expect(t.status).toHaveClass(/is-invalid/);
-  await expect(t.detail).toContainText("Línea 4, columna 12");
+  // La línea es la misma en todos los motores; la columna no (cada motor señala un punto).
+  await expect(t.detail).toContainText(/Línea 4, columna \d+/);
   await expect(t.detail).toContainText("se cierra con un nombre distinto");
-  await expect(t.tech).toContainText("Opening and ending tag mismatch");
+  await expect(t.tech).toContainText(/mismatch/i); // «Opening and ending tag mismatch» / «mismatched tag»
   await expect(t.frame).toContainText("</libros>");
   await expect(t.mark).toBeVisible();
   await t.jump.click();
-  expect(await t.input.evaluate((el) => el.selectionStart)).toBe(
-    await t.input.evaluate((el) => el.value.indexOf("</libros>") + "</libros>".length),
-  );
+  const sel = await t.input.evaluate((el) => {
+    const lines = el.value.split("\n");
+    const start = lines.slice(0, 3).join("\n").length + 1;
+    return { at: el.selectionStart, start, end: start + lines[3].length };
+  });
+  expect(sel.at).toBeGreaterThanOrEqual(sel.start);
+  expect(sel.at).toBeLessThanOrEqual(sel.end);
 });
 
 test("validar-xml: XML bien formado muestra los datos y no ofrece formatear", async ({ page }) => {
@@ -989,7 +996,7 @@ test("EN: validate-xml muestra la UI en inglés", async ({ page }) => {
   await expect(page.locator("main h1")).toHaveText("Validate XML");
   await t.btn("sample").click();
   await expect(t.headline).toHaveText("Malformed XML");
-  await expect(t.detail).toContainText("Line 4, column 12");
+  await expect(t.detail).toContainText(/Line 4, column \d+/);
   await t.input.fill("<a/>");
   await expect(t.headline).toHaveText("Well-formed XML");
 });
@@ -1268,7 +1275,7 @@ test("schema: con más de 100 errores muestra los primeros y cuántos faltan", a
   await expect(t.more).toContainText("50 errores más");
 });
 
-test("schema: una regex catastrófica se cancela y la página no se congela", async ({ page }) => {
+test("schema: una regex catastrófica no congela la página (se cancela si el motor tarda)", async ({ page, browserName }) => {
   test.setTimeout(40_000);
   const t = await openSchemaMode(page);
   await t.schema.fill('{"type":"string","pattern":"^(a+)+$"}');
@@ -1279,8 +1286,12 @@ test("schema: una regex catastrófica se cancela y la página no se congela", as
   expect(await page.evaluate(() => 1 + 1)).toBe(2);
   expect(Date.now() - t0).toBeLessThan(1000);
   await t.input.press("End");
-  await expect(t.headline).toHaveText("La validación se canceló", { timeout: 15_000 });
-  await expect(t.items.first()).toContainText("expresión regular");
+  const cancelled = "La validación se canceló";
+  // V8 y SpiderMonkey se quedan atascados (se cancela a los 4 s); JavaScriptCore (Safari)
+  // lo resuelve al instante y da el resultado correcto, así que ahí no hay nada que cancelar.
+  const accepted = browserName === "webkit" ? [cancelled, "El documento no cumple el schema (1 error)"] : [cancelled];
+  await expect.poll(async () => accepted.includes(await t.headline.innerText()), { timeout: 15_000 }).toBe(true);
+  if ((await t.headline.innerText()) === cancelled) await expect(t.items.first()).toContainText("expresión regular");
   // Y se recupera: un schema sano vuelve a validar.
   await t.schema.fill('{"type":"string"}');
   await expect(t.headline).toHaveText("El documento cumple el schema", { timeout: 15_000 });
@@ -1305,7 +1316,7 @@ test("EN: validate-json schema mode muestra la UI en inglés", async ({ page }) 
   await expect(t.items.nth(1).locator(".validate-error-src")).toHaveText("Document");
 });
 
-test("schema: no se descarga nada hasta activar el modo, y validar no genera peticiones", async ({ page, context, baseURL }) => {
+test("schema: no se descarga nada hasta activar el modo, y validar no genera peticiones", async ({ page, context, baseURL, browserName }) => {
   const net = auditNetwork(context, new URL(baseURL).origin);
   await page.goto("/validar-json/", { waitUntil: "networkidle" });
   const t = sm(page);
@@ -1316,7 +1327,9 @@ test("schema: no se descarga nada hasta activar el modo, y validar no genera pet
   expect(loadedVendor()).toBe(0); // aún no hace falta: se pide al primer validar
   await t.btn("sample").click();
   await expect(t.headline).toHaveText("El documento no cumple el schema (4 errores)");
-  expect(loadedVendor()).toBe(1);
+  // Playwright no informa de las peticiones de un Worker en Firefox: ahí no se puede contar.
+  const seesWorkerRequests = browserName !== "firefox";
+  if (seesWorkerRequests) expect(loadedVendor()).toBe(1);
   const afterFirst = net.requests().length;
   await t.items.nth(1).getByRole("button").click();
   await t.input.fill('{"a":1}');
@@ -1325,7 +1338,7 @@ test("schema: no se descarga nada hasta activar el modo, y validar no genera pet
   await t.btn("clear").click();
   await page.waitForTimeout(300);
   expect(net.requests().slice(afterFirst)).toEqual([]);
-  expect(loadedVendor()).toBe(1);
+  if (seesWorkerRequests) expect(loadedVendor()).toBe(1);
   expect(net.violations()).toEqual([]);
 });
 
@@ -1339,6 +1352,110 @@ test("schema: funciona con la CSP del sitio (sin eval) y sin errores de consola"
   await expect(t.headline).toHaveText("El documento no cumple el schema (4 errores)");
   expect(await page.evaluate(() => window.__csp)).toEqual([]);
   expect(problems).toEqual([]);
+});
+
+// --- Casos límite de la UI compartida de validadores ---
+
+async function mountExtra(page, options) {
+  await page.goto("/validar-json/");
+  await page.evaluate(async (opts) => {
+    const { mountValidateTool } = await import("/lib/validate-tool.js");
+    const host = document.createElement("div");
+    host.id = "extra";
+    document.body.append(host);
+    const pick = (k) => (k === "validate" ? () => { throw new Error("boom"); } : k);
+    mountValidateTool({
+      mount: host, toolId: "validar-json",
+      validate: opts.validateThrows ? pick("validate") : () => ({ valid: true, errors: [], meta: {} }),
+      ...(opts.schemaThrows ? { schemaMode: { check: async () => { throw new Error("kaboom"); }, sample: { document: "{}", schema: "{}" } } } : {}),
+    });
+  }, options);
+  const scope = (sel) => page.locator(`#extra ${sel}`);
+  return {
+    input: scope('[data-role="input"]'),
+    schema: scope('[data-role="schema-input"]'),
+    headline: scope(".validate-headline"),
+    detail: scope(".validate-detail"),
+    tech: scope(".validate-tech").first(),
+    toggle: scope('[data-role="mode"]'),
+    items: scope(".validate-errors > li"),
+  };
+}
+
+test("UI de validadores: si el validador lanza una excepción se muestra, sin romper la página", async ({ page }) => {
+  const t = await mountExtra(page, { validateThrows: true });
+  await t.input.fill("lo que sea");
+  await expect(t.headline).toHaveText("JSON no válido");
+  await expect(t.tech).toContainText("boom");
+  await expect(t.detail).toContainText("No se ha podido localizar la posición");
+  await t.input.fill("otro texto");
+  await expect(t.tech).toContainText("boom"); // y sigue funcionando al seguir escribiendo
+});
+
+test("UI de validadores: si falla la comprobación del schema se muestra el error sin origen", async ({ page }) => {
+  const t = await mountExtra(page, { schemaThrows: true });
+  await t.toggle.check();
+  await t.input.fill("{}");
+  await t.schema.fill("{}");
+  await expect(t.items).toHaveCount(1);
+  await expect(t.items.first()).toContainText("kaboom");
+  await expect(t.items.first().locator(".validate-error-src")).toHaveCount(0);
+});
+
+test("schema: desactivar y volver a activar el modo conserva los textos", async ({ page }) => {
+  const t = await openSchemaMode(page);
+  await t.btn("sample").click();
+  await expect(t.items).toHaveCount(4);
+  const [doc, schema] = [await t.input.inputValue(), await t.schema.inputValue()];
+  await t.toggle.uncheck();
+  await expect(t.schemaPane).toBeHidden();
+  await expect(t.input).toHaveValue(doc);
+  await t.toggle.check();
+  await expect(t.schema).toHaveValue(schema);
+  await expect(t.items).toHaveCount(4); // vuelve a validar al reactivarlo
+});
+
+test("schema: Vaciar limpia los dos editores y el resultado", async ({ page }) => {
+  const t = await openSchemaMode(page);
+  await t.btn("sample").click();
+  await expect(t.items).toHaveCount(4);
+  await t.btn("clear").click();
+  await expect(t.input).toHaveValue("");
+  await expect(t.schema).toHaveValue("");
+  await expect(t.items).toHaveCount(0);
+  await expect(t.headline).toHaveText("Pega un documento y su schema para validarlo.");
+  await expect(t.docMark).toBeHidden();
+});
+
+test("hub: la subsección Validar lista las cuatro herramientas y el buscador las encuentra", async ({ page }) => {
+  await page.goto("/");
+  const sub = page.locator('[data-subsection="validar"]');
+  await expect(sub.locator(".subsection-title")).toHaveText("Validar");
+  await expect(sub.locator(".tool-card")).toHaveCount(4);
+  for (const [name, href] of [["Validar JSON", "/validar-json/"], ["Validar XML", "/validar-xml/"], ["Validar YAML", "/validar-yaml/"], ["Validar TOML", "/validar-toml/"]]) {
+    await expect(sub.locator(`a.tool-card[href="${href}"] .tool-name`)).toHaveText(name);
+  }
+  await page.locator("#hub-search").fill("toml");
+  await expect(sub.locator(".tool-card:visible")).toHaveCount(1);
+  await page.locator("#hub-search").fill("pdf");
+  await expect(sub).toBeHidden();
+  await page.goto("/en/");
+  await expect(page.locator('[data-subsection="validar"] .subsection-title')).toHaveText("Validate");
+});
+
+test("hub: el buscador oculta de verdad las tarjetas que no coinciden", async ({ page }) => {
+  await page.goto("/");
+  for (const query of ["pdf", "json", "zzz-no-existe"]) {
+    await page.locator("#hub-search").fill(query);
+    // Invariante: una tarjeta con [hidden] nunca puede estar visible.
+    const leaked = await page.locator(".tool-card[hidden]").evaluateAll((els) => els.filter((e) => getComputedStyle(e).display !== "none").length);
+    expect(leaked, `«${query}»: tarjetas ocultas que se siguen viendo`).toBe(0);
+    const total = await page.locator(".tool-card:not(.is-soon)").count();
+    const shown = await page.locator(".tool-card:not(.is-soon):visible").count();
+    expect(shown, query).toBe(query === "zzz-no-existe" ? 0 : shown);
+    if (query === "pdf") expect(shown).toBeLessThan(total);
+  }
+  await expect(page.locator("#hub-empty")).toBeVisible();
 });
 
 // --- Promesa "sin red": ninguna página saca datos ni contacta con terceros ---

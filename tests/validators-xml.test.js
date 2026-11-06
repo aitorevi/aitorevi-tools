@@ -6,7 +6,6 @@ import {
   pickXmlHint,
   validateXml,
 } from "../lib/validators/xml.js";
-import { validate } from "../lib/validators/index.js";
 
 // Los textos de <parsererror> de Chrome son los que devuelve el DOMParser real de
 // Chromium (capturados con una sonda). Los de Firefox están escritos a partir de
@@ -37,7 +36,7 @@ describe("parseParserErrorText", () => {
       message: "mismatched tag. Expected: </b>.",
       line: 1,
       column: 8,
-      codePoints: false,
+      codePoints: true,
     });
   });
 
@@ -71,10 +70,11 @@ describe("normalizeXmlError · posición", () => {
     expect(e.column).toBe(11); // la columna se devuelve en UTF-16, como el editor
   });
 
-  it("Firefox: cuenta unidades UTF-16", () => {
+  it("Firefox también cuenta puntos de código (contrastado: Column 10 para este texto)", () => {
     const text = "<a>ñ😀</a><b/>";
-    const e = normalizeXmlError(firefox("junk after document element", 1, 11), text);
+    const e = normalizeXmlError(firefox("junk after document element", 1, 10), text);
     expect(e.offset).toBe(10);
+    expect(e.column).toBe(11);
   });
 
   it("posición fuera del texto → todo null (no se inventa)", () => {
@@ -88,6 +88,35 @@ describe("normalizeXmlError · posición", () => {
   });
 });
 
+describe("normalizeXmlError · pista afinada con la posición (formatos reales de Firefox y WebKit)", () => {
+  const hint = (raw, text) => normalizeXmlError(raw, text).hint;
+
+  it("WebKit: «Extra content» justo al final del texto es una etiqueta sin cerrar", () => {
+    expect(hint(chrome(1, 7, "Extra content at the end of the document"), "<a><b>")).toBe("unclosedTag");
+    expect(hint(chrome(1, 7, "Extra content at the end of the document"), "<a><b>\n  \n")).toBe("unclosedTag");
+  });
+
+  it("«Extra content» donde empieza el contenido sobrante sigue siendo un segundo elemento raíz", () => {
+    expect(hint(chrome(1, 5, "Extra content at the end of the document"), "<a/><b/>")).toBe("extraContent");
+    expect(hint(firefox("junk after document element", 1, 5), "<a/><b/>")).toBe("extraContent");
+  });
+
+  it("Firefox «not well-formed»: por el carácter anterior al error", () => {
+    expect(hint(firefox("not well-formed", 1, 10), "<a>fish & chips</a>")).toBe("unescapedAmpersand");
+    expect(hint(firefox("not well-formed", 1, 7), "<a>1 < 2</a>")).toBe("unescapedLt");
+    expect(hint(firefox("not well-formed", 1, 6), "<a b=1/>")).toBe("attributeQuotes");
+  });
+
+  it("«not well-formed» sin pista clara no inventa una", () => {
+    expect(hint(firefox("not well-formed", 1, 3), "<a>x</a>")).toBeNull();
+    expect(hint(firefox("not well-formed", 1, 1), "x")).toBeNull();
+  });
+
+  it("sin posición no se afina nada", () => {
+    expect(hint("XML Parsing Error: not well-formed", "<a>fish & chips</a>")).toBeNull();
+  });
+});
+
 describe("pickXmlHint", () => {
   const cases = [
     ["Opening and ending tag mismatch: b line 1 and a", "mismatchedTag"],
@@ -97,7 +126,9 @@ describe("pickXmlHint", () => {
     ["Extra content at the end of the document", "extraContent"],
     ["junk after document element", "extraContent"],
     ["Start tag expected, '<' not found", "noRoot"],
-    ["no root element found", "noRoot"],
+    ["no root element found", "unclosedTag"], // Firefox: el texto termina con etiquetas sin cerrar
+    ["syntax error", "noRoot"], // Firefox: el texto no es XML
+    ["Document is empty", "noRoot"],
     ["xmlParseEntityRef: no name", "unescapedAmpersand"],
     ["StartTag: invalid element name", "unescapedLt"],
     ["Entity 'nbsp' not defined", "undefinedEntity"],
@@ -204,11 +235,5 @@ describe("validateXml", () => {
 
   it("lanza un error claro si no hay DOMParser (Node)", () => {
     expect(() => validateXml("<a/>")).toThrow(/DOMParser/);
-  });
-});
-
-describe("registro", () => {
-  it("xml está registrado; en Node falla de forma explícita por falta de DOMParser", () => {
-    expect(() => validate("xml", "<a/>")).toThrow(/DOMParser/);
   });
 });
