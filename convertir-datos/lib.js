@@ -2,6 +2,8 @@
 // inyectan como parámetro `libs` para que el módulo sea testeable con Vitest.
 // libs = { yaml: window.jsyaml, xml: window.fxp, toml: window.SmolTOML }
 
+import { loadDocuments } from '../lib/yaml-docs.js';
+
 export const FORMATS = ['csv', 'json', 'yaml', 'xml', 'toml'];
 
 // ── Helpers ────────────────────────────────────────────────────────────────
@@ -82,7 +84,11 @@ function stringifyJSON(data) { return JSON.stringify(data, null, 2); }
 
 // ── YAML ───────────────────────────────────────────────────────────────────
 
-function parseYAML(text, libs) { return libs.yaml.load(text); }
+// Varios documentos (`---`) son YAML válido: se tratan como una lista de documentos.
+function parseYAML(text, libs) {
+  const docs = loadDocuments(libs.yaml, text);
+  return docs.length === 1 ? docs[0] : docs;
+}
 function stringifyYAML(data, libs) { return libs.yaml.dump(data, { lineWidth: 120 }); }
 
 // ── XML ────────────────────────────────────────────────────────────────────

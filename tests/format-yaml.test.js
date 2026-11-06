@@ -28,3 +28,27 @@ describe("format", () => {
     expect(() => format(SAMPLE, jsyaml)).not.toThrow();
   });
 });
+
+describe("varios documentos (---)", () => {
+  it("formatea cada documento y los une con ---", () => {
+    expect(format("a: {x: 1}\n---\nb: [1, 2]", jsyaml)).toBe("a:\n  x: 1\n---\nb:\n  - 1\n  - 2");
+  });
+
+  it("es idempotente", () => {
+    const once = format("a: 1\n---\nb: {c: 2}\n---\n- x", jsyaml);
+    expect(format(once, jsyaml)).toBe(once);
+  });
+
+  it("un documento vacío entre separadores se formatea como null", () => {
+    expect(format("a: 1\n---\n---\nb: 2", jsyaml)).toBe("a: 1\n---\nnull\n---\nb: 2");
+  });
+
+  it("un error en cualquier documento sigue lanzando", () => {
+    expect(() => format("a: 1\n---\nb: [1", jsyaml)).toThrow();
+  });
+
+  it("un solo documento se comporta exactamente como antes", () => {
+    expect(format("a: {x: 1}", jsyaml)).toBe("a:\n  x: 1");
+    expect(format("# solo comentario", jsyaml)).toBe("null"); // igual que antes del soporte multi-documento
+  });
+});

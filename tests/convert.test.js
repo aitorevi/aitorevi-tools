@@ -91,3 +91,26 @@ describe("mismo formato (no-op)", () => {
     expect(convert(txt, "json", "json", libs)).toBe(txt);
   });
 });
+
+describe("YAML con varios documentos (---)", () => {
+  const multi = "name: Ana\nage: 30\n---\nname: Luis\nage: 25";
+
+  it("YAML → JSON trata los documentos como una lista", () => {
+    const json = JSON.parse(convert(multi, "yaml", "json", libs));
+    expect(json).toEqual([{ name: "Ana", age: 30 }, { name: "Luis", age: 25 }]);
+  });
+
+  it("YAML → CSV usa cada documento como una fila", () => {
+    const csv = convert(multi, "yaml", "csv", libs);
+    expect(csv).toContain("name,age");
+    expect(csv).toContain("Luis,25");
+  });
+
+  it("un solo documento se convierte exactamente como antes", () => {
+    expect(JSON.parse(convert("a: 1", "yaml", "json", libs))).toEqual({ a: 1 });
+  });
+
+  it("un error de sintaxis sigue lanzando", () => {
+    expect(() => convert("a: 1\n---\nb: [1", "yaml", "json", libs)).toThrow();
+  });
+});
