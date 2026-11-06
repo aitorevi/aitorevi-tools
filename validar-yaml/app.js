@@ -23,4 +23,4 @@ mountValidateTool({
   sample: SAMPLE,
 });
 
-renderGuide(document.getElementById("validate-yaml-guide"), GUIDE, msgs("validar-yaml").guide);
+renderGuide(document.getElementById("validator-guide"), GUIDE, msgs("validar-yaml").guide);

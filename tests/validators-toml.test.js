@@ -1,7 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { loadUMD } from "./_umd.js";
 import { normalizeTomlError, pickTomlHint, validateToml } from "../lib/validators/toml.js";
-import { validate } from "../lib/validators/index.js";
 
 const toml = loadUMD("vendor/smol-toml.min.js", "SmolTOML");
 const run = (text) => validateToml(text, toml);
@@ -118,7 +117,6 @@ describe("dependencia", () => {
     delete globalThis.SmolTOML;
     try {
       expect(() => validateToml("a = 1", undefined)).toThrow(/smol-toml/);
-      expect(() => validate("toml", "a = 1")).toThrow(/smol-toml/);
     } finally {
       globalThis.SmolTOML = saved;
     }

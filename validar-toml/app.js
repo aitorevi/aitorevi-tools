@@ -21,4 +21,4 @@ mountValidateTool({
   sample: SAMPLE,
 });
 
-renderGuide(document.getElementById("validate-toml-guide"), GUIDE, msgs("validar-toml").guide);
+renderGuide(document.getElementById("validator-guide"), GUIDE, msgs("validar-toml").guide);

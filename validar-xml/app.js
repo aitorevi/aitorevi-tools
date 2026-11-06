@@ -23,4 +23,4 @@ mountValidateTool({
   sample: SAMPLE,
 });
 
-renderGuide(document.getElementById("validate-xml-guide"), GUIDE, msgs("validar-xml").guide);
+renderGuide(document.getElementById("validator-guide"), GUIDE, msgs("validar-xml").guide);

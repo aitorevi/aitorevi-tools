@@ -18,3 +18,7 @@ playwright-report/
 
 # Vercel
 .vercel
+
+# Cobertura generada
+coverage/
+.vitest/

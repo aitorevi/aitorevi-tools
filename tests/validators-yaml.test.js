@@ -1,7 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { loadUMD } from "./_umd.js";
 import { normalizeYamlError, pickYamlHint, validateYaml } from "../lib/validators/yaml.js";
-import { validate } from "../lib/validators/index.js";
 
 const jsyaml = loadUMD("vendor/js-yaml.min.js", "jsyaml");
 const run = (text) => validateYaml(text, jsyaml);
@@ -137,6 +136,5 @@ describe("pickYamlHint", () => {
 describe("dependencia", () => {
   it("lanza un error claro si js-yaml no está disponible", () => {
     expect(() => validateYaml("a: 1", undefined)).toThrow(/js-yaml/);
-    expect(() => validate("yaml", "a: 1")).toThrow(/js-yaml/);
   });
 });

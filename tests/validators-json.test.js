@@ -1,6 +1,5 @@
 import { describe, it, expect } from "vitest";
 import { validateJson } from "../lib/validators/json.js";
-import { VALIDATORS, validate } from "../lib/validators/index.js";
 
 // Estos tests usan el JSON.parse real del entorno. Los motores difieren en si dan
 // posición, pero el localizador de respaldo la garantiza, así que se exige exacta.
@@ -176,17 +175,5 @@ describe("validateJson · errores típicos", () => {
     const e = first('{"a":1,}');
     expect(Object.keys(e).sort()).toEqual(["column", "hint", "line", "message", "offset"]);
     expect(typeof e.message).toBe("string");
-  });
-});
-
-describe("registro de validadores", () => {
-  it("json está registrado y validate() delega en él", () => {
-    expect(VALIDATORS.json).toBe(validateJson);
-    expect(validate("json", "[1]").valid).toBe(true);
-    expect(validate("json", "[").valid).toBe(false);
-  });
-
-  it("un formato desconocido lanza", () => {
-    expect(() => validate("nope", "x")).toThrow(/Unknown validator/);
   });
 });

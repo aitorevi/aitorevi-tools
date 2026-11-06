@@ -5,9 +5,6 @@
 export const SAMPLE =
   '{\n  "nombre": "aitorevi.tools",\n  "herramientas": ["json", "xml",],\n  "privado": true\n}';
 
-/** Quita un BOM inicial: JSON.parse lo rechaza aunque el validador lo acepte. */
-export const stripBom = (text) => (text.charCodeAt(0) === 0xfeff ? text.slice(1) : text);
-
 /** Ejemplo del modo schema: un documento con cuatro errores frente a su schema. */
 export const SCHEMA_SAMPLE = {
   document:

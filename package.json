@@ -10,12 +10,15 @@
     "vendor:json-schema": "esbuild vendor/json-schema/entry.js --bundle --minify --format=iife --global-name=JsonSchema --legal-comments=none --banner:js='/*! @cfworker/json-schema 4.1.6 (MIT) + JSON Schema metaschemas (BSD-3-Clause) */' --footer:js='self.JsonSchema=JsonSchema;' --outfile=vendor/json-schema.min.js",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
     "@cfworker/json-schema": "4.1.6",
     "@keeratita/heic-converter": "0.5.2",
     "@playwright/test": "^1.49.1",
+    "@vitest/coverage-v8": "5.0.5",
     "esbuild": "^0.28.1",
     "fast-xml-parser": "^5.8.0",
     "smol-toml": "^1.9.1",

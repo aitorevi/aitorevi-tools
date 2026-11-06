@@ -8,9 +8,10 @@ import { fail, makeError } from "../lib/validators/result.js";
  * @param {Object} opts
  * @param {string|URL} opts.workerUrl
  * @param {number} [opts.timeoutMs=4000]  límite de la validación pesada
+ * @param {Function} [opts.WorkerImpl]    constructor de Worker (inyectable para los tests)
  * @returns {(documentText: string, schemaText: string) => Promise<Object>}
  */
-export function createSchemaChecker({ workerUrl, timeoutMs = 4000 }) {
+export function createSchemaChecker({ workerUrl, timeoutMs = 4000, WorkerImpl = globalThis.Worker }) {
   let worker = null;
   let seq = 0;
   let cancelPending = null;
@@ -28,7 +29,7 @@ export function createSchemaChecker({ workerUrl, timeoutMs = 4000 }) {
     // reinicia el Worker (así una validación lenta no retrasa a la siguiente).
     if (cancelPending) cancelPending();
     const id = ++seq;
-    if (!worker) worker = new Worker(workerUrl, { type: "module" });
+    if (!worker) worker = new WorkerImpl(workerUrl, { type: "module" });
     const w = worker;
 
     const raw = await new Promise((resolve) => {

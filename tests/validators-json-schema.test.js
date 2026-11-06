@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { loadUMD } from "./_umd.js";
 import {
+  SCHEMA_HINTS,
   checkSchemaAndDocument,
   detectDraft,
   explainUnit,
@@ -166,6 +167,8 @@ describe("validateJsonSchema · una pista por palabra clave", () => {
       expect(errors).toHaveLength(1);
       expect(errors[0].hint).toBe(hint);
       expect(errors[0].params).toEqual(params);
+      // la tabla de referencia de las pistas debe nombrar exactamente estos parámetros
+      expect(Object.keys(params).sort()).toEqual([...SCHEMA_HINTS[hint]].sort());
     });
   }
 

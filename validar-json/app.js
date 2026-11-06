@@ -3,10 +3,11 @@
 // (reescriben solo el espacio en blanco: no alteran ningún valor). El modo schema
 // valida contra un JSON Schema en un Worker (schema-worker.js), que solo se carga
 // al activarlo.
-import { SAMPLE, SCHEMA_SAMPLE, stripBom } from "./lib.js";
+import { SAMPLE, SCHEMA_SAMPLE } from "./lib.js";
 import { GUIDE } from "./guide.js";
 import { validateJson } from "../lib/validators/json.js";
 import { formatJson, minifyJson } from "../lib/json-format.js";
+import { splitBom } from "../lib/validators/position.js";
 import { mountValidateTool } from "../lib/validate-tool.js";
 import { createSchemaChecker } from "./schema-client.js";
 import { renderGuide } from "../lib/tool-guide.js";
@@ -21,8 +22,8 @@ mountValidateTool({
     [M.valKeys, String(meta.keyCount)],
     [M.valDepth, String(meta.depth)],
   ],
-  format: (text) => formatJson(stripBom(text)),
-  minify: (text) => minifyJson(stripBom(text)),
+  format: (text) => formatJson(splitBom(text).body),
+  minify: (text) => minifyJson(splitBom(text).body),
   sample: SAMPLE,
   schemaMode: {
     check: createSchemaChecker({ workerUrl: new URL("./schema-worker.js", import.meta.url) }),
@@ -36,4 +37,4 @@ mountValidateTool({
   },
 });
 
-renderGuide(document.getElementById("validate-json-guide"), GUIDE, msgs("validar-json").guide);
+renderGuide(document.getElementById("validator-guide"), GUIDE, msgs("validar-json").guide);

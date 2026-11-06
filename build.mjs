@@ -3,7 +3,7 @@
  * Generador estático bilingüe (ES/EN) de aitorevi.tools.
  *
  * Fuente única: tools.json (estructura) + i18n/{es,en}.json (textos) + partials/
- * + <id>/body.html. Salida (commiteada, servida por Vercel): ES en la raíz, EN en /en/.
+ * + <id>/body.html (o `body` en tools.json si varias tools comparten cuerpo). Salida (commiteada, servida por Vercel): ES en la raíz, EN en /en/.
  *
  * Regla de oro: el HTML generado NO se edita a mano. Edita el origen y ejecuta `npm run build`.
  * Sin dependencias: solo Node estándar.
@@ -144,7 +144,7 @@ ${jsonld}${styleBlock}
 function navbar(lang, urls) {
   const link = (l) => {
     const active = l === lang;
-    return `<a href="${urls[l]}" hreflang="${l}"${active ? ' aria-current="true"' : ""} class="lang${active ? " is-active" : ""}" data-lang-switch aria-label="${LANG_NAME[l]}">${LANG_LABEL[l]}</a>`;
+    return `<a href="${urls[l]}" hreflang="${l}"${active ? ' aria-current="true"' : ""} class="lang${active ? " is-active" : ""}" data-lang-switch aria-label="${LANG_LABEL[l]}, ${LANG_NAME[l]}">${LANG_LABEL[l]}</a>`;
   };
   const group = `        <div class="lang-group" role="group" aria-label="${I18N[lang].common.langSelect}">
           ${link("es")}
@@ -221,7 +221,7 @@ function buildTool(tool, lang) {
   const canonical = toolUrl(tool, lang);
   const urls = Object.fromEntries(LANGS.map((l) => [l, toolUrl(tool, l)]));
   const dict = { ...I18N[lang].common, ...(T.ui || {}) };
-  const raw = splitBody(read(`${tool.id}/body.html`));
+  const raw = splitBody(read(tool.body || `${tool.id}/body.html`));
   const style = fillTemplate(raw.style, dict);
   const main = fillTemplate(raw.main, dict);
   const html = page({
