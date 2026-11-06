@@ -45,7 +45,22 @@
     "transformEncode": "Encode",
     "transformDecode": "Decode",
     "hashAlgorithm": "Algorithm",
-    "transformPlaceholder": "Type or paste here…"
+    "transformPlaceholder": "Type or paste here…",
+    "valPlaceholder": "Paste what you want to validate here…",
+    "valValidate": "Validate",
+    "valIdle": "Paste or type something to validate it.",
+    "valPending": "Large text: press “Validate” to check it.",
+    "valLarge": "The text is about {size} MB, so automatic validation is off. Press “Validate” whenever you want to check it.",
+    "valAt": "Line {line}, column {column}",
+    "valNoPosition": "Couldn't locate the position of the error",
+    "valJump": "Go to error (line {line}, column {column})",
+    "valTechnical": "Technical detail",
+    "valBom": "The text starts with an invisible BOM mark; it is ignored when validating.",
+    "valFormatted": "The text has been formatted.",
+    "valMinified": "The text has been minified.",
+    "valRootType": "Root type",
+    "valKeys": "Keys",
+    "valDepth": "Max depth"
   },
   "hub": {
     "title": "aitorevi.tools — mini tools that run in your browser",
@@ -1091,12 +1106,83 @@
         "outputAria": "Generated UUIDs"
       },
       "msg": {}
+    },
+    "validar-json": {
+      "meta": {
+        "title": "Validate JSON — check syntax and find the error, in your browser",
+        "description": "Validate JSON instantly in your browser: get the line and column of the error, an explanation of what went wrong, and jump straight to it. Free, no sign-up and nothing uploaded to any server.",
+        "ogTitle": "Validate JSON — syntax and errors instantly",
+        "ogDescription": "Validate JSON in your browser and find the error by line and column. Free, nothing uploaded.",
+        "jsonldName": "Validate JSON",
+        "jsonldDescription": "Validates JSON in the browser, pointing to the line and column of the error, without sending the text to any server."
+      },
+      "card": {
+        "name": "Validate JSON",
+        "desc": "Check whether your JSON is valid and jump straight to the error, with its line and column.",
+        "tags": [
+          "Code",
+          "No server"
+        ]
+      },
+      "ui": {
+        "h1": "Validate JSON",
+        "subtitle": "Paste your JSON and check whether it is valid. If there is an error, you'll see where it is and what went wrong. Everything happens in your browser.",
+        "cardAria": "Tool to validate JSON"
+      },
+      "msg": {
+        "valid": "Valid JSON",
+        "invalid": "Invalid JSON",
+        "types": {
+          "object": "Object",
+          "array": "Array",
+          "string": "String",
+          "number": "Number",
+          "boolean": "Boolean",
+          "null": "Null"
+        },
+        "hints": {
+          "trailingComma": "There seems to be an extra comma before closing the object or list. Remove the last comma.",
+          "singleQuotes": "JSON only accepts double quotes (\"). Replace the single quotes (') with double ones.",
+          "unquotedKey": "Keys must be wrapped in double quotes: {\"key\": 1}.",
+          "comments": "JSON doesn't allow comments (// or /* */). Delete them.",
+          "missingComma": "A comma is missing between two items.",
+          "missingColon": "The \":\" between a key and its value is missing.",
+          "unexpectedEnd": "The text ends too early: a closing brace }, bracket ] or quote is missing.",
+          "unterminatedString": "A text value is missing its closing quote.",
+          "controlChar": "There is a line break or a tab inside a text value. Write it as \\n or \\t.",
+          "badEscape": "A backslash (\\) is followed by a character that isn't allowed. Write the backslash as \\\\.",
+          "nonJsonValue": "NaN, Infinity and undefined don't exist in JSON. Use null or a number.",
+          "extraContent": "There is extra text after the JSON. Remove it or put everything inside an array."
+        },
+        "guide": {
+          "title": "Common JSON errors",
+          "intro": "Most mistakes when writing JSON by hand are these. Each comes with its fix:",
+          "groups": {
+            "errors": "Frequent errors and how to fix them",
+            "valid": "Also valid JSON"
+          },
+          "desc": {
+            "trailingComma": "Extra comma before closing: remove the last comma",
+            "singleQuotes": "Single quotes aren't allowed: use double quotes",
+            "unquotedKey": "Keys go inside double quotes",
+            "comments": "JSON doesn't allow comments: delete them",
+            "missingComma": "A comma is missing between two items",
+            "nonJsonValue": "NaN, Infinity and undefined don't exist: use null or a number",
+            "number": "A bare number, with no braces or brackets",
+            "string": "A bare text value in double quotes",
+            "null": "A bare null value",
+            "empty": "An empty array or object",
+            "bom": "An invisible mark at the start of the file: it is ignored"
+          }
+        }
+      }
     }
   },
   "subsections": {
     "organizar": "Organize",
     "transformar": "Transform",
     "formatear": "Format",
+    "validar": "Validate",
     "analizar": "Analyze",
     "codificar": "Encode",
     "convertir": "Convert",

@@ -47,7 +47,22 @@ export const STRINGS = {
       "transformEncode": "Codificar",
       "transformDecode": "Decodificar",
       "hashAlgorithm": "Algoritmo",
-      "transformPlaceholder": "Escribe o pega aquí…"
+      "transformPlaceholder": "Escribe o pega aquí…",
+      "valPlaceholder": "Pega aquí lo que quieres validar…",
+      "valValidate": "Validar",
+      "valIdle": "Pega o escribe algo para validarlo.",
+      "valPending": "Texto muy grande: pulsa «Validar» para comprobarlo.",
+      "valLarge": "El texto ocupa unos {size} MB, así que la validación automática está desactivada. Pulsa «Validar» cuando quieras comprobarlo.",
+      "valAt": "Línea {line}, columna {column}",
+      "valNoPosition": "No se ha podido localizar la posición del error",
+      "valJump": "Ir al error (línea {line}, columna {column})",
+      "valTechnical": "Detalle técnico",
+      "valBom": "El texto empieza con una marca BOM invisible; se ignora al validar.",
+      "valFormatted": "Se ha formateado el texto.",
+      "valMinified": "Se ha minificado el texto.",
+      "valRootType": "Tipo raíz",
+      "valKeys": "Claves",
+      "valDepth": "Profundidad"
     },
     "separar-pdf": {
       "pages": {
@@ -278,6 +293,53 @@ export const STRINGS = {
         }
       }
     },
+    "validar-json": {
+      "valid": "JSON válido",
+      "invalid": "JSON no válido",
+      "types": {
+        "object": "Objeto",
+        "array": "Lista (array)",
+        "string": "Texto",
+        "number": "Número",
+        "boolean": "Booleano",
+        "null": "Nulo"
+      },
+      "hints": {
+        "trailingComma": "Parece que sobra una coma antes de cerrar el objeto o la lista. Quita la última coma.",
+        "singleQuotes": "JSON solo admite comillas dobles (\"). Cambia las comillas simples (') por dobles.",
+        "unquotedKey": "Las claves deben ir entre comillas dobles: {\"clave\": 1}.",
+        "comments": "JSON no admite comentarios (// ni /* */). Bórralos.",
+        "missingComma": "Falta una coma entre dos elementos.",
+        "missingColon": "Falta el signo «:» entre la clave y su valor.",
+        "unexpectedEnd": "El texto termina antes de tiempo: falta cerrar alguna llave }, corchete ] o comilla.",
+        "unterminatedString": "Falta cerrar las comillas de un texto.",
+        "controlChar": "Hay un salto de línea o un tabulador dentro de un texto. Escríbelo como \\n o \\t.",
+        "badEscape": "Hay una barra invertida (\\) seguida de un carácter no permitido. Escríbela como \\\\.",
+        "nonJsonValue": "NaN, Infinity y undefined no existen en JSON. Usa null o un número.",
+        "extraContent": "Hay texto sobrante después del JSON. Quítalo o mete todo dentro de una lista."
+      },
+      "guide": {
+        "title": "Errores típicos de JSON",
+        "intro": "La mayoría de errores al escribir JSON a mano son estos. Cada uno lleva su arreglo:",
+        "groups": {
+          "errors": "Errores frecuentes y cómo arreglarlos",
+          "valid": "También es JSON válido"
+        },
+        "desc": {
+          "trailingComma": "Coma de más antes de cerrar: quita la última coma",
+          "singleQuotes": "Las comillas simples no valen: usa comillas dobles",
+          "unquotedKey": "Las claves van entre comillas dobles",
+          "comments": "JSON no admite comentarios: bórralos",
+          "missingComma": "Falta una coma entre dos elementos",
+          "nonJsonValue": "NaN, Infinity y undefined no existen: usa null o un número",
+          "number": "Un número suelto, sin llaves ni corchetes",
+          "string": "Un texto suelto entre comillas dobles",
+          "null": "Un valor nulo suelto",
+          "empty": "Un array o un objeto vacío",
+          "bom": "Una marca invisible al inicio del archivo: se ignora"
+        }
+      }
+    },
     "regex": {
       "matchesCount": {
         "one": "{n} coincidencia",
@@ -441,7 +503,22 @@ export const STRINGS = {
       "transformEncode": "Encode",
       "transformDecode": "Decode",
       "hashAlgorithm": "Algorithm",
-      "transformPlaceholder": "Type or paste here…"
+      "transformPlaceholder": "Type or paste here…",
+      "valPlaceholder": "Paste what you want to validate here…",
+      "valValidate": "Validate",
+      "valIdle": "Paste or type something to validate it.",
+      "valPending": "Large text: press “Validate” to check it.",
+      "valLarge": "The text is about {size} MB, so automatic validation is off. Press “Validate” whenever you want to check it.",
+      "valAt": "Line {line}, column {column}",
+      "valNoPosition": "Couldn't locate the position of the error",
+      "valJump": "Go to error (line {line}, column {column})",
+      "valTechnical": "Technical detail",
+      "valBom": "The text starts with an invisible BOM mark; it is ignored when validating.",
+      "valFormatted": "The text has been formatted.",
+      "valMinified": "The text has been minified.",
+      "valRootType": "Root type",
+      "valKeys": "Keys",
+      "valDepth": "Max depth"
     },
     "separar-pdf": {
       "pages": {
@@ -669,6 +746,53 @@ export const STRINGS = {
           "hex": "Hex color (#rrggbb)",
           "rgb": "Color by components (rgb / rgba)",
           "layout": "Layout mode (display property)"
+        }
+      }
+    },
+    "validar-json": {
+      "valid": "Valid JSON",
+      "invalid": "Invalid JSON",
+      "types": {
+        "object": "Object",
+        "array": "Array",
+        "string": "String",
+        "number": "Number",
+        "boolean": "Boolean",
+        "null": "Null"
+      },
+      "hints": {
+        "trailingComma": "There seems to be an extra comma before closing the object or list. Remove the last comma.",
+        "singleQuotes": "JSON only accepts double quotes (\"). Replace the single quotes (') with double ones.",
+        "unquotedKey": "Keys must be wrapped in double quotes: {\"key\": 1}.",
+        "comments": "JSON doesn't allow comments (// or /* */). Delete them.",
+        "missingComma": "A comma is missing between two items.",
+        "missingColon": "The \":\" between a key and its value is missing.",
+        "unexpectedEnd": "The text ends too early: a closing brace }, bracket ] or quote is missing.",
+        "unterminatedString": "A text value is missing its closing quote.",
+        "controlChar": "There is a line break or a tab inside a text value. Write it as \\n or \\t.",
+        "badEscape": "A backslash (\\) is followed by a character that isn't allowed. Write the backslash as \\\\.",
+        "nonJsonValue": "NaN, Infinity and undefined don't exist in JSON. Use null or a number.",
+        "extraContent": "There is extra text after the JSON. Remove it or put everything inside an array."
+      },
+      "guide": {
+        "title": "Common JSON errors",
+        "intro": "Most mistakes when writing JSON by hand are these. Each comes with its fix:",
+        "groups": {
+          "errors": "Frequent errors and how to fix them",
+          "valid": "Also valid JSON"
+        },
+        "desc": {
+          "trailingComma": "Extra comma before closing: remove the last comma",
+          "singleQuotes": "Single quotes aren't allowed: use double quotes",
+          "unquotedKey": "Keys go inside double quotes",
+          "comments": "JSON doesn't allow comments: delete them",
+          "missingComma": "A comma is missing between two items",
+          "nonJsonValue": "NaN, Infinity and undefined don't exist: use null or a number",
+          "number": "A bare number, with no braces or brackets",
+          "string": "A bare text value in double quotes",
+          "null": "A bare null value",
+          "empty": "An empty array or object",
+          "bom": "An invisible mark at the start of the file: it is ignored"
         }
       }
     },

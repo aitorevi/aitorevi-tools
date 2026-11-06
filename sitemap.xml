@@ -181,6 +181,18 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://tools.aitorevi.dev/validar-json/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/validar-json/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/validate-json/" />
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://tools.aitorevi.dev/en/validate-json/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/validar-json/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/validate-json/" />
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://tools.aitorevi.dev/regex/</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/regex/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/regex/" />

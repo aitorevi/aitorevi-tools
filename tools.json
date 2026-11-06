@@ -108,6 +108,13 @@
       "slug": { "es": "formatear-js", "en": "format-js" }
     },
     {
+      "id": "validar-json",
+      "section": "codigo",
+      "subsection": "validar",
+      "libs": [],
+      "slug": { "es": "validar-json", "en": "validate-json" }
+    },
+    {
       "id": "regex",
       "section": "codigo",
       "subsection": "analizar",

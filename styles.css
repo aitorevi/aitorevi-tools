@@ -559,6 +559,87 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
 .code-alert:empty { display: none; }
 .code-alert--warn { color: rgb(var(--warn)); background: rgb(var(--warn) / 0.10); border-color: rgb(var(--warn) / 0.32); }
 
+/* Validadores (lib/validate-tool.js): editor con numeración de líneas y marca del
+   error a la izquierda; panel de resultado a la derecha. El estado nunca depende
+   solo del color: lleva icono (✓ ✕) y texto. */
+.validate-tool [hidden] { display: none !important; }
+.validate-editor {
+  position: relative; display: flex; overflow: hidden;
+  height: clamp(360px, 60vh, 660px);
+  border: 1px solid rgb(var(--border)); border-top: none; border-radius: 0 0 12px 12px;
+  background: rgb(var(--surface-2) / 0.5);
+  transition: border-color .2s ease;
+}
+.code-pane:hover .validate-editor { border-color: rgb(var(--muted) / 0.4); }
+.code-pane:has(.code-area:focus) .validate-editor { border-color: rgb(var(--accent) / 0.45); }
+.validate-gutter {
+  position: relative; z-index: 1; flex: 0 0 auto; box-sizing: border-box;
+  padding: 14px 10px 28px 12px; overflow: hidden; user-select: none;
+  text-align: right; white-space: pre;
+  font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .85rem; line-height: 1.6;
+  color: rgb(var(--muted) / 0.8); border-right: 1px solid rgb(var(--border));
+}
+.validate-input.code-area {
+  position: relative; z-index: 1; flex: 1 1 auto; min-width: 0; min-height: 0; height: 100%;
+  border: none; border-radius: 0; background: transparent; resize: none;
+}
+.validate-mark, .validate-caret { position: absolute; pointer-events: none; }
+.validate-mark {
+  z-index: 0; left: 0; right: 0;
+  background: rgb(var(--danger) / 0.12); box-shadow: inset 3px 0 0 rgb(var(--danger));
+}
+.validate-caret {
+  z-index: 2; background: rgb(var(--danger) / 0.35); border-bottom: 2px solid rgb(var(--danger));
+}
+.validate-measure {
+  position: absolute; left: 0; top: 0; visibility: hidden; pointer-events: none;
+  white-space: pre; tab-size: 2;
+  font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .85rem;
+}
+.validate-result {
+  display: flex; flex-direction: column; align-items: stretch; gap: 14px;
+  box-sizing: border-box; height: clamp(360px, 60vh, 660px); padding: 16px; overflow: auto;
+  border: 1px solid rgb(var(--border)); border-top: none; border-radius: 0 0 12px 12px;
+  background: rgb(var(--surface) / 0.5);
+}
+.validate-status {
+  display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px;
+  border-radius: 12px; border: 1px solid rgb(var(--border));
+}
+.validate-status.is-valid { border-color: rgb(var(--ok) / 0.4); background: rgb(var(--ok) / 0.10); }
+.validate-status.is-invalid { border-color: rgb(var(--danger) / 0.4); background: rgb(var(--danger) / 0.10); }
+.validate-icon {
+  flex: 0 0 auto; display: grid; place-items: center; width: 1.6rem; height: 1.6rem;
+  border: 2px solid currentColor; border-radius: 50%; line-height: 1;
+  font-weight: 700; font-size: .95rem; color: rgb(var(--muted));
+}
+.is-valid .validate-icon { color: rgb(var(--ok)); }
+.is-invalid .validate-icon { color: rgb(var(--danger)); }
+.validate-text { min-width: 0; }
+.validate-headline, .validate-detail, .validate-tech { margin: 0; }
+.validate-headline {
+  font-family: "Outfit", system-ui, sans-serif; font-weight: 800; font-size: 1.05rem;
+  color: rgb(var(--fg));
+}
+.validate-detail { margin-top: 4px; font-size: .9rem; line-height: 1.5; color: rgb(var(--fg)); }
+.validate-tech {
+  margin-top: 6px; overflow-wrap: anywhere; color: rgb(var(--muted));
+  font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .75rem; line-height: 1.5;
+}
+.validate-frame {
+  margin: 0; padding: 10px 12px; overflow: auto; white-space: pre;
+  border: 1px solid rgb(var(--border)); border-radius: 10px; background: rgb(var(--fg) / 0.045);
+  font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .8rem; line-height: 1.5;
+  color: rgb(var(--fg));
+}
+.validate-jump { align-self: flex-start; }
+.validate-meta {
+  display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; margin: 0; font-size: .9rem;
+}
+.validate-meta dt { color: rgb(var(--muted)); }
+.validate-meta dd { margin: 0; color: rgb(var(--fg)); font-family: "JetBrains Mono", ui-monospace, monospace; }
+@media (max-width: 719px) { .validate-result { height: auto; min-height: 12rem; } }
+
 /* Decodificador de JWT (UI propia, reutiliza .code-tool/.code-area). */
 .jwt-tool .jwt-input { min-height: 8rem; }
 .jwt-info {

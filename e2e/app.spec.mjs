@@ -698,11 +698,241 @@ test("código: las guías de JSON, XML, YAML, SQL y HTML/CSS se renderizan", asy
     ["/formatear-yaml/", "yaml-guide"],
     ["/formatear-sql/", "sql-guide"],
     ["/formatear-html-css/", "htmlcss-guide"],
+    ["/validar-json/", "validate-json-guide"],
   ]) {
     await page.goto(path);
     await expect(page.locator(`#${id} .tool-guide-title`)).toBeVisible();
     expect(await page.locator(`#${id} code`).count()).toBeGreaterThan(5);
   }
+});
+
+// --- Validar JSON ---
+
+const vj = (page) => ({
+  input: page.locator('#code-tool [data-role="input"]'),
+  status: page.locator('#code-tool [data-role="status"]'),
+  headline: page.locator("#code-tool .validate-headline"),
+  detail: page.locator("#code-tool .validate-detail"),
+  tech: page.locator("#code-tool .validate-tech"),
+  frame: page.locator("#code-tool .validate-frame"),
+  meta: page.locator("#code-tool .validate-meta"),
+  mark: page.locator("#code-tool .validate-mark"),
+  caret: page.locator("#code-tool .validate-caret"),
+  warn: page.locator('#code-tool [data-role="warn"]'),
+  jump: page.locator('#code-tool [data-act="jump"]'),
+  btn: (act) => page.locator(`#code-tool [data-act="${act}"]`),
+});
+
+test("validar-json: JSON válido muestra el estado y los datos", async ({ page }) => {
+  await page.goto("/validar-json/");
+  const t = vj(page);
+  await expect(t.headline).toHaveText("Pega o escribe algo para validarlo.");
+  await t.input.fill('{"a":{"b":[1,2]},"c":null}');
+  await expect(t.headline).toHaveText("JSON válido");
+  await expect(t.status).toHaveClass(/is-valid/);
+  await expect(t.status.locator(".validate-icon")).toHaveText("✓");
+  await expect(t.meta).toContainText("Objeto");
+  await expect(t.meta).toContainText("Tipo raíz");
+  await expect(t.meta.locator("dd").nth(1)).toHaveText("3"); // claves a, b, c
+  await expect(t.meta.locator("dd").nth(2)).toHaveText("3"); // profundidad
+  await expect(t.mark).toBeHidden();
+  await expect(t.input).toHaveAttribute("aria-invalid", "false");
+});
+
+test("validar-json: un primitivo suelto es JSON válido", async ({ page }) => {
+  await page.goto("/validar-json/");
+  const t = vj(page);
+  await t.input.fill("42");
+  await expect(t.headline).toHaveText("JSON válido");
+  await expect(t.meta).toContainText("Número");
+});
+
+test("validar-json: el error indica línea, columna, pista y resalta la posición", async ({ page }) => {
+  await page.goto("/validar-json/");
+  const t = vj(page);
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("JSON no válido");
+  await expect(t.status).toHaveClass(/is-invalid/);
+  await expect(t.status.locator(".validate-icon")).toHaveText("✕");
+  await expect(t.detail).toContainText("Línea 3, columna 34");
+  await expect(t.detail).toContainText("sobra una coma");
+  await expect(t.tech).toContainText("Detalle técnico");
+  await expect(t.frame).toContainText("^");
+  await expect(t.mark).toBeVisible();
+  await expect(t.caret).toBeVisible();
+  await expect(t.input).toHaveAttribute("aria-invalid", "true");
+  await expect(t.btn("format")).toBeDisabled();
+  await expect(t.btn("minify")).toBeDisabled();
+});
+
+test("validar-json: 'Ir al error' lleva el cursor a la posición exacta", async ({ page }) => {
+  await page.goto("/validar-json/");
+  const t = vj(page);
+  await t.btn("sample").click();
+  await t.jump.click();
+  const sel = await t.input.evaluate((el) => ({
+    focused: document.activeElement === el,
+    start: el.selectionStart,
+    end: el.selectionEnd,
+    char: el.value.slice(el.selectionStart, el.selectionEnd),
+    expected: el.value.indexOf(",]") + 1,
+  }));
+  expect(sel.focused).toBe(true);
+  expect(sel.start).toBe(sel.expected);
+  expect(sel.char).toBe("]");
+});
+
+test("validar-json: valida solo al escribir (debounce) y se puede usar con teclado", async ({ page }) => {
+  await page.goto("/validar-json/");
+  const t = vj(page);
+  await expect(t.btn("validate")).toBeDisabled();
+  await t.input.click();
+  await page.keyboard.type('{"a":1,}');
+  await expect(t.headline).toHaveText("JSON no válido");
+  await expect(t.detail).toContainText("Línea 1, columna 8");
+});
+
+test("validar-json: todo se puede usar solo con teclado (Ir al error y Validar)", async ({ page }) => {
+  await page.goto("/validar-json/");
+  const t = vj(page);
+  const tabTo = async (locator) => {
+    for (let i = 0; i < 8; i++) {
+      if (await locator.evaluate((el) => el === document.activeElement)) return;
+      await page.keyboard.press("Tab");
+    }
+    throw new Error("No se llegó con Tab al elemento");
+  };
+  await t.input.click();
+  await page.keyboard.type('{"a":1,}');
+  await expect(t.headline).toHaveText("JSON no válido");
+  // Tab desde el editor llega a "Ir al error"; Enter lleva el cursor al fallo.
+  await tabTo(t.jump);
+  await page.keyboard.press("Enter");
+  expect(await t.input.evaluate((el) => el.value.slice(el.selectionStart, el.selectionEnd))).toBe("}");
+  // Y con Tab se alcanza "Validar"; Enter valida de nuevo.
+  await tabTo(t.btn("validate"));
+  await page.keyboard.press("Enter");
+  await expect(t.headline).toHaveText("JSON no válido");
+});
+
+test("validar-json: formatear y minificar reutilizan el formateador", async ({ page }) => {
+  await page.goto("/validar-json/");
+  const t = vj(page);
+  await t.input.fill('{"a":1,"b":[2,3]}');
+  await expect(t.btn("format")).toBeEnabled();
+  await t.btn("format").click();
+  await expect(t.input).toHaveValue('{\n  "a": 1,\n  "b": [\n    2,\n    3\n  ]\n}');
+  await expect(t.detail).toHaveText("Se ha formateado el texto.");
+  await t.btn("minify").click();
+  await expect(t.input).toHaveValue('{"a":1,"b":[2,3]}');
+  await expect(t.headline).toHaveText("JSON válido");
+});
+
+test("validar-json: formatear y minificar no alteran ningún dato", async ({ page }) => {
+  await page.goto("/validar-json/");
+  const t = vj(page);
+  const original = '{"id":12345678901234567890,"x":1.0,"x":2,"e":"caf\\u00e9","n":1E+2}';
+  await t.input.fill(original);
+  await expect(t.headline).toHaveText("JSON válido");
+  await t.btn("format").click();
+  const pretty = await t.input.inputValue();
+  for (const piece of ["12345678901234567890", '"x": 1.0', '"x": 2', "caf\\u00e9", "1E+2"]) {
+    expect(pretty).toContain(piece);
+  }
+  await t.btn("minify").click();
+  await expect(t.input).toHaveValue(original);
+});
+
+test("validar-json: la guía de errores típicos se muestra", async ({ page }) => {
+  await page.goto("/validar-json/");
+  await expect(page.locator("#validate-json-guide .tool-guide-title")).toHaveText("Errores típicos de JSON");
+  await page.goto("/en/validate-json/");
+  await expect(page.locator("#validate-json-guide .tool-guide-title")).toHaveText("Common JSON errors");
+});
+
+test("validar-json: la región de resultado se anuncia con aria-live y está enlazada al editor", async ({ page }) => {
+  await page.goto("/validar-json/");
+  const t = vj(page);
+  await expect(t.status).toHaveAttribute("role", "status");
+  await expect(t.status).toHaveAttribute("aria-live", "polite");
+  await expect(t.status).toHaveAttribute("aria-atomic", "true");
+  const id = await t.status.getAttribute("id");
+  await expect(t.input).toHaveAttribute("aria-describedby", id);
+  await expect(t.input).toHaveAccessibleName("Entrada");
+});
+
+test("validar-json: con más de 1 MB desactiva la validación automática y avisa", async ({ page }) => {
+  await page.goto("/validar-json/");
+  const t = vj(page);
+  await t.input.evaluate((el) => {
+    el.value = '["' + "a".repeat(1_100_000) + '"]';
+    el.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+  await expect(t.warn).toContainText("validación automática está desactivada");
+  await expect(t.headline).toHaveText("Texto muy grande: pulsa «Validar» para comprobarlo.");
+  await page.waitForTimeout(700); // más que el debounce: no debe haber validado solo
+  await expect(t.headline).toHaveText("Texto muy grande: pulsa «Validar» para comprobarlo.");
+  await t.btn("validate").click();
+  await expect(t.headline).toHaveText("JSON válido");
+  // Al volver por debajo del límite vuelve la validación automática y desaparece el aviso.
+  await t.input.fill("[1]");
+  await expect(t.warn).toHaveText("");
+  await expect(t.headline).toHaveText("JSON válido");
+});
+
+test("validar-json: un BOM inicial es válido y se avisa", async ({ page }) => {
+  await page.goto("/validar-json/");
+  const t = vj(page);
+  await t.input.fill("﻿[1]");
+  await expect(t.headline).toHaveText("JSON válido");
+  await expect(t.detail).toContainText("BOM");
+});
+
+test("validar-json: vaciar limpia el resultado", async ({ page }) => {
+  await page.goto("/validar-json/");
+  const t = vj(page);
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("JSON no válido");
+  await t.btn("clear").click();
+  await expect(t.input).toHaveValue("");
+  await expect(t.headline).toHaveText("Pega o escribe algo para validarlo.");
+  await expect(t.mark).toBeHidden();
+  await expect(t.frame).toBeHidden();
+});
+
+test("EN: validate-json muestra la UI en inglés", async ({ page }) => {
+  await page.goto("/en/validate-json/");
+  const t = vj(page);
+  await expect(page.locator("main h1")).toHaveText("Validate JSON");
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("Invalid JSON");
+  await expect(t.detail).toContainText("Line 3, column 34");
+  await expect(t.detail).toContainText("extra comma");
+  await t.input.fill('{"a":1}');
+  await expect(t.headline).toHaveText("Valid JSON");
+});
+
+test("validar-json: validar no genera ninguna petición de red", async ({ page, context, baseURL }) => {
+  const net = auditNetwork(context, new URL(baseURL).origin);
+  await page.goto("/validar-json/", { waitUntil: "networkidle" });
+  const t = vj(page);
+  const afterLoad = net.requests().length;
+  await t.btn("sample").click();
+  await t.jump.click();
+  await t.input.fill('{"a":[1,2,3]}');
+  await expect(t.headline).toHaveText("JSON válido");
+  await t.btn("format").click();
+  await t.btn("minify").click();
+  await t.input.evaluate((el) => {
+    el.value = '["' + "a".repeat(1_100_000) + '"]';
+    el.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+  await t.btn("validate").click();
+  await expect(t.headline).toHaveText("JSON válido");
+  await t.btn("clear").click();
+  await page.waitForTimeout(300);
+  expect(net.requests().slice(afterLoad)).toEqual([]);
+  expect(net.violations()).toEqual([]);
 });
 
 // --- Promesa "sin red": ninguna página saca datos ni contacta con terceros ---
