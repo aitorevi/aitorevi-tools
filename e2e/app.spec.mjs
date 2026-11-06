@@ -1,4 +1,8 @@
 import { test, expect } from "@playwright/test";
+import { readFile } from "node:fs/promises";
+import { auditNetwork } from "./helpers/network.mjs";
+
+const REGISTRY = JSON.parse(await readFile(new URL("../tools.json", import.meta.url), "utf8"));
 
 // Fija un idioma para desactivar el auto-redirect por idioma del navegador (lang.js).
 test.beforeEach(async ({ context }) => {
@@ -264,6 +268,74 @@ test("quitar metadatos: limpia y descarga", async ({ page }) => {
     page.click("#clean-btn"),
   ]);
   expect(download.suggestedFilename()).toBe("foto-sin-metadatos.png");
+});
+
+test("convertir imagen: HEIC se convierte localmente a JPEG", async ({ page, context, baseURL }) => {
+  const net = auditNetwork(context, new URL(baseURL).origin);
+  await page.goto("/convertir-imagen/");
+
+  const fixture = await readFile(new URL("./fixtures/colors-no-alpha.heic", import.meta.url));
+  await page.locator("#file-input").setInputFiles({
+    name: "foto.heic",
+    mimeType: "image/heic",
+    buffer: fixture,
+  });
+
+  await expect(page.locator("#workspace")).toBeVisible();
+  await expect(page.locator("#target-format")).toHaveValue("image/jpeg");
+  await expect(page.locator("#estimate")).toContainText("JPG");
+
+  const [download] = await Promise.all([
+    page.waitForEvent("download"),
+    page.click("#convert-btn"),
+  ]);
+  expect(download.suggestedFilename()).toBe("foto.jpg");
+  const jpeg = await readFile(await download.path());
+  expect([...jpeg.subarray(0, 3)]).toEqual([0xff, 0xd8, 0xff]);
+  expect(net.requests().some((u) => u.endsWith(".wasm"))).toBe(true);
+  expect(net.violations()).toEqual([]);
+});
+
+test("convertir imagen: varias imágenes se descargan en un ZIP", async ({ page }) => {
+  await page.goto("/convertir-imagen/");
+  const png = (color) => page.evaluate(async (fill) => {
+    const c = document.createElement("canvas");
+    c.width = 20; c.height = 10;
+    const ctx = c.getContext("2d");
+    ctx.fillStyle = fill; ctx.fillRect(0, 0, 20, 10);
+    const blob = await new Promise((r) => c.toBlob(r, "image/png"));
+    return [...new Uint8Array(await blob.arrayBuffer())];
+  }, color);
+  await page.locator("#file-input").setInputFiles([
+    { name: "a.png", mimeType: "image/png", buffer: Buffer.from(await png("#f00")) },
+    { name: "a.jpg", mimeType: "image/png", buffer: Buffer.from(await png("#0f0")) },
+    { name: "notas.txt", mimeType: "text/plain", buffer: Buffer.from("hola") },
+  ]);
+
+  await expect(page.locator("#file-list .file-row")).toHaveCount(2);
+  await expect(page.locator("#status")).toContainText("notas.txt");
+  await page.selectOption("#target-format", "image/webp");
+  const [download] = await Promise.all([
+    page.waitForEvent("download"),
+    page.click("#zip-btn"),
+  ]);
+  expect(download.suggestedFilename()).toBe("imagenes-webp.zip");
+  const zip = await readFile(await download.path());
+  expect(zip.includes(Buffer.from("a.webp"))).toBe(true);
+  expect(zip.includes(Buffer.from("a-2.webp"))).toBe(true);
+});
+
+test("convertir imagen: un formato no admitido muestra un error", async ({ page }) => {
+  await page.goto("/convertir-imagen/");
+  await page.locator("#file-input").setInputFiles({
+    name: "doc.pdf",
+    mimeType: "application/pdf",
+    buffer: Buffer.from("%PDF-1.4"),
+  });
+  await expect(page.locator("#status")).toBeVisible();
+  await expect(page.locator("#status")).toHaveClass(/error/);
+  await expect(page.locator("#status")).toContainText("doc.pdf");
+  await expect(page.locator("#workspace")).toBeHidden();
 });
 
 // --- Inglés (/en/) ---
@@ -632,3 +704,16 @@ test("código: las guías de JSON, XML, YAML, SQL y HTML/CSS se renderizan", asy
     expect(await page.locator(`#${id} code`).count()).toBeGreaterThan(5);
   }
 });
+
+// --- Promesa "sin red": ninguna página saca datos ni contacta con terceros ---
+
+for (const lang of ["es", "en"]) {
+  for (const tool of REGISTRY.tools) {
+    const path = `/${lang === "en" ? "en/" : ""}${tool.slug[lang]}/`;
+    test(`sin red: ${path} solo carga recursos estáticos del propio sitio`, async ({ page, context, baseURL }) => {
+      const net = auditNetwork(context, new URL(baseURL).origin);
+      await page.goto(path, { waitUntil: "networkidle" });
+      expect(net.violations()).toEqual([]);
+    });
+  }
+}

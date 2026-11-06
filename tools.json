@@ -56,7 +56,7 @@
     {
       "id": "convertir-imagen",
       "section": "imagen",
-      "libs": [],
+      "libs": ["jszip"],
       "slug": { "es": "convertir-imagen", "en": "convert-image" }
     },
     {

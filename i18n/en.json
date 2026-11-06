@@ -87,6 +87,9 @@
       "js-beautify": "Copyright (c) 2007-2018 Einar Lielmanis, Liam Newman and contributors · MIT license",
       "quicktype-core": "Copyright (c) quicktype, Inc. and contributors · Apache 2.0 license",
       "prettier": "Copyright © James Long and contributors · MIT license",
+      "heic-converter": "Copyright (c) Keerati Tansawatcharoen · MIT license",
+      "libheif": "libheif 1.23.5 · GNU LGPL v3 · <a href='https://github.com/strukturag/libheif/tree/v1.23.5'>source</a>",
+      "libde265": "libde265 1.1.3 · GNU LGPL v3 · <a href='https://github.com/strukturag/libde265/tree/v1.1.3'>source</a>",
       "outfit": "Copyright 2021 The Outfit Project Authors · SIL Open Font License 1.1",
       "jetbrains": "Copyright 2020 The JetBrains Mono Project Authors · SIL Open Font License 1.1"
     }
@@ -947,16 +950,16 @@
     },
     "convertir-imagen": {
       "meta": {
-        "title": "Convert image — PNG, JPG and WebP, free and in your browser",
-        "description": "Convert images between PNG, JPG and WebP right in your browser. Free, no sign-up and without uploading the image to any server.",
-        "ogTitle": "Convert image — PNG, JPG and WebP",
-        "ogDescription": "Convert images between PNG, JPG and WebP in your browser. Free and no uploads.",
+        "title": "Convert image — PNG, JPG, WebP and HEIC, free and in your browser",
+        "description": "Convert images between PNG, JPG and WebP, and iPhone HEIC photos to JPG, right in your browser. Several at once with ZIP download. Free and without uploading anything to a server.",
+        "ogTitle": "Convert image — PNG, JPG, WebP and HEIC",
+        "ogDescription": "Convert PNG, JPG, WebP and HEIC images in your browser, one or several at once. Free and no uploads.",
         "jsonldName": "Convert image",
-        "jsonldDescription": "Convert images between PNG, JPG and WebP in the browser, without uploading the image to any server."
+        "jsonldDescription": "Convert PNG, JPG, WebP and HEIC images to PNG, JPG or WebP in the browser, without uploading the images to any server."
       },
       "card": {
         "name": "Convert image",
-        "desc": "Convert between PNG, JPG and WebP, choosing the output format and quality.",
+        "desc": "Convert between PNG, JPG and WebP, also from HEIC. One or several at once, with ZIP download.",
         "tags": [
           "Images",
           "No server"
@@ -964,25 +967,36 @@
       },
       "ui": {
         "h1": "Convert image",
-        "subtitle": "Convert between PNG, JPG and WebP. Choose the output format and quality; all in your browser.",
+        "subtitle": "Convert between PNG, JPG and WebP, including iPhone HEIC photos. One or several at once; all in your browser.",
         "cardAria": "Convert images tool",
-        "dropAria": "Select or drop an image",
-        "lead": "Drag your image here or <strong>click to choose it</strong>",
-        "hint": "PNG, JPG, WebP… Nothing is sent to the internet.",
+        "dropAria": "Select or drop one or more images",
+        "lead": "Drag your images here or <strong>click to choose them</strong>",
+        "hint": "PNG, JPG, WebP, GIF, AVIF or HEIC · one or several · nothing is sent to the internet",
         "previewAlt": "Preview of the conversion result",
-        "reset": "Change image",
+        "reset": "Start over",
+        "listAria": "Images to convert",
         "labelTo": "Convert to",
         "labelQuality": "Quality",
-        "convertBtn": "⬇ Convert and download"
+        "convertBtn": "⬇ Convert and download",
+        "zipBtn": "⬇ Download all as ZIP",
+        "separateBtn": "Download separately"
       },
       "msg": {
-        "notImage": "That doesn't look like an image.",
-        "reading": "Reading the image…",
-        "readError": "Couldn't read the image.",
+        "reading": "Reading {n} {images}…",
+        "unsupported": "Unsupported format: {names}. Use PNG, JPG, WebP, GIF, AVIF or HEIC.",
+        "readError": "Couldn't read: {names}. The file may be damaged or your browser doesn't support that format.",
         "originalLabel": "Original:",
         "calculating": "Calculating result…",
         "resultLabel": "Result:",
-        "downloadedIn": "Saved as",
+        "preview": "Preview",
+        "downloadOne": "Download",
+        "downloadedOne": "Downloaded {name} · {size}.",
+        "converting": "Converting {i} of {n}…",
+        "zipName": "images-{ext}.zip",
+        "zipDownloaded": "ZIP downloaded with {n} {images} · {size}.",
+        "zipError": "Couldn't create the ZIP.",
+        "confirmMany": "You're about to download {n} files separately. Your browser may ask permission for multiple downloads. Continue?",
+        "manyDownloaded": "{n} {images} downloaded.",
         "convertError": "Couldn't convert the image."
       }
     },

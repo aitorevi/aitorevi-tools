@@ -16,7 +16,7 @@ registro, sin backend y sin que tus archivos salgan de tu dispositivo.
 | `/marca-de-agua-pdf/` | Marca de agua en PDF | Añade un texto en diagonal a todas las páginas. |
 | `/n-up-pdf/` | Varias páginas por hoja | Coloca 2/4/6/9 páginas por hoja A4 para imprimir. |
 | `/comprimir-imagen/` | Comprimir imagen | Reduce el peso (calidad, tamaño o peso objetivo). |
-| `/convertir-imagen/` | Convertir imagen | Convierte entre PNG, JPG y WebP. |
+| `/convertir-imagen/` | Convertir imagen | Convierte entre PNG, JPG y WebP (también desde HEIC), una o varias a la vez con descarga en ZIP. |
 | `/quitar-metadatos-imagen/` | Quitar metadatos | Elimina EXIF/GPS/cámara sin perder calidad. |
 
 ## Arquitectura
@@ -41,7 +41,7 @@ resultante se commitea y Vercel lo sirve tal cual.
 ├── theme.js              # Tema claro/oscuro por clase (.dark), antes del paint
 ├── lib/                  # Utilidades compartidas (files.js, images.js)
 ├── fonts/                # Outfit + JetBrains Mono (subset latin)
-├── vendor/               # Librerías vendorizadas con versión fija (pdf-lib @1.17.1, jszip @3.10.1)
+├── vendor/               # Librerías locales; incluye el decoder HEIC fijado y sus avisos de licencia
 └── robots.txt · vercel.json · serve.mjs
 ```
 

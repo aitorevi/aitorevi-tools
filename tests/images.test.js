@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { fitDimensions, extForMime, isImageFile, baseNameNoExt } from "../lib/images.js";
-import { isLossy, convertedFileName, TARGETS } from "../convertir-imagen/lib.js";
+import { isLossy, convertedFileName, TARGETS, isHeicFile, inputFormatLabel, uniqueFileNames } from "../convertir-imagen/lib.js";
 import { reductionPercent, compressedFileName, searchQualityForTarget } from "../comprimir-imagen/lib.js";
 
 describe("fitDimensions", () => {
@@ -42,6 +42,19 @@ describe("convertir-imagen", () => {
   });
   it("convertedFileName", () => {
     expect(convertedFileName("foto", "webp")).toBe("foto.webp");
+  });
+  it("isHeicFile acepta HEIC/HEIF por MIME o extensión", () => {
+    expect(isHeicFile({ type: "image/heic", name: "foto" })).toBe(true);
+    expect(isHeicFile({ type: "", name: "foto.HEIF" })).toBe(true);
+    expect(isHeicFile({ type: "image/png", name: "foto.png" })).toBe(false);
+  });
+  it("inputFormatLabel", () => {
+    expect(inputFormatLabel("IMG_001.heic")).toBe("HEIC");
+    expect(inputFormatLabel("sin-extension")).toBe("?");
+  });
+  it("uniqueFileNames evita colisiones sin distinguir mayúsculas", () => {
+    expect(uniqueFileNames(["foto.webp", "Foto.webp", "otra.webp", "foto.webp"]))
+      .toEqual(["foto.webp", "Foto-2.webp", "otra.webp", "foto-3.webp"]);
   });
 });
 

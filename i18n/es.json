@@ -87,6 +87,9 @@
       "js-beautify": "Copyright (c) 2007-2018 Einar Lielmanis, Liam Newman y colaboradores · licencia MIT",
       "quicktype-core": "Copyright (c) quicktype, Inc. y colaboradores · licencia Apache 2.0",
       "prettier": "Copyright © James Long y colaboradores · licencia MIT",
+      "heic-converter": "Copyright (c) Keerati Tansawatcharoen · licencia MIT",
+      "libheif": "libheif 1.23.5 · GNU LGPL v3 · <a href='https://github.com/strukturag/libheif/tree/v1.23.5'>fuente</a>",
+      "libde265": "libde265 1.1.3 · GNU LGPL v3 · <a href='https://github.com/strukturag/libde265/tree/v1.1.3'>fuente</a>",
       "outfit": "Copyright 2021 The Outfit Project Authors · SIL Open Font License 1.1",
       "jetbrains": "Copyright 2020 The JetBrains Mono Project Authors · SIL Open Font License 1.1"
     }
@@ -947,16 +950,16 @@
     },
     "convertir-imagen": {
       "meta": {
-        "title": "Convertir imagen — PNG, JPG y WebP, gratis y en tu navegador",
-        "description": "Convierte imágenes entre PNG, JPG y WebP directamente en tu navegador. Gratis, sin registro y sin subir la imagen a ningún servidor.",
-        "ogTitle": "Convertir imagen — PNG, JPG y WebP",
-        "ogDescription": "Convierte imágenes entre PNG, JPG y WebP en tu navegador. Gratis y sin subir nada.",
+        "title": "Convertir imagen — PNG, JPG, WebP y HEIC, gratis y en tu navegador",
+        "description": "Convierte imágenes entre PNG, JPG y WebP, y fotos HEIC de iPhone a JPG, directamente en tu navegador. Varias a la vez y descarga en ZIP. Gratis y sin subir nada a ningún servidor.",
+        "ogTitle": "Convertir imagen — PNG, JPG, WebP y HEIC",
+        "ogDescription": "Convierte imágenes PNG, JPG, WebP y HEIC en tu navegador, una o varias a la vez. Gratis y sin subir nada.",
         "jsonldName": "Convertir imagen",
-        "jsonldDescription": "Convierte imágenes entre PNG, JPG y WebP en el navegador, sin subir la imagen a ningún servidor."
+        "jsonldDescription": "Convierte imágenes PNG, JPG, WebP y HEIC a PNG, JPG o WebP en el navegador, sin subir las imágenes a ningún servidor."
       },
       "card": {
         "name": "Convertir imagen",
-        "desc": "Convierte entre PNG, JPG y WebP eligiendo el formato y la calidad de salida.",
+        "desc": "Convierte entre PNG, JPG y WebP, también desde HEIC. Una o varias a la vez, con descarga en ZIP.",
         "tags": [
           "Imágenes",
           "Sin servidor"
@@ -964,25 +967,36 @@
       },
       "ui": {
         "h1": "Convertir imagen",
-        "subtitle": "Convierte entre PNG, JPG y WebP. Elige el formato de salida y la calidad; todo en tu navegador.",
+        "subtitle": "Convierte entre PNG, JPG y WebP, también fotos HEIC de iPhone. Una o varias a la vez; todo en tu navegador.",
         "cardAria": "Herramienta para convertir imágenes",
-        "dropAria": "Selecciona o arrastra una imagen",
-        "lead": "Arrastra tu imagen aquí o <strong>haz clic para elegirla</strong>",
-        "hint": "PNG, JPG, WebP… Nada se envía a internet.",
+        "dropAria": "Selecciona o arrastra una o varias imágenes",
+        "lead": "Arrastra tus imágenes aquí o <strong>haz clic para elegirlas</strong>",
+        "hint": "PNG, JPG, WebP, GIF, AVIF o HEIC · una o varias · nada se envía a internet",
         "previewAlt": "Vista previa del resultado de la conversión",
-        "reset": "Cambiar imagen",
+        "reset": "Empezar de nuevo",
+        "listAria": "Imágenes a convertir",
         "labelTo": "Convertir a",
         "labelQuality": "Calidad",
-        "convertBtn": "⬇ Convertir y descargar"
+        "convertBtn": "⬇ Convertir y descargar",
+        "zipBtn": "⬇ Descargar todas en ZIP",
+        "separateBtn": "Descargar por separado"
       },
       "msg": {
-        "notImage": "Eso no parece una imagen.",
-        "reading": "Leyendo la imagen…",
-        "readError": "No se pudo leer la imagen.",
+        "reading": "Leyendo {n} {images}…",
+        "unsupported": "Formato no admitido: {names}. Usa PNG, JPG, WebP, GIF, AVIF o HEIC.",
+        "readError": "No se pudo leer: {names}. El archivo puede estar dañado o tu navegador no admite ese formato.",
         "originalLabel": "Original:",
         "calculating": "Calculando resultado…",
         "resultLabel": "Resultado:",
-        "downloadedIn": "Descargado en",
+        "preview": "Ver vista previa de",
+        "downloadOne": "Descargar",
+        "downloadedOne": "Descargado {name} · {size}.",
+        "converting": "Convirtiendo {i} de {n}…",
+        "zipName": "imagenes-{ext}.zip",
+        "zipDownloaded": "ZIP descargado con {n} {images} · {size}.",
+        "zipError": "No se pudo generar el ZIP.",
+        "confirmMany": "Vas a descargar {n} archivos por separado. Tu navegador puede pedirte permiso para descargas múltiples. ¿Continuar?",
+        "manyDownloaded": "{n} {images} descargadas.",
         "convertError": "No se pudo convertir la imagen."
       }
     },

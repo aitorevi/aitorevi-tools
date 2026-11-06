@@ -1,5 +1,7 @@
 <style>
     @media (min-width: 480px) { .controls { grid-template-columns: 1fr 1fr; align-items: end; } }
+    .file-row.is-selected { border-color: rgb(var(--accent)); }
+    .file-row .info { cursor: pointer; }
   </style>
 
   <main class="wrap">
@@ -19,7 +21,7 @@
           <div class="lead">{{t.lead}}</div>
           <div class="hint">{{t.hint}}</div>
         </div>
-        <input id="file-input" type="file" accept="image/*" class="visually-hidden" />
+        <input id="file-input" type="file" accept="image/*,.heic,.heif" multiple class="visually-hidden" />
       </div>
 
       <div id="workspace" class="hidden">
@@ -29,8 +31,11 @@
         <div class="preview-row">
           <span class="meta" id="file-info">—</span>
           <span class="spacer"></span>
+          <button class="btn" id="add-more-btn" type="button">{{t.addMore}}</button>
           <button class="btn ghost" id="reset-btn" type="button">{{t.reset}}</button>
         </div>
+
+        <ul class="file-list hidden" id="file-list" aria-label="{{t.listAria}}"></ul>
 
         <div class="controls">
           <label class="field">
@@ -47,9 +52,11 @@
 
         <div class="actions">
           <button class="btn primary" id="convert-btn" type="button">{{t.convertBtn}}</button>
+          <button class="btn primary hidden" id="zip-btn" type="button">{{t.zipBtn}}</button>
+          <button class="btn hidden" id="separate-btn" type="button">{{t.separateBtn}}</button>
         </div>
-
-        <p class="status" id="status" role="status" aria-live="polite"></p>
       </div>
+
+      <p class="status" id="status" role="status" aria-live="polite"></p>
     </section>
   </main>

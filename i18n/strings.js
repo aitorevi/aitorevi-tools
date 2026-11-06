@@ -125,13 +125,21 @@ export const STRINGS = {
       "compressError": "No se pudo comprimir la imagen."
     },
     "convertir-imagen": {
-      "notImage": "Eso no parece una imagen.",
-      "reading": "Leyendo la imagen…",
-      "readError": "No se pudo leer la imagen.",
+      "reading": "Leyendo {n} {images}…",
+      "unsupported": "Formato no admitido: {names}. Usa PNG, JPG, WebP, GIF, AVIF o HEIC.",
+      "readError": "No se pudo leer: {names}. El archivo puede estar dañado o tu navegador no admite ese formato.",
       "originalLabel": "Original:",
       "calculating": "Calculando resultado…",
       "resultLabel": "Resultado:",
-      "downloadedIn": "Descargado en",
+      "preview": "Ver vista previa de",
+      "downloadOne": "Descargar",
+      "downloadedOne": "Descargado {name} · {size}.",
+      "converting": "Convirtiendo {i} de {n}…",
+      "zipName": "imagenes-{ext}.zip",
+      "zipDownloaded": "ZIP descargado con {n} {images} · {size}.",
+      "zipError": "No se pudo generar el ZIP.",
+      "confirmMany": "Vas a descargar {n} archivos por separado. Tu navegador puede pedirte permiso para descargas múltiples. ¿Continuar?",
+      "manyDownloaded": "{n} {images} descargadas.",
       "convertError": "No se pudo convertir la imagen."
     },
     "quitar-metadatos-imagen": {
@@ -511,13 +519,21 @@ export const STRINGS = {
       "compressError": "Couldn't compress the image."
     },
     "convertir-imagen": {
-      "notImage": "That doesn't look like an image.",
-      "reading": "Reading the image…",
-      "readError": "Couldn't read the image.",
+      "reading": "Reading {n} {images}…",
+      "unsupported": "Unsupported format: {names}. Use PNG, JPG, WebP, GIF, AVIF or HEIC.",
+      "readError": "Couldn't read: {names}. The file may be damaged or your browser doesn't support that format.",
       "originalLabel": "Original:",
       "calculating": "Calculating result…",
       "resultLabel": "Result:",
-      "downloadedIn": "Saved as",
+      "preview": "Preview",
+      "downloadOne": "Download",
+      "downloadedOne": "Downloaded {name} · {size}.",
+      "converting": "Converting {i} of {n}…",
+      "zipName": "images-{ext}.zip",
+      "zipDownloaded": "ZIP downloaded with {n} {images} · {size}.",
+      "zipError": "Couldn't create the ZIP.",
+      "confirmMany": "You're about to download {n} files separately. Your browser may ask permission for multiple downloads. Continue?",
+      "manyDownloaded": "{n} {images} downloaded.",
       "convertError": "Couldn't convert the image."
     },
     "quitar-metadatos-imagen": {

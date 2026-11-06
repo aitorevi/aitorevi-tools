@@ -29,6 +29,8 @@ const FOOT_SOCIAL = read("partials/foot-social.html").replace(/\s+$/, "");
 const MIT = read("partials/license-mit.txt").replace(/\s+$/, "");
 const OFL = read("partials/license-ofl.txt").replace(/\s+$/, "");
 const APACHE = read("partials/license-apache-2.0.txt").replace(/\s+$/, "");
+const HEIC_LIBHEIF_LICENSE = read("vendor/heic-converter/COPYING-libheif.txt").replace(/\s+$/, "");
+const HEIC_LIBDE265_LICENSE = read("vendor/heic-converter/COPYING-libde265.txt").replace(/\s+$/, "");
 
 const LANGS = registry.site.languages;          // ["es", "en"]
 const DEFAULT_LANG = registry.site.defaultLang; // "es"
@@ -360,6 +362,12 @@ ${licenseCard("js-beautify", lc.meta["js-beautify"], MIT)}
 ${licenseCard("Prettier", lc.meta.prettier, MIT)}
 
 ${licenseCard("quicktype-core", lc.meta["quicktype-core"], APACHE)}
+
+${licenseCard("@keeratita/heic-converter", lc.meta["heic-converter"], MIT)}
+
+${licenseCard("libheif 1.23.5", lc.meta.libheif, HEIC_LIBHEIF_LICENSE)}
+
+${licenseCard("libde265 1.1.3", lc.meta.libde265, HEIC_LIBDE265_LICENSE)}
 
 ${licenseCard("Outfit", lc.meta.outfit, OFL)}
 
