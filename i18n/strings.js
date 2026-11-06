@@ -519,6 +519,101 @@ export const STRINGS = {
         }
       }
     },
+    "validar-base64": {
+      "valid": "Base64 válido",
+      "invalid": "Base64 no válido",
+      "valVariant": "Alfabeto",
+      "valPadding": "Relleno (=)",
+      "valBytes": "Bytes",
+      "valUtf8": "Es texto UTF-8",
+      "yes": "Sí",
+      "no": "No",
+      "variants": {
+        "standard": "Estándar (+ /)",
+        "urlsafe": "URL-safe (- _)",
+        "neutral": "Común a ambos"
+      },
+      "hints": {
+        "badChar": "El carácter «{char}» no es válido en Base64. Solo valen letras, números, + y / (o - y _ en la variante URL-safe), el relleno = al final y saltos de línea. Suele ser una comilla, una coma o un trozo de otro texto que se ha colado al copiar.",
+        "mixedAlphabet": "El carácter «{char}» mezcla los dos alfabetos: + y / son del Base64 estándar, y - y _ son de la variante URL-safe. Usa solo uno de los dos.",
+        "paddingMiddle": "El relleno = solo puede ir al final del todo. Si hay datos después, quizá sean dos textos Base64 pegados: valida cada uno por separado.",
+        "badPadding": "El relleno = no cuadra. Debe haber 0, 1 o 2 signos = y completar el último bloque hasta una longitud múltiplo de 4.",
+        "badLength": "Hay {length} caracteres de datos y eso deja un carácter suelto en el último bloque, algo imposible en Base64. Seguramente falta o sobra algún carácter (¿se cortó al copiar?).",
+        "dataUri": "Empieza con un prefijo «data:…;base64,». Quítalo y deja solo lo que viene después de la coma."
+      },
+      "guide": {
+        "title": "Errores típicos de Base64",
+        "intro": "La mayoría de errores al copiar Base64 son estos. Cada uno lleva su arreglo:",
+        "groups": {
+          "errors": "Errores frecuentes y cómo arreglarlos",
+          "valid": "También es Base64 válido"
+        },
+        "desc": {
+          "badChar": "Un carácter que no es de Base64 (comilla, coma…)",
+          "mixedAlphabet": "Mezclar + / con - _",
+          "paddingMiddle": "Datos después del relleno =",
+          "badPadding": "Un relleno = que no cuadra con la longitud",
+          "badLength": "Una longitud imposible (5 caracteres, por ejemplo)",
+          "dataUri": "Un prefijo data: delante",
+          "plain": "Base64 estándar, sin relleno",
+          "padded": "Con relleno = al final",
+          "urlsafe": "Variante URL-safe (- y _)",
+          "lineBreaks": "Con saltos de línea (formato MIME)"
+        }
+      }
+    },
+    "validar-jwt": {
+      "valid": "JWT válido",
+      "invalid": "JWT no válido",
+      "valAlg": "Algoritmo",
+      "valTyp": "Tipo",
+      "valIat": "Emitido",
+      "valNbf": "Válido desde",
+      "valExp": "Caduca",
+      "valNoSignature": "No se verifica la firma: solo se comprueba la estructura.",
+      "notes": {
+        "expired": "El token está caducado desde el {date}.",
+        "notYetValid": "Todavía no es válido: lo será a partir del {date}.",
+        "expBeforeIat": "La caducidad (exp) es anterior a la fecha de emisión (iat).",
+        "algNone": "El algoritmo es «none»: el token no lleva firma y no ofrece ninguna garantía."
+      },
+      "hints": {
+        "bearerPrefix": "«Bearer» es parte de la cabecera HTTP Authorization, no del token. Quita «Bearer » y pega solo el token.",
+        "partsCount": "Un JWT firmado tiene tres partes separadas por puntos: header.payload.firma. Aquí hay {count}.",
+        "encrypted": "Con cinco partes es un token cifrado (JWE), que no se puede comprobar sin la clave. Esta herramienta valida los tokens firmados (JWS), de tres partes.",
+        "emptyPart": "Esta parte del token está vacía.",
+        "badChar": "El carácter «{char}» no es válido en Base64URL: solo valen letras, números, - y _. Puede que se haya colado un espacio, una comilla o un salto de línea al copiar.",
+        "notUrlSafe": "Los JWT usan Base64URL: sin + ni / (en su lugar van - y _) y sin relleno =.",
+        "badLength": "Esta parte tiene una longitud imposible en Base64URL (con {length} caracteres queda uno suelto): probablemente se cortó al copiar.",
+        "notUtf8": "Esta parte se decodifica, pero el resultado no es texto UTF-8 válido.",
+        "notJson": "Esta parte se decodifica a texto, pero no es JSON válido. El detalle técnico indica el motivo.",
+        "notObject": "El header y el payload deben ser un objeto JSON ({ … }), no una lista ni un valor suelto.",
+        "noAlg": "El header debe incluir «alg», el algoritmo de firma (por ejemplo HS256 o RS256).",
+        "missingSignature": "Falta la firma, la tercera parte. Solo se admite un token sin firma si su algoritmo es «none».",
+        "noneWithSignature": "El algoritmo es «none» (sin firma), pero el token lleva una firma. O sobra la firma o el algoritmo es otro.",
+        "claimType": "«{claim}» debe ser un número de segundos desde 1970 (como 1735689600), sin comillas."
+      },
+      "guide": {
+        "title": "Errores típicos de un JWT",
+        "intro": "La mayoría de errores al pegar un JWT son estos. Cada uno lleva su arreglo:",
+        "groups": {
+          "errors": "Errores frecuentes y cómo arreglarlos",
+          "valid": "También es un JWT válido"
+        },
+        "desc": {
+          "bearerPrefix": "Delante lleva «Bearer »: quítalo",
+          "partsCount": "Menos o más de tres partes",
+          "encrypted": "Cinco partes: es un token cifrado (JWE)",
+          "notUrlSafe": "Con + / o = en lugar de Base64URL",
+          "noAlg": "Un header sin «alg»",
+          "claimType": "Una fecha entre comillas en lugar de un número",
+          "structure": "Tres partes en Base64URL",
+          "expired": "Un token caducado es válido: solo se avisa",
+          "algNone": "alg «none» sin firma: válido, con aviso",
+          "noVerify": "La firma no se verifica, solo su formato"
+        }
+      }
+    },
     "regex": {
       "matchesCount": {
         "one": "{n} coincidencia",
@@ -1151,6 +1246,101 @@ export const STRINGS = {
           "arrayTables": "A list of tables",
           "inline": "A table on a single line",
           "date": "A date, without quotes"
+        }
+      }
+    },
+    "validar-base64": {
+      "valid": "Valid Base64",
+      "invalid": "Invalid Base64",
+      "valVariant": "Alphabet",
+      "valPadding": "Padding (=)",
+      "valBytes": "Bytes",
+      "valUtf8": "Is UTF-8 text",
+      "yes": "Yes",
+      "no": "No",
+      "variants": {
+        "standard": "Standard (+ /)",
+        "urlsafe": "URL-safe (- _)",
+        "neutral": "Common to both"
+      },
+      "hints": {
+        "badChar": "The character “{char}” isn't valid in Base64. Only letters, numbers, + and / (or - and _ in the URL-safe variant), the = padding at the end and line breaks are allowed. It's usually a quote, a comma or a piece of other text that slipped in when copying.",
+        "mixedAlphabet": "The character “{char}” mixes the two alphabets: + and / belong to standard Base64, while - and _ belong to the URL-safe variant. Use only one of them.",
+        "paddingMiddle": "The = padding can only go at the very end. If there is data after it, it may be two Base64 texts pasted together: validate each one separately.",
+        "badPadding": "The = padding doesn't add up. There must be 0, 1 or 2 = signs, completing the last block to a length that is a multiple of 4.",
+        "badLength": "There are {length} data characters, which leaves one stray character in the last block, something impossible in Base64. A character is probably missing or extra (was it cut off when copying?).",
+        "dataUri": "It starts with a “data:…;base64,” prefix. Remove it and keep only what comes after the comma."
+      },
+      "guide": {
+        "title": "Common Base64 errors",
+        "intro": "Most mistakes when copying Base64 are these. Each comes with its fix:",
+        "groups": {
+          "errors": "Frequent errors and how to fix them",
+          "valid": "Also valid Base64"
+        },
+        "desc": {
+          "badChar": "A character that isn't Base64 (quote, comma…)",
+          "mixedAlphabet": "Mixing + / with - _",
+          "paddingMiddle": "Data after the = padding",
+          "badPadding": "An = padding that doesn't match the length",
+          "badLength": "An impossible length (5 characters, for example)",
+          "dataUri": "A data: prefix in front",
+          "plain": "Standard Base64, no padding",
+          "padded": "With = padding at the end",
+          "urlsafe": "URL-safe variant (- and _)",
+          "lineBreaks": "With line breaks (MIME format)"
+        }
+      }
+    },
+    "validar-jwt": {
+      "valid": "Valid JWT",
+      "invalid": "Invalid JWT",
+      "valAlg": "Algorithm",
+      "valTyp": "Type",
+      "valIat": "Issued",
+      "valNbf": "Valid from",
+      "valExp": "Expires",
+      "valNoSignature": "The signature isn't verified: only the structure is checked.",
+      "notes": {
+        "expired": "The token expired on {date}.",
+        "notYetValid": "It isn't valid yet: it will be from {date}.",
+        "expBeforeIat": "The expiry (exp) is earlier than the issue date (iat).",
+        "algNone": "The algorithm is “none”: the token has no signature and offers no guarantee."
+      },
+      "hints": {
+        "bearerPrefix": "“Bearer” is part of the HTTP Authorization header, not of the token. Remove “Bearer ” and paste only the token.",
+        "partsCount": "A signed JWT has three parts separated by dots: header.payload.signature. Here there are {count}.",
+        "encrypted": "Five parts means an encrypted token (JWE), which can't be checked without the key. This tool validates signed tokens (JWS), which have three parts.",
+        "emptyPart": "This part of the token is empty.",
+        "badChar": "The character “{char}” isn't valid in Base64URL: only letters, numbers, - and _ are allowed. A space, a quote or a line break may have slipped in when copying.",
+        "notUrlSafe": "JWTs use Base64URL: no + or / (use - and _ instead) and no = padding.",
+        "badLength": "This part has an impossible length in Base64URL (with {length} characters one is left over): it was probably cut off when copying.",
+        "notUtf8": "This part decodes, but the result isn't valid UTF-8 text.",
+        "notJson": "This part decodes to text, but it isn't valid JSON. The technical detail gives the reason.",
+        "notObject": "The header and the payload must be a JSON object ({ … }), not a list or a bare value.",
+        "noAlg": "The header must include “alg”, the signing algorithm (for example HS256 or RS256).",
+        "missingSignature": "The signature, the third part, is missing. A token without a signature is only accepted if its algorithm is “none”.",
+        "noneWithSignature": "The algorithm is “none” (unsigned), but the token carries a signature. Either the signature is extra or the algorithm is a different one.",
+        "claimType": "“{claim}” must be a number of seconds since 1970 (like 1735689600), without quotes."
+      },
+      "guide": {
+        "title": "Common JWT errors",
+        "intro": "Most mistakes when pasting a JWT are these. Each comes with its fix:",
+        "groups": {
+          "errors": "Frequent errors and how to fix them",
+          "valid": "Also a valid JWT"
+        },
+        "desc": {
+          "bearerPrefix": "It has “Bearer ” in front: remove it",
+          "partsCount": "Fewer or more than three parts",
+          "encrypted": "Five parts: it's an encrypted token (JWE)",
+          "notUrlSafe": "With + / or = instead of Base64URL",
+          "noAlg": "A header without “alg”",
+          "claimType": "A date in quotes instead of a number",
+          "structure": "Three parts in Base64URL",
+          "expired": "An expired token is valid: you only get a warning",
+          "algNone": "alg “none” without a signature: valid, with a warning",
+          "noVerify": "The signature isn't verified, only its format"
         }
       }
     },

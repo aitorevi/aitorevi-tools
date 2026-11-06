@@ -1428,6 +1428,147 @@
           }
         }
       }
+    },
+    "validar-base64": {
+      "meta": {
+        "title": "Validar Base64 — comprueba el formato y localiza el carácter que falla, en tu navegador",
+        "description": "Valida Base64 (estándar y URL-safe) al instante en tu navegador: indica la línea y la columna del error, explica qué ha fallado y te lleva hasta él. Gratis, sin registro y sin subir nada a ningún servidor.",
+        "ogTitle": "Validar Base64 — formato y errores al instante",
+        "ogDescription": "Valida Base64 en tu navegador y localiza el carácter que falla con su línea y columna. Gratis y sin subir nada.",
+        "jsonldName": "Validar Base64",
+        "jsonldDescription": "Valida Base64 en el navegador, señalando la línea y la columna del error, sin enviar el texto a ningún servidor."
+      },
+      "card": {
+        "name": "Validar Base64",
+        "desc": "Comprueba si tu texto es Base64 válido y te lleva hasta el carácter que falla.",
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
+      },
+      "ui": {
+        "h1": "Validar Base64",
+        "subtitle": "Pega un texto en Base64 (estándar o URL-safe, con o sin relleno) y comprueba si es válido. Si hay un error, te dice dónde está y qué ha fallado. Todo ocurre en tu navegador.",
+        "cardAria": "Herramienta para validar Base64"
+      },
+      "msg": {
+        "valid": "Base64 válido",
+        "invalid": "Base64 no válido",
+        "valVariant": "Alfabeto",
+        "valPadding": "Relleno (=)",
+        "valBytes": "Bytes",
+        "valUtf8": "Es texto UTF-8",
+        "yes": "Sí",
+        "no": "No",
+        "variants": {
+          "standard": "Estándar (+ /)",
+          "urlsafe": "URL-safe (- _)",
+          "neutral": "Común a ambos"
+        },
+        "hints": {
+          "badChar": "El carácter «{char}» no es válido en Base64. Solo valen letras, números, + y / (o - y _ en la variante URL-safe), el relleno = al final y saltos de línea. Suele ser una comilla, una coma o un trozo de otro texto que se ha colado al copiar.",
+          "mixedAlphabet": "El carácter «{char}» mezcla los dos alfabetos: + y / son del Base64 estándar, y - y _ son de la variante URL-safe. Usa solo uno de los dos.",
+          "paddingMiddle": "El relleno = solo puede ir al final del todo. Si hay datos después, quizá sean dos textos Base64 pegados: valida cada uno por separado.",
+          "badPadding": "El relleno = no cuadra. Debe haber 0, 1 o 2 signos = y completar el último bloque hasta una longitud múltiplo de 4.",
+          "badLength": "Hay {length} caracteres de datos y eso deja un carácter suelto en el último bloque, algo imposible en Base64. Seguramente falta o sobra algún carácter (¿se cortó al copiar?).",
+          "dataUri": "Empieza con un prefijo «data:…;base64,». Quítalo y deja solo lo que viene después de la coma."
+        },
+        "guide": {
+          "title": "Errores típicos de Base64",
+          "intro": "La mayoría de errores al copiar Base64 son estos. Cada uno lleva su arreglo:",
+          "groups": {
+            "errors": "Errores frecuentes y cómo arreglarlos",
+            "valid": "También es Base64 válido"
+          },
+          "desc": {
+            "badChar": "Un carácter que no es de Base64 (comilla, coma…)",
+            "mixedAlphabet": "Mezclar + / con - _",
+            "paddingMiddle": "Datos después del relleno =",
+            "badPadding": "Un relleno = que no cuadra con la longitud",
+            "badLength": "Una longitud imposible (5 caracteres, por ejemplo)",
+            "dataUri": "Un prefijo data: delante",
+            "plain": "Base64 estándar, sin relleno",
+            "padded": "Con relleno = al final",
+            "urlsafe": "Variante URL-safe (- y _)",
+            "lineBreaks": "Con saltos de línea (formato MIME)"
+          }
+        }
+      }
+    },
+    "validar-jwt": {
+      "meta": {
+        "title": "Validar JWT — comprueba la estructura del token y localiza el fallo, en tu navegador",
+        "description": "Comprueba la estructura de un JWT al instante en tu navegador: tres partes, Base64URL, header y payload en JSON y fechas bien formadas. Indica dónde falla y avisa si está caducado. No verifica la firma. Gratis y sin subir nada.",
+        "ogTitle": "Validar JWT — estructura del token al instante",
+        "ogDescription": "Comprueba la estructura de un JWT en tu navegador y localiza el fallo. Gratis y sin subir nada: el token nunca sale de tu dispositivo.",
+        "jsonldName": "Validar JWT",
+        "jsonldDescription": "Comprueba la estructura de un JWT en el navegador, señalando dónde falla, sin enviar el token a ningún servidor."
+      },
+      "card": {
+        "name": "Validar JWT",
+        "desc": "Comprueba la estructura de tu JWT y te lleva hasta el fallo. Sin verificar la firma.",
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
+      },
+      "ui": {
+        "h1": "Validar JWT",
+        "subtitle": "Pega un JWT y comprueba que su estructura es correcta: tres partes, Base64URL, header y payload en JSON y fechas bien formadas. No verifica la firma. Todo ocurre en tu navegador: el token no sale de tu dispositivo.",
+        "cardAria": "Herramienta para validar JWT"
+      },
+      "msg": {
+        "valid": "JWT válido",
+        "invalid": "JWT no válido",
+        "valAlg": "Algoritmo",
+        "valTyp": "Tipo",
+        "valIat": "Emitido",
+        "valNbf": "Válido desde",
+        "valExp": "Caduca",
+        "valNoSignature": "No se verifica la firma: solo se comprueba la estructura.",
+        "notes": {
+          "expired": "El token está caducado desde el {date}.",
+          "notYetValid": "Todavía no es válido: lo será a partir del {date}.",
+          "expBeforeIat": "La caducidad (exp) es anterior a la fecha de emisión (iat).",
+          "algNone": "El algoritmo es «none»: el token no lleva firma y no ofrece ninguna garantía."
+        },
+        "hints": {
+          "bearerPrefix": "«Bearer» es parte de la cabecera HTTP Authorization, no del token. Quita «Bearer » y pega solo el token.",
+          "partsCount": "Un JWT firmado tiene tres partes separadas por puntos: header.payload.firma. Aquí hay {count}.",
+          "encrypted": "Con cinco partes es un token cifrado (JWE), que no se puede comprobar sin la clave. Esta herramienta valida los tokens firmados (JWS), de tres partes.",
+          "emptyPart": "Esta parte del token está vacía.",
+          "badChar": "El carácter «{char}» no es válido en Base64URL: solo valen letras, números, - y _. Puede que se haya colado un espacio, una comilla o un salto de línea al copiar.",
+          "notUrlSafe": "Los JWT usan Base64URL: sin + ni / (en su lugar van - y _) y sin relleno =.",
+          "badLength": "Esta parte tiene una longitud imposible en Base64URL (con {length} caracteres queda uno suelto): probablemente se cortó al copiar.",
+          "notUtf8": "Esta parte se decodifica, pero el resultado no es texto UTF-8 válido.",
+          "notJson": "Esta parte se decodifica a texto, pero no es JSON válido. El detalle técnico indica el motivo.",
+          "notObject": "El header y el payload deben ser un objeto JSON ({ … }), no una lista ni un valor suelto.",
+          "noAlg": "El header debe incluir «alg», el algoritmo de firma (por ejemplo HS256 o RS256).",
+          "missingSignature": "Falta la firma, la tercera parte. Solo se admite un token sin firma si su algoritmo es «none».",
+          "noneWithSignature": "El algoritmo es «none» (sin firma), pero el token lleva una firma. O sobra la firma o el algoritmo es otro.",
+          "claimType": "«{claim}» debe ser un número de segundos desde 1970 (como 1735689600), sin comillas."
+        },
+        "guide": {
+          "title": "Errores típicos de un JWT",
+          "intro": "La mayoría de errores al pegar un JWT son estos. Cada uno lleva su arreglo:",
+          "groups": {
+            "errors": "Errores frecuentes y cómo arreglarlos",
+            "valid": "También es un JWT válido"
+          },
+          "desc": {
+            "bearerPrefix": "Delante lleva «Bearer »: quítalo",
+            "partsCount": "Menos o más de tres partes",
+            "encrypted": "Cinco partes: es un token cifrado (JWE)",
+            "notUrlSafe": "Con + / o = en lugar de Base64URL",
+            "noAlg": "Un header sin «alg»",
+            "claimType": "Una fecha entre comillas en lugar de un número",
+            "structure": "Tres partes en Base64URL",
+            "expired": "Un token caducado es válido: solo se avisa",
+            "algNone": "alg «none» sin firma: válido, con aviso",
+            "noVerify": "La firma no se verifica, solo su formato"
+          }
+        }
+      }
     }
   },
   "subsections": {

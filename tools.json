@@ -140,6 +140,22 @@
       "slug": { "es": "validar-toml", "en": "validate-toml" }
     },
     {
+      "id": "validar-base64",
+      "body": "partials/validator-body.html",
+      "section": "codigo",
+      "subsection": "validar",
+      "libs": [],
+      "slug": { "es": "validar-base64", "en": "validate-base64" }
+    },
+    {
+      "id": "validar-jwt",
+      "body": "partials/validator-body.html",
+      "section": "codigo",
+      "subsection": "validar",
+      "libs": [],
+      "slug": { "es": "validar-jwt", "en": "validate-jwt" }
+    },
+    {
       "id": "regex",
       "section": "codigo",
       "subsection": "analizar",

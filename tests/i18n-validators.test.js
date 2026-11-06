@@ -4,11 +4,15 @@ import { JSON_HINT_KEYS } from "../lib/validators/json.js";
 import { XML_HINT_KEYS } from "../lib/validators/xml.js";
 import { YAML_HINT_KEYS } from "../lib/validators/yaml.js";
 import { TOML_HINT_KEYS } from "../lib/validators/toml.js";
+import { BASE64_HINT_KEYS } from "../lib/validators/base64.js";
+import { JWT_HINT_KEYS, JWT_NOTE_KEYS } from "../lib/validators/jwt.js";
 import { SCHEMA_HINTS, SCHEMA_HINT_KEYS } from "../lib/validators/json-schema.js";
 import { GUIDE as JSON_GUIDE } from "../validar-json/guide.js";
 import { GUIDE as XML_GUIDE } from "../validar-xml/guide.js";
 import { GUIDE as YAML_GUIDE } from "../validar-yaml/guide.js";
 import { GUIDE as TOML_GUIDE } from "../validar-toml/guide.js";
+import { GUIDE as BASE64_GUIDE } from "../validar-base64/guide.js";
+import { GUIDE as JWT_GUIDE } from "../validar-jwt/guide.js";
 
 // Una pista que un validador puede devolver y no tiene texto en algún idioma se vería
 // como un mensaje técnico en inglés sin que nada fallara: este test lo impide. Y al
@@ -26,6 +30,8 @@ const TOOLS = {
   "validar-xml": { hints: XML_HINT_KEYS, guide: XML_GUIDE },
   "validar-yaml": { hints: YAML_HINT_KEYS, guide: YAML_GUIDE },
   "validar-toml": { hints: TOML_HINT_KEYS, guide: TOML_GUIDE },
+  "validar-base64": { hints: BASE64_HINT_KEYS.filter((k) => k !== "empty"), guide: BASE64_GUIDE },
+  "validar-jwt": { hints: JWT_HINT_KEYS.filter((k) => k !== "empty"), guide: JWT_GUIDE },
 };
 
 for (const [tool, { hints, guide }] of Object.entries(TOOLS)) {
@@ -77,6 +83,42 @@ describe("pistas del modo schema: las {marcas} son los parámetros que rellena e
         if (params.length > 0) expect(used.length, "el texto no usa ningún parámetro").toBeGreaterThan(0);
       });
     }
+  }
+});
+
+// Parámetros que el código rellena en cada pista (los de makeError → `params`).
+const BASE64_PARAMS = { badChar: ["char"], mixedAlphabet: ["char"], badLength: ["length"] };
+const JWT_PARAMS = { badChar: ["char"], partsCount: ["count"], badLength: ["length"], claimType: ["claim"] };
+const NOTE_PARAMS = { expired: ["date"], notYetValid: ["date"] };
+
+describe("Base64 y JWT: las {marcas} de cada texto son parámetros que el código rellena", () => {
+  for (const lang of ["es", "en"]) {
+    for (const [tool, params, keys] of [
+      ["validar-base64", BASE64_PARAMS, BASE64_HINT_KEYS],
+      ["validar-jwt", JWT_PARAMS, JWT_HINT_KEYS],
+    ]) {
+      it(`${lang} · ${tool}: pistas`, () => {
+        const hints = I18N[lang].tools[tool].msg.hints;
+        for (const key of keys.filter((k) => k !== "empty")) {
+          const used = placeholders(hints[key]);
+          expect(used.filter((p) => !(params[key] || []).includes(p)), `${key}: marcas sin parámetro`).toEqual([]);
+          // un parámetro que el código calcula y el texto nunca usa es un parámetro muerto
+          for (const p of params[key] || []) expect(used, `${key}: parámetro ${p} sin usar`).toContain(p);
+        }
+      });
+    }
+
+    it(`${lang} · validar-jwt: avisos, etiquetas de meta y sí/no de Base64`, () => {
+      const jwt = I18N[lang].tools["validar-jwt"].msg;
+      expect(Object.keys(jwt.notes).sort()).toEqual([...JWT_NOTE_KEYS].sort());
+      for (const key of JWT_NOTE_KEYS) {
+        expect(placeholders(jwt.notes[key]).sort(), key).toEqual(NOTE_PARAMS[key] || []);
+      }
+      for (const key of ["valAlg", "valTyp", "valIat", "valNbf", "valExp", "valNoSignature"]) expect(jwt[key], key).toBeTruthy();
+      const b64 = I18N[lang].tools["validar-base64"].msg;
+      for (const key of ["valVariant", "valPadding", "valBytes", "valUtf8", "yes", "no"]) expect(b64[key], key).toBeTruthy();
+      for (const v of ["standard", "urlsafe", "neutral"]) expect(b64.variants[v], v).toBeTruthy();
+    });
   }
 });
 

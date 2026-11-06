@@ -702,12 +702,17 @@ test("código: las guías de JSON, XML, YAML, SQL y HTML/CSS se renderizan", asy
     ["/validar-xml/", "validator-guide"],
     ["/validar-yaml/", "validator-guide"],
     ["/validar-toml/", "validator-guide"],
+    ["/validar-base64/", "validator-guide"],
+    ["/validar-jwt/", "validator-guide"],
   ]) {
     await page.goto(path);
     await expect(page.locator(`#${id} .tool-guide-title`)).toBeVisible();
     expect(await page.locator(`#${id} code`).count()).toBeGreaterThan(5);
   }
 });
+
+// Un JWT bien formado (header {alg:HS256,typ:JWT}, payload {sub,iat,exp} de 2023): caducado.
+const JWT_OK = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAwMDAwMDAwLCJleHAiOjE3MDAwMDM2MDB9.c2lnbmF0dXJl";
 
 // --- Validar JSON ---
 
@@ -1084,6 +1089,71 @@ test("validar-toml: TOML válido muestra los datos", async ({ page }) => {
   await expect(t.meta.locator("dd").nth(2)).toHaveText("3"); // profundidad
 });
 
+test("validar-base64: el ejemplo señala el carácter, y uno válido muestra los datos", async ({ page }) => {
+  await page.goto("/validar-base64/");
+  const t = vj(page);
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("Base64 no válido");
+  await expect(t.detail).toContainText("Línea 2, columna 16");
+  await expect(t.detail).toContainText("«!»");
+  await expect(t.tech).toContainText('invalid character "!"');
+  await expect(t.mark).toBeVisible();
+  await t.jump.click();
+  expect(await t.input.evaluate((el) => el.selectionStart)).toBe(await t.input.evaluate((el) => el.value.indexOf("!")));
+  expect(await page.locator("#code-tool").getByRole("button", { name: /formatear|minificar/i }).count()).toBe(0);
+
+  await t.input.fill("SGVsbG8=");
+  await expect(t.headline).toHaveText("Base64 válido");
+  await expect(t.meta.locator("dd")).toHaveText(["Común a ambos", "Sí", "5", "Sí"]);
+  await t.input.fill("/w==");
+  await expect(t.meta.locator("dd").nth(3)).toHaveText("No");
+});
+
+test("validar-jwt: el ejemplo (sin firma) falla; uno caducado es válido con aviso", async ({ page }) => {
+  await page.goto("/validar-jwt/");
+  const t = vj(page);
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("JWT no válido");
+  await expect(t.detail).toContainText("Aquí hay 2");
+  await expect(t.detail).toContainText("tres partes");
+  await expect(t.mark).toBeVisible();
+
+  await t.input.fill(JWT_OK);
+  await expect(t.headline).toHaveText("JWT válido");
+  await expect(t.detail).toContainText("No se verifica la firma");
+  await expect(t.detail).toContainText("caducado desde el 2023-11-14T23:13:20.000Z");
+  await expect(t.meta.locator("dt")).toHaveText(["Algoritmo", "Tipo", "Emitido", "Caduca"]);
+  await expect(t.meta.locator("dd").nth(0)).toHaveText("HS256");
+
+  await t.input.fill("Bearer " + JWT_OK);
+  await expect(t.headline).toHaveText("JWT no válido");
+  await expect(t.detail).toContainText("Quita «Bearer »");
+  await t.input.fill(JWT_OK.replace(/\.[^.]*$/, ".sig!"));
+  await expect(t.detail).toContainText("«!»");
+});
+
+test("EN: validate-base64 y validate-jwt muestran la UI en inglés", async ({ page }) => {
+  await page.goto("/en/validate-base64/");
+  let t = vj(page);
+  await expect(page.locator("main h1")).toHaveText("Validate Base64");
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("Invalid Base64");
+  await expect(t.detail).toContainText("Line 2, column 16");
+  await expect(t.detail).toContainText("“!”");
+  await t.input.fill("QUJD");
+  await expect(t.headline).toHaveText("Valid Base64");
+
+  await page.goto("/en/validate-jwt/");
+  t = vj(page);
+  await expect(page.locator("main h1")).toHaveText("Validate JWT");
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("Invalid JWT");
+  await expect(t.detail).toContainText("Here there are 2");
+  await t.input.fill(JWT_OK);
+  await expect(t.headline).toHaveText("Valid JWT");
+  await expect(t.detail).toContainText("The token expired on 2023-11-14T23:13:20.000Z");
+});
+
 test("EN: validate-yaml y validate-toml muestran la UI en inglés", async ({ page }) => {
   await page.goto("/en/validate-yaml/");
   let t = vj(page);
@@ -1115,17 +1185,19 @@ test("cada librería se carga solo en la página que la usa", async ({ page, con
   expect(await loaded("/validar-xml/")).toEqual([]);
   expect(await loaded("/validar-yaml/")).toEqual(["/vendor/js-yaml.min.js"]);
   expect(await loaded("/validar-toml/")).toEqual(["/vendor/smol-toml.min.js"]);
+  expect(await loaded("/validar-base64/")).toEqual([]);
+  expect(await loaded("/validar-jwt/")).toEqual([]);
 });
 
-test("validar-yaml y validar-toml: validar no genera ninguna petición de red", async ({ page, context, baseURL }) => {
+test("validar-yaml, toml, base64 y jwt: validar no genera ninguna petición de red", async ({ page, context, baseURL }) => {
   const net = auditNetwork(context, new URL(baseURL).origin);
-  for (const path of ["/validar-yaml/", "/validar-toml/"]) {
+  for (const path of ["/validar-yaml/", "/validar-toml/", "/validar-base64/", "/validar-jwt/"]) {
     await page.goto(path, { waitUntil: "networkidle" });
     const t = vj(page);
     const afterLoad = net.requests().length;
     await t.btn("sample").click();
     await t.jump.click();
-    await t.input.fill(path.includes("yaml") ? "a: 1" : "a = 1");
+    await t.input.fill(path.includes("yaml") ? "a: 1" : path.includes("base64") ? "QUJD" : path.includes("jwt") ? JWT_OK : "a = 1");
     await expect(t.headline).toContainText("válido");
     await t.btn("clear").click();
     await page.waitForTimeout(300);
@@ -1427,12 +1499,12 @@ test("schema: Vaciar limpia los dos editores y el resultado", async ({ page }) =
   await expect(t.docMark).toBeHidden();
 });
 
-test("hub: la subsección Validar lista las cuatro herramientas y el buscador las encuentra", async ({ page }) => {
+test("hub: la subsección Validar lista las seis herramientas y el buscador las encuentra", async ({ page }) => {
   await page.goto("/");
   const sub = page.locator('[data-subsection="validar"]');
   await expect(sub.locator(".subsection-title")).toHaveText("Validar");
-  await expect(sub.locator(".tool-card")).toHaveCount(4);
-  for (const [name, href] of [["Validar JSON", "/validar-json/"], ["Validar XML", "/validar-xml/"], ["Validar YAML", "/validar-yaml/"], ["Validar TOML", "/validar-toml/"]]) {
+  await expect(sub.locator(".tool-card")).toHaveCount(6);
+  for (const [name, href] of [["Validar JSON", "/validar-json/"], ["Validar XML", "/validar-xml/"], ["Validar YAML", "/validar-yaml/"], ["Validar TOML", "/validar-toml/"], ["Validar Base64", "/validar-base64/"], ["Validar JWT", "/validar-jwt/"]]) {
     await expect(sub.locator(`a.tool-card[href="${href}"] .tool-name`)).toHaveText(name);
   }
   await page.locator("#hub-search").fill("toml");

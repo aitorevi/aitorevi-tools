@@ -229,6 +229,30 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://tools.aitorevi.dev/validar-base64/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/validar-base64/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/validate-base64/" />
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://tools.aitorevi.dev/en/validate-base64/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/validar-base64/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/validate-base64/" />
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://tools.aitorevi.dev/validar-jwt/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/validar-jwt/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/validate-jwt/" />
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://tools.aitorevi.dev/en/validate-jwt/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/validar-jwt/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/validate-jwt/" />
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://tools.aitorevi.dev/regex/</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://tools.aitorevi.dev/regex/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://tools.aitorevi.dev/en/regex/" />
