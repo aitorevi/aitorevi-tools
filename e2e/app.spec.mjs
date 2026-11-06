@@ -1127,6 +1127,220 @@ test("validar-yaml y validar-toml: validar no genera ninguna petición de red", 
   expect(net.violations()).toEqual([]);
 });
 
+// --- Validar JSON · modo schema ---
+
+const sm = (page) => ({
+  ...vj(page),
+  toggle: page.locator('#code-tool [data-role="mode"]'),
+  schema: page.locator('#code-tool [data-role="schema-input"]'),
+  schemaPane: page.locator('#code-tool [data-pane="schema-input"]'),
+  items: page.locator("#code-tool .validate-errors > li"),
+  more: page.locator("#code-tool .validate-more"),
+  schemaMark: page.locator('#code-tool [data-pane="schema-input"] .validate-mark'),
+  docMark: page.locator('#code-tool [data-pane="input"] .validate-mark'),
+});
+
+async function openSchemaMode(page, path = "/validar-json/") {
+  await page.goto(path);
+  const t = sm(page);
+  await t.toggle.check();
+  return t;
+}
+
+test("schema: el interruptor muestra el segundo editor y es accesible con teclado", async ({ page }) => {
+  await page.goto("/validar-json/");
+  const t = sm(page);
+  await expect(t.schemaPane).toHaveCount(0); // el editor del schema no existe hasta que se usa
+  await expect(t.toggle).toHaveAttribute("role", "switch");
+  await t.toggle.focus();
+  await page.keyboard.press("Space");
+  await expect(t.toggle).toBeChecked();
+  await expect(t.schemaPane).toBeVisible();
+  await expect(t.schema).toHaveAccessibleName("Schema");
+  await expect(t.input).toHaveAccessibleName("Documento");
+  await expect(t.headline).toHaveText("Pega un documento y su schema para validarlo.");
+  await page.keyboard.press("Space");
+  await expect(t.toggle).not.toBeChecked();
+  await expect(t.schemaPane).toBeHidden();
+  await expect(t.input).toHaveAccessibleName("Entrada");
+  await expect(t.headline).toHaveText("Pega o escribe algo para validarlo.");
+});
+
+test("schema: el ejemplo lista los errores con ruta, posición y pista", async ({ page }) => {
+  const t = await openSchemaMode(page);
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("El documento no cumple el schema (4 errores)");
+  await expect(t.status).toHaveClass(/is-invalid/);
+  await expect(t.items).toHaveCount(4);
+  const all = t.items.locator(":scope");
+  await expect(all.nth(0)).toContainText("(raíz)");
+  await expect(all.nth(0)).toContainText("Falta la propiedad obligatoria «activo».");
+  await expect(all.nth(1)).toContainText("/edad");
+  await expect(all.nth(1)).toContainText("Línea 3, columna 11");
+  await expect(all.nth(1)).toContainText("menor que el mínimo permitido (0)");
+  await expect(all.nth(2)).toContainText("/email");
+  await expect(all.nth(2)).toContainText("formato «email»");
+  await expect(all.nth(3)).toContainText("/roles");
+  await expect(all.nth(3)).toContainText("elementos repetidos");
+  // El origen se indica con texto, no solo con color.
+  await expect(t.items.locator(".validate-error-src").first()).toHaveText("Documento");
+  await expect(t.input).toHaveAttribute("aria-invalid", "true");
+  await expect(t.schema).toHaveAttribute("aria-invalid", "false");
+  await expect(t.docMark).toBeVisible();
+});
+
+test("schema: cada error salta a su posición exacta en el documento", async ({ page }) => {
+  const t = await openSchemaMode(page);
+  await t.btn("sample").click();
+  await expect(t.items).toHaveCount(4);
+  const char = () => t.input.evaluate((el) => ({ at: el.selectionStart, focused: document.activeElement === el, text: el.value.slice(el.selectionStart, el.selectionStart + 4) }));
+  await t.items.nth(1).getByRole("button").click(); // /edad → el -3
+  expect(await char()).toMatchObject({ focused: true, text: "-3,\n" });
+  await t.items.nth(2).getByRole("button").click(); // /email
+  expect((await char()).text).toBe('"ana');
+  await t.items.nth(0).getByRole("button").click(); // raíz
+  expect((await char()).at).toBe(0);
+});
+
+test("schema: un documento que cumple el schema", async ({ page }) => {
+  const t = await openSchemaMode(page);
+  await t.input.fill('{"nombre":"Ana","edad":30}');
+  await t.schema.fill('{"type":"object","required":["nombre"],"properties":{"edad":{"type":"integer"}}}');
+  await expect(t.headline).toHaveText("El documento cumple el schema");
+  await expect(t.status).toHaveClass(/is-valid/);
+  await expect(t.meta).toContainText("draft 2020-12");
+  await expect(t.items).toHaveCount(0);
+  await expect(t.btn("format")).toBeEnabled();
+});
+
+test("schema: un schema incorrecto se detecta antes de usarlo y salta al schema", async ({ page }) => {
+  const t = await openSchemaMode(page);
+  await t.input.fill("{}");
+  await t.schema.fill('{\n  "type": "strin",\n  "properties": 5\n}');
+  await expect(t.headline).toHaveText(/El schema no es válido \(\d+ errores\)/);
+  await expect(t.items.first().locator(".validate-error-src")).toHaveText("Schema");
+  const typeError = t.items.filter({ hasText: "/type" });
+  await expect(typeError).toContainText("«type» debe ser uno de");
+  await expect(t.items.filter({ hasText: "/properties" })).toContainText("Se esperaba un valor de tipo «object»");
+  await expect(t.schema).toHaveAttribute("aria-invalid", "true");
+  await expect(t.input).toHaveAttribute("aria-invalid", "false");
+  await expect(t.schemaMark).toBeVisible();
+  await typeError.getByRole("button").click();
+  expect(await t.schema.evaluate((el) => ({ focused: document.activeElement === el, text: el.value.slice(el.selectionStart, el.selectionStart + 7) }))).toEqual({ focused: true, text: '"strin"' });
+});
+
+test("schema: errores de sintaxis en cada texto, con su origen", async ({ page }) => {
+  const t = await openSchemaMode(page);
+  await t.input.fill('{"a":1,}');
+  await t.schema.fill('{"type":}');
+  await expect(t.headline).toHaveText("Hay errores de sintaxis (2 errores)");
+  await expect(t.items.nth(0).locator(".validate-error-src")).toHaveText("Schema");
+  await expect(t.items.nth(1).locator(".validate-error-src")).toHaveText("Documento");
+  await expect(t.items.nth(1)).toContainText("sobra una coma");
+  await expect(t.btn("format")).toBeDisabled();
+});
+
+test("schema: si falta uno de los dos textos lo dice", async ({ page }) => {
+  const t = await openSchemaMode(page);
+  await t.input.fill('{"a":1}');
+  await expect(t.headline).toHaveText("Falta el documento o el schema");
+  await expect(t.items.first()).toContainText("Pega aquí el JSON Schema");
+});
+
+test("schema: una referencia que no se encuentra explica que no hay red", async ({ page }) => {
+  const t = await openSchemaMode(page);
+  await t.input.fill('{"a":1}');
+  await t.schema.fill('{"properties":{"a":{"$ref":"https://example.com/s.json"}}}');
+  await expect(t.headline).toContainText("El schema no es válido");
+  await expect(t.items.first()).toContainText("https://example.com/s.json");
+  await expect(t.items.first()).toContainText("no hace peticiones de red");
+});
+
+test("schema: con más de 100 errores muestra los primeros y cuántos faltan", async ({ page }) => {
+  const t = await openSchemaMode(page);
+  await t.schema.fill('{"type":"array","items":{"type":"number"}}');
+  await t.input.evaluate((el) => {
+    el.value = JSON.stringify(Array.from({ length: 150 }, () => "x"));
+    el.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+  await expect(t.headline).toHaveText("El documento no cumple el schema (150 errores)");
+  await expect(t.items).toHaveCount(100);
+  await expect(t.more).toContainText("50 errores más");
+});
+
+test("schema: una regex catastrófica se cancela y la página no se congela", async ({ page }) => {
+  test.setTimeout(40_000);
+  const t = await openSchemaMode(page);
+  await t.schema.fill('{"type":"string","pattern":"^(a+)+$"}');
+  await t.input.fill('"' + "a".repeat(34) + '!"');
+  // Mientras el Worker trabaja, el hilo principal responde enseguida.
+  await page.waitForTimeout(500);
+  const t0 = Date.now();
+  expect(await page.evaluate(() => 1 + 1)).toBe(2);
+  expect(Date.now() - t0).toBeLessThan(1000);
+  await t.input.press("End");
+  await expect(t.headline).toHaveText("La validación se canceló", { timeout: 15_000 });
+  await expect(t.items.first()).toContainText("expresión regular");
+  // Y se recupera: un schema sano vuelve a validar.
+  await t.schema.fill('{"type":"string"}');
+  await expect(t.headline).toHaveText("El documento cumple el schema", { timeout: 15_000 });
+});
+
+test("schema: la última validación gana al escribir deprisa", async ({ page }) => {
+  const t = await openSchemaMode(page);
+  await t.schema.fill('{"type":"number"}');
+  await t.input.fill('"x"');
+  await expect(t.headline).toContainText("no cumple el schema");
+  await t.input.fill("5");
+  await expect(t.headline).toHaveText("El documento cumple el schema");
+});
+
+test("EN: validate-json schema mode muestra la UI en inglés", async ({ page }) => {
+  const t = await openSchemaMode(page, "/en/validate-json/");
+  await expect(page.locator(".validate-switch-label")).toHaveText("Validate against a JSON Schema");
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("The document does not match the schema (4 errors)");
+  await expect(t.items.nth(0)).toContainText("The required property “activo” is missing.");
+  await expect(t.items.nth(0)).toContainText("(root)");
+  await expect(t.items.nth(1).locator(".validate-error-src")).toHaveText("Document");
+});
+
+test("schema: no se descarga nada hasta activar el modo, y validar no genera peticiones", async ({ page, context, baseURL }) => {
+  const net = auditNetwork(context, new URL(baseURL).origin);
+  await page.goto("/validar-json/", { waitUntil: "networkidle" });
+  const t = sm(page);
+  const loadedVendor = () => net.requests().filter((u) => u.includes("/vendor/json-schema")).length;
+  expect(loadedVendor()).toBe(0);
+  await t.toggle.check();
+  await expect(t.schemaPane).toBeVisible();
+  expect(loadedVendor()).toBe(0); // aún no hace falta: se pide al primer validar
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("El documento no cumple el schema (4 errores)");
+  expect(loadedVendor()).toBe(1);
+  const afterFirst = net.requests().length;
+  await t.items.nth(1).getByRole("button").click();
+  await t.input.fill('{"a":1}');
+  await t.schema.fill('{"type":"object"}');
+  await expect(t.headline).toHaveText("El documento cumple el schema");
+  await t.btn("clear").click();
+  await page.waitForTimeout(300);
+  expect(net.requests().slice(afterFirst)).toEqual([]);
+  expect(loadedVendor()).toBe(1);
+  expect(net.violations()).toEqual([]);
+});
+
+test("schema: funciona con la CSP del sitio (sin eval) y sin errores de consola", async ({ page }) => {
+  const problems = [];
+  page.on("console", (m) => { if (m.type() === "error") problems.push(m.text()); });
+  page.on("pageerror", (e) => problems.push(String(e)));
+  await page.addInitScript(() => { window.__csp = []; document.addEventListener("securitypolicyviolation", (e) => window.__csp.push(e.violatedDirective)); });
+  const t = await openSchemaMode(page);
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("El documento no cumple el schema (4 errores)");
+  expect(await page.evaluate(() => window.__csp)).toEqual([]);
+  expect(problems).toEqual([]);
+});
+
 // --- Promesa "sin red": ninguna página saca datos ni contacta con terceros ---
 
 for (const lang of ["es", "en"]) {

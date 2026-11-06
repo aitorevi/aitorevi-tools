@@ -643,6 +643,54 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
 .validate-meta dd { margin: 0; color: rgb(var(--fg)); font-family: "JetBrains Mono", ui-monospace, monospace; }
 @media (max-width: 719px) { .validate-result { height: auto; min-height: 12rem; } }
 
+/* Modo schema (Validar JSON): interruptor, dos editores lado a lado y lista de errores
+   debajo. El origen de cada error se indica con texto (Documento / Schema), no solo con color. */
+.validate-modebar { display: flex; align-items: center; }
+.validate-switch { position: relative; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-size: .9rem; color: rgb(var(--fg)); }
+/* El input nativo (enfocable, con role=switch) va exactamente sobre la pista, invisible. */
+.validate-switch input {
+  position: absolute; left: 0; top: 50%; z-index: 1; width: 2.5rem; height: 1.4rem; margin: 0;
+  transform: translateY(-50%); opacity: 0; cursor: pointer;
+}
+.validate-switch-track {
+  position: relative; flex: 0 0 auto; width: 2.5rem; height: 1.4rem; border-radius: 999px;
+  border: 1px solid rgb(var(--border)); background: rgb(var(--fg) / 0.08);
+  transition: background .15s ease, border-color .15s ease;
+}
+.validate-switch-track::after {
+  content: ""; position: absolute; top: 2px; left: 2px;
+  width: calc(1.4rem - 6px); height: calc(1.4rem - 6px); border-radius: 50%;
+  background: rgb(var(--muted)); transition: transform .15s ease, background .15s ease;
+}
+.validate-switch input:checked + .validate-switch-track { background: rgb(var(--accent) / 0.2); border-color: rgb(var(--accent) / 0.6); }
+.validate-switch input:checked + .validate-switch-track::after { transform: translateX(1.1rem); background: rgb(var(--accent)); }
+.validate-switch input:focus-visible + .validate-switch-track { outline: 3px solid rgb(var(--accent)); outline-offset: 2px; }
+@media (min-width: 720px) {
+  .validate-tool.is-schema .code-io { grid-template-columns: 1fr 1fr; }
+  .validate-tool.is-schema [data-role="result-pane"] { grid-column: 1 / -1; }
+}
+.validate-tool.is-schema .validate-editor { height: clamp(240px, 38vh, 420px); }
+.validate-tool.is-schema .validate-result { height: auto; min-height: 8rem; }
+.validate-errors { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.validate-error {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: 10px 12px;
+  border: 1px solid rgb(var(--border)); border-left: 3px solid rgb(var(--danger));
+  border-radius: 10px; background: rgb(var(--fg) / 0.03);
+}
+.validate-error.is-schema { border-left-color: rgb(var(--warn)); }
+.validate-error-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: .78rem; }
+.validate-error-src {
+  padding: 2px 8px; border: 1px solid rgb(var(--border)); border-radius: 999px; color: rgb(var(--muted));
+  font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .68rem;
+  text-transform: uppercase; letter-spacing: .1em;
+}
+.validate-error-path { color: rgb(var(--accent)); overflow-wrap: anywhere; font-family: "JetBrains Mono", ui-monospace, monospace; }
+.validate-error-pos { color: rgb(var(--muted)); }
+.validate-error-msg { margin: 0; font-size: .9rem; line-height: 1.5; color: rgb(var(--fg)); }
+.validate-error .validate-tech { margin: 0; }
+.validate-error-jump { padding: 4px 12px; font-size: .78rem; }
+.validate-more { margin: 0; color: rgb(var(--muted)); font-size: .85rem; }
+
 /* Decodificador de JWT (UI propia, reutiliza .code-tool/.code-area). */
 .jwt-tool .jwt-input { min-height: 8rem; }
 .jwt-info {
