@@ -69,8 +69,8 @@ describe("validateYaml · errores con posición (js-yaml real)", () => {
     ["a: b: c", 4, 1, 5, "badIndent"],
     ["a: 1\na: 2", 5, 2, 1, "duplicateKey"],
     ["a: 1\n---\nc: 1\nc: 2", 14, 4, 1, "duplicateKey"],
-    ["a: *x", 5, 1, 6, "unknownAlias"],
-    ["a: !!foo 1", 10, 1, 11, "unknownTag"],
+    ["a: *x", 4, 1, 5, "unknownAlias"],
+    ["a: !!foo 1", 3, 1, 4, "unknownTag"],
     ["- a\nb: 1", 4, 2, 1, "unexpectedContent"],
     ["a: 1\n---\nb: : 2", 12, 3, 4, "badIndent"],
     // CRLF: js-yaml conserva los offsets del texto original
@@ -85,9 +85,9 @@ describe("validateYaml · errores con posición (js-yaml real)", () => {
     });
   }
 
-  it("en errores de fin de texto js-yaml da length+1: se recorta y no se pierde la posición", () => {
-    const quote = 'a: "hola\nb: 2';
-    expect(run(quote).errors[0]).toMatchObject({ offset: quote.length, line: 2, column: 5, hint: "unclosedQuote" });
+  it("en errores de fin de texto la posición queda en el final", () => {
+    const quote = 'a: "hola';
+    expect(run(quote).errors[0]).toMatchObject({ offset: quote.length, line: 1, column: 9, hint: "unclosedQuote" });
     const flow = "a: [1, 2";
     expect(run(flow).errors[0]).toMatchObject({ offset: flow.length, line: 1, column: 9, hint: "unclosedFlow" });
   });

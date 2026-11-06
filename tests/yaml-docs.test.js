@@ -20,3 +20,10 @@ describe("loadDocuments", () => {
     expect(() => loadDocuments(jsyaml, "a: 1\n---\nb: [1")).toThrow(/flow collection/);
   });
 });
+
+describe("loadDocuments · entrada sin datos (js-yaml 5 lanza en load(\"\"))", () => {
+  it("vacío o solo comentarios dan un documento null, como con js-yaml 4", () => {
+    expect(loadDocuments(jsyaml, "")).toEqual([null]);
+    expect(loadDocuments(jsyaml, "# solo comentario")).toEqual([null]);
+  });
+});
