@@ -29,6 +29,7 @@ const FOOT_SOCIAL = read("partials/foot-social.html").replace(/\s+$/, "");
 const MIT = read("partials/license-mit.txt").replace(/\s+$/, "");
 const OFL = read("partials/license-ofl.txt").replace(/\s+$/, "");
 const APACHE = read("partials/license-apache-2.0.txt").replace(/\s+$/, "");
+const BSD3 = read("partials/license-bsd-3-clause.txt").replace(/\s+$/, "");
 const HEIC_LIBHEIF_LICENSE = read("vendor/heic-converter/COPYING-libheif.txt").replace(/\s+$/, "");
 const HEIC_LIBDE265_LICENSE = read("vendor/heic-converter/COPYING-libde265.txt").replace(/\s+$/, "");
 
@@ -356,6 +357,10 @@ ${licenseCard("JSZip", lc.meta.jszip, MIT)}
 ${licenseCard("sql-formatter", lc.meta["sql-formatter"], MIT)}
 
 ${licenseCard("js-yaml", lc.meta["js-yaml"], MIT)}
+
+${licenseCard("fast-xml-parser", lc.meta["fast-xml-parser"], MIT)}
+
+${licenseCard("smol-toml", lc.meta["smol-toml"], BSD3)}
 
 ${licenseCard("js-beautify", lc.meta["js-beautify"], MIT)}
 

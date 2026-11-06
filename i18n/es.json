@@ -99,6 +99,8 @@
       "jszip": "Copyright (c) 2009-2016 Stuart Knightley y otros · licencia MIT (dual MIT/GPLv3). Incluye la librería pako (MIT).",
       "sql-formatter": "Copyright (c) 2016-2020 ZeroTurnaround LLC y colaboradores · licencia MIT",
       "js-yaml": "Copyright (c) 2011-2015 Vitaly Puzrin · licencia MIT",
+      "fast-xml-parser": "Copyright (c) 2017 Amit Kumar Gupta · licencia MIT",
+      "smol-toml": "Copyright (c) Squirrel Chat et al., All rights reserved. · licencia BSD de 3 cláusulas",
       "js-beautify": "Copyright (c) 2007-2018 Einar Lielmanis, Liam Newman y colaboradores · licencia MIT",
       "quicktype-core": "Copyright (c) quicktype, Inc. y colaboradores · licencia Apache 2.0",
       "prettier": "Copyright © James Long y colaboradores · licencia MIT",
