@@ -27,7 +27,9 @@ async function validateInPage(page, text) {
 const INVALID = [
   ["<a><b></a>", { chromium: [10, 1, 11, "mismatchedTag"], firefox: [8, 1, 9, "mismatchedTag"] }],
   // WebKit da «Extra content» y Firefox «no root element»: la pista se afina a unclosedTag.
-  ["<a><b>", { chromium: [6, 1, 7, "unclosedTag"], firefox: [6, 1, 7, "unclosedTag"] }],
+  // La posición se afina a la etiqueta de apertura sin cerrar (xml-locate.js), no al final.
+  ["<a><b>", { chromium: [3, 1, 4, "unclosedTag"], firefox: [3, 1, 4, "unclosedTag"] }],
+  ["<root>\n  <a>\n    <b>texto</b>\n", { chromium: [9, 2, 3, "unclosedTag"], firefox: [9, 2, 3, "unclosedTag"] }],
   ["hola", { chromium: [0, 1, 1, "noRoot"], firefox: [0, 1, 1, "noRoot"] }],
   // Firefox da solo «not well-formed»: la pista sale del carácter anterior al error.
   ["<a>fish & chips</a>", { chromium: [9, 1, 10, "unescapedAmpersand"], firefox: [9, 1, 10, "unescapedAmpersand"] }],
