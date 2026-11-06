@@ -60,7 +60,14 @@
     "valMinified": "The text has been minified.",
     "valRootType": "Root type",
     "valKeys": "Keys",
-    "valDepth": "Max depth"
+    "valDepth": "Max depth",
+    "valTotal": "Values",
+    "valKind": "Type",
+    "valListValid": "All {total} values are valid",
+    "valListInvalid": "{invalid} of {total} are invalid",
+    "valMoreItems": "There are {n} more invalid values not shown (the first {shown} are listed).",
+    "valItemJump": "Go to error",
+    "valItemJumpAria": "Go to error in value {value}"
   },
   "hub": {
     "title": "aitorevi.tools — mini tools that run in your browser",
@@ -1566,6 +1573,198 @@
             "expired": "An expired token is valid: you only get a warning",
             "algNone": "alg “none” without a signature: valid, with a warning",
             "noVerify": "The signature isn't verified, only its format"
+          }
+        }
+      }
+    },
+    "validar-uuid": {
+      "meta": {
+        "title": "Validate UUID — check the format, version and find the error, in your browser",
+        "description": "Validate lists of UUIDs instantly in your browser: 8-4-4-4-12 format, version and variant. It shows which value fails and where, and jumps straight to it. Free, no sign-up and nothing uploaded to any server.",
+        "ogTitle": "Validate UUID — format, version and errors instantly",
+        "ogDescription": "Validate UUIDs in your browser, one or a list, and find the one that fails. Free, nothing uploaded.",
+        "jsonldName": "Validate UUID",
+        "jsonldDescription": "Validates UUIDs in the browser, pointing to which value and character fail, without sending anything to any server."
+      },
+      "card": {
+        "name": "Validate UUID",
+        "desc": "Check one or many UUIDs and jump straight to the one that fails, with its version.",
+        "tags": [
+          "Code",
+          "No server"
+        ]
+      },
+      "ui": {
+        "h1": "Validate UUID",
+        "subtitle": "Paste one or more UUIDs, one per line, and check whether they are valid: format, version and variant. If any fails, you'll see which one and what went wrong. Everything happens in your browser.",
+        "cardAria": "Tool to validate UUIDs"
+      },
+      "msg": {
+        "valid": "Valid UUID",
+        "invalid": "Invalid UUID",
+        "codeInput": "UUIDs (one per line)",
+        "valPlaceholder": "Paste the UUIDs here, one per line…",
+        "kinds": {
+          "v1": "Version 1 (time and host)",
+          "v2": "Version 2 (DCE)",
+          "v3": "Version 3 (name, MD5)",
+          "v4": "Version 4 (random)",
+          "v5": "Version 5 (name, SHA-1)",
+          "v6": "Version 6 (reordered time)",
+          "v7": "Version 7 (Unix time)",
+          "v8": "Version 8 (custom)",
+          "nil": "Nil UUID (all zeros)",
+          "max": "Max UUID (all f)"
+        },
+        "hints": {
+          "wrapped": "Remove the braces, parentheses or the “urn:uuid:” prefix: only the UUID itself is validated, like 550e8400-e29b-41d4-a716-446655440000.",
+          "noHyphens": "The hyphens are missing. A UUID is written in groups of 8-4-4-4-12 characters separated by hyphens.",
+          "badHyphen": "A hyphen is where it shouldn't be or is missing where it should be: they go after characters 8, 12, 16 and 20 (groups of 8-4-4-4-12).",
+          "badChar": "“{char}” isn't a hexadecimal digit. A UUID only contains 0-9 and a-f.",
+          "tooShort": "Characters are missing: it has {length} and a UUID has 36 (32 plus 4 hyphens).",
+          "tooLong": "There are extra characters: it has {length} and a UUID has 36 (32 plus 4 hyphens).",
+          "badVersion": "“{char}” isn't a valid version: the first character of the third group must be a number from 1 to 8.",
+          "badVariant": "“{char}” isn't a valid variant: the first character of the fourth group must be 8, 9, a or b."
+        },
+        "guide": {
+          "title": "Common UUID errors",
+          "intro": "Most mistakes when copying a UUID are these. Each comes with its fix:",
+          "groups": {
+            "errors": "Frequent errors and how to fix them",
+            "valid": "Also a valid UUID"
+          },
+          "desc": {
+            "noHyphens": "No hyphens",
+            "wrapped": "In braces or with the urn:uuid: prefix",
+            "tooShort": "One character short",
+            "badChar": "A character that isn't hexadecimal",
+            "badVersion": "A version that doesn't exist (9)",
+            "badVariant": "An invalid variant in the fourth group",
+            "v4": "Version 4 (random), the most common",
+            "uppercase": "Uppercase is fine too",
+            "nil": "The nil UUID (all zeros)",
+            "max": "The max UUID (all f)"
+          }
+        }
+      }
+    },
+    "validar-nif": {
+      "meta": {
+        "title": "Validate Spanish NIF, CIF and NIE — check the control character and find the error, in your browser",
+        "description": "Validate Spanish NIF, NIE and CIF numbers instantly in your browser, one or a list: shape and control letter or digit. It shows which one fails and where. Free, no sign-up and no data uploaded to any server.",
+        "ogTitle": "Validate Spanish NIF, CIF and NIE — control and errors instantly",
+        "ogDescription": "Validate Spanish NIF, NIE and CIF numbers in your browser and find the one that fails. Free, no data uploaded.",
+        "jsonldName": "Validate Spanish NIF, CIF and NIE",
+        "jsonldDescription": "Validates Spanish NIF, NIE and CIF numbers in the browser, checking their control character, without sending any data to any server."
+      },
+      "card": {
+        "name": "Validate NIF / CIF / NIE",
+        "desc": "Check one or many Spanish NIF, NIE or CIF numbers and jump to the one that fails. The data never leaves your browser.",
+        "tags": [
+          "Code",
+          "No server"
+        ]
+      },
+      "ui": {
+        "h1": "Validate Spanish NIF, CIF and NIE",
+        "subtitle": "Paste Spanish NIF, NIE or CIF numbers, one per line, and check their shape and control letter or digit. It validates the format, not that the number is assigned to anyone. Everything happens in your browser: the data never leaves your device.",
+        "cardAria": "Tool to validate Spanish NIF, CIF and NIE numbers"
+      },
+      "msg": {
+        "valid": "Valid NIF/CIF/NIE",
+        "invalid": "Invalid NIF/CIF/NIE",
+        "codeInput": "Identifiers (one per line)",
+        "valPlaceholder": "Paste the NIF, NIE or CIF numbers here, one per line…",
+        "kinds": {
+          "dni": "DNI / NIF",
+          "nie": "NIE",
+          "special": "Special NIF (K, L, M)",
+          "cif": "CIF"
+        },
+        "hints": {
+          "badChar": "“{char}” isn't valid: only letters and numbers.",
+          "separator": "Write it without separators (“{char}”): 12345678Z, not 12.345.678-Z.",
+          "tooShort": "It has {length} characters and must have 9.",
+          "tooLong": "It has {length} characters and must have 9.",
+          "badStart": "“{char}” can't go first: it starts with a number (DNI), with X, Y or Z (NIE), with K, L or M, or with the entity letter (CIF).",
+          "badShape": "A digit must go in this position, not “{char}”.",
+          "badControl": "The control character doesn't match: it should be {expected}."
+        },
+        "guide": {
+          "title": "Common NIF, CIF and NIE errors",
+          "intro": "Most mistakes when copying a tax ID are these. Each comes with its fix:",
+          "groups": {
+            "errors": "Frequent errors and how to fix them",
+            "valid": "Also valid"
+          },
+          "desc": {
+            "separator": "No dots or hyphens",
+            "badControl": "The control letter or digit doesn't match",
+            "tooShort": "One character short",
+            "badStart": "A first letter that doesn't exist",
+            "badShape": "A letter where a number goes",
+            "dni": "DNI: 8 numbers and a letter",
+            "nie": "NIE: X, Y or Z, 7 numbers and a letter",
+            "cif": "CIF: letter, 7 numbers and a control",
+            "lowercase": "Lowercase is fine too"
+          }
+        }
+      }
+    },
+    "validar-iban": {
+      "meta": {
+        "title": "Validate IBAN — check country, length and check digits, in your browser",
+        "description": "Validate IBANs instantly in your browser, one or a list: country code, length and check digits (mod 97). It shows which one fails and where. Free, no sign-up and no data uploaded to any server.",
+        "ogTitle": "Validate IBAN — country, length and checksum instantly",
+        "ogDescription": "Validate IBANs in your browser and find the one that fails. Free, no data uploaded.",
+        "jsonldName": "Validate IBAN",
+        "jsonldDescription": "Validates IBANs in the browser, checking country, length and check digits, without sending any data to any server."
+      },
+      "card": {
+        "name": "Validate IBAN",
+        "desc": "Check one or many IBANs and jump straight to the one that fails. The data never leaves your browser.",
+        "tags": [
+          "Code",
+          "No server"
+        ]
+      },
+      "ui": {
+        "h1": "Validate IBAN",
+        "subtitle": "Paste one or more IBANs, one per line, and check the country, length and check digits. It validates the format, not that the account exists. Everything happens in your browser: the data never leaves your device.",
+        "cardAria": "Tool to validate IBANs"
+      },
+      "msg": {
+        "valid": "Valid IBAN",
+        "invalid": "Invalid IBAN",
+        "codeInput": "IBANs (one per line)",
+        "valPlaceholder": "Paste the IBANs here, one per line…",
+        "valCountry": "Country",
+        "hints": {
+          "badChar": "“{char}” isn't valid in an IBAN: only letters and numbers (spaces are fine).",
+          "tooShort": "It has only {length} characters: an IBAN starts with the country (2 letters) and 2 check digits, followed by the account.",
+          "badCountry": "An IBAN starts with the country code, two letters (ES, DE, FR…).",
+          "badCheckDigits": "After the country code come two check digits (numbers).",
+          "unknownCountry": "“{country}” isn't among the IBAN countries this tool knows.",
+          "badLength": "A {country} IBAN has {expected} characters and this one has {length}.",
+          "badChecksum": "The check digits don't match: some digit is mistyped. Check them one by one."
+        },
+        "guide": {
+          "title": "Common IBAN errors",
+          "intro": "Most mistakes when copying an IBAN are these. Each comes with its fix:",
+          "groups": {
+            "errors": "Frequent errors and how to fix them",
+            "valid": "Also a valid IBAN"
+          },
+          "desc": {
+            "badChecksum": "A digit copied wrong",
+            "badLength": "Cut off or with extra characters",
+            "unknownCountry": "A country code that doesn't exist",
+            "badCountry": "Without the two country letters",
+            "badCheckDigits": "Letters where the check digits go",
+            "badChar": "With hyphens or other signs",
+            "grouped": "With a space every 4 characters",
+            "compact": "All together, no spaces",
+            "lowercase": "Lowercase is fine too"
           }
         }
       }

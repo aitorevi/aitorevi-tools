@@ -5,6 +5,9 @@ import { XML_HINT_KEYS } from "../lib/validators/xml.js";
 import { YAML_HINT_KEYS } from "../lib/validators/yaml.js";
 import { TOML_HINT_KEYS } from "../lib/validators/toml.js";
 import { BASE64_HINT_KEYS } from "../lib/validators/base64.js";
+import { UUID_HINT_KEYS, UUID_KINDS } from "../lib/validators/uuid.js";
+import { NIF_HINT_KEYS, NIF_KINDS } from "../lib/validators/nif.js";
+import { IBAN_HINT_KEYS } from "../lib/validators/iban.js";
 import { JWT_HINT_KEYS, JWT_NOTE_KEYS } from "../lib/validators/jwt.js";
 import { SCHEMA_HINTS, SCHEMA_HINT_KEYS } from "../lib/validators/json-schema.js";
 import { GUIDE as JSON_GUIDE } from "../validar-json/guide.js";
@@ -13,6 +16,9 @@ import { GUIDE as YAML_GUIDE } from "../validar-yaml/guide.js";
 import { GUIDE as TOML_GUIDE } from "../validar-toml/guide.js";
 import { GUIDE as BASE64_GUIDE } from "../validar-base64/guide.js";
 import { GUIDE as JWT_GUIDE } from "../validar-jwt/guide.js";
+import { GUIDE as UUID_GUIDE } from "../validar-uuid/guide.js";
+import { GUIDE as NIF_GUIDE } from "../validar-nif/guide.js";
+import { GUIDE as IBAN_GUIDE } from "../validar-iban/guide.js";
 
 // Una pista que un validador puede devolver y no tiene texto en algún idioma se vería
 // como un mensaje técnico en inglés sin que nada fallara: este test lo impide. Y al
@@ -32,6 +38,9 @@ const TOOLS = {
   "validar-toml": { hints: TOML_HINT_KEYS, guide: TOML_GUIDE },
   "validar-base64": { hints: BASE64_HINT_KEYS.filter((k) => k !== "empty"), guide: BASE64_GUIDE },
   "validar-jwt": { hints: JWT_HINT_KEYS.filter((k) => k !== "empty"), guide: JWT_GUIDE },
+  "validar-uuid": { hints: UUID_HINT_KEYS.filter((k) => k !== "empty"), guide: UUID_GUIDE },
+  "validar-nif": { hints: NIF_HINT_KEYS.filter((k) => k !== "empty"), guide: NIF_GUIDE },
+  "validar-iban": { hints: IBAN_HINT_KEYS.filter((k) => k !== "empty"), guide: IBAN_GUIDE },
 };
 
 for (const [tool, { hints, guide }] of Object.entries(TOOLS)) {
@@ -89,13 +98,19 @@ describe("pistas del modo schema: las {marcas} son los parámetros que rellena e
 // Parámetros que el código rellena en cada pista (los de makeError → `params`).
 const BASE64_PARAMS = { badChar: ["char"], mixedAlphabet: ["char"], badLength: ["length"] };
 const JWT_PARAMS = { badChar: ["char"], partsCount: ["count"], badLength: ["length"], claimType: ["claim"] };
+const UUID_PARAMS = { badChar: ["char"], tooShort: ["length"], tooLong: ["length"], badVersion: ["char"], badVariant: ["char"] };
+const NIF_PARAMS = { badChar: ["char"], separator: ["char"], tooShort: ["length"], tooLong: ["length"], badStart: ["char"], badShape: ["char"], badControl: ["expected"] };
+const IBAN_PARAMS = { badChar: ["char"], tooShort: ["length"], unknownCountry: ["country"], badLength: ["country", "expected", "length"] };
 const NOTE_PARAMS = { expired: ["date"], notYetValid: ["date"] };
 
-describe("Base64 y JWT: las {marcas} de cada texto son parámetros que el código rellena", () => {
+describe("Base64, JWT y listas: las {marcas} de cada texto son parámetros que el código rellena", () => {
   for (const lang of ["es", "en"]) {
     for (const [tool, params, keys] of [
       ["validar-base64", BASE64_PARAMS, BASE64_HINT_KEYS],
       ["validar-jwt", JWT_PARAMS, JWT_HINT_KEYS],
+      ["validar-uuid", UUID_PARAMS, UUID_HINT_KEYS],
+      ["validar-nif", NIF_PARAMS, NIF_HINT_KEYS],
+      ["validar-iban", IBAN_PARAMS, IBAN_HINT_KEYS],
     ]) {
       it(`${lang} · ${tool}: pistas`, () => {
         const hints = I18N[lang].tools[tool].msg.hints;
@@ -107,6 +122,23 @@ describe("Base64 y JWT: las {marcas} de cada texto son parámetros que el códig
         }
       });
     }
+
+    it(`${lang} · validadores de lista: textos comunes, tipos y etiquetas`, () => {
+      const c = I18N[lang].common;
+      for (const key of ["valTotal", "valKind", "valListValid", "valListInvalid", "valMoreItems", "valItemJump", "valItemJumpAria"]) expect(c[key], key).toBeTruthy();
+      expect(placeholders(c.valListValid)).toEqual(["total"]);
+      expect(placeholders(c.valListInvalid).sort()).toEqual(["invalid", "total"]);
+      expect(placeholders(c.valMoreItems).sort()).toEqual(["n", "shown"]);
+      expect(placeholders(c.valItemJumpAria)).toEqual(["value"]);
+      // WCAG 2.5.3: el nombre accesible contiene el texto visible
+      expect(c.valItemJumpAria.toLowerCase()).toContain(c.valItemJump.toLowerCase());
+      for (const [tool, kinds] of [["validar-uuid", UUID_KINDS], ["validar-nif", NIF_KINDS]]) {
+        const m = I18N[lang].tools[tool].msg;
+        expect(Object.keys(m.kinds).sort(), tool).toEqual([...kinds].sort());
+        expect(m.codeInput && m.valPlaceholder, tool).toBeTruthy();
+      }
+      expect(I18N[lang].tools["validar-iban"].msg.valCountry).toBeTruthy();
+    });
 
     it(`${lang} · validar-jwt: avisos, etiquetas de meta y sí/no de Base64`, () => {
       const jwt = I18N[lang].tools["validar-jwt"].msg;

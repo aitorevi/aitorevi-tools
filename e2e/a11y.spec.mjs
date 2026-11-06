@@ -52,7 +52,7 @@ const vj = (page) => ({
 // Un JWT bien formado y caducado: el resultado válido incluye avisos.
 const JWT_EXPIRED = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAwMDAwMDAwLCJleHAiOjE3MDAwMDM2MDB9.c2lnbmF0dXJl";
 
-for (const path of ["/validar-json/", "/validar-xml/", "/validar-yaml/", "/validar-toml/", "/validar-base64/", "/validar-jwt/", "/en/validate-json/"]) {
+for (const path of ["/validar-json/", "/validar-xml/", "/validar-yaml/", "/validar-toml/", "/validar-base64/", "/validar-jwt/", "/validar-uuid/", "/validar-nif/", "/validar-iban/", "/en/validate-json/"]) {
   test(`a11y: ${path} con error y con resultado válido`, async ({ page }) => {
     await page.goto(path);
     const t = vj(page);
@@ -62,7 +62,7 @@ for (const path of ["/validar-json/", "/validar-xml/", "/validar-yaml/", "/valid
       await setTheme(page, theme);
       await audit(page, `${path} error ${theme}`);
     }
-    await t.input.fill(path.includes("xml") ? "<a/>" : path.includes("yaml") ? "a: 1" : path.includes("toml") ? "a = 1" : path.includes("base64") ? "QUJD" : path.includes("jwt") ? JWT_EXPIRED : "[1]");
+    await t.input.fill(path.includes("xml") ? "<a/>" : path.includes("yaml") ? "a: 1" : path.includes("toml") ? "a = 1" : path.includes("base64") ? "QUJD" : path.includes("jwt") ? JWT_EXPIRED : path.includes("uuid") ? "550e8400-e29b-41d4-a716-446655440000\n00000000-0000-0000-0000-000000000000" : path.includes("nif") ? "12345678Z\nX1234567L" : path.includes("iban") ? "ES91 2100 0418 4502 0005 1332\nDE89 3704 0044 0532 0130 00" : "[1]");
     await expect(page.locator("#code-tool .validate-status.is-valid")).toBeVisible();
     for (const theme of ["light", "dark"]) {
       await setTheme(page, theme);

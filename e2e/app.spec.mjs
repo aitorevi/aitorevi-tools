@@ -704,6 +704,9 @@ test("código: las guías de JSON, XML, YAML, SQL y HTML/CSS se renderizan", asy
     ["/validar-toml/", "validator-guide"],
     ["/validar-base64/", "validator-guide"],
     ["/validar-jwt/", "validator-guide"],
+    ["/validar-uuid/", "validator-guide"],
+    ["/validar-nif/", "validator-guide"],
+    ["/validar-iban/", "validator-guide"],
   ]) {
     await page.goto(path);
     await expect(page.locator(`#${id} .tool-guide-title`)).toBeVisible();
@@ -713,6 +716,8 @@ test("código: las guías de JSON, XML, YAML, SQL y HTML/CSS se renderizan", asy
 
 // Un JWT bien formado (header {alg:HS256,typ:JWT}, payload {sub,iat,exp} de 2023): caducado.
 const JWT_OK = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAwMDAwMDAwLCJleHAiOjE3MDAwMDM2MDB9.c2lnbmF0dXJl";
+
+const UUID_OK = "550e8400-e29b-41d4-a716-446655440000";
 
 // --- Validar JSON ---
 
@@ -1154,6 +1159,121 @@ test("EN: validate-base64 y validate-jwt muestran la UI en inglés", async ({ pa
   await expect(t.detail).toContainText("The token expired on 2023-11-14T23:13:20.000Z");
 });
 
+// --- Validadores de lista (UUID, NIF/CIF/NIE, IBAN) ---
+
+const items = (page) => page.locator("#code-tool .validate-errors > li");
+
+test("validar-uuid: varios valores resumen cuántos fallan y cada error salta a su línea", async ({ page }) => {
+  await page.goto("/validar-uuid/");
+  const t = vj(page);
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("2 de 4 no son válidos");
+  await expect(items(page)).toHaveCount(2);
+  await expect(items(page).nth(0)).toContainText("123e4567-e89b-12d3-a456-42661417400");
+  await expect(items(page).nth(0)).toContainText("Línea 2, columna 36");
+  await expect(items(page).nth(0)).toContainText("tiene 35");
+  await expect(items(page).nth(1)).toContainText("«c» no es una variante válida");
+  await expect(t.mark).toBeVisible();
+
+  await items(page).nth(1).locator('[data-act="jump-item"]').click();
+  expect(await t.input.evaluate((el) => el.selectionStart)).toBe(
+    await t.input.evaluate((el) => el.value.indexOf("f47ac10b") + 19),
+  );
+  await expect(items(page).nth(1).locator('[data-act="jump-item"]')).toHaveAccessibleName(/Ir al error del valor f47ac10b/);
+});
+
+test("validar-uuid: todos válidos, uno solo y vacío", async ({ page }) => {
+  await page.goto("/validar-uuid/");
+  const t = vj(page);
+  await t.input.fill(`${UUID_OK}\n00000000-0000-0000-0000-000000000000\n6ba7b810-9dad-11d1-80b4-00c04fd430c8`);
+  await expect(t.headline).toHaveText("Los 3 valores son válidos");
+  await expect(items(page)).toHaveCount(0);
+  await expect(t.meta.locator("dt")).toHaveText(["Valores", "Versión 4 (aleatorio)", "UUID nulo (todo ceros)", "Versión 1 (fecha y equipo)"]);
+
+  await t.input.fill(UUID_OK);
+  await expect(t.headline).toHaveText("UUID válido");
+  await expect(t.meta.locator("dt")).toHaveText(["Tipo"]);
+  await expect(t.meta.locator("dd")).toHaveText(["Versión 4 (aleatorio)"]);
+
+  await t.input.fill(UUID_OK.slice(0, 20));
+  await expect(t.headline).toHaveText("UUID no válido");
+  await expect(t.detail).toContainText("Línea 1, columna 21");
+  await expect(items(page)).toHaveCount(0);
+  await t.jump.click();
+  expect(await t.input.evaluate((el) => el.selectionStart)).toBe(20);
+
+  await t.input.fill("  \n ");
+  await expect(t.headline).toHaveText("Pega o escribe algo para validarlo.");
+});
+
+test("validar-uuid: más de 100 errores se recortan y avisan", async ({ page }) => {
+  await page.goto("/validar-uuid/");
+  const t = vj(page);
+  await t.input.fill(Array.from({ length: 130 }, () => "nope").join("\n"));
+  await expect(t.headline).toHaveText("130 de 130 no son válidos");
+  await expect(items(page)).toHaveCount(100);
+  await expect(page.locator("#code-tool .validate-more")).toContainText("30 valores no válidos más");
+});
+
+test("validar-nif: el ejemplo marca el control mal y el valor corto, y dice cuál debería ser", async ({ page }) => {
+  await page.goto("/validar-nif/");
+  const t = vj(page);
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("2 de 5 no son válidos");
+  await expect(items(page).nth(0)).toContainText("12345678A");
+  await expect(items(page).nth(0)).toContainText("debería ser Z");
+  await expect(items(page).nth(1)).toContainText("Tiene 8 caracteres y debe tener 9");
+
+  await t.input.fill("12345678Z\nX1234567L\nA58818501");
+  await expect(t.headline).toHaveText("Los 3 valores son válidos");
+  await expect(t.meta.locator("dd")).toHaveText(["3", "1", "1", "1"]);
+  await t.input.fill("12.345.678-Z");
+  await expect(t.detail).toContainText("Línea 1, columna 3");
+  await expect(t.detail).toContainText("sin separadores");
+});
+
+test("validar-iban: el ejemplo falla en las cifras de control y en la longitud; los países salen con su nombre", async ({ page }) => {
+  await page.goto("/validar-iban/");
+  const t = vj(page);
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("2 de 4 no son válidos");
+  await expect(items(page).nth(0)).toContainText("Las cifras de control no cuadran");
+  await expect(items(page).nth(1)).toContainText("Un IBAN de FR tiene 27 caracteres y este tiene 16");
+
+  await t.input.fill("ES91 2100 0418 4502 0005 1332\nDE89 3704 0044 0532 0130 00");
+  await expect(t.headline).toHaveText("Los 2 valores son válidos");
+  await expect(t.meta.locator("dt")).toHaveText(["Valores", "España (ES)", "Alemania (DE)"]);
+  await t.input.fill("es91 2100 0418 4502 0005 1332");
+  await expect(t.headline).toHaveText("IBAN válido");
+  await expect(t.meta.locator("dd")).toHaveText(["España (ES)"]);
+});
+
+test("EN: validate-uuid, validate-nif y validate-iban muestran la UI en inglés", async ({ page }) => {
+  await page.goto("/en/validate-uuid/");
+  let t = vj(page);
+  await expect(page.locator("main h1")).toHaveText("Validate UUID");
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("2 of 4 are invalid");
+  await expect(items(page).nth(0)).toContainText("Line 2, column 36");
+  await expect(items(page).nth(1).locator('[data-act="jump-item"]')).toHaveText("Go to error");
+  await t.input.fill(UUID_OK);
+  await expect(t.headline).toHaveText("Valid UUID");
+
+  await page.goto("/en/validate-nif/");
+  t = vj(page);
+  await expect(page.locator("main h1")).toHaveText("Validate Spanish NIF, CIF and NIE");
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("2 of 5 are invalid");
+  await expect(items(page).nth(0)).toContainText("it should be Z");
+
+  await page.goto("/en/validate-iban/");
+  t = vj(page);
+  await expect(page.locator("main h1")).toHaveText("Validate IBAN");
+  await t.input.fill("ES91 2100 0418 4502 0005 1332");
+  await expect(t.headline).toHaveText("Valid IBAN");
+  await expect(t.meta.locator("dd")).toHaveText(["Spain (ES)"]);
+});
+
 test("EN: validate-yaml y validate-toml muestran la UI en inglés", async ({ page }) => {
   await page.goto("/en/validate-yaml/");
   let t = vj(page);
@@ -1187,17 +1307,19 @@ test("cada librería se carga solo en la página que la usa", async ({ page, con
   expect(await loaded("/validar-toml/")).toEqual(["/vendor/smol-toml.min.js"]);
   expect(await loaded("/validar-base64/")).toEqual([]);
   expect(await loaded("/validar-jwt/")).toEqual([]);
+  for (const path of ["/validar-uuid/", "/validar-nif/", "/validar-iban/"]) expect(await loaded(path)).toEqual([]);
 });
 
-test("validar-yaml, toml, base64 y jwt: validar no genera ninguna petición de red", async ({ page, context, baseURL }) => {
+test("validar-yaml, toml, base64, jwt y listas: validar no genera ninguna petición de red", async ({ page, context, baseURL }) => {
   const net = auditNetwork(context, new URL(baseURL).origin);
-  for (const path of ["/validar-yaml/", "/validar-toml/", "/validar-base64/", "/validar-jwt/"]) {
+  for (const path of ["/validar-yaml/", "/validar-toml/", "/validar-base64/", "/validar-jwt/", "/validar-uuid/", "/validar-nif/", "/validar-iban/"]) {
     await page.goto(path, { waitUntil: "networkidle" });
     const t = vj(page);
     const afterLoad = net.requests().length;
     await t.btn("sample").click();
-    await t.jump.click();
-    await t.input.fill(path.includes("yaml") ? "a: 1" : path.includes("base64") ? "QUJD" : path.includes("jwt") ? JWT_OK : "a = 1");
+    // Un solo error: botón del panel; varios (listas): el de su primer elemento.
+    await ((await t.jump.isVisible()) ? t.jump : items(page).first().locator('[data-act="jump-item"]')).click();
+    await t.input.fill(path.includes("yaml") ? "a: 1" : path.includes("base64") ? "QUJD" : path.includes("jwt") ? JWT_OK : path.includes("uuid") ? UUID_OK : path.includes("nif") ? "12345678Z" : path.includes("iban") ? "ES91 2100 0418 4502 0005 1332" : "a = 1");
     await expect(t.headline).toContainText("válido");
     await t.btn("clear").click();
     await page.waitForTimeout(300);
@@ -1499,12 +1621,12 @@ test("schema: Vaciar limpia los dos editores y el resultado", async ({ page }) =
   await expect(t.docMark).toBeHidden();
 });
 
-test("hub: la subsección Validar lista las seis herramientas y el buscador las encuentra", async ({ page }) => {
+test("hub: la subsección Validar lista las nueve herramientas y el buscador las encuentra", async ({ page }) => {
   await page.goto("/");
   const sub = page.locator('[data-subsection="validar"]');
   await expect(sub.locator(".subsection-title")).toHaveText("Validar");
-  await expect(sub.locator(".tool-card")).toHaveCount(6);
-  for (const [name, href] of [["Validar JSON", "/validar-json/"], ["Validar XML", "/validar-xml/"], ["Validar YAML", "/validar-yaml/"], ["Validar TOML", "/validar-toml/"], ["Validar Base64", "/validar-base64/"], ["Validar JWT", "/validar-jwt/"]]) {
+  await expect(sub.locator(".tool-card")).toHaveCount(9);
+  for (const [name, href] of [["Validar JSON", "/validar-json/"], ["Validar XML", "/validar-xml/"], ["Validar YAML", "/validar-yaml/"], ["Validar TOML", "/validar-toml/"], ["Validar Base64", "/validar-base64/"], ["Validar JWT", "/validar-jwt/"], ["Validar UUID", "/validar-uuid/"], ["Validar NIF / CIF / NIE", "/validar-nif/"], ["Validar IBAN", "/validar-iban/"]]) {
     await expect(sub.locator(`a.tool-card[href="${href}"] .tool-name`)).toHaveText(name);
   }
   await page.locator("#hub-search").fill("toml");

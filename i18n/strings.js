@@ -62,7 +62,14 @@ export const STRINGS = {
       "valMinified": "Se ha minificado el texto.",
       "valRootType": "Tipo raíz",
       "valKeys": "Claves",
-      "valDepth": "Profundidad"
+      "valDepth": "Profundidad",
+      "valTotal": "Valores",
+      "valKind": "Tipo",
+      "valListValid": "Los {total} valores son válidos",
+      "valListInvalid": "{invalid} de {total} no son válidos",
+      "valMoreItems": "Hay {n} valores no válidos más que no se muestran (se enseñan los {shown} primeros).",
+      "valItemJump": "Ir al error",
+      "valItemJumpAria": "Ir al error del valor {value}"
     },
     "separar-pdf": {
       "pages": {
@@ -614,6 +621,129 @@ export const STRINGS = {
         }
       }
     },
+    "validar-uuid": {
+      "valid": "UUID válido",
+      "invalid": "UUID no válido",
+      "codeInput": "UUID (uno por línea)",
+      "valPlaceholder": "Pega aquí los UUID, uno por línea…",
+      "kinds": {
+        "v1": "Versión 1 (fecha y equipo)",
+        "v2": "Versión 2 (DCE)",
+        "v3": "Versión 3 (nombre, MD5)",
+        "v4": "Versión 4 (aleatorio)",
+        "v5": "Versión 5 (nombre, SHA-1)",
+        "v6": "Versión 6 (fecha reordenada)",
+        "v7": "Versión 7 (fecha Unix)",
+        "v8": "Versión 8 (personalizada)",
+        "nil": "UUID nulo (todo ceros)",
+        "max": "UUID máximo (todo f)"
+      },
+      "hints": {
+        "wrapped": "Quita las llaves, los paréntesis o el prefijo «urn:uuid:»: se valida solo el UUID, como 550e8400-e29b-41d4-a716-446655440000.",
+        "noHyphens": "Faltan los guiones. El UUID se escribe en grupos de 8-4-4-4-12 caracteres separados por guiones.",
+        "badHyphen": "Hay un guion donde no debe o falta uno donde sí: van tras los caracteres 8, 12, 16 y 20 (grupos de 8-4-4-4-12).",
+        "badChar": "«{char}» no es un dígito hexadecimal. Un UUID solo lleva 0-9 y a-f.",
+        "tooShort": "Faltan caracteres: tiene {length} y un UUID tiene 36 (32 más 4 guiones).",
+        "tooLong": "Sobran caracteres: tiene {length} y un UUID tiene 36 (32 más 4 guiones).",
+        "badVersion": "«{char}» no es una versión válida: el primer carácter del tercer grupo debe ser un número del 1 al 8.",
+        "badVariant": "«{char}» no es una variante válida: el primer carácter del cuarto grupo debe ser 8, 9, a o b."
+      },
+      "guide": {
+        "title": "Errores típicos de un UUID",
+        "intro": "La mayoría de errores al copiar un UUID son estos. Cada uno lleva su arreglo:",
+        "groups": {
+          "errors": "Errores frecuentes y cómo arreglarlos",
+          "valid": "También es un UUID válido"
+        },
+        "desc": {
+          "noHyphens": "Sin guiones",
+          "wrapped": "Entre llaves o con el prefijo urn:uuid:",
+          "tooShort": "Un carácter de menos",
+          "badChar": "Un carácter que no es hexadecimal",
+          "badVersion": "Una versión que no existe (la 9)",
+          "badVariant": "Una variante inválida en el cuarto grupo",
+          "v4": "Versión 4 (aleatorio), la más habitual",
+          "uppercase": "En mayúsculas también vale",
+          "nil": "El UUID nulo (todo ceros)",
+          "max": "El UUID máximo (todo f)"
+        }
+      }
+    },
+    "validar-nif": {
+      "valid": "NIF/CIF/NIE válido",
+      "invalid": "NIF/CIF/NIE no válido",
+      "codeInput": "Identificadores (uno por línea)",
+      "valPlaceholder": "Pega aquí los NIF, NIE o CIF, uno por línea…",
+      "kinds": {
+        "dni": "DNI / NIF",
+        "nie": "NIE",
+        "special": "NIF especial (K, L, M)",
+        "cif": "CIF"
+      },
+      "hints": {
+        "badChar": "«{char}» no es válido: solo letras y números.",
+        "separator": "Escríbelo sin separadores («{char}»): 12345678Z, no 12.345.678-Z.",
+        "tooShort": "Tiene {length} caracteres y debe tener 9.",
+        "tooLong": "Tiene {length} caracteres y debe tener 9.",
+        "badStart": "«{char}» no puede ir al principio: empieza por un número (DNI), por X, Y o Z (NIE), por K, L o M, o por la letra de la entidad (CIF).",
+        "badShape": "En esta posición debe ir un dígito, no «{char}».",
+        "badControl": "El carácter de control no cuadra: debería ser {expected}."
+      },
+      "guide": {
+        "title": "Errores típicos de un NIF, CIF o NIE",
+        "intro": "La mayoría de errores al copiar un identificador fiscal son estos. Cada uno lleva su arreglo:",
+        "groups": {
+          "errors": "Errores frecuentes y cómo arreglarlos",
+          "valid": "También es válido"
+        },
+        "desc": {
+          "separator": "Sin puntos ni guiones",
+          "badControl": "La letra o el dígito de control no cuadra",
+          "tooShort": "Un carácter de menos",
+          "badStart": "Una letra inicial que no existe",
+          "badShape": "Una letra donde va un número",
+          "dni": "DNI: 8 números y una letra",
+          "nie": "NIE: X, Y o Z, 7 números y una letra",
+          "cif": "CIF: letra, 7 números y un control",
+          "lowercase": "En minúsculas también vale"
+        }
+      }
+    },
+    "validar-iban": {
+      "valid": "IBAN válido",
+      "invalid": "IBAN no válido",
+      "codeInput": "IBAN (uno por línea)",
+      "valPlaceholder": "Pega aquí los IBAN, uno por línea…",
+      "valCountry": "País",
+      "hints": {
+        "badChar": "«{char}» no es válido en un IBAN: solo letras y números (los espacios sí valen).",
+        "tooShort": "Tiene solo {length} caracteres: un IBAN empieza por el país (2 letras) y 2 cifras de control, y sigue con la cuenta.",
+        "badCountry": "Un IBAN empieza por el código del país, con dos letras (ES, DE, FR…).",
+        "badCheckDigits": "Tras el código del país van dos cifras de control (números).",
+        "unknownCountry": "«{country}» no está entre los países con IBAN que conoce esta herramienta.",
+        "badLength": "Un IBAN de {country} tiene {expected} caracteres y este tiene {length}.",
+        "badChecksum": "Las cifras de control no cuadran: algún dígito está mal escrito. Revísalos uno a uno."
+      },
+      "guide": {
+        "title": "Errores típicos de un IBAN",
+        "intro": "La mayoría de errores al copiar un IBAN son estos. Cada uno lleva su arreglo:",
+        "groups": {
+          "errors": "Errores frecuentes y cómo arreglarlos",
+          "valid": "También es un IBAN válido"
+        },
+        "desc": {
+          "badChecksum": "Un dígito mal copiado",
+          "badLength": "Cortado o con caracteres de más",
+          "unknownCountry": "Un código de país que no existe",
+          "badCountry": "Sin las dos letras del país",
+          "badCheckDigits": "Letras donde van las cifras de control",
+          "badChar": "Con guiones u otros signos",
+          "grouped": "Con espacios cada 4 caracteres",
+          "compact": "Todo junto, sin espacios",
+          "lowercase": "En minúsculas también vale"
+        }
+      }
+    },
     "regex": {
       "matchesCount": {
         "one": "{n} coincidencia",
@@ -792,7 +922,14 @@ export const STRINGS = {
       "valMinified": "The text has been minified.",
       "valRootType": "Root type",
       "valKeys": "Keys",
-      "valDepth": "Max depth"
+      "valDepth": "Max depth",
+      "valTotal": "Values",
+      "valKind": "Type",
+      "valListValid": "All {total} values are valid",
+      "valListInvalid": "{invalid} of {total} are invalid",
+      "valMoreItems": "There are {n} more invalid values not shown (the first {shown} are listed).",
+      "valItemJump": "Go to error",
+      "valItemJumpAria": "Go to error in value {value}"
     },
     "separar-pdf": {
       "pages": {
@@ -1341,6 +1478,129 @@ export const STRINGS = {
           "expired": "An expired token is valid: you only get a warning",
           "algNone": "alg “none” without a signature: valid, with a warning",
           "noVerify": "The signature isn't verified, only its format"
+        }
+      }
+    },
+    "validar-uuid": {
+      "valid": "Valid UUID",
+      "invalid": "Invalid UUID",
+      "codeInput": "UUIDs (one per line)",
+      "valPlaceholder": "Paste the UUIDs here, one per line…",
+      "kinds": {
+        "v1": "Version 1 (time and host)",
+        "v2": "Version 2 (DCE)",
+        "v3": "Version 3 (name, MD5)",
+        "v4": "Version 4 (random)",
+        "v5": "Version 5 (name, SHA-1)",
+        "v6": "Version 6 (reordered time)",
+        "v7": "Version 7 (Unix time)",
+        "v8": "Version 8 (custom)",
+        "nil": "Nil UUID (all zeros)",
+        "max": "Max UUID (all f)"
+      },
+      "hints": {
+        "wrapped": "Remove the braces, parentheses or the “urn:uuid:” prefix: only the UUID itself is validated, like 550e8400-e29b-41d4-a716-446655440000.",
+        "noHyphens": "The hyphens are missing. A UUID is written in groups of 8-4-4-4-12 characters separated by hyphens.",
+        "badHyphen": "A hyphen is where it shouldn't be or is missing where it should be: they go after characters 8, 12, 16 and 20 (groups of 8-4-4-4-12).",
+        "badChar": "“{char}” isn't a hexadecimal digit. A UUID only contains 0-9 and a-f.",
+        "tooShort": "Characters are missing: it has {length} and a UUID has 36 (32 plus 4 hyphens).",
+        "tooLong": "There are extra characters: it has {length} and a UUID has 36 (32 plus 4 hyphens).",
+        "badVersion": "“{char}” isn't a valid version: the first character of the third group must be a number from 1 to 8.",
+        "badVariant": "“{char}” isn't a valid variant: the first character of the fourth group must be 8, 9, a or b."
+      },
+      "guide": {
+        "title": "Common UUID errors",
+        "intro": "Most mistakes when copying a UUID are these. Each comes with its fix:",
+        "groups": {
+          "errors": "Frequent errors and how to fix them",
+          "valid": "Also a valid UUID"
+        },
+        "desc": {
+          "noHyphens": "No hyphens",
+          "wrapped": "In braces or with the urn:uuid: prefix",
+          "tooShort": "One character short",
+          "badChar": "A character that isn't hexadecimal",
+          "badVersion": "A version that doesn't exist (9)",
+          "badVariant": "An invalid variant in the fourth group",
+          "v4": "Version 4 (random), the most common",
+          "uppercase": "Uppercase is fine too",
+          "nil": "The nil UUID (all zeros)",
+          "max": "The max UUID (all f)"
+        }
+      }
+    },
+    "validar-nif": {
+      "valid": "Valid NIF/CIF/NIE",
+      "invalid": "Invalid NIF/CIF/NIE",
+      "codeInput": "Identifiers (one per line)",
+      "valPlaceholder": "Paste the NIF, NIE or CIF numbers here, one per line…",
+      "kinds": {
+        "dni": "DNI / NIF",
+        "nie": "NIE",
+        "special": "Special NIF (K, L, M)",
+        "cif": "CIF"
+      },
+      "hints": {
+        "badChar": "“{char}” isn't valid: only letters and numbers.",
+        "separator": "Write it without separators (“{char}”): 12345678Z, not 12.345.678-Z.",
+        "tooShort": "It has {length} characters and must have 9.",
+        "tooLong": "It has {length} characters and must have 9.",
+        "badStart": "“{char}” can't go first: it starts with a number (DNI), with X, Y or Z (NIE), with K, L or M, or with the entity letter (CIF).",
+        "badShape": "A digit must go in this position, not “{char}”.",
+        "badControl": "The control character doesn't match: it should be {expected}."
+      },
+      "guide": {
+        "title": "Common NIF, CIF and NIE errors",
+        "intro": "Most mistakes when copying a tax ID are these. Each comes with its fix:",
+        "groups": {
+          "errors": "Frequent errors and how to fix them",
+          "valid": "Also valid"
+        },
+        "desc": {
+          "separator": "No dots or hyphens",
+          "badControl": "The control letter or digit doesn't match",
+          "tooShort": "One character short",
+          "badStart": "A first letter that doesn't exist",
+          "badShape": "A letter where a number goes",
+          "dni": "DNI: 8 numbers and a letter",
+          "nie": "NIE: X, Y or Z, 7 numbers and a letter",
+          "cif": "CIF: letter, 7 numbers and a control",
+          "lowercase": "Lowercase is fine too"
+        }
+      }
+    },
+    "validar-iban": {
+      "valid": "Valid IBAN",
+      "invalid": "Invalid IBAN",
+      "codeInput": "IBANs (one per line)",
+      "valPlaceholder": "Paste the IBANs here, one per line…",
+      "valCountry": "Country",
+      "hints": {
+        "badChar": "“{char}” isn't valid in an IBAN: only letters and numbers (spaces are fine).",
+        "tooShort": "It has only {length} characters: an IBAN starts with the country (2 letters) and 2 check digits, followed by the account.",
+        "badCountry": "An IBAN starts with the country code, two letters (ES, DE, FR…).",
+        "badCheckDigits": "After the country code come two check digits (numbers).",
+        "unknownCountry": "“{country}” isn't among the IBAN countries this tool knows.",
+        "badLength": "A {country} IBAN has {expected} characters and this one has {length}.",
+        "badChecksum": "The check digits don't match: some digit is mistyped. Check them one by one."
+      },
+      "guide": {
+        "title": "Common IBAN errors",
+        "intro": "Most mistakes when copying an IBAN are these. Each comes with its fix:",
+        "groups": {
+          "errors": "Frequent errors and how to fix them",
+          "valid": "Also a valid IBAN"
+        },
+        "desc": {
+          "badChecksum": "A digit copied wrong",
+          "badLength": "Cut off or with extra characters",
+          "unknownCountry": "A country code that doesn't exist",
+          "badCountry": "Without the two country letters",
+          "badCheckDigits": "Letters where the check digits go",
+          "badChar": "With hyphens or other signs",
+          "grouped": "With a space every 4 characters",
+          "compact": "All together, no spaces",
+          "lowercase": "Lowercase is fine too"
         }
       }
     },

@@ -156,6 +156,30 @@
       "slug": { "es": "validar-jwt", "en": "validate-jwt" }
     },
     {
+      "id": "validar-uuid",
+      "body": "partials/validator-body.html",
+      "section": "codigo",
+      "subsection": "validar",
+      "libs": [],
+      "slug": { "es": "validar-uuid", "en": "validate-uuid" }
+    },
+    {
+      "id": "validar-nif",
+      "body": "partials/validator-body.html",
+      "section": "codigo",
+      "subsection": "validar",
+      "libs": [],
+      "slug": { "es": "validar-nif", "en": "validate-nif" }
+    },
+    {
+      "id": "validar-iban",
+      "body": "partials/validator-body.html",
+      "section": "codigo",
+      "subsection": "validar",
+      "libs": [],
+      "slug": { "es": "validar-iban", "en": "validate-iban" }
+    },
+    {
       "id": "regex",
       "section": "codigo",
       "subsection": "analizar",

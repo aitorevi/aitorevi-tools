@@ -60,7 +60,14 @@
     "valMinified": "Se ha minificado el texto.",
     "valRootType": "Tipo raíz",
     "valKeys": "Claves",
-    "valDepth": "Profundidad"
+    "valDepth": "Profundidad",
+    "valTotal": "Valores",
+    "valKind": "Tipo",
+    "valListValid": "Los {total} valores son válidos",
+    "valListInvalid": "{invalid} de {total} no son válidos",
+    "valMoreItems": "Hay {n} valores no válidos más que no se muestran (se enseñan los {shown} primeros).",
+    "valItemJump": "Ir al error",
+    "valItemJumpAria": "Ir al error del valor {value}"
   },
   "hub": {
     "title": "aitorevi.tools — mini-herramientas que corren en tu navegador",
@@ -1566,6 +1573,198 @@
             "expired": "Un token caducado es válido: solo se avisa",
             "algNone": "alg «none» sin firma: válido, con aviso",
             "noVerify": "La firma no se verifica, solo su formato"
+          }
+        }
+      }
+    },
+    "validar-uuid": {
+      "meta": {
+        "title": "Validar UUID — comprueba el formato, la versión y localiza el error, en tu navegador",
+        "description": "Valida listas de UUID al instante en tu navegador: formato 8-4-4-4-12, versión y variante. Indica qué valor falla y dónde, y te lleva hasta él. Gratis, sin registro y sin subir nada a ningún servidor.",
+        "ogTitle": "Validar UUID — formato, versión y errores al instante",
+        "ogDescription": "Valida UUID en tu navegador, uno o una lista, y localiza el que falla. Gratis y sin subir nada.",
+        "jsonldName": "Validar UUID",
+        "jsonldDescription": "Valida UUID en el navegador, señalando qué valor y qué carácter fallan, sin enviar nada a ningún servidor."
+      },
+      "card": {
+        "name": "Validar UUID",
+        "desc": "Comprueba uno o muchos UUID y te lleva hasta el que falla, con su versión.",
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
+      },
+      "ui": {
+        "h1": "Validar UUID",
+        "subtitle": "Pega uno o varios UUID, uno por línea, y comprueba si son válidos: formato, versión y variante. Si alguno falla, te dice cuál y qué ha fallado. Todo ocurre en tu navegador.",
+        "cardAria": "Herramienta para validar UUID"
+      },
+      "msg": {
+        "valid": "UUID válido",
+        "invalid": "UUID no válido",
+        "codeInput": "UUID (uno por línea)",
+        "valPlaceholder": "Pega aquí los UUID, uno por línea…",
+        "kinds": {
+          "v1": "Versión 1 (fecha y equipo)",
+          "v2": "Versión 2 (DCE)",
+          "v3": "Versión 3 (nombre, MD5)",
+          "v4": "Versión 4 (aleatorio)",
+          "v5": "Versión 5 (nombre, SHA-1)",
+          "v6": "Versión 6 (fecha reordenada)",
+          "v7": "Versión 7 (fecha Unix)",
+          "v8": "Versión 8 (personalizada)",
+          "nil": "UUID nulo (todo ceros)",
+          "max": "UUID máximo (todo f)"
+        },
+        "hints": {
+          "wrapped": "Quita las llaves, los paréntesis o el prefijo «urn:uuid:»: se valida solo el UUID, como 550e8400-e29b-41d4-a716-446655440000.",
+          "noHyphens": "Faltan los guiones. El UUID se escribe en grupos de 8-4-4-4-12 caracteres separados por guiones.",
+          "badHyphen": "Hay un guion donde no debe o falta uno donde sí: van tras los caracteres 8, 12, 16 y 20 (grupos de 8-4-4-4-12).",
+          "badChar": "«{char}» no es un dígito hexadecimal. Un UUID solo lleva 0-9 y a-f.",
+          "tooShort": "Faltan caracteres: tiene {length} y un UUID tiene 36 (32 más 4 guiones).",
+          "tooLong": "Sobran caracteres: tiene {length} y un UUID tiene 36 (32 más 4 guiones).",
+          "badVersion": "«{char}» no es una versión válida: el primer carácter del tercer grupo debe ser un número del 1 al 8.",
+          "badVariant": "«{char}» no es una variante válida: el primer carácter del cuarto grupo debe ser 8, 9, a o b."
+        },
+        "guide": {
+          "title": "Errores típicos de un UUID",
+          "intro": "La mayoría de errores al copiar un UUID son estos. Cada uno lleva su arreglo:",
+          "groups": {
+            "errors": "Errores frecuentes y cómo arreglarlos",
+            "valid": "También es un UUID válido"
+          },
+          "desc": {
+            "noHyphens": "Sin guiones",
+            "wrapped": "Entre llaves o con el prefijo urn:uuid:",
+            "tooShort": "Un carácter de menos",
+            "badChar": "Un carácter que no es hexadecimal",
+            "badVersion": "Una versión que no existe (la 9)",
+            "badVariant": "Una variante inválida en el cuarto grupo",
+            "v4": "Versión 4 (aleatorio), la más habitual",
+            "uppercase": "En mayúsculas también vale",
+            "nil": "El UUID nulo (todo ceros)",
+            "max": "El UUID máximo (todo f)"
+          }
+        }
+      }
+    },
+    "validar-nif": {
+      "meta": {
+        "title": "Validar NIF, CIF y NIE — comprueba la letra de control y localiza el error, en tu navegador",
+        "description": "Valida NIF, NIE y CIF españoles al instante en tu navegador, uno o una lista: forma y letra o dígito de control. Indica cuál falla y dónde. Gratis, sin registro y sin subir ningún dato a ningún servidor.",
+        "ogTitle": "Validar NIF, CIF y NIE — control y errores al instante",
+        "ogDescription": "Valida NIF, NIE y CIF en tu navegador y localiza el que falla. Gratis y sin subir ningún dato.",
+        "jsonldName": "Validar NIF, CIF y NIE",
+        "jsonldDescription": "Valida NIF, NIE y CIF en el navegador, comprobando su carácter de control, sin enviar ningún dato a ningún servidor."
+      },
+      "card": {
+        "name": "Validar NIF / CIF / NIE",
+        "desc": "Comprueba uno o muchos NIF, NIE o CIF y te lleva hasta el que falla. Los datos no salen de tu navegador.",
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
+      },
+      "ui": {
+        "h1": "Validar NIF, CIF y NIE",
+        "subtitle": "Pega NIF, NIE o CIF españoles, uno por línea, y comprueba su forma y su letra o dígito de control. Valida el formato, no que el número esté asignado a nadie. Todo ocurre en tu navegador: los datos no salen de tu dispositivo.",
+        "cardAria": "Herramienta para validar NIF, CIF y NIE"
+      },
+      "msg": {
+        "valid": "NIF/CIF/NIE válido",
+        "invalid": "NIF/CIF/NIE no válido",
+        "codeInput": "Identificadores (uno por línea)",
+        "valPlaceholder": "Pega aquí los NIF, NIE o CIF, uno por línea…",
+        "kinds": {
+          "dni": "DNI / NIF",
+          "nie": "NIE",
+          "special": "NIF especial (K, L, M)",
+          "cif": "CIF"
+        },
+        "hints": {
+          "badChar": "«{char}» no es válido: solo letras y números.",
+          "separator": "Escríbelo sin separadores («{char}»): 12345678Z, no 12.345.678-Z.",
+          "tooShort": "Tiene {length} caracteres y debe tener 9.",
+          "tooLong": "Tiene {length} caracteres y debe tener 9.",
+          "badStart": "«{char}» no puede ir al principio: empieza por un número (DNI), por X, Y o Z (NIE), por K, L o M, o por la letra de la entidad (CIF).",
+          "badShape": "En esta posición debe ir un dígito, no «{char}».",
+          "badControl": "El carácter de control no cuadra: debería ser {expected}."
+        },
+        "guide": {
+          "title": "Errores típicos de un NIF, CIF o NIE",
+          "intro": "La mayoría de errores al copiar un identificador fiscal son estos. Cada uno lleva su arreglo:",
+          "groups": {
+            "errors": "Errores frecuentes y cómo arreglarlos",
+            "valid": "También es válido"
+          },
+          "desc": {
+            "separator": "Sin puntos ni guiones",
+            "badControl": "La letra o el dígito de control no cuadra",
+            "tooShort": "Un carácter de menos",
+            "badStart": "Una letra inicial que no existe",
+            "badShape": "Una letra donde va un número",
+            "dni": "DNI: 8 números y una letra",
+            "nie": "NIE: X, Y o Z, 7 números y una letra",
+            "cif": "CIF: letra, 7 números y un control",
+            "lowercase": "En minúsculas también vale"
+          }
+        }
+      }
+    },
+    "validar-iban": {
+      "meta": {
+        "title": "Validar IBAN — comprueba país, longitud y cifras de control, en tu navegador",
+        "description": "Valida IBAN al instante en tu navegador, uno o una lista: código de país, longitud y cifras de control (módulo 97). Indica cuál falla y dónde. Gratis, sin registro y sin subir ningún dato a ningún servidor.",
+        "ogTitle": "Validar IBAN — país, longitud y control al instante",
+        "ogDescription": "Valida IBAN en tu navegador y localiza el que falla. Gratis y sin subir ningún dato.",
+        "jsonldName": "Validar IBAN",
+        "jsonldDescription": "Valida IBAN en el navegador, comprobando país, longitud y cifras de control, sin enviar ningún dato a ningún servidor."
+      },
+      "card": {
+        "name": "Validar IBAN",
+        "desc": "Comprueba uno o muchos IBAN y te lleva hasta el que falla. Los datos no salen de tu navegador.",
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
+      },
+      "ui": {
+        "h1": "Validar IBAN",
+        "subtitle": "Pega uno o varios IBAN, uno por línea, y comprueba el país, la longitud y las cifras de control. Valida el formato, no que la cuenta exista. Todo ocurre en tu navegador: los datos no salen de tu dispositivo.",
+        "cardAria": "Herramienta para validar IBAN"
+      },
+      "msg": {
+        "valid": "IBAN válido",
+        "invalid": "IBAN no válido",
+        "codeInput": "IBAN (uno por línea)",
+        "valPlaceholder": "Pega aquí los IBAN, uno por línea…",
+        "valCountry": "País",
+        "hints": {
+          "badChar": "«{char}» no es válido en un IBAN: solo letras y números (los espacios sí valen).",
+          "tooShort": "Tiene solo {length} caracteres: un IBAN empieza por el país (2 letras) y 2 cifras de control, y sigue con la cuenta.",
+          "badCountry": "Un IBAN empieza por el código del país, con dos letras (ES, DE, FR…).",
+          "badCheckDigits": "Tras el código del país van dos cifras de control (números).",
+          "unknownCountry": "«{country}» no está entre los países con IBAN que conoce esta herramienta.",
+          "badLength": "Un IBAN de {country} tiene {expected} caracteres y este tiene {length}.",
+          "badChecksum": "Las cifras de control no cuadran: algún dígito está mal escrito. Revísalos uno a uno."
+        },
+        "guide": {
+          "title": "Errores típicos de un IBAN",
+          "intro": "La mayoría de errores al copiar un IBAN son estos. Cada uno lleva su arreglo:",
+          "groups": {
+            "errors": "Errores frecuentes y cómo arreglarlos",
+            "valid": "También es un IBAN válido"
+          },
+          "desc": {
+            "badChecksum": "Un dígito mal copiado",
+            "badLength": "Cortado o con caracteres de más",
+            "unknownCountry": "Un código de país que no existe",
+            "badCountry": "Sin las dos letras del país",
+            "badCheckDigits": "Letras donde van las cifras de control",
+            "badChar": "Con guiones u otros signos",
+            "grouped": "Con espacios cada 4 caracteres",
+            "compact": "Todo junto, sin espacios",
+            "lowercase": "En minúsculas también vale"
           }
         }
       }
