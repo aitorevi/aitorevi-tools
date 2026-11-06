@@ -1240,6 +1240,134 @@
           }
         }
       }
+    },
+    "validar-yaml": {
+      "meta": {
+        "title": "Validate YAML — check syntax and find the error, in your browser",
+        "description": "Validate YAML instantly in your browser: get the line and column of the error, an explanation of what went wrong, and jump straight to it. Supports multiple documents. Free, no sign-up and nothing uploaded to any server.",
+        "ogTitle": "Validate YAML — syntax and errors instantly",
+        "ogDescription": "Validate YAML in your browser and find the error by line and column. Free, nothing uploaded.",
+        "jsonldName": "Validate YAML",
+        "jsonldDescription": "Validates YAML in the browser, pointing to the line and column of the error, without sending the text to any server."
+      },
+      "card": {
+        "name": "Validate YAML",
+        "desc": "Check whether your YAML is valid and jump straight to the error, with its line and column.",
+        "tags": [
+          "Code",
+          "No server"
+        ]
+      },
+      "ui": {
+        "h1": "Validate YAML",
+        "subtitle": "Paste your YAML and check whether it is valid. If there is an error, you'll see where it is and what went wrong. Supports several documents separated by ---. Everything happens in your browser.",
+        "cardAria": "Tool to validate YAML"
+      },
+      "msg": {
+        "valid": "Valid YAML",
+        "invalid": "Invalid YAML",
+        "valDocuments": "Documents",
+        "types": {
+          "object": "Mapping (object)",
+          "array": "List (array)",
+          "string": "String",
+          "number": "Number",
+          "boolean": "Boolean",
+          "null": "Null",
+          "date": "Date"
+        },
+        "hints": {
+          "tabIndent": "YAML doesn't allow tabs for indentation. Replace them with spaces.",
+          "badIndent": "The indentation is inconsistent: items at the same level must start in the same column and children need more spaces than their parent. It also happens when a line has two “:” (put the text in quotes).",
+          "duplicateKey": "A key is repeated at the same level. Each key can appear only once.",
+          "unclosedQuote": "A quote is missing its closing mark.",
+          "unclosedFlow": "A closing bracket ] or brace } is missing.",
+          "unknownAlias": "An alias (*name) is used without an anchor (&name) defined before it.",
+          "unknownTag": "This tag (!!type) isn't recognized. Remove it or use a standard YAML type.",
+          "unexpectedContent": "There is content that doesn't fit with what came before: for example, mixing a list (- item) with keys (key: value) at the same level, or leftover text."
+        },
+        "guide": {
+          "title": "Common YAML errors",
+          "intro": "Most mistakes when writing YAML by hand are these. Each comes with its fix:",
+          "groups": {
+            "errors": "Frequent errors and how to fix them",
+            "valid": "Also valid YAML"
+          },
+          "desc": {
+            "tabIndent": "Tabs aren't allowed for indentation: use spaces",
+            "twoColons": "Two “:” on one line: put the text in quotes",
+            "duplicateKey": "A repeated key at the same level",
+            "unclosedQuote": "A quote that isn't closed",
+            "unclosedFlow": "A bracket or brace that isn't closed",
+            "unknownAlias": "An alias without its anchor (&x) defined before",
+            "multiDoc": "Several documents in one file",
+            "anchors": "Anchors and aliases to reuse a block",
+            "comment": "Comments start with #",
+            "list": "A list made of dashes"
+          }
+        }
+      }
+    },
+    "validar-toml": {
+      "meta": {
+        "title": "Validate TOML — check syntax and find the error, in your browser",
+        "description": "Validate TOML 1.1 instantly in your browser: get the line and column of the error, an explanation of what went wrong, and jump straight to it. Free, no sign-up and nothing uploaded to any server.",
+        "ogTitle": "Validate TOML — syntax and errors instantly",
+        "ogDescription": "Validate TOML in your browser and find the error by line and column. Free, nothing uploaded.",
+        "jsonldName": "Validate TOML",
+        "jsonldDescription": "Validates TOML in the browser, pointing to the line and column of the error, without sending the text to any server."
+      },
+      "card": {
+        "name": "Validate TOML",
+        "desc": "Check whether your TOML is valid and jump straight to the error, with its line and column.",
+        "tags": [
+          "Code",
+          "No server"
+        ]
+      },
+      "ui": {
+        "h1": "Validate TOML",
+        "subtitle": "Paste your TOML and check whether it is valid (version 1.1 of the specification). If there is an error, you'll see where it is and what went wrong. Everything happens in your browser.",
+        "cardAria": "Tool to validate TOML"
+      },
+      "msg": {
+        "valid": "Valid TOML",
+        "invalid": "Invalid TOML",
+        "valTables": "Tables",
+        "hints": {
+          "unclosedString": "A quote is missing its closing mark.",
+          "unclosedArray": "An array is missing its closing ].",
+          "invalidValue": "This value isn't valid in TOML. Text goes in double quotes (\"text\"); numbers, true/false and dates go without quotes.",
+          "duplicateKey": "This key or table is already defined; it can't be repeated.",
+          "illegalKey": "A key can only contain letters, numbers, dashes and underscores (or be quoted). Is the = between the key and the value missing?",
+          "incompleteKey": "Something is missing: a key without its = and value, or a [name] table not closed with ].",
+          "invalidDate": "The date isn't valid. Use the YYYY-MM-DD format with a real month and day.",
+          "oneEntryPerLine": "Each key = value goes on its own line.",
+          "leadingZero": "A number can't start with 0 (except 0, 0.x or the 0x, 0o and 0b formats).",
+          "badUnderscore": "Underscores can only go between two digits, as in 1_000.",
+          "badEscape": "After a backslash only n, t, r, b, f, \", \\, u or U are allowed. For a Windows path use single quotes: 'C:\\path'."
+        },
+        "guide": {
+          "title": "Common TOML errors",
+          "intro": "Most mistakes when writing TOML by hand are these. Each comes with its fix:",
+          "groups": {
+            "errors": "Frequent errors and how to fix them",
+            "valid": "Also valid TOML"
+          },
+          "desc": {
+            "invalidValue": "Text goes in double quotes",
+            "oneEntryPerLine": "Each key = value goes on its own line",
+            "duplicateKey": "A repeated key",
+            "unclosedString": "A quote that isn't closed",
+            "incompleteKey": "A table not closed with ]",
+            "leadingZero": "A number can't start with 0",
+            "table": "A table",
+            "arrayTables": "A list of tables",
+            "inline": "A table on a single line",
+            "date": "A date, without quotes"
+          }
+        }
+      }
     }
   },
   "subsections": {

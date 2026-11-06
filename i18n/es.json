@@ -1240,6 +1240,134 @@
           }
         }
       }
+    },
+    "validar-yaml": {
+      "meta": {
+        "title": "Validar YAML — comprueba la sintaxis y localiza el error, en tu navegador",
+        "description": "Valida YAML al instante en tu navegador: indica la línea y la columna del error, explica qué ha fallado y te lleva hasta él. Admite varios documentos. Gratis, sin registro y sin subir nada a ningún servidor.",
+        "ogTitle": "Validar YAML — sintaxis y errores al instante",
+        "ogDescription": "Valida YAML en tu navegador y localiza el error con su línea y columna. Gratis y sin subir nada.",
+        "jsonldName": "Validar YAML",
+        "jsonldDescription": "Valida YAML en el navegador, señalando la línea y la columna del error, sin enviar el texto a ningún servidor."
+      },
+      "card": {
+        "name": "Validar YAML",
+        "desc": "Comprueba si tu YAML es válido y te lleva hasta el error, con su línea y columna.",
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
+      },
+      "ui": {
+        "h1": "Validar YAML",
+        "subtitle": "Pega tu YAML y comprueba si es válido. Si hay un error, te dice dónde está y qué ha fallado. Admite varios documentos separados por ---. Todo ocurre en tu navegador.",
+        "cardAria": "Herramienta para validar YAML"
+      },
+      "msg": {
+        "valid": "YAML válido",
+        "invalid": "YAML no válido",
+        "valDocuments": "Documentos",
+        "types": {
+          "object": "Mapa (objeto)",
+          "array": "Lista (array)",
+          "string": "Texto",
+          "number": "Número",
+          "boolean": "Booleano",
+          "null": "Nulo",
+          "date": "Fecha"
+        },
+        "hints": {
+          "tabIndent": "YAML no admite tabuladores para sangrar. Sustitúyelos por espacios.",
+          "badIndent": "La sangría no es coherente: los elementos del mismo nivel deben empezar en la misma columna y los hijos llevar más espacios que su padre. También ocurre si hay dos «:» en una misma línea (pon el texto entre comillas).",
+          "duplicateKey": "Hay una clave repetida en el mismo nivel. Cada clave solo puede aparecer una vez.",
+          "unclosedQuote": "Falta cerrar unas comillas.",
+          "unclosedFlow": "Falta cerrar un corchete ] o una llave }.",
+          "unknownAlias": "Se usa un alias (*nombre) que no tiene un ancla (&nombre) definida antes.",
+          "unknownTag": "Esta etiqueta (!!tipo) no se reconoce. Quítala o usa un tipo estándar de YAML.",
+          "unexpectedContent": "Hay contenido que no encaja con lo anterior: por ejemplo, mezclar una lista (- elemento) con claves (clave: valor) al mismo nivel, o texto sobrante."
+        },
+        "guide": {
+          "title": "Errores típicos de YAML",
+          "intro": "La mayoría de errores al escribir YAML a mano son estos. Cada uno lleva su arreglo:",
+          "groups": {
+            "errors": "Errores frecuentes y cómo arreglarlos",
+            "valid": "También es YAML válido"
+          },
+          "desc": {
+            "tabIndent": "Los tabuladores no valen para sangrar: usa espacios",
+            "twoColons": "Dos «:» en una línea: pon el texto entre comillas",
+            "duplicateKey": "Una clave repetida en el mismo nivel",
+            "unclosedQuote": "Unas comillas sin cerrar",
+            "unclosedFlow": "Un corchete o una llave sin cerrar",
+            "unknownAlias": "Un alias sin su ancla (&x) definida antes",
+            "multiDoc": "Varios documentos en un mismo archivo",
+            "anchors": "Anclas y alias para reutilizar un bloque",
+            "comment": "Los comentarios empiezan por #",
+            "list": "Una lista con guiones"
+          }
+        }
+      }
+    },
+    "validar-toml": {
+      "meta": {
+        "title": "Validar TOML — comprueba la sintaxis y localiza el error, en tu navegador",
+        "description": "Valida TOML 1.1 al instante en tu navegador: indica la línea y la columna del error, explica qué ha fallado y te lleva hasta él. Gratis, sin registro y sin subir nada a ningún servidor.",
+        "ogTitle": "Validar TOML — sintaxis y errores al instante",
+        "ogDescription": "Valida TOML en tu navegador y localiza el error con su línea y columna. Gratis y sin subir nada.",
+        "jsonldName": "Validar TOML",
+        "jsonldDescription": "Valida TOML en el navegador, señalando la línea y la columna del error, sin enviar el texto a ningún servidor."
+      },
+      "card": {
+        "name": "Validar TOML",
+        "desc": "Comprueba si tu TOML es válido y te lleva hasta el error, con su línea y columna.",
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
+      },
+      "ui": {
+        "h1": "Validar TOML",
+        "subtitle": "Pega tu TOML y comprueba si es válido (versión 1.1 de la especificación). Si hay un error, te dice dónde está y qué ha fallado. Todo ocurre en tu navegador.",
+        "cardAria": "Herramienta para validar TOML"
+      },
+      "msg": {
+        "valid": "TOML válido",
+        "invalid": "TOML no válido",
+        "valTables": "Tablas",
+        "hints": {
+          "unclosedString": "Falta cerrar unas comillas.",
+          "unclosedArray": "Falta cerrar un array con ].",
+          "invalidValue": "Este valor no es válido en TOML. Los textos van entre comillas dobles (\"texto\"); los números, true/false y las fechas, sin comillas.",
+          "duplicateKey": "Esta clave o tabla ya está definida; no se puede repetir.",
+          "illegalKey": "Una clave solo puede llevar letras, números, guiones y guiones bajos (o ir entre comillas). ¿Falta el signo = entre la clave y el valor?",
+          "incompleteKey": "Falta algo: una clave sin su = y su valor, o una tabla [nombre] sin cerrar con ].",
+          "invalidDate": "La fecha no es válida. Usa el formato AAAA-MM-DD con un mes y un día reales.",
+          "oneEntryPerLine": "Cada clave = valor va en su propia línea.",
+          "leadingZero": "Un número no puede empezar por 0 (salvo 0, 0.x o los formatos 0x, 0o y 0b).",
+          "badUnderscore": "Los guiones bajos solo pueden ir entre dos dígitos, como en 1_000.",
+          "badEscape": "Tras una barra invertida solo pueden ir n, t, r, b, f, \", \\, u o U. Para una ruta de Windows usa comillas simples: 'C:\\ruta'."
+        },
+        "guide": {
+          "title": "Errores típicos de TOML",
+          "intro": "La mayoría de errores al escribir TOML a mano son estos. Cada uno lleva su arreglo:",
+          "groups": {
+            "errors": "Errores frecuentes y cómo arreglarlos",
+            "valid": "También es TOML válido"
+          },
+          "desc": {
+            "invalidValue": "Los textos van entre comillas dobles",
+            "oneEntryPerLine": "Cada clave = valor va en su propia línea",
+            "duplicateKey": "Una clave repetida",
+            "unclosedString": "Unas comillas sin cerrar",
+            "incompleteKey": "Una tabla sin cerrar con ]",
+            "leadingZero": "Un número no puede empezar por 0",
+            "table": "Una tabla",
+            "arrayTables": "Una lista de tablas",
+            "inline": "Una tabla en una sola línea",
+            "date": "Una fecha, sin comillas"
+          }
+        }
+      }
     }
   },
   "subsections": {

@@ -379,6 +379,88 @@ export const STRINGS = {
         }
       }
     },
+    "validar-yaml": {
+      "valid": "YAML válido",
+      "invalid": "YAML no válido",
+      "valDocuments": "Documentos",
+      "types": {
+        "object": "Mapa (objeto)",
+        "array": "Lista (array)",
+        "string": "Texto",
+        "number": "Número",
+        "boolean": "Booleano",
+        "null": "Nulo",
+        "date": "Fecha"
+      },
+      "hints": {
+        "tabIndent": "YAML no admite tabuladores para sangrar. Sustitúyelos por espacios.",
+        "badIndent": "La sangría no es coherente: los elementos del mismo nivel deben empezar en la misma columna y los hijos llevar más espacios que su padre. También ocurre si hay dos «:» en una misma línea (pon el texto entre comillas).",
+        "duplicateKey": "Hay una clave repetida en el mismo nivel. Cada clave solo puede aparecer una vez.",
+        "unclosedQuote": "Falta cerrar unas comillas.",
+        "unclosedFlow": "Falta cerrar un corchete ] o una llave }.",
+        "unknownAlias": "Se usa un alias (*nombre) que no tiene un ancla (&nombre) definida antes.",
+        "unknownTag": "Esta etiqueta (!!tipo) no se reconoce. Quítala o usa un tipo estándar de YAML.",
+        "unexpectedContent": "Hay contenido que no encaja con lo anterior: por ejemplo, mezclar una lista (- elemento) con claves (clave: valor) al mismo nivel, o texto sobrante."
+      },
+      "guide": {
+        "title": "Errores típicos de YAML",
+        "intro": "La mayoría de errores al escribir YAML a mano son estos. Cada uno lleva su arreglo:",
+        "groups": {
+          "errors": "Errores frecuentes y cómo arreglarlos",
+          "valid": "También es YAML válido"
+        },
+        "desc": {
+          "tabIndent": "Los tabuladores no valen para sangrar: usa espacios",
+          "twoColons": "Dos «:» en una línea: pon el texto entre comillas",
+          "duplicateKey": "Una clave repetida en el mismo nivel",
+          "unclosedQuote": "Unas comillas sin cerrar",
+          "unclosedFlow": "Un corchete o una llave sin cerrar",
+          "unknownAlias": "Un alias sin su ancla (&x) definida antes",
+          "multiDoc": "Varios documentos en un mismo archivo",
+          "anchors": "Anclas y alias para reutilizar un bloque",
+          "comment": "Los comentarios empiezan por #",
+          "list": "Una lista con guiones"
+        }
+      }
+    },
+    "validar-toml": {
+      "valid": "TOML válido",
+      "invalid": "TOML no válido",
+      "valTables": "Tablas",
+      "hints": {
+        "unclosedString": "Falta cerrar unas comillas.",
+        "unclosedArray": "Falta cerrar un array con ].",
+        "invalidValue": "Este valor no es válido en TOML. Los textos van entre comillas dobles (\"texto\"); los números, true/false y las fechas, sin comillas.",
+        "duplicateKey": "Esta clave o tabla ya está definida; no se puede repetir.",
+        "illegalKey": "Una clave solo puede llevar letras, números, guiones y guiones bajos (o ir entre comillas). ¿Falta el signo = entre la clave y el valor?",
+        "incompleteKey": "Falta algo: una clave sin su = y su valor, o una tabla [nombre] sin cerrar con ].",
+        "invalidDate": "La fecha no es válida. Usa el formato AAAA-MM-DD con un mes y un día reales.",
+        "oneEntryPerLine": "Cada clave = valor va en su propia línea.",
+        "leadingZero": "Un número no puede empezar por 0 (salvo 0, 0.x o los formatos 0x, 0o y 0b).",
+        "badUnderscore": "Los guiones bajos solo pueden ir entre dos dígitos, como en 1_000.",
+        "badEscape": "Tras una barra invertida solo pueden ir n, t, r, b, f, \", \\, u o U. Para una ruta de Windows usa comillas simples: 'C:\\ruta'."
+      },
+      "guide": {
+        "title": "Errores típicos de TOML",
+        "intro": "La mayoría de errores al escribir TOML a mano son estos. Cada uno lleva su arreglo:",
+        "groups": {
+          "errors": "Errores frecuentes y cómo arreglarlos",
+          "valid": "También es TOML válido"
+        },
+        "desc": {
+          "invalidValue": "Los textos van entre comillas dobles",
+          "oneEntryPerLine": "Cada clave = valor va en su propia línea",
+          "duplicateKey": "Una clave repetida",
+          "unclosedString": "Unas comillas sin cerrar",
+          "incompleteKey": "Una tabla sin cerrar con ]",
+          "leadingZero": "Un número no puede empezar por 0",
+          "table": "Una tabla",
+          "arrayTables": "Una lista de tablas",
+          "inline": "Una tabla en una sola línea",
+          "date": "Una fecha, sin comillas"
+        }
+      }
+    },
     "regex": {
       "matchesCount": {
         "one": "{n} coincidencia",
@@ -871,6 +953,88 @@ export const STRINGS = {
           "comment": "Comments are written like this",
           "cdata": "Text with < and & left unescaped",
           "declaration": "Initial declaration (must come first)"
+        }
+      }
+    },
+    "validar-yaml": {
+      "valid": "Valid YAML",
+      "invalid": "Invalid YAML",
+      "valDocuments": "Documents",
+      "types": {
+        "object": "Mapping (object)",
+        "array": "List (array)",
+        "string": "String",
+        "number": "Number",
+        "boolean": "Boolean",
+        "null": "Null",
+        "date": "Date"
+      },
+      "hints": {
+        "tabIndent": "YAML doesn't allow tabs for indentation. Replace them with spaces.",
+        "badIndent": "The indentation is inconsistent: items at the same level must start in the same column and children need more spaces than their parent. It also happens when a line has two “:” (put the text in quotes).",
+        "duplicateKey": "A key is repeated at the same level. Each key can appear only once.",
+        "unclosedQuote": "A quote is missing its closing mark.",
+        "unclosedFlow": "A closing bracket ] or brace } is missing.",
+        "unknownAlias": "An alias (*name) is used without an anchor (&name) defined before it.",
+        "unknownTag": "This tag (!!type) isn't recognized. Remove it or use a standard YAML type.",
+        "unexpectedContent": "There is content that doesn't fit with what came before: for example, mixing a list (- item) with keys (key: value) at the same level, or leftover text."
+      },
+      "guide": {
+        "title": "Common YAML errors",
+        "intro": "Most mistakes when writing YAML by hand are these. Each comes with its fix:",
+        "groups": {
+          "errors": "Frequent errors and how to fix them",
+          "valid": "Also valid YAML"
+        },
+        "desc": {
+          "tabIndent": "Tabs aren't allowed for indentation: use spaces",
+          "twoColons": "Two “:” on one line: put the text in quotes",
+          "duplicateKey": "A repeated key at the same level",
+          "unclosedQuote": "A quote that isn't closed",
+          "unclosedFlow": "A bracket or brace that isn't closed",
+          "unknownAlias": "An alias without its anchor (&x) defined before",
+          "multiDoc": "Several documents in one file",
+          "anchors": "Anchors and aliases to reuse a block",
+          "comment": "Comments start with #",
+          "list": "A list made of dashes"
+        }
+      }
+    },
+    "validar-toml": {
+      "valid": "Valid TOML",
+      "invalid": "Invalid TOML",
+      "valTables": "Tables",
+      "hints": {
+        "unclosedString": "A quote is missing its closing mark.",
+        "unclosedArray": "An array is missing its closing ].",
+        "invalidValue": "This value isn't valid in TOML. Text goes in double quotes (\"text\"); numbers, true/false and dates go without quotes.",
+        "duplicateKey": "This key or table is already defined; it can't be repeated.",
+        "illegalKey": "A key can only contain letters, numbers, dashes and underscores (or be quoted). Is the = between the key and the value missing?",
+        "incompleteKey": "Something is missing: a key without its = and value, or a [name] table not closed with ].",
+        "invalidDate": "The date isn't valid. Use the YYYY-MM-DD format with a real month and day.",
+        "oneEntryPerLine": "Each key = value goes on its own line.",
+        "leadingZero": "A number can't start with 0 (except 0, 0.x or the 0x, 0o and 0b formats).",
+        "badUnderscore": "Underscores can only go between two digits, as in 1_000.",
+        "badEscape": "After a backslash only n, t, r, b, f, \", \\, u or U are allowed. For a Windows path use single quotes: 'C:\\path'."
+      },
+      "guide": {
+        "title": "Common TOML errors",
+        "intro": "Most mistakes when writing TOML by hand are these. Each comes with its fix:",
+        "groups": {
+          "errors": "Frequent errors and how to fix them",
+          "valid": "Also valid TOML"
+        },
+        "desc": {
+          "invalidValue": "Text goes in double quotes",
+          "oneEntryPerLine": "Each key = value goes on its own line",
+          "duplicateKey": "A repeated key",
+          "unclosedString": "A quote that isn't closed",
+          "incompleteKey": "A table not closed with ]",
+          "leadingZero": "A number can't start with 0",
+          "table": "A table",
+          "arrayTables": "A list of tables",
+          "inline": "A table on a single line",
+          "date": "A date, without quotes"
         }
       }
     },

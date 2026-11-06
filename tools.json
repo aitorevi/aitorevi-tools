@@ -122,6 +122,20 @@
       "slug": { "es": "validar-xml", "en": "validate-xml" }
     },
     {
+      "id": "validar-yaml",
+      "section": "codigo",
+      "subsection": "validar",
+      "libs": ["js-yaml"],
+      "slug": { "es": "validar-yaml", "en": "validate-yaml" }
+    },
+    {
+      "id": "validar-toml",
+      "section": "codigo",
+      "subsection": "validar",
+      "libs": ["smol-toml"],
+      "slug": { "es": "validar-toml", "en": "validate-toml" }
+    },
+    {
       "id": "regex",
       "section": "codigo",
       "subsection": "analizar",

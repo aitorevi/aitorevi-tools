@@ -700,6 +700,8 @@ test("código: las guías de JSON, XML, YAML, SQL y HTML/CSS se renderizan", asy
     ["/formatear-html-css/", "htmlcss-guide"],
     ["/validar-json/", "validate-json-guide"],
     ["/validar-xml/", "validate-xml-guide"],
+    ["/validar-yaml/", "validate-yaml-guide"],
+    ["/validar-toml/", "validate-toml-guide"],
   ]) {
     await page.goto(path);
     await expect(page.locator(`#${id} .tool-guide-title`)).toBeVisible();
@@ -1004,6 +1006,124 @@ test("validar-xml: validar no genera ninguna petición de red", async ({ page, c
   await t.btn("clear").click();
   await page.waitForTimeout(300);
   expect(net.requests().slice(afterLoad)).toEqual([]);
+  expect(net.violations()).toEqual([]);
+});
+
+// --- Validar YAML y Validar TOML (misma UI; cada librería solo en su página) ---
+
+test("validar-yaml: el ejemplo muestra el error con línea, columna y pista", async ({ page }) => {
+  await page.goto("/validar-yaml/");
+  const t = vj(page);
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("YAML no válido");
+  await expect(t.status).toHaveClass(/is-invalid/);
+  await expect(t.detail).toContainText("Línea 5, columna 2");
+  await expect(t.detail).toContainText("La sangría no es coherente");
+  await expect(t.tech).toContainText("Bad indentation");
+  await expect(t.mark).toBeVisible();
+  await t.jump.click();
+  expect(await t.input.evaluate((el) => el.selectionStart)).toBe(
+    await t.input.evaluate((el) => el.value.indexOf("\n - yaml") + 2),
+  );
+  await expect(t.btn("format")).toHaveCount(0);
+});
+
+test("validar-yaml: YAML válido, con varios documentos, muestra los datos", async ({ page }) => {
+  await page.goto("/validar-yaml/");
+  const t = vj(page);
+  await t.input.fill("a: 1\nb:\n  - x\n  - y: 2");
+  await expect(t.headline).toHaveText("YAML válido");
+  await expect(t.meta).toContainText("Mapa (objeto)");
+  await expect(t.meta.locator("dd").nth(0)).toHaveText("1"); // documentos
+  await expect(t.meta.locator("dd").nth(2)).toHaveText("3"); // claves: a, b, y
+  await expect(t.meta.locator("dd").nth(3)).toHaveText("3"); // profundidad
+  await t.input.fill("a: 1\n---\nb: [1, 2]");
+  await expect(t.headline).toHaveText("YAML válido");
+  await expect(t.meta.locator("dd").nth(0)).toHaveText("2");
+  await expect(t.meta).not.toContainText("Tipo raíz"); // con varios documentos no se muestra
+});
+
+test("validar-yaml: la pista distingue tabuladores", async ({ page }) => {
+  await page.goto("/validar-yaml/");
+  const t = vj(page);
+  await t.input.fill("a:\n\tb: 1");
+  await expect(t.headline).toHaveText("YAML no válido");
+  await expect(t.detail).toContainText("Línea 2, columna 1");
+  await expect(t.detail).toContainText("tabuladores");
+});
+
+test("validar-toml: el ejemplo muestra el error con línea, columna y pista", async ({ page }) => {
+  await page.goto("/validar-toml/");
+  const t = vj(page);
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("TOML no válido");
+  await expect(t.detail).toContainText("Línea 6, columna 8");
+  await expect(t.detail).toContainText("comillas dobles");
+  await expect(t.tech).toContainText("Invalid value");
+  await expect(t.mark).toBeVisible();
+  await t.jump.click();
+  expect(await t.input.evaluate((el) => el.selectionStart)).toBe(
+    await t.input.evaluate((el) => el.value.indexOf("localhost")),
+  );
+});
+
+test("validar-toml: TOML válido muestra los datos", async ({ page }) => {
+  await page.goto("/validar-toml/");
+  const t = vj(page);
+  await t.input.fill('a = 1\n[t]\nb = { c = 2 }\n[[l]]\nx = 1');
+  await expect(t.headline).toHaveText("TOML válido");
+  await expect(t.meta.locator("dd").nth(0)).toHaveText("6"); // claves
+  await expect(t.meta.locator("dd").nth(1)).toHaveText("3"); // tablas
+  await expect(t.meta.locator("dd").nth(2)).toHaveText("3"); // profundidad
+});
+
+test("EN: validate-yaml y validate-toml muestran la UI en inglés", async ({ page }) => {
+  await page.goto("/en/validate-yaml/");
+  let t = vj(page);
+  await expect(page.locator("main h1")).toHaveText("Validate YAML");
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("Invalid YAML");
+  await expect(t.detail).toContainText("Line 5, column 2");
+  await t.input.fill("a: 1");
+  await expect(t.headline).toHaveText("Valid YAML");
+
+  await page.goto("/en/validate-toml/");
+  t = vj(page);
+  await expect(page.locator("main h1")).toHaveText("Validate TOML");
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("Invalid TOML");
+  await expect(t.detail).toContainText("Line 6, column 8");
+  await t.input.fill("a = 1");
+  await expect(t.headline).toHaveText("Valid TOML");
+});
+
+test("cada librería se carga solo en la página que la usa", async ({ page, context, baseURL }) => {
+  const net = auditNetwork(context, new URL(baseURL).origin);
+  const loaded = async (path) => {
+    const before = net.requests().length;
+    await page.goto(path, { waitUntil: "networkidle" });
+    return net.requests().slice(before).filter((u) => u.includes("/vendor/")).map((u) => new URL(u).pathname);
+  };
+  expect(await loaded("/validar-json/")).toEqual([]);
+  expect(await loaded("/validar-xml/")).toEqual([]);
+  expect(await loaded("/validar-yaml/")).toEqual(["/vendor/js-yaml.min.js"]);
+  expect(await loaded("/validar-toml/")).toEqual(["/vendor/smol-toml.min.js"]);
+});
+
+test("validar-yaml y validar-toml: validar no genera ninguna petición de red", async ({ page, context, baseURL }) => {
+  const net = auditNetwork(context, new URL(baseURL).origin);
+  for (const path of ["/validar-yaml/", "/validar-toml/"]) {
+    await page.goto(path, { waitUntil: "networkidle" });
+    const t = vj(page);
+    const afterLoad = net.requests().length;
+    await t.btn("sample").click();
+    await t.jump.click();
+    await t.input.fill(path.includes("yaml") ? "a: 1" : "a = 1");
+    await expect(t.headline).toContainText("válido");
+    await t.btn("clear").click();
+    await page.waitForTimeout(300);
+    expect(net.requests().slice(afterLoad)).toEqual([]);
+  }
   expect(net.violations()).toEqual([]);
 });
 
