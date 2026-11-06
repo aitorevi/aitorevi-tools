@@ -563,6 +563,9 @@ button.btn:disabled:hover, a.btn:disabled:hover { background: rgb(var(--fg) / 0.
    error a la izquierda; panel de resultado a la derecha. El estado nunca depende
    solo del color: lleva icono (✓ ✕) y texto. */
 .validate-tool [hidden] { display: none !important; }
+/* Sin ligaduras de la fuente: "<!--" y "-->" se dibujarían como flechas y el texto
+   que se valida (o se cita en las guías) debe verse tal cual se escribe. */
+.validate-tool .code-area, .validate-measure, .validate-frame, .tool-guide code { font-variant-ligatures: none; }
 .validate-editor {
   position: relative; display: flex; overflow: hidden;
   height: clamp(360px, 60vh, 660px);

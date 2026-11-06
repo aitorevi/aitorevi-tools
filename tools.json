@@ -115,6 +115,13 @@
       "slug": { "es": "validar-json", "en": "validate-json" }
     },
     {
+      "id": "validar-xml",
+      "section": "codigo",
+      "subsection": "validar",
+      "libs": [],
+      "slug": { "es": "validar-xml", "en": "validate-xml" }
+    },
+    {
       "id": "regex",
       "section": "codigo",
       "subsection": "analizar",

@@ -340,6 +340,45 @@ export const STRINGS = {
         }
       }
     },
+    "validar-xml": {
+      "valid": "XML bien formado",
+      "invalid": "XML mal formado",
+      "valRootElement": "Elemento raíz",
+      "valElements": "Elementos",
+      "valAttributes": "Atributos",
+      "hints": {
+        "mismatchedTag": "Una etiqueta se cierra con un nombre distinto al de la que se abrió. Revisa que cada <etiqueta> se cierre con </etiqueta> y en el orden correcto.",
+        "unclosedTag": "Falta cerrar alguna etiqueta: cada <etiqueta> necesita su </etiqueta> (o escribirse como <etiqueta/>).",
+        "extraContent": "Solo puede haber un elemento raíz y aquí hay más contenido después de cerrarlo. Envuélvelo todo en un único elemento.",
+        "noRoot": "El texto no empieza con una etiqueta. Un XML debe empezar con un elemento, como <raiz>.",
+        "unescapedAmpersand": "Hay un & suelto. En XML se escribe &amp;.",
+        "unescapedLt": "Hay un < donde no debería. Si es parte de un texto, escríbelo como &lt;.",
+        "undefinedEntity": "Esta entidad no existe en XML (como &nbsp;). Escribe el carácter directamente o usa su código, por ejemplo &#160;.",
+        "attributeQuotes": "Los valores de los atributos van siempre entre comillas: nombre=\"valor\".",
+        "duplicateAttribute": "Hay un atributo repetido dentro de la misma etiqueta.",
+        "declPosition": "La declaración <?xml …?> debe ir al principio, sin espacios ni líneas antes."
+      },
+      "guide": {
+        "title": "Errores típicos de XML",
+        "intro": "La mayoría de errores al escribir XML a mano son estos. Cada uno lleva su arreglo:",
+        "groups": {
+          "errors": "Errores frecuentes y cómo arreglarlos",
+          "valid": "También es XML bien formado"
+        },
+        "desc": {
+          "mismatchedTag": "Una etiqueta se cierra con otro nombre: haz que coincidan",
+          "unclosedTag": "Falta cerrar una etiqueta: añade su cierre",
+          "extraContent": "Solo se admite un elemento raíz: envuélvelo todo en uno",
+          "unescapedAmpersand": "Un & suelto se escribe &amp;",
+          "attributeQuotes": "Los valores de atributo van entre comillas",
+          "undefinedEntity": "&nbsp; no existe en XML: usa &#160; o el carácter",
+          "selfClose": "Un elemento vacío puede cerrarse a sí mismo",
+          "comment": "Los comentarios se escriben así",
+          "cdata": "Texto con < y & sin escapar",
+          "declaration": "Declaración inicial (debe ir la primera)"
+        }
+      }
+    },
     "regex": {
       "matchesCount": {
         "one": "{n} coincidencia",
@@ -793,6 +832,45 @@ export const STRINGS = {
           "null": "A bare null value",
           "empty": "An empty array or object",
           "bom": "An invisible mark at the start of the file: it is ignored"
+        }
+      }
+    },
+    "validar-xml": {
+      "valid": "Well-formed XML",
+      "invalid": "Malformed XML",
+      "valRootElement": "Root element",
+      "valElements": "Elements",
+      "valAttributes": "Attributes",
+      "hints": {
+        "mismatchedTag": "A tag is closed with a different name than the one that was opened. Check that every <tag> is closed with </tag>, in the right order.",
+        "unclosedTag": "A tag is not closed: every <tag> needs its </tag> (or must be written as <tag/>).",
+        "extraContent": "There can be only one root element, and there is more content after it. Wrap everything in a single element.",
+        "noRoot": "The text doesn't start with a tag. XML must start with an element, such as <root>.",
+        "unescapedAmpersand": "There is a stray &. In XML it is written as &amp;.",
+        "unescapedLt": "There is a < where it shouldn't be. If it is part of a text, write it as &lt;.",
+        "undefinedEntity": "This entity doesn't exist in XML (like &nbsp;). Write the character directly or use its code, for example &#160;.",
+        "attributeQuotes": "Attribute values must always be quoted: name=\"value\".",
+        "duplicateAttribute": "An attribute is repeated within the same tag.",
+        "declPosition": "The <?xml …?> declaration must come first, with no spaces or lines before it."
+      },
+      "guide": {
+        "title": "Common XML errors",
+        "intro": "Most mistakes when writing XML by hand are these. Each comes with its fix:",
+        "groups": {
+          "errors": "Frequent errors and how to fix them",
+          "valid": "Also well-formed XML"
+        },
+        "desc": {
+          "mismatchedTag": "A tag is closed with another name: make them match",
+          "unclosedTag": "A tag is not closed: add its closing tag",
+          "extraContent": "Only one root element is allowed: wrap everything in one",
+          "unescapedAmpersand": "A stray & is written &amp;",
+          "attributeQuotes": "Attribute values go in quotes",
+          "undefinedEntity": "&nbsp; doesn't exist in XML: use &#160; or the character",
+          "selfClose": "An empty element can close itself",
+          "comment": "Comments are written like this",
+          "cdata": "Text with < and & left unescaped",
+          "declaration": "Initial declaration (must come first)"
         }
       }
     },

@@ -1176,6 +1176,68 @@
           }
         }
       }
+    },
+    "validar-xml": {
+      "meta": {
+        "title": "Validar XML — comprueba que está bien formado y localiza el error, en tu navegador",
+        "description": "Comprueba al instante en tu navegador que tu XML está bien formado: indica la línea y la columna del error, explica qué ha fallado y te lleva hasta él. Gratis, sin registro y sin subir nada a ningún servidor.",
+        "ogTitle": "Validar XML — buena formación y errores al instante",
+        "ogDescription": "Comprueba que tu XML está bien formado y localiza el error con su línea y columna. Gratis y sin subir nada.",
+        "jsonldName": "Validar XML",
+        "jsonldDescription": "Comprueba en el navegador que un XML está bien formado, señalando la línea y la columna del error, sin enviar el texto a ningún servidor."
+      },
+      "card": {
+        "name": "Validar XML",
+        "desc": "Comprueba que tu XML está bien formado y te lleva hasta el error, con su línea y columna.",
+        "tags": [
+          "Código",
+          "Sin servidor"
+        ]
+      },
+      "ui": {
+        "h1": "Validar XML",
+        "subtitle": "Pega tu XML y comprueba que está bien formado: etiquetas bien cerradas y anidadas, atributos con comillas y un único elemento raíz. No lo valida contra un esquema XSD ni DTD. Todo ocurre en tu navegador.",
+        "cardAria": "Herramienta para validar XML"
+      },
+      "msg": {
+        "valid": "XML bien formado",
+        "invalid": "XML mal formado",
+        "valRootElement": "Elemento raíz",
+        "valElements": "Elementos",
+        "valAttributes": "Atributos",
+        "hints": {
+          "mismatchedTag": "Una etiqueta se cierra con un nombre distinto al de la que se abrió. Revisa que cada <etiqueta> se cierre con </etiqueta> y en el orden correcto.",
+          "unclosedTag": "Falta cerrar alguna etiqueta: cada <etiqueta> necesita su </etiqueta> (o escribirse como <etiqueta/>).",
+          "extraContent": "Solo puede haber un elemento raíz y aquí hay más contenido después de cerrarlo. Envuélvelo todo en un único elemento.",
+          "noRoot": "El texto no empieza con una etiqueta. Un XML debe empezar con un elemento, como <raiz>.",
+          "unescapedAmpersand": "Hay un & suelto. En XML se escribe &amp;.",
+          "unescapedLt": "Hay un < donde no debería. Si es parte de un texto, escríbelo como &lt;.",
+          "undefinedEntity": "Esta entidad no existe en XML (como &nbsp;). Escribe el carácter directamente o usa su código, por ejemplo &#160;.",
+          "attributeQuotes": "Los valores de los atributos van siempre entre comillas: nombre=\"valor\".",
+          "duplicateAttribute": "Hay un atributo repetido dentro de la misma etiqueta.",
+          "declPosition": "La declaración <?xml …?> debe ir al principio, sin espacios ni líneas antes."
+        },
+        "guide": {
+          "title": "Errores típicos de XML",
+          "intro": "La mayoría de errores al escribir XML a mano son estos. Cada uno lleva su arreglo:",
+          "groups": {
+            "errors": "Errores frecuentes y cómo arreglarlos",
+            "valid": "También es XML bien formado"
+          },
+          "desc": {
+            "mismatchedTag": "Una etiqueta se cierra con otro nombre: haz que coincidan",
+            "unclosedTag": "Falta cerrar una etiqueta: añade su cierre",
+            "extraContent": "Solo se admite un elemento raíz: envuélvelo todo en uno",
+            "unescapedAmpersand": "Un & suelto se escribe &amp;",
+            "attributeQuotes": "Los valores de atributo van entre comillas",
+            "undefinedEntity": "&nbsp; no existe en XML: usa &#160; o el carácter",
+            "selfClose": "Un elemento vacío puede cerrarse a sí mismo",
+            "comment": "Los comentarios se escriben así",
+            "cdata": "Texto con < y & sin escapar",
+            "declaration": "Declaración inicial (debe ir la primera)"
+          }
+        }
+      }
     }
   },
   "subsections": {

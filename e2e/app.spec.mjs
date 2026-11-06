@@ -699,6 +699,7 @@ test("código: las guías de JSON, XML, YAML, SQL y HTML/CSS se renderizan", asy
     ["/formatear-sql/", "sql-guide"],
     ["/formatear-html-css/", "htmlcss-guide"],
     ["/validar-json/", "validate-json-guide"],
+    ["/validar-xml/", "validate-xml-guide"],
   ]) {
     await page.goto(path);
     await expect(page.locator(`#${id} .tool-guide-title`)).toBeVisible();
@@ -929,6 +930,77 @@ test("validar-json: validar no genera ninguna petición de red", async ({ page, 
   });
   await t.btn("validate").click();
   await expect(t.headline).toHaveText("JSON válido");
+  await t.btn("clear").click();
+  await page.waitForTimeout(300);
+  expect(net.requests().slice(afterLoad)).toEqual([]);
+  expect(net.violations()).toEqual([]);
+});
+
+// --- Validar XML (misma UI que Validar JSON) ---
+
+test("validar-xml: el ejemplo muestra el error con línea, columna y pista", async ({ page }) => {
+  await page.goto("/validar-xml/");
+  const t = vj(page);
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("XML mal formado");
+  await expect(t.status).toHaveClass(/is-invalid/);
+  await expect(t.detail).toContainText("Línea 4, columna 12");
+  await expect(t.detail).toContainText("se cierra con un nombre distinto");
+  await expect(t.tech).toContainText("Opening and ending tag mismatch");
+  await expect(t.frame).toContainText("</libros>");
+  await expect(t.mark).toBeVisible();
+  await t.jump.click();
+  expect(await t.input.evaluate((el) => el.selectionStart)).toBe(
+    await t.input.evaluate((el) => el.value.indexOf("</libros>") + "</libros>".length),
+  );
+});
+
+test("validar-xml: XML bien formado muestra los datos y no ofrece formatear", async ({ page }) => {
+  await page.goto("/validar-xml/");
+  const t = vj(page);
+  await t.input.fill('<?xml version="1.0"?><catalogo><libro id="1"><titulo>A</titulo></libro></catalogo>');
+  await expect(t.headline).toHaveText("XML bien formado");
+  await expect(t.status).toHaveClass(/is-valid/);
+  await expect(t.meta).toContainText("<catalogo>");
+  await expect(t.meta.locator("dd").nth(1)).toHaveText("3"); // elementos
+  await expect(t.meta.locator("dd").nth(2)).toHaveText("1"); // atributos
+  await expect(t.meta.locator("dd").nth(3)).toHaveText("3"); // profundidad
+  await expect(t.btn("format")).toHaveCount(0);
+  await expect(t.btn("minify")).toHaveCount(0);
+});
+
+test("validar-xml: valida al escribir y la entrada vacía es neutra", async ({ page }) => {
+  await page.goto("/validar-xml/");
+  const t = vj(page);
+  await expect(t.headline).toHaveText("Pega o escribe algo para validarlo.");
+  await t.input.click();
+  await page.keyboard.type("<a><b></a>");
+  await expect(t.headline).toHaveText("XML mal formado");
+  await expect(t.input).toHaveAttribute("aria-invalid", "true");
+  await t.btn("clear").click();
+  await expect(t.headline).toHaveText("Pega o escribe algo para validarlo.");
+});
+
+test("EN: validate-xml muestra la UI en inglés", async ({ page }) => {
+  await page.goto("/en/validate-xml/");
+  const t = vj(page);
+  await expect(page.locator("main h1")).toHaveText("Validate XML");
+  await t.btn("sample").click();
+  await expect(t.headline).toHaveText("Malformed XML");
+  await expect(t.detail).toContainText("Line 4, column 12");
+  await t.input.fill("<a/>");
+  await expect(t.headline).toHaveText("Well-formed XML");
+});
+
+test("validar-xml: validar no genera ninguna petición de red", async ({ page, context, baseURL }) => {
+  const net = auditNetwork(context, new URL(baseURL).origin);
+  await page.goto("/validar-xml/", { waitUntil: "networkidle" });
+  const t = vj(page);
+  const afterLoad = net.requests().length;
+  await t.btn("sample").click();
+  await t.jump.click();
+  await t.input.fill('<!DOCTYPE a SYSTEM "https://example.com/x.dtd"><a/>');
+  await expect(t.headline).toHaveText("XML bien formado");
   await t.btn("clear").click();
   await page.waitForTimeout(300);
   expect(net.requests().slice(afterLoad)).toEqual([]);

@@ -1176,6 +1176,68 @@
           }
         }
       }
+    },
+    "validar-xml": {
+      "meta": {
+        "title": "Validate XML — check it is well-formed and find the error, in your browser",
+        "description": "Check instantly in your browser that your XML is well-formed: get the line and column of the error, an explanation of what went wrong, and jump straight to it. Free, no sign-up and nothing uploaded to any server.",
+        "ogTitle": "Validate XML — well-formedness and errors instantly",
+        "ogDescription": "Check that your XML is well-formed and find the error by line and column. Free, nothing uploaded.",
+        "jsonldName": "Validate XML",
+        "jsonldDescription": "Checks in the browser that XML is well-formed, pointing to the line and column of the error, without sending the text to any server."
+      },
+      "card": {
+        "name": "Validate XML",
+        "desc": "Check that your XML is well-formed and jump straight to the error, with its line and column.",
+        "tags": [
+          "Code",
+          "No server"
+        ]
+      },
+      "ui": {
+        "h1": "Validate XML",
+        "subtitle": "Paste your XML and check that it is well-formed: tags properly closed and nested, quoted attributes and a single root element. It does not validate against an XSD or DTD schema. Everything happens in your browser.",
+        "cardAria": "Tool to validate XML"
+      },
+      "msg": {
+        "valid": "Well-formed XML",
+        "invalid": "Malformed XML",
+        "valRootElement": "Root element",
+        "valElements": "Elements",
+        "valAttributes": "Attributes",
+        "hints": {
+          "mismatchedTag": "A tag is closed with a different name than the one that was opened. Check that every <tag> is closed with </tag>, in the right order.",
+          "unclosedTag": "A tag is not closed: every <tag> needs its </tag> (or must be written as <tag/>).",
+          "extraContent": "There can be only one root element, and there is more content after it. Wrap everything in a single element.",
+          "noRoot": "The text doesn't start with a tag. XML must start with an element, such as <root>.",
+          "unescapedAmpersand": "There is a stray &. In XML it is written as &amp;.",
+          "unescapedLt": "There is a < where it shouldn't be. If it is part of a text, write it as &lt;.",
+          "undefinedEntity": "This entity doesn't exist in XML (like &nbsp;). Write the character directly or use its code, for example &#160;.",
+          "attributeQuotes": "Attribute values must always be quoted: name=\"value\".",
+          "duplicateAttribute": "An attribute is repeated within the same tag.",
+          "declPosition": "The <?xml …?> declaration must come first, with no spaces or lines before it."
+        },
+        "guide": {
+          "title": "Common XML errors",
+          "intro": "Most mistakes when writing XML by hand are these. Each comes with its fix:",
+          "groups": {
+            "errors": "Frequent errors and how to fix them",
+            "valid": "Also well-formed XML"
+          },
+          "desc": {
+            "mismatchedTag": "A tag is closed with another name: make them match",
+            "unclosedTag": "A tag is not closed: add its closing tag",
+            "extraContent": "Only one root element is allowed: wrap everything in one",
+            "unescapedAmpersand": "A stray & is written &amp;",
+            "attributeQuotes": "Attribute values go in quotes",
+            "undefinedEntity": "&nbsp; doesn't exist in XML: use &#160; or the character",
+            "selfClose": "An empty element can close itself",
+            "comment": "Comments are written like this",
+            "cdata": "Text with < and & left unescaped",
+            "declaration": "Initial declaration (must come first)"
+          }
+        }
+      }
     }
   },
   "subsections": {
