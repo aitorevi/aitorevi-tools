@@ -67,7 +67,9 @@
     "valListInvalid": "{invalid} of {total} are invalid",
     "valMoreItems": "There are {n} more invalid values not shown (the first {shown} are listed).",
     "valItemJump": "Go to error",
-    "valItemJumpAria": "Go to error in value {value}"
+    "valItemJumpAria": "Go to error in value {value}",
+    "valErrorsLabel": "List of errors",
+    "valErrorsHint": "Each error is listed below, with a button to go to its position."
   },
   "hub": {
     "title": "aitorevi.tools — mini tools that run in your browser",

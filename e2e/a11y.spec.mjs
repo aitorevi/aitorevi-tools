@@ -97,3 +97,70 @@ for (const path of ["/validar-json/", "/en/validate-json/"]) {
     }
   });
 }
+
+// --- Lo que anuncia un lector de pantalla (árbol de accesibilidad) ---------------
+
+const VALIDATORS = ["json", "xml", "yaml", "toml", "base64", "jwt", "uuid", "nif", "iban"];
+
+for (const name of VALIDATORS) {
+  test(`lector de pantalla: /validar-${name}/ anuncia el resultado y lo enlaza con el editor`, async ({ page }) => {
+    await page.goto(`/validar-${name}/`);
+    const t = vj(page);
+    const status = page.locator("#code-tool").getByRole("status");
+    // La región en vivo es cortés y atómica: se lee entera, sin interrumpir al escribir.
+    await expect(status).toHaveAttribute("aria-live", "polite");
+    await expect(status).toHaveAttribute("aria-atomic", "true");
+    // El editor se describe con esa región: al enfocarlo se lee el último resultado.
+    const statusId = await status.getAttribute("id");
+    await expect(t.input).toHaveAttribute("aria-describedby", statusId);
+    await expect(t.input).toHaveAccessibleName(/.+/);
+    // Decorativo fuera del árbol: numeración, marcas y el icono ✓/✕ no se leen.
+    for (const sel of [".validate-gutter", ".validate-mark", ".validate-caret", ".validate-icon"]) {
+      await expect(page.locator(`#code-tool ${sel}`).first()).toHaveAttribute("aria-hidden", "true");
+    }
+    await t.btn("sample").click();
+    await expect(status.locator(".validate-headline")).not.toBeEmpty();
+    await expect(t.input).toHaveAttribute("aria-invalid", "true");
+    await t.input.fill("");
+    await expect(t.input).toHaveAttribute("aria-invalid", "false");
+  });
+}
+
+test("lector de pantalla: la lista de errores de un validador de lista tiene nombre, aviso y botones con valor", async ({ page }) => {
+  await page.goto("/validar-uuid/");
+  await vj(page).btn("sample").click();
+  await expect(page.locator("#code-tool").getByRole("status")).toContainText("2 de 4 no son válidos");
+  await expect(page.locator("#code-tool").getByRole("status")).toContainText("Cada error está en la lista de debajo");
+  const list = page.getByRole("list", { name: "Lista de errores" });
+  await expect(list.getByRole("listitem")).toHaveCount(2);
+  await expect(list.getByRole("button")).toHaveCount(2);
+  await expect(list.getByRole("button", { name: "Ir al error del valor 123e4567-e89b-12d3-a456-42661417400" })).toBeVisible();
+});
+
+test("lector de pantalla: el modo schema nombra su lista y avisa de ella", async ({ page }) => {
+  await page.goto("/validar-json/");
+  await page.locator('[data-role="mode"]').check();
+  await vj(page).btn("sample").click();
+  await expect(page.locator("#code-tool").getByRole("status")).toContainText("Cada error está en la lista de debajo");
+  await expect(page.getByRole("list", { name: "Lista de errores" }).getByRole("listitem").first()).toBeVisible();
+});
+
+test("lector de pantalla: al saltar a un error el foco pasa al editor", async ({ page }) => {
+  await page.goto("/validar-uuid/");
+  const t = vj(page);
+  await t.btn("sample").click();
+  await page.getByRole("list", { name: "Lista de errores" }).getByRole("button").first().click();
+  await expect(t.input).toBeFocused();
+  await page.goto("/validar-json/");
+  await t.btn("sample").click();
+  await page.locator('#code-tool [data-act="jump"]').click();
+  await expect(t.input).toBeFocused();
+});
+
+test("lector de pantalla: el interruptor del modo schema es un switch con nombre y estado", async ({ page }) => {
+  await page.goto("/validar-json/");
+  const toggle = page.getByRole("switch", { name: "Validar contra un JSON Schema" });
+  await expect(toggle).not.toBeChecked();
+  await toggle.check();
+  await expect(toggle).toBeChecked();
+});

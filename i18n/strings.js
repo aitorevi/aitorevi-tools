@@ -69,7 +69,9 @@ export const STRINGS = {
       "valListInvalid": "{invalid} de {total} no son válidos",
       "valMoreItems": "Hay {n} valores no válidos más que no se muestran (se enseñan los {shown} primeros).",
       "valItemJump": "Ir al error",
-      "valItemJumpAria": "Ir al error del valor {value}"
+      "valItemJumpAria": "Ir al error del valor {value}",
+      "valErrorsLabel": "Lista de errores",
+      "valErrorsHint": "Cada error está en la lista de debajo, con un botón para ir a su posición."
     },
     "separar-pdf": {
       "pages": {
@@ -929,7 +931,9 @@ export const STRINGS = {
       "valListInvalid": "{invalid} of {total} are invalid",
       "valMoreItems": "There are {n} more invalid values not shown (the first {shown} are listed).",
       "valItemJump": "Go to error",
-      "valItemJumpAria": "Go to error in value {value}"
+      "valItemJumpAria": "Go to error in value {value}",
+      "valErrorsLabel": "List of errors",
+      "valErrorsHint": "Each error is listed below, with a button to go to its position."
     },
     "separar-pdf": {
       "pages": {

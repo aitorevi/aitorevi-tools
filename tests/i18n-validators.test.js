@@ -125,7 +125,7 @@ describe("Base64, JWT y listas: las {marcas} de cada texto son parámetros que e
 
     it(`${lang} · validadores de lista: textos comunes, tipos y etiquetas`, () => {
       const c = I18N[lang].common;
-      for (const key of ["valTotal", "valKind", "valListValid", "valListInvalid", "valMoreItems", "valItemJump", "valItemJumpAria"]) expect(c[key], key).toBeTruthy();
+      for (const key of ["valTotal", "valKind", "valListValid", "valListInvalid", "valMoreItems", "valItemJump", "valItemJumpAria", "valErrorsLabel", "valErrorsHint"]) expect(c[key], key).toBeTruthy();
       expect(placeholders(c.valListValid)).toEqual(["total"]);
       expect(placeholders(c.valListInvalid).sort()).toEqual(["invalid", "total"]);
       expect(placeholders(c.valMoreItems).sort()).toEqual(["n", "shown"]);
