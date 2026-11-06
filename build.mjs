@@ -362,6 +362,10 @@ ${licenseCard("fast-xml-parser", lc.meta["fast-xml-parser"], MIT)}
 
 ${licenseCard("smol-toml", lc.meta["smol-toml"], BSD3)}
 
+${licenseCard("@cfworker/json-schema", lc.meta["json-schema"], MIT)}
+
+${licenseCard("JSON Schema (metaschemas)", lc.meta["json-schema-metaschemas"], BSD3)}
+
 ${licenseCard("js-beautify", lc.meta["js-beautify"], MIT)}
 
 ${licenseCard("Prettier", lc.meta.prettier, MIT)}
